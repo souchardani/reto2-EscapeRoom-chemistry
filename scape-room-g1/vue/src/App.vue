@@ -1,6 +1,10 @@
 <script setup>
+
 import GameOne from './components/GameOne.vue';
+
 </script>
+- <template>
+
 
 <template>
     <GameOne/>
@@ -17,6 +21,7 @@ import GameOne from './components/GameOne.vue';
 
 <style scoped>
 /* .logo {
+
   height: 6em;
   padding: 1.5em;
   will-change: filter;
@@ -27,5 +32,7 @@ import GameOne from './components/GameOne.vue';
 }
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #42b883aa);
+
 } */
 </style>
+
