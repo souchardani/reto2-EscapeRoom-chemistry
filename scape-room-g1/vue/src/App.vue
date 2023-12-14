@@ -1,13 +1,13 @@
 <script setup>
 
-import GameOne from './components/GameOne.vue';
+import GameTwo from './components/GameTwo.vue';
 
 </script>
-- <template>
+
 
 
 <template>
-    <GameOne/>
+    <GameTwo/>
   <!-- <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
