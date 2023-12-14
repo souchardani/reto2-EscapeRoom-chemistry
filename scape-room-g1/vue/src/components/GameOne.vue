@@ -7,6 +7,9 @@
             <main class="m-5">
                 <p class="border-transparent shadow-xl p-2 rounded-lg m-1 text-center m-auto bg-gradient-to-r from-slate-300 to-slate-400">Trabaja tu memoria volteado las tarjetas y juntando las imagenes con los nombres</p>
             </main>
+            <div class="w-full bg-red-600 rounded-full h-2.5 dark:bg-red-600">
+            <div class="bg-blue-600 h-2.5 rounded-full" style="width: 10%"></div>
+            </div>
 
             <div class="grid grid-cols-2 gap-5 items-center m-5 justify-items-center m-5 ">
                 <div v-for="card in cards" class="w-32 h-32 bg-gradient-to-r from-slate-300 to-slate-400 rounded-xl shadow-lg p-3 text-center align-center md:hover:scale-110">
@@ -75,7 +78,5 @@ export default{
     mounted() {
         this.getNames();
     },
-
-
 }
 </script>
