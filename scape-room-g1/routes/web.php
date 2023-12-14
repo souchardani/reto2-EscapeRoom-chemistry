@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/inicio', function () {
+    return view('index');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+
