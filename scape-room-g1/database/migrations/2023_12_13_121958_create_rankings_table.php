@@ -15,11 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('difficulty');
             $table->time('time');
-
-            // foreign key player_nickname (referencia al nickname de players)
-            $table->string('player_nickname')->unique();
-            $table->foreign('player_nickname')->references('nickname')->on('players')->onDelete('cascade')->onUpdate('cascade');
-
+            $table->string('player_nickname');
             $table->timestamps();
         });
     }
