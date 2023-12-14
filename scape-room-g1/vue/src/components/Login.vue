@@ -20,7 +20,9 @@
                             aventuras!
                         </p>
                     </div>
-                    <i class="absolute ph ph-test-tube lg:bottom-3 left-3"></i>
+                    <i
+                        class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"
+                    ></i>
                 </div>
             </div>
 
@@ -71,7 +73,7 @@
                                     type="text"
                                     name="nickJugador"
                                     id="nickJugador"
-                                    placeholder="Daniel_SoyElMejor"
+                                    placeholder="Daniel_Jugador1"
                                     class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                                 />
                             </div>
