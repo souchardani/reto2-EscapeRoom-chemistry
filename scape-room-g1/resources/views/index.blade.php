@@ -13,6 +13,7 @@
         <h1 class="text-white text-center font-medium p-5 text-7xl md:text-4xl">SCAPE ROOM</h1>
     </div>
     <div class="w-full h-auto">
+        <p class=""> </p>
         <img src="https://i.pinimg.com/originals/64/ce/4e/64ce4ea227c11941829c5667f3552deb.jpg" alt="" class="" >
         <button class="text-center text-white bg-black bottom-0 p-4 rounded-md absolute  left-1/2 transform -translate-x-1/2 mb-5">Iniciar partida</button>
     </div>
