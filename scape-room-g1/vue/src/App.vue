@@ -1,13 +1,14 @@
 <script setup>
 
-import GameOne from './components/GameOne.vue';
+import GameThree from './components/GameThree.vue';
+
 
 </script>
-- <template>
+
 
 
 <template>
-    <GameOne/>
+    <GameThree/>
   <!-- <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
@@ -18,6 +19,13 @@ import GameOne from './components/GameOne.vue';
   </div>
   <HelloWorld msg="Vite + Vue" /> -->
 </template>
+
+
+
+
+
+
+
 
 <style scoped>
 /* .logo {
