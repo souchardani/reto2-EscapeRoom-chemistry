@@ -1,13 +1,18 @@
 <script setup>
 
-
-// import GameOne from './components/GameOne.vue';
+import GameThree from './components/GameThree.vue';
+import GameOne from './components/GameOne.vue';
 import GameFour from './components/GameFour.vue';
 </script>
+
+
 <template>
-    <!-- <GameOne/> -->
-    <GameFour/>
-</template>
+    <GameThree/>
+     <GameFour/>
+     <GameOne/> 
+<template>
+    
+
 
 <style scoped>
 </style>
