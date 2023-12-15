@@ -1,17 +1,21 @@
 <script setup>
 
-import GameThree from './components/GameThree.vue';
-import GameOne from './components/GameOne.vue';
-import GameFour from './components/GameFour.vue';
+import StartChallenges from './components/StartChallenges.vue';
+
+// import GameThree from './components/GameThree.vue';
+// import GameOne from './components/GameOne.vue';
+// import GameFour from './components/GameFour.vue';
 </script>
 
 
 <template>
-    <GameThree/>
+
+    <StartChallenges/>
+    <!-- <GameThree/>
      <GameFour/>
-     <GameOne/> 
-<template>
-    
+     <GameOne/> -->
+</template>
+
 
 
 <style scoped>
