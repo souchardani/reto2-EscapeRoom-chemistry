@@ -1,19 +1,10 @@
 <script setup>
-
-import GameThree from './components/GameThree.vue';
-import GameOne from './components/GameOne.vue';
-import GameFour from './components/GameFour.vue';
+import Reloj from "./components/Reloj.vue";
 </script>
 
-
 <template>
-    <GameThree/>
-     <GameFour/>
-     <GameOne/> 
-<template>
-    
-
-
-<style scoped>
-</style>
-
+    <!-- <GameThree />
+    <GameFour />
+    <GameOne /> -->
+    <Reloj></Reloj>
+</template>
