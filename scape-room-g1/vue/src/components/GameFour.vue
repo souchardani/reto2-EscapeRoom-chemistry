@@ -1,27 +1,39 @@
 <template>
     <div class="container-fluid md: lg xl bg-gradient-to-r from-emerald-500 to-emerald-900">
         <header>
-            <h1 class="text-4xl text-center font-bold text-gray-50 bg-black px-3 py-8 m-1">Cada Oveja con su Pareja</h1>
+            <h1 class="text-4xl text-center font-bold text-gray-50 bg-black px-3 py-8 m-4">Cada Oveja con su Pareja</h1>
         </header>
 
-            <main class="m-5">
-                <p class="border-transparent shadow-xl p-2 rounded-lg m-8 text-center m-auto bg-gradient-to-r from-slate-300 to-slate-400">Ya estas cerca de conseguir el objetivo, solo tendrás que terminar esta prueba. Deberás responder bie a 10 cuestiones seleccionando las respuestas que estan en el desplegable. Solo se te concederán 5 fallos. Te deseo suerte</p>
+            <main class="m-4">
+                <p class="border-transparent shadow-xl p-4 rounded-lg m-4 text-center m-auto bg-gradient-to-r from-slate-300 to-slate-400"> Ya estas cerca de conseguir el objetivo, solo tendrás que terminar esta prueba. Deberás responder bie a 10 cuestiones seleccionando las respuestas que estan en el desplegable. Solo se te concederán 5 fallos. Te deseo Suerte!</p>
             </main>
-            <div class="w-full bg-red-600 rounded-full h-2.5 dark:bg-red-600">
-                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 10%"></div>
-            </div>
+            <div class="w-full bg-blue-600 rounded-full h-2.5 dark:bg-red-600" style="width: 25%"></div>
+            <div class="bg-red-600 h-2.5 rounded-full" style="width: 25%"></div>
+            <div class="bg-gray-600 h-2.5 rounded-full" style="width: 25%"></div>
+            
 
-            <select name="answeres" class="p-4 m-5">
-                <option v-for="grow in grows" value="">{{grow.answere}}</option>
-            </select>
-            <h4>Une con la casilla que corresponas:</h4>
-            <h4 class="text-4xl">{{ this.quizs[{{ this.contador }}].quiz }}</h4>
+           
+            <h4 class="text-xl m-4 p-4">Selecciona la casilla que corresponas:</h4>
+            <h4 class="text-3xl text-center ">{{ quizs[contador].quiz }}</h4>
+            <div class="text-center m-4">
+                <select name="answeres" class="p-4 m-4 ">
+                    <option v-for="grow in grows" value="">{{grow.answere}}</option>
+                </select>
+            </div>
+            
+
+            <div class="text-center m-4 p-4">
+                <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" @click="contador++">Next</button>
+            </div>
+            <button @click="loadQuizs">asdf</button>
+            
     </div>
 </template>
 <script>
 export default{
     data() {
         return {
+            muestra:false,
             contador:0,
             quizs:[],
             grows:[{
@@ -117,15 +129,28 @@ export default{
             }]
         }
     },
-    mounted(){
-
-        for(let i=0;i<15;i++){
-            let qquiz=Math.floor(Math.random()*(this.grows.length));
-            let object={quiz:this.grows[qquiz].quiz,
-                        answere:this.grows[qquiz].answere};
-
-            this.quizs.push(object);
+    methods:{
+         loadQuizs(){
+           
+            for(let i=0;i<15;i++){
+                
+                let qquiz=Math.floor(Math.random()*(this.grows.length));
+               
+                let object={quiz:this.grows[qquiz].quiz,
+                            answere:this.grows[qquiz].answere};
+                this.quizs.push(object);
+            }
         }
-    }
+    },
+    beforeMount(){
+        for(let i=0;i<15;i++){
+                
+                let qquiz=Math.floor(Math.random()*(this.grows.length));
+               
+                let object={quiz:this.grows[qquiz].quiz,
+                            answere:this.grows[qquiz].answere};
+                this.quizs.push(object);
+            }
+        }
 }
 </script>
