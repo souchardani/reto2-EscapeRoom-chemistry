@@ -1,8 +1,9 @@
 <template>
-    <div class="clock" id="model3">
-        <div :value="txtTitle" id="txtTitle"></div>
-        <div class="count">
-            <div :value="txtTimer" id="timer"></div>
+    <div class="bg-gray-800 p-4 rounded-lg inline-block m-5 w-11/12">
+        <div class="flex items-center justify-center">
+            <span class="text-6xl font-bold text-white">{{ minutes }}</span>
+            <span class="text-6xl font-bold text-white">:</span>
+            <span class="text-6xl font-bold text-white">{{ seconds }}</span>
         </div>
     </div>
 </template>
@@ -11,52 +12,35 @@
 export default {
     data() {
         return {
-            txtTitle: "Tiempo Restante",
-            segundos: 1800,
+            totalTime: 1800, // 30 minutos en segundos
+            currentTime: 1800, // Tiempo actual en segundos
         };
     },
-    methods: {
-        setTimer() {
-            this.segundos = 1800;
+    computed: {
+        minutes() {
+            return String(Math.floor(this.currentTime / 60)).padStart(2, "0");
         },
-        bajarSeg() {
-            let minutos = Math.floor(this.segundos / 60);
-            let segundosRestantes = sec % 60;
-            if (segundosRestantes < 10) {
-                segundosRestantes = "0" + segundosRestantes;
-            }
-            if (minutos < 10) {
-                minutos = "0" + minutos;
-            }
-            this.txtTimer = minutos + " + " + segundosRestantes;
-
-            if (segundosRestantes > 0) {
-                segundosRestantes = segundosRestantes - 1;
-            } else {
-                clearInterval(countDown);
-
-                countDiv.innerHTML = "countdown done";
-            }
+        seconds() {
+            return String(this.currentTime % 60).padStart(2, "0");
         },
     },
-    computed: {
-        txtTimer() {
-            cuentaAtras = setInterval(() => {
-                this.bajarSeg();
-            }, 1000);
+    methods: {
+        reduceTime(seconds) {
+            // Asegúrate de que no reduzca el tiempo por debajo de cero
+            this.currentTime = Math.max(0, this.currentTime - seconds);
         },
+    },
+    mounted() {
+        // Inicializar el temporizador
+        setInterval(() => {
+            if (this.currentTime > 0) {
+                this.currentTime -= 1;
+            } else {
+                // Puedes agregar lógica aquí cuando el tiempo llega a cero
+            }
+        }, 1000);
     },
 };
-
-function secpass() {
-    "use strict";
-
-    if (sec > 0) {
-        sec = sec - 1;
-    } else {
-        clearInterval(countDown);
-
-        countDiv.innerHTML = "countdown done";
-    }
-}
 </script>
+
+<style scoped></style>
