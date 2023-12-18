@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-fluid">
         <div class="bg-black w-full h-52 md:h-20">
             <h1
                 class="text-white text-center font-medium p-5 text-7xl md:text-4xl text-ce"
@@ -57,8 +57,8 @@
                     <a
                         href="#"
                         class="text-sm font-semibold leading-6 text-white"
-                        ><span aria-hidden="true"></span></a
-                    >
+                        ><span aria-hidden="true"></span
+                    ></a>
                 </div>
             </div>
         </div>
