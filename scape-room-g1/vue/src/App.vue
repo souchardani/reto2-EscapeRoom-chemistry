@@ -1,23 +1,13 @@
-<script setup>
-
-import StartChallenges from './components/StartChallenges.vue';
-
-// import GameThree from './components/GameThree.vue';
-// import GameOne from './components/GameOne.vue';
-// import GameFour from './components/GameFour.vue';
-</script>
-
 
 <template>
-
-    <StartChallenges/>
-    <!-- <GameThree/>
-     <GameFour/>
-     <GameOne/> -->
+    <router-view></router-view>
 </template>
 
+<script>
+export default {
+    components: {},
+    methods: {},
+};
+</script>
 
-
-<style scoped>
-</style>
 
