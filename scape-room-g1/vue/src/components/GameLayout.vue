@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- llamada al juego -->
         <router-view></router-view>
     </div>
 </template>

@@ -51,6 +51,12 @@ const routes = [
         meta: { autenticado: true },
         component: Dashboard,
     },
+    {
+        path: "/game",
+        name: "Game",
+        meta: { autenticado: true },
+        component: GameLayout,
+    },
 ];
 
 const router = createRouter({
