@@ -32,7 +32,7 @@
                 <div class="flex-1">
                     <div class="text-center">
                         <h2
-                            class="text-4xl font-bold text-center text-gray-100 dark:text-white"
+                            class="text-4xl font-bold text-center text-[#75c9c8] dark:text-white"
                         >
                             Accede al juego
                         </h2>
@@ -103,7 +103,7 @@
 
                             <div class="mt-6">
                                 <button
-                                    class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                                    class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-[#088395] rounded-md hover:bg-green-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
                                 >
                                     Iniciar partida
                                 </button>
