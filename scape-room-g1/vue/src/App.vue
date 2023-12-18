@@ -7,10 +7,11 @@ import GameFour from './components/GameFour.vue';
 
 
 <template>
-    <GameThree/>
-     <GameFour/>
-     <GameOne/> 
-<template>
+    <!--<GameThree/>
+    <GameFour/>
+    <GameOne/>-->
+    <GameTwo/>
+</template>
 
 <style scoped>
 </style>
