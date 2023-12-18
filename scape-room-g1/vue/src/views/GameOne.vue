@@ -18,13 +18,12 @@
                 con los nombres
             </p>
         </main>
-        <div class="w-full bg-red-600 rounded-full h-2.5 dark:bg-red-600">
-            <div
-                class="bg-blue-600 h-2.5 rounded-full"
-                style="width: 10%"
-            ></div>
-        </div>
-
+        <div
+            class="w-full bg-blue-600 rounded-full h-2.5 dark:bg-red-600"
+            style="width: 25%"
+        ></div>
+        <div class="bg-red-600 h-2.5 rounded-full" style="width: 25%"></div>
+        <div class="bg-gray-600 h-2.5 rounded-full" style="width: 25%"></div>
         <div
             class="grid grid-cols-2 gap-5 items-center m-5 justify-items-center m-5"
         >
