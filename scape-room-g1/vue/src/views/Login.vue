@@ -1,13 +1,44 @@
 <template>
     <!-- component -->
-    <div class="bg-gradient-to-r from-slate-500 to-slate-800">
-        <div class="flex justify-center h-screen">
+    <div
+        class="container-fluid backdrop-blur-lg"
+        style="
+            background-color: rgb(88, 28, 135);
+            background-image: radial-gradient(
+                    at 86% 61%,
+                    rgb(190, 24, 93) 0,
+                    transparent 57%
+                ),
+                radial-gradient(
+                    at 56% 55%,
+                    rgb(52, 211, 153) 0,
+                    transparent 28%
+                ),
+                radial-gradient(
+                    at 49% 17%,
+                    rgb(34, 211, 238) 0,
+                    transparent 75%
+                ),
+                radial-gradient(at 75% 23%, rgb(30, 64, 175) 0, transparent 73%),
+                radial-gradient(
+                    at 77% 71%,
+                    rgb(252, 211, 77) 0,
+                    transparent 25%
+                ),
+                radial-gradient(
+                    at 87% 91%,
+                    rgb(139, 92, 246) 0,
+                    transparent 81%
+                );
+        "
+    >
+        <div class="flex flex-col-reverse justify-center md:flex-row">
             <div
-                class="relative hidden bg-cover lg:block lg:w-2/3"
+                class="relative bg-cover lg:block lg:w-2/3 max-md:mx-8 max-md:rounded-2xl overflow-hidden"
                 style="background-image: url(/puerta.jpg)"
             >
                 <div
-                    class="flex items-center h-full px-20 bg-gray-900 bg-opacity-75"
+                    class="flex items-center h-96 md:h-full px-20 bg-gray-900 bg-opacity-75"
                 >
                     <div>
                         <h2 class="text-4xl font-bold text-white">
@@ -27,18 +58,16 @@
             </div>
 
             <div
-                class="flex items-center w-full max-w-md px-6 mx-auto lg:w-1/3"
+                class="flex items-center w-full max-w-md px-6 mx-auto lg:w-1/3 mt-10"
             >
                 <div class="flex-1">
                     <div class="text-center">
-                        <h2
-                            class="text-4xl font-bold text-center text-gray-100 dark:text-white"
-                        >
+                        <h2 class="text-4xl font-bold text-center">
                             Accede al juego
                         </h2>
                         <!-- <img src="../assets/img/puerta.jpg" alt="" /> -->
 
-                        <p class="my-5 text-gray-200">
+                        <p class="my-5">
                             Introduce un nick para guardar tu progreso y tu
                             clasificacion, y la contraseña de acceso.
                         </p>
@@ -60,55 +89,97 @@
                             ></i>
                         </div>
                     </div>
+                    <div class="w-100 my-8">
+                        <div
+                            class="w-full text-justify relative px-8 py-10 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-60 border border-gray-200"
+                            style="backdrop-filter: blur(20px)"
+                        >
+                            <div class="mx-auto">
+                                <!-- aqui va el contenido dentro del glass -->
+                                <div class="mt-8">
+                                    <form>
+                                        <div>
+                                            <label
+                                                for="nickJugador"
+                                                class="block mb-2 text-sm font-bold"
+                                                >Nick del juego</label
+                                            >
+                                            <input
+                                                type="text"
+                                                name="nickJugador"
+                                                id="nickJugador"
+                                                placeholder="Daniel_Jugador1"
+                                                class="block w-full px-4 py-2 mt-2 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                            />
+                                        </div>
 
-                    <div class="mt-8">
-                        <form>
-                            <div>
-                                <label
-                                    for="nickJugador"
-                                    class="block mb-2 text-sm text-gray-200 font-bold"
-                                    >Nick del juego</label
-                                >
-                                <input
-                                    type="text"
-                                    name="nickJugador"
-                                    id="nickJugador"
-                                    placeholder="Daniel_Jugador1"
-                                    class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                />
-                            </div>
+                                        <div class="mt-6">
+                                            <div
+                                                class="flex justify-between mb-2"
+                                            >
+                                                <label
+                                                    for="clave-acceso"
+                                                    class="text-sm font-bold"
+                                                    >Clave de acceso</label
+                                                >
+                                                <a
+                                                    href="#"
+                                                    class="text-sm focus:text-blue-500 hover:text-blue-500 hover:underline"
+                                                    >No tienes la clave?</a
+                                                >
+                                            </div>
 
-                            <div class="mt-6">
-                                <div class="flex justify-between mb-2">
-                                    <label
-                                        for="clave-acceso"
-                                        class="text-sm text-gray-200 font-bold"
-                                        >Clave de acceso</label
-                                    >
-                                    <a
-                                        href="#"
-                                        class="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline"
-                                        >No tienes la clave?</a
-                                    >
+                                            <input
+                                                type="password"
+                                                name="clave-acceso"
+                                                id="clave-acceso"
+                                                placeholder="Debes buscar la clave con las pistas de la web"
+                                                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                            />
+                                        </div>
+
+                                        <div class="mt-6 flex">
+                                            <button
+                                                style="
+                                                    backdrop-filter: blur(20px);
+                                                "
+                                                class="grow rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                                            >
+                                                Iniciar partida
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
-
-                                <input
-                                    type="password"
-                                    name="clave-acceso"
-                                    id="clave-acceso"
-                                    placeholder="Debes buscar la clave con las pistas de la web"
-                                    class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                />
                             </div>
-
-                            <div class="mt-6">
-                                <button
-                                    class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer transparente -->
+        <div class="w-100 p-3 m-6 md:hidden">
+            <div
+                class="text-justify relative px-8 py-10 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-60 border border-gray-200"
+                style="backdrop-filter: blur(20px)"
+            >
+                <div class="mx-auto">
+                    <div>
+                        <div class="text-black w-full h-25 p-4">
+                            <div class="my-1">
+                                <span class="font-medium">Colaboradores:</span>
+                                <span class=""
+                                    >Alumnos de 2DW3A y dpto. Química</span
                                 >
-                                    Iniciar partida
-                                </button>
                             </div>
-                        </form>
+                            <div class="my-1">
+                                <span class="font-medium">Email: </span>
+                                <span>alumnos@txurdinaga.eus</span>
+                            </div>
+                            <div class="my-1">
+                                <span class="font-medium">Telf: </span>
+                                <span>555-222-123</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

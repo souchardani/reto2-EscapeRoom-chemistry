@@ -9,6 +9,7 @@ import GameTwo from "../views/GameTwo.vue";
 import GameThree from "../views/GameThree.vue";
 import GameFour from "../views/GameFour.vue";
 import AdminLogin from "../views/AdminLogin.vue";
+import StartGame from "../views/StartGame.vue";
 import Ranking from "../views/Ranking.vue";
 //store with vuex
 import store from "../store";
@@ -53,8 +54,19 @@ const routes = [
         meta: { autenticado: true },
         component: Dashboard,
     },
+    {
+        path: "/game",
+        name: "Game",
+        meta: { autenticado: true },
+        component: GameLayout,
+    },
+    {
+        path: "/startGame",
+        name: "startGame",
+        meta: { autenticado: false },
+        component: StartGame,
+    },
     { path: "/ranking",name: "Ranking",component: Ranking},
-
 ];
 
 const router = createRouter({
