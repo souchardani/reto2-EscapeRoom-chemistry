@@ -1,41 +1,159 @@
 <template>
     <div
-        class="container-fluid md: lg xl bg-gradient-to-r from-emerald-500 to-emerald-900"
+        class="container-fluid backdrop-blur-lg"
+        style="
+            background-color: rgb(88, 28, 135);
+            background-image: radial-gradient(
+                    at 86% 61%,
+                    rgb(190, 24, 93) 0,
+                    transparent 57%
+                ),
+                radial-gradient(
+                    at 56% 55%,
+                    rgb(52, 211, 153) 0,
+                    transparent 28%
+                ),
+                radial-gradient(
+                    at 49% 17%,
+                    rgb(34, 211, 238) 0,
+                    transparent 75%
+                ),
+                radial-gradient(at 75% 23%, rgb(30, 64, 175) 0, transparent 73%),
+                radial-gradient(
+                    at 77% 71%,
+                    rgb(252, 211, 77) 0,
+                    transparent 25%
+                ),
+                radial-gradient(
+                    at 87% 91%,
+                    rgb(139, 92, 246) 0,
+                    transparent 81%
+                );
+        "
     >
-        <header>
-            <h1
-                class="text-4xl text-center font-bold text-gray-50 bg-black px-3 py-8"
-            >
-                SCAPE ROOM
-            </h1>
-        </header>
-        <div class="justify-center">
-            <img src="../assets/lab.jpg" alt="" class="w-full" />
-            <button
-                class="absolute mx-52 top-1/4 text-white bg-black rounded-lg p-2 text-2xl sm:text-3xl sm:p-3 sm:mx-80"
-            >
-                Prueba1
-            </button>
-            <button
-                class="absolute mx-52 top-1/3 text-white bg-black rounded-lg p-2 text-2xl sm:text-3xl sm:p-3 sm:mx-12 sm:top-1/2 lg:right-42"
-            >
-                Prueba2
-            </button>
-            <button
-                class="absolute mx-52 bottom-1/3 text-white bg-black rounded-lg p-2 text-2xl sm:text-3xl sm:p-3 sm:mx-64 sm:bottom-1/3 lg:right-32"
-            >
-                Prueba3
-            </button>
-            <button
-                class="absolute mx-52 bottom-1/4 text-white bg-black rounded-lg p-2 text-2xl sm:text-3xl sm:p-3 sm:mx-72 sm:bottom-2/4 lg:right-4"
-            >
-                Prueba4
-            </button>
+        <h1
+            class="text-center font-medium p-5 py-12 text-5xl md:text-4xl mb-5 drop-shadow-2xl"
+        >
+            Scape Room
+        </h1>
+        <div class="lg:flex">
+            <div class="w-100 mx-auto md:w-100 lg:w-1/3  ">
+                <div class="relative">
+                    <img
+                        src="../assets/lab.jpg"
+                        class="w-full h-auto rounded-2xl"
+                    />
+                    <button
+                        style="backdrop-filter: blur(20px)"
+                        class="flex absolute bottom-20 left-20 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                    >
+                        <i
+                            ><svg
+                                class="hidden w-6 h-6 text-gray-800 dark:text-white"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 16 12"
+                            >
+                                <path
+                                    stroke="currentColor"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M1 5.917 5.724 10.5 15 1.5"
+                                /></svg></i
+                        ><span>Game 1</span>
+                    </button>
+                    <button
+                        style="backdrop-filter: blur(20px)"
+                        class="flex absolute bottom-20 right-20 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                    ><i
+                            ><svg
+                                class="hidden w-6 h-6 text-gray-800 dark:text-white"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 16 12"
+                            >
+                                <path
+                                    stroke="currentColor"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M1 5.917 5.724 10.5 15 1.5"
+                                /></svg></i
+                        >
+                        <span>Game 2</span>
+                    </button>
+                    <button
+                        style="backdrop-filter: blur(20px)"
+                        class="flex absolute bottom-32 left-2 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                    ><i
+                            ><svg
+                                class="hidden w-6 h-6 text-gray-800 dark:text-white"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 16 12"
+                            >
+                                <path
+                                    stroke="currentColor"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M1 5.917 5.724 10.5 15 1.5"
+                                /></svg></i
+                        >
+                        <span>Game 3</span>
+                    </button>
+                    <button
+                        style="backdrop-filter: blur(20px)"
+                        class="flex absolute bottom-32 right-32 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                    ><i
+                            ><svg
+                                class="hidden w-6 h-6 text-gray-800 dark:text-white"
+                                aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 16 12"
+                            >
+                                <path
+                                    stroke="currentColor"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M1 5.917 5.724 10.5 15 1.5"
+                                /></svg></i
+                        >
+                        <span>Game 4</span>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div>
-            <h2 class="bg-black text-gray-50 py-8 text-4xl text-center">
-                Esto es el footer
-            </h2>
+        <div
+            class="text-justify relative px-7 py-7 my-2 mx-2 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-60 border border-gray-200"
+            style="backdrop-filter: blur(20px)"
+        >
+            <div class="mx-auto">
+                <div>
+                    <div class="text-black w-full h-25 p-3">
+                        <div class="my-1">
+                            <span class="font-medium">Colaboradores:</span>
+                            <span class=""
+                                >Alumnos de 2DW3A y dpto. Química</span
+                            >
+                        </div>
+                        <div class="my-1">
+                            <span class="font-medium">Email: </span>
+                            <span>alumnos@txurdinaga.eus</span>
+                        </div>
+                        <div class="my-1">
+                            <span class="font-medium">Telf: </span>
+                            <span>555-222-123</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
