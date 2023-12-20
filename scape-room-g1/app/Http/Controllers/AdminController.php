@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 // CRUD Models
 use App\Models\Game;
@@ -13,13 +16,6 @@ use App\Models\Game4_pairs;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
     // Returns a view with the game's questions and answers
     public function game1() {
@@ -65,51 +61,50 @@ class AdminController extends Controller
         return view('admin.game4_pairs',compact('game4_data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // Returns a view for creating new questions and answers
+    public function game1create()
     {
-        //
+        return view('admin.game1create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // Returns a view to edit a question and its answer
+    public function game1edit(string $id)
     {
-        //
+        $game1 = Game1_puzzle::find($id);
+        return view('admin.game1edit',compact('game1'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Saves the new question and its answer
+    public function game1storeNew(Request $request)
     {
-        //
+        // redirects back to the game's CRUD when it finishes
+        return redirect('admin/game1_puzzle');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Saves the edits of a question and its answer
+    public function game1storeEdit(Request $request, $id)
     {
-        //
+        // redirects back to the game's CRUD when it finishes
+        return redirect('admin/game1_puzzle');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // Returns a view that asks if you want to delete a question and its answer
+    public function game1destroy($id)
     {
-        //
+        $game1 = Game1_puzzle::find($id);
+        return view('admin.game1destroy',compact('game1'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    // Deletes the question and its answer
+    public function game1destroyConfirm($id)
     {
-        //
+        // deletes the img from the game's img folder
+
+        // deletes the log from the database
+        $game1 = Game1_puzzle::find($id);
+        $game1->delete();
+
+        // redirects back to the game's CRUD when it finishes
+        return redirect('admin/game1_puzzle');
     }
 }
