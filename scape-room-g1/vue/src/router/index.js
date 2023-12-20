@@ -11,11 +11,11 @@ import GameFour from "../views/GameFour.vue";
 import AdminLogin from "../views/AdminLogin.vue";
 import StartGame from "../views/StartGame.vue";
 import Ranking from "../views/Ranking.vue";
+
 //store with vuex
 import store from "../store";
 
 const routes = [
-    ,
     {
         path: "/login",
         name: "Login",
@@ -40,7 +40,7 @@ const routes = [
             { path: "/juego3", name: "Juego3", component: GameThree },
             { path: "/juego4", name: "Juego4", component: GameFour },
 
-        ],
+        ]
     },
     {
         path: "/adminLogin",
@@ -66,7 +66,11 @@ const routes = [
         meta: { autenticado: false },
         component: StartGame,
     },
-    { path: "/ranking",name: "Ranking",component: Ranking},
+    {
+        path: "/ranking",
+        name: "Ranking",
+        component: Ranking
+    },
 ];
 
 const router = createRouter({
