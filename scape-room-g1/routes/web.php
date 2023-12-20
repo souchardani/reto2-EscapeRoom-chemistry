@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,8 @@ Route::get('/', function () {
 });
 
 
+// Admin CRUD routes
+Route::get('/admin/game1', [AdminController::class, 'game1'])->name('admin.game1');
+Route::get('/admin/game2', [AdminController::class, 'game2'])->name('admin.game2');
+Route::get('/admin/game3', [AdminController::class, 'game3'])->name('admin.game3');
+Route::get('/admin/game4', [AdminController::class, 'game4'])->name('admin.game4');
