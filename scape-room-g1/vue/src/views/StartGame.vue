@@ -1,6 +1,6 @@
 <template>
     <div
-        class="container-fluid backdrop-blur-lg"
+        class="container-fluid backdrop-blur-lg lg:pt-6"
         style="
             background-color: rgb(88, 28, 135);
             background-image: radial-gradient(
@@ -32,20 +32,20 @@
         "
     >
         <h1
-            class="text-center font-medium p-5 py-12 text-5xl md:text-4xl mb-5 drop-shadow-2xl"
+            class="text-center font-medium p-5 py-12 text-5xl md:text-4xl mb-5 drop-shadow-2xl lg:py-3 "
         >
             Scape Room
         </h1>
         <div class="lg:flex">
-            <div class="w-100 mx-auto md:w-100 lg:w-1/3  ">
+            <div class="w-100 mx-auto md:w-100 ">
                 <div class="relative">
                     <img
                         src="../assets/lab.jpg"
-                        class="w-full h-auto rounded-2xl"
+                        class="w-[80vw] rounded-2xl h-[90vh]"
                     />
                     <button
                         style="backdrop-filter: blur(20px)"
-                        class="flex absolute bottom-20 left-20 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                        class="flex absolute bottom-20 left-20 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-36 left-40 lg:bottom-36 left-80 "
                     >
                         <i
                             ><svg
@@ -66,7 +66,7 @@
                     </button>
                     <button
                         style="backdrop-filter: blur(20px)"
-                        class="flex absolute bottom-20 right-20 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                        class="flex absolute bottom-20 right-20 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-72 lg:bottom-56"
                     ><i
                             ><svg
                                 class="hidden w-6 h-6 text-gray-800 dark:text-white"
@@ -87,7 +87,7 @@
                     </button>
                     <button
                         style="backdrop-filter: blur(20px)"
-                        class="flex absolute bottom-32 left-2 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                        class="flex absolute bottom-32 left-2 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-72 lg:bottom-52"
                     ><i
                             ><svg
                                 class="hidden w-6 h-6 text-gray-800 dark:text-white"
@@ -108,7 +108,7 @@
                     </button>
                     <button
                         style="backdrop-filter: blur(20px)"
-                        class="flex absolute bottom-32 right-32 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                        class="flex absolute bottom-32 right-32 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-36 right-44 lg:right-80"
                     ><i
                             ><svg
                                 class="hidden w-6 h-6 text-gray-800 dark:text-white"
