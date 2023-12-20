@@ -86,15 +86,9 @@ class Game1_puzzleSeeder extends Seeder
         $puzzle14->save();
 
         $puzzle15 = new Game1_puzzle();
-        $puzzle15->molecule = '1-etil-2,5-dimetil-4-propilbenceno';
-        $puzzle15->img_molecule = '1-etil-2,5-dimetil-4-propilbenceno.png';
+        $puzzle15->molecule = 'Metoxibenceno';
+        $puzzle15->img_molecule = 'Metoxibenceno.png';
         $puzzle15->save();
 
-        /*
-        $puzzle1 = new Game1_puzzle();
-        $puzzle1->molecule = '';
-        $puzzle1->img_molecule = '';
-        $puzzle1->save();
-        */
     }
 }
