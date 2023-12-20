@@ -1,6 +1,6 @@
 <template>
     <div
-        class="container-fluid backdrop-blur-lg lg:pt-6"
+        class="container-fluid backdrop-blur-lg lg:pt-6 px-8"
         style="
             background-color: rgb(88, 28, 135);
             background-image: radial-gradient(
@@ -32,20 +32,20 @@
         "
     >
         <h1
-            class="text-center font-medium p-5 py-12 text-5xl md:text-4xl mb-5 drop-shadow-2xl lg:py-3 "
+            class="text-center font-medium p-5 py-12 text-5xl md:text-4xl mb-5 drop-shadow-2xl lg:py-6"
         >
             Scape Room
         </h1>
         <div class="flex">
-            <div class="w-100 mx-auto md:w-100 ">
-                <div class="relative ">
+            <div class="w-100 mx-auto md:w-100">
+                <div class="relative">
                     <img
                         src="../assets/lab.jpg"
                         class="lg:w-[80vw] rounded-2xl lg:h-[90vh]"
                     />
                     <button
                         style="backdrop-filter: blur(20px)"
-                        class="flex absolute bottom-[90px] left-[110px] grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-[200px] md:left-[200px] lg:bottom-[100px] lg:left-[250px] "
+                        class="flex absolute bottom-[90px] left-[110px] grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-[200px] md:left-[200px] lg:bottom-[100px] lg:left-[250px]"
                     >
                         <i
                             ><svg
@@ -67,7 +67,8 @@
                     <button
                         style="backdrop-filter: blur(20px)"
                         class="flex absolute bottom-20 right-20 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-[300px] lg:bottom-[200px]"
-                    ><i
+                    >
+                        <i
                             ><svg
                                 class="hidden w-6 h-6 text-gray-800 dark:text-white"
                                 aria-hidden="true"
@@ -81,14 +82,15 @@
                                     stroke-linejoin="round"
                                     stroke-width="2"
                                     d="M1 5.917 5.724 10.5 15 1.5"
-                                /></svg></i
-                        >
+                                /></svg
+                        ></i>
                         <span>Game 2</span>
                     </button>
                     <button
                         style="backdrop-filter: blur(20px)"
                         class="flex absolute bottom-32 left-2 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-72 lg:bottom-[180px]"
-                    ><i
+                    >
+                        <i
                             ><svg
                                 class="hidden w-6 h-6 text-gray-800 dark:text-white"
                                 aria-hidden="true"
@@ -102,14 +104,15 @@
                                     stroke-linejoin="round"
                                     stroke-width="2"
                                     d="M1 5.917 5.724 10.5 15 1.5"
-                                /></svg></i
-                        >
+                                /></svg
+                        ></i>
                         <span>Game 3</span>
                     </button>
                     <button
                         style="backdrop-filter: blur(20px)"
                         class="flex absolute bottom-32 right-32 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-36 md:right-44 lg:right-80"
-                    ><i
+                    >
+                        <i
                             ><svg
                                 class="hidden w-6 h-6 text-gray-800 dark:text-white"
                                 aria-hidden="true"
@@ -123,43 +126,28 @@
                                     stroke-linejoin="round"
                                     stroke-width="2"
                                     d="M1 5.917 5.724 10.5 15 1.5"
-                                /></svg></i
-                        >
+                                /></svg
+                        ></i>
                         <span>Game 4</span>
                     </button>
                 </div>
             </div>
         </div>
-        <div
-            class="text-justify relative px-7 py-7 my-2 mx-2 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-60 border border-gray-200"
-            style="backdrop-filter: blur(20px)"
-        >
-            <div class="mx-auto">
-                <div>
-                    <div class="text-black w-full h-25 p-3">
-                        <div class="my-1">
-                            <span class="font-medium">Colaboradores:</span>
-                            <span class=""
-                                >Alumnos de 2DW3A y dpto. Química</span
-                            >
-                        </div>
-                        <div class="my-1">
-                            <span class="font-medium">Email: </span>
-                            <span>alumnos@txurdinaga.eus</span>
-                        </div>
-                        <div class="my-1">
-                            <span class="font-medium">Telf: </span>
-                            <span>555-222-123</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!--footer-->
+        <div class="w-100 py-5 pt-12 max-sm:max-w-xl max-sm:mx-auto max-sm:m-6">
+            <!-- aqui va el footer -->
+            <Footer></Footer>
         </div>
     </div>
 </template>
 
 <script>
+import Footer from "../components/Footer.vue";
+
 export default {
     name: "Index",
+    components: {
+        Footer,
+    },
 };
 </script>
