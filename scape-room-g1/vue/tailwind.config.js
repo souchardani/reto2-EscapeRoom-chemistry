@@ -1,83 +1,19 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-    content: ["./src/**/*.{html,js,vue,css}"],
+// /** @type {import('tailwindcss').Config} */
+// export default {
+//     content: ["./src/**/*.{html,js,vue,css}"],
+//     theme: {},
+//     plugins: [],
+// };
+
+// tailwind.config.js
+module.exports = {
+    purge: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
+    darkMode: false, // or 'media' or 'class'
     theme: {
-        colors: {
-            text: {
-                50: "#edf8ef",
-                100: "#daf1e0",
-                200: "#b6e2c1",
-                300: "#91d4a2",
-                400: "#6cc683",
-                500: "#47b863",
-                600: "#399350",
-                700: "#2b6e3c",
-                800: "#1d4928",
-                900: "#0e2514",
-                950: "#07120a",
-            },
-            background: {
-                50: "#edf8ef",
-                100: "#daf1e0",
-                200: "#b6e2c1",
-                300: "#91d4a2",
-                400: "#6cc683",
-                500: "#47b863",
-                600: "#399350",
-                700: "#2b6e3c",
-                800: "#1d4928",
-                900: "#0e2514",
-                950: "#07120a",
-            },
-            primary: {
-                50: "#e7fbfe",
-                100: "#cff6fc",
-                200: "#9eeefa",
-                300: "#6ee5f7",
-                400: "#3ddcf5",
-                500: "#0dd4f2",
-                600: "#0aa9c2",
-                700: "#087f91",
-                800: "#055561",
-                900: "#032a30",
-                950: "#011518",
-            },
-            secondary: {
-                50: "#edf8f6",
-                100: "#daf1ed",
-                200: "#b6e2dc",
-                300: "#91d4ca",
-                400: "#6cc6b8",
-                500: "#47b8a7",
-                600: "#399385",
-                700: "#2b6e64",
-                800: "#1d4943",
-                900: "#0e2521",
-                950: "#071211",
-            },
-            accent: {
-                50: "#edf8f8",
-                100: "#daf1f0",
-                200: "#b6e2e2",
-                300: "#91d4d3",
-                400: "#6cc6c4",
-                500: "#47b8b6",
-                600: "#399391",
-                700: "#2b6e6d",
-                800: "#1d4949",
-                900: "#0e2524",
-                950: "#071212",
-            },
-            primary: {
-                colors: {
-                    text: "#050d07",
-                    background: "#f2faf4",
-                    primary: "#088395",
-                    secondary: "#95d6cc",
-                    accent: "#75c9c8",
-                },
-            },
-        },
+        extend: {},
+    },
+    variants: {
+        extend: {},
     },
     plugins: [],
 };

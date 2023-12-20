@@ -1,6 +1,6 @@
 <template>
     <div
-        class="container-fluid backdrop-blur-lg"
+        class="container-fluid backdrop-blur-lg min-h-screen px-2 p-10 md:px-12 md:p-8"
         style="
             background-color: rgb(88, 28, 135);
             background-image: radial-gradient(
@@ -32,7 +32,7 @@
         "
     >
         <h1
-            class="text-center font-medium p-5 py-12 text-5xl md:text-4xl mb-5 drop-shadow-2xl"
+            class="text-center font-medium px-5 mb-10 text-5xl md:text-4xl mb-5 drop-shadow-2xl"
         >
             Scape Room
         </h1>
@@ -90,45 +90,27 @@
             >
                 <a
                     href="#"
-                    class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                    class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-12 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                     style="backdrop-filter: blur(20px)"
                     >Iniciar Partida</a
                 >
             </div>
         </div>
         <!-- footer transparente -->
-        <div class="w-100 p-3 m-6">
-            <div
-                class="text-justify relative px-8 py-10 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-60 border border-gray-200"
-                style="backdrop-filter: blur(20px)"
-            >
-                <div class="mx-auto">
-                    <div>
-                        <div class="text-black w-full h-25 p-4">
-                            <div class="my-1">
-                                <span class="font-medium">Colaboradores:</span>
-                                <span class=""
-                                    >Alumnos de 2DW3A y dpto. Química</span
-                                >
-                            </div>
-                            <div class="my-1">
-                                <span class="font-medium">Email: </span>
-                                <span>alumnos@txurdinaga.eus</span>
-                            </div>
-                            <div class="my-1">
-                                <span class="font-medium">Telf: </span>
-                                <span>555-222-123</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="w-100 py-3 max-sm:max-w-xl max-sm:mx-auto max-sm:m-6">
+            <!-- aqui va el footer -->
+            <Footer></Footer>
         </div>
     </div>
 </template>
 
 <script>
-export default {};
+import Footer from "../components/Footer.vue";
+export default {
+    components: {
+        Footer,
+    },
+};
 </script>
 
 <!-- glass component -->
