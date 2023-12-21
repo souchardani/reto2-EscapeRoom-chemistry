@@ -13,13 +13,6 @@ use App\Models\Game4_pairs;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
     // Returns a view with the game's questions and answers
     public function game1() {
@@ -65,51 +58,114 @@ class AdminController extends Controller
         return view('admin.game4_pairs',compact('game4_data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // Returns a view for creating new questions and answers
+    public function game1create()
     {
-        //
+        return view('admin.game1create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // Returns a view to edit a question and its answer
+    public function game1edit(string $id)
     {
-        //
+        $game1 = Game1_puzzle::find($id);
+        return view('admin.game1edit',compact('game1'));
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Saves the new question and its answer
+    public function game1storeNew(Request $request)
     {
-        //
+        // display what was sent by the form
+        //return $request -> all();
+
+        // validate name and img sent
+        $request->validate([
+            'molecule' => 'required',
+            'img_molecule' => 'required|mimes:jpg, jpeg, png|max:10000'
+        ]);
+
+        // adds the image to the game's image folder
+        $imgName = $request->molecule.".png";
+        $request->img_molecule->move(public_path('/img/game1_puzzles_img/'), $imgName);
+
+        // adds the question and its answer to the game's question pool in the database
+        $game1 = new Game1_puzzle();
+        $game1->molecule = $request->molecule;
+        $game1->img_molecule = $request->molecule.".png";
+        $game1->save();
+
+        // redirects back to the game's CRUD when it finishes
+        //return redirect('admin/game1');
+        // returns back to the create view on successful creation
+        return back()->withSuccess("La pregunta ha sido añadida.");
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Saves the edits of a question and its answer
+    public function game1storeEdit(Request $request, $id)
     {
-        //
+        // display what was sent by the form
+        //return $request -> all();
+
+        // validate name and img sent
+        $request->validate([
+            'molecule' => 'required',
+            'img_molecule' => 'nullable|mimes:jpg, jpeg, png|max:10000'
+        ]);
+
+        // assigns the img the same name as the molecule and adds the png extension
+        $imgName = $request->molecule.".png";
+        $old_imgName = $_REQUEST['old_imgName'];
+
+        // if a new img was uploaded
+        if(isset($_FILES['img_molecule'])) {
+            echo ("ha entrado al if");
+            // modifies the question in the database
+            $game1 = Game1_puzzle::find($id);
+            $game1->molecule = $request->molecule;
+            $game1->img_molecule = $request->molecule.".png";
+
+            // deletes the old image and adds the new image to the game's image folder
+            $request->img_molecule->move(public_path('/img/game1_puzzles_img/'), $imgName);
+            unlink(public_path('/img/game1_puzzles_img/'.$old_imgName));
+
+            $game1->save();
+        }
+
+        else {
+            // modifies the question in the database
+            $game1 = Game1_puzzle::find($id);
+            $game1->molecule = $request->molecule;
+            $game1->img_molecule = $request->molecule.".png";
+            // overwrites the img and then deletes the old one
+            copy(public_path('/img/game1_puzzles_img/'.$old_imgName),public_path('/img/game1_puzzles_img/'.$imgName));
+            unlink(public_path('/img/game1_puzzles_img/'.$old_imgName));
+            $game1->save();
+        }
+
+        // redirects back to the game's CRUD when it finishes
+        //return redirect('admin/game1');
+        // returns back to the create view on successful creation
+        return back()->withSuccess("La pregunta ha sido modificada.");
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // Returns a view that asks if you want to delete a question and its answer
+    public function game1destroy($id)
     {
-        //
+        $game1 = Game1_puzzle::find($id);
+        return view('admin.game1destroy',compact('game1'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    // Deletes the question and its answer
+    public function game1destroyConfirm($id)
     {
-        //
+        $game1 = Game1_puzzle::find($id);
+        $img = $game1->img_molecule;
+
+        // deletes the img from the game's img folder
+        unlink(public_path('/img/game1_puzzles_img/'.$img));
+        // deletes the log from the database
+        $game1->delete();
+
+        // redirects back to the game's CRUD when it finishes
+        return redirect('admin/game1');
     }
 }
