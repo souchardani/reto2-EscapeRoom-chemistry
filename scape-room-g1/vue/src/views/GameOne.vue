@@ -4,10 +4,18 @@
         class="grid grid-cols-2 gap-5 items-center m-5 justify-items-center m-5"
     >
         <CardJuego v-for="card in cards">
-            <p class="text-center">{{ card.name }}</p>
+            <div class="card">
+                <div class="back"></div>
+                <div class="front">
+                    <p class="text-center">{{ card.name }}</p>
+                </div>
+            </div>
         </CardJuego>
         <CardJuego v-for="card in cards">
-            <img :src="obtenerImagenes(card.name)" alt="" />
+            <div class="card">
+                <div class="back"></div>
+                <div class="front"><img :src="obtenerImagenes(card.name)" alt="" /></div>
+            </div>
         </CardJuego>
     </div>
 </template>
@@ -130,4 +138,38 @@ export default {
     },
     computed: {},
 };
-</script>
+ </script>
+<!--<style>
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.card div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  transition: 1s;
+}
+
+.card .back {
+  transform: perspective(500px) rotate(0deg);
+}
+
+.card .front {
+  transform: perspective(500px) rotate(180deg);
+}
+
+.card:hover .back {
+  transform: perspective(500px) rotate(-180deg);
+}
+
+.card:hover .front {
+  transform: perspective(500px) rotate(0deg);
+}
+</style> -->
