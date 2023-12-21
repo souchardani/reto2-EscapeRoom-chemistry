@@ -37,8 +37,12 @@
         </div>
     <!--titulo del juego-->
     <GameTitle></GameTitle>
+    <!--Descripcion del juego-->
+    <DescripcionJuego></DescripcionJuego>
+    <!--barra de progreso-->
+    <ProgressBar></ProgressBar>
     <!--juego-->
-    <GameOne></GameOne>
+    <router-view></router-view>
     <!--Reloj del juego-->
     <Reloj></Reloj>
     </div>
@@ -48,9 +52,10 @@ import DescripcionJuego from './DescripcionJuego.vue';
 import ProgressBar from './ProgressBar.vue';
 import Reloj from './Reloj.vue';
 import GameTitle from './GameTitle.vue';
-import GameOne from './views/GameOne.vue'
+import {useRouter} from "vue-router";
+import BtnSalir from './BtnSalir.vue';
 
 export default{
-    components:{DescripcionJuego,ProgressBar,Reloj,GameTitle}
+    components:{DescripcionJuego,ProgressBar,Reloj,GameTitle,BtnSalir}
 };
 </script>

@@ -1,50 +1,12 @@
 <template>
-    <div
-        class="relative container-fluid backdrop-blur-lg min-h-screen px-12 p-8"
-        style="
-            background-color: rgb(88, 28, 135);
-            background-image: radial-gradient(
-                    at 86% 61%,
-                    rgb(190, 24, 93) 0,
-                    transparent 57%
-                ),
-                radial-gradient(
-                    at 56% 55%,
-                    rgb(52, 211, 153) 0,
-                    transparent 28%
-                ),
-                radial-gradient(
-                    at 49% 17%,
-                    rgb(34, 211, 238) 0,
-                    transparent 75%
-                ),
-                radial-gradient(at 75% 23%, rgb(30, 64, 175) 0, transparent 73%),
-                radial-gradient(
-                    at 77% 71%,
-                    rgb(252, 211, 77) 0,
-                    transparent 25%
-                ),
-                radial-gradient(
-                    at 87% 91%,
-                    rgb(139, 92, 246) 0,
-                    transparent 81%
-                );
-        "
-    >
-        <div class="flex justify-end">
-            <BtnSalir></BtnSalir>
-        </div>
-        <h1
-            class="text-center font-medium p-5 pt-6 pb-6 text-4xl mb-5 drop-shadow-2xl md:text-5xl"
-        >
-            El Rompecabezas de los Elementos
-        </h1>
+        <!-- <h1
+            class="text-center font-medium p-5 pt-6 pb-6 text-4xl mb-5 drop-shadow-2xl md:text-5xl">
+            {{El Rompecabezas de los Elementos}}
+        </h1> -->
         <!-- glass card -->
         <DescripcionJuego
             texto="Trabaja tu memoria volteado las tarjetas y juntando las imagenes con los nombres"
         ></DescripcionJuego>
-        <!-- component -->
-        <ProgressBar></ProgressBar>
         <!-- main cards -->
         <div
             class="grid grid-cols-2 gap-5 items-center m-5 justify-items-center m-5"
@@ -56,10 +18,6 @@
                 <img :src="obtenerImagenes(card.name)" alt="" />
             </CardJuego>
         </div>
-        <!-- reloj transparente -->
-        <Reloj></Reloj>
-        <!-- boton salir -->
-    </div>
 </template>
 
 <!-- glass component -->
@@ -81,9 +39,6 @@
     style="backdrop-filter: blur(20px)"
 >Iniciar Partida</a> -->
 <!-- <template>
-
-
-
     </div>
 </template> -->
 <script>
