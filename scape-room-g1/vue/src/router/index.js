@@ -35,7 +35,7 @@ const routes = [
         meta: { juegoIniciado: true },
         component: GameLayout,
         children: [
-            { path: "/juego1", name: "Juego1", component: GameOne , meta: {title:"ejemplo titulo 1" }},
+            { path: "/juego1", name: "Juego1", component: GameOne },
             { path: "/juego2", name: "Juego2", component: GameTwo },
             { path: "/juego3", name: "Juego3", component: GameThree },
             { path: "/juego4", name: "Juego4", component: GameFour },
@@ -86,9 +86,6 @@ const router = createRouter({
 //     } else {
 //         next();
 //     }
-// });
-// router.beforeEach((to, from, next) => {
-
 // });
 
 export default router;
