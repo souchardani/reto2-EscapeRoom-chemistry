@@ -1,23 +1,15 @@
 <template>
-        <!-- <h1
-            class="text-center font-medium p-5 pt-6 pb-6 text-4xl mb-5 drop-shadow-2xl md:text-5xl">
-            {{El Rompecabezas de los Elementos}}
-        </h1> -->
-        <!-- glass card -->
-        <DescripcionJuego
-            texto="Trabaja tu memoria volteado las tarjetas y juntando las imagenes con los nombres"
-        ></DescripcionJuego>
-        <!-- main cards -->
-        <div
-            class="grid grid-cols-2 gap-5 items-center m-5 justify-items-center m-5"
-        >
-            <CardJuego v-for="card in cards">
-                <p class="text-center">{{ card.name }}</p>
-            </CardJuego>
-            <CardJuego v-for="card in cards">
-                <img :src="obtenerImagenes(card.name)" alt="" />
-            </CardJuego>
-        </div>
+    <!-- main cards -->
+    <div
+        class="grid grid-cols-2 gap-5 items-center m-5 justify-items-center m-5"
+    >
+        <CardJuego v-for="card in cards">
+            <p class="text-center">{{ card.name }}</p>
+        </CardJuego>
+        <CardJuego v-for="card in cards">
+            <img :src="obtenerImagenes(card.name)" alt="" />
+        </CardJuego>
+    </div>
 </template>
 
 <!-- glass component -->

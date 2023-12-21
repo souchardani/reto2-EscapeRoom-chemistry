@@ -1,6 +1,6 @@
 <template>
     <div
-        class="container-fluid backdrop-blur-lg min-h-screen px-2 p-10 md:px-12 md:p-8"
+        class="container-fluid backdrop-blur-lg min-h-screen px-2 p-2 pt-8 md:px-12 md:p-8"
         style="
             background-color: rgb(88, 28, 135);
             background-image: radial-gradient(
@@ -82,20 +82,13 @@
                 </div>
             </div>
         </div>
-        <div
-            class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-leftzz"
-        >
-            <div
-                class="flex items-center justify-center gap-x-6 lg:justify-start"
-            >
-                <a
-                    href="#"
-                    class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-12 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                    style="backdrop-filter: blur(20px)"
-                    >Iniciar Partida</a
-                >
-            </div>
+        <!-- glass card -->
+        <div class="flex items-center justify-center gap-x-6 md:py-20">
+            <router-link to="/StartGame">
+                <GlassBtn> Iniciar Partida </GlassBtn>
+            </router-link>
         </div>
+
         <!-- footer transparente -->
         <div class="w-100 py-3 max-sm:max-w-xl max-sm:mx-auto max-sm:m-6">
             <!-- aqui va el footer -->
@@ -106,9 +99,11 @@
 
 <script>
 import Footer from "../components/Footer.vue";
+import GlassBtn from "../components/GlassBtn.vue";
 export default {
     components: {
         Footer,
+        GlassBtn,
     },
 };
 </script>
