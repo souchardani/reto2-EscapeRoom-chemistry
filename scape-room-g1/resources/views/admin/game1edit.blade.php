@@ -2,7 +2,12 @@
 @section('title', 'CRUD Admin - Juego 1 - Editar')
 @section('content')
 
-<form action="{{route('admin.game1storeEdit', $game1->id, $game1->old_imgName)}}" method="post"  enctype="multipart/form-data">
+<!-- Displays this message if the previous modification was successful -->
+@if ($message = Session::get('success'))
+    <div>{{$message}}</div>
+@endif
+
+<form action="{{route('admin.game1storeEdit', $game1->id)}}" method="post"  enctype="multipart/form-data">
     @csrf
     @method('put')
 

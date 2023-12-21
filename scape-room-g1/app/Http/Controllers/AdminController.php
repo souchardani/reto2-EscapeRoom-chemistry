@@ -100,7 +100,7 @@ class AdminController extends Controller
     }
 
     // Saves the edits of a question and its answer
-    public function game1storeEdit(Request $request, $id, $old_imgName)
+    public function game1storeEdit(Request $request, $id)
     {
         // display what was sent by the form
         //return $request -> all();
@@ -111,26 +111,34 @@ class AdminController extends Controller
             'img_molecule' => 'nullable|mimes:jpg, jpeg, png|max:10000'
         ]);
 
-        if(isset($request->img_molecule)) {
+        // assigns the img the same name as the molecule and adds the png extension
+        $imgName = $request->molecule.".png";
+        $old_imgName = $_REQUEST['old_imgName'];
+// NO VA EL IF
+        if(isset($_REQUEST['img_molecule'])) {
+            echo ("ha entrado al if");
+            // modifies the question in the database
+            $game1 = Game1_puzzle::find($id);
+            $game1->molecule = $request->molecule;
+            $game1->img_molecule = $request->molecule.".png";
 
-            // assigns the img the same name as the molecule and adds the png extension
-            $imgName = $request->molecule.".png";
-            $old_imgName= $request->old_img_molecule.".png";
-
-            // deletes the old image from the game's image folder
+            // deletes the old image and adds the new image to the game's image folder
+            $request->img_molecule->move(public_path('/img/game1_puzzles_img/'), $imgName);
             unlink(public_path('/img/game1_puzzles_img/'.$old_imgName));
 
-            // adds the new image to the game's image folder
-            $request->img_molecule->move(public_path('/img/game1_puzzles_img/'), $imgName);
-
+            $game1->save();
         }
 
-
-        // modifies the question in the database
-        $game1 = Game1_puzzle::find($id);
-        $game1->molecule = $request->molecule;
-        $game1->img_molecule = $request->molecule.".png";
-        $game1->save();
+        else {
+            // modifies the question in the database
+            $game1 = Game1_puzzle::find($id);
+            $game1->molecule = $request->molecule;
+            $game1->img_molecule = $request->molecule.".png";
+            // overwrites the img and then deletes the old one
+            copy(public_path('/img/game1_puzzles_img/'.$old_imgName),public_path('/img/game1_puzzles_img/'.$imgName));
+            unlink(public_path('/img/game1_puzzles_img/'.$old_imgName));
+            $game1->save();
+        }
 
         // redirects back to the game's CRUD when it finishes
         //return redirect('admin/game1');
