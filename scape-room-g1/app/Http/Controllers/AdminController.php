@@ -143,7 +143,7 @@ class AdminController extends Controller
 
         // redirects back to the game's CRUD when it finishes
         //return redirect('admin/game1');
-        // returns back to the create view on successful creation
+        // returns back to the create view on successful modification
         return back()->withSuccess("La pregunta ha sido modificada.");
     }
 
@@ -167,5 +167,85 @@ class AdminController extends Controller
 
         // redirects back to the game's CRUD when it finishes
         return redirect('admin/game1');
+    }
+
+    // Returns a view for creating new questions and answers
+    public function game2create()
+    {
+        return view('admin.game2create');
+    }
+
+    // Returns a view to edit a question and its answer
+    public function game2edit(string $id)
+    {
+        $game2 = Game2_kuku::find($id);
+        return view('admin.game2edit', compact('game2'));
+    }
+
+    // Saves the new question and its answer
+    public function game2storeNew(Request $request)
+    {
+        // display what was sent by the form
+        //return $request -> all();
+
+        // validate compound and category
+        $request->validate([
+            'compound' => 'required',
+            'category' => 'required'
+        ]);
+
+        // adds the question and its answer to the game's question pool in the database
+        $game2 = new Game2_kuku();
+        $game2->compound = $request->compound;
+        $game2->category = $request->category;
+        $game2->save();
+
+        // redirects back to the game's CRUD when it finishes
+        //return redirect('admin/game1');
+        // returns back to the create view on successful creation
+        return back()->withSuccess("La pregunta ha sido añadida.");
+    }
+
+    // Saves the edits of a question and its answer
+    public function game2storeEdit(Request $request, $id)
+    {
+        // display what was sent by the form
+        //return $request -> all();
+
+        // validate compound and category
+        $request->validate([
+            'compound' => 'required',
+            'category' => 'required'
+        ]);
+
+        // adds the question and its answer to the game's question pool in the database
+        $game2 = Game2_kuku::find($id);
+        $game2->compound = $request->compound;
+        $game2->category = $request->category;
+        $game2->save();
+
+        // redirects back to the game's CRUD when it finishes
+        //return redirect('admin/game1');
+        // returns back to the create view on successful modification
+        return back()->withSuccess("La pregunta ha sido modificada.");
+    }
+
+    // Returns a view that asks if you want to delete a question and its answer
+    public function game2destroy($id)
+    {
+        $game2 = Game2_kuku::find($id);
+        return view('admin.game2destroy', compact('game2'));
+    }
+
+    // Deletes the question and its answer
+    public function game2destroyConfirm($id)
+    {
+        $game2 = Game2_kuku::find($id);
+
+        // deletes the log from the database
+        $game2->delete();
+
+        // redirects back to the game's CRUD when it finishes
+        return redirect('admin/game2');
     }
 }
