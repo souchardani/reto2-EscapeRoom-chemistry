@@ -31,6 +31,9 @@
                 );
         "
     >
+        <div class="flex justify-end">
+            <BtnSalir></BtnSalir>
+        </div>
         <h1
             class="text-center font-medium p-5 py-12 text-5xl md:text-4xl mb-5 drop-shadow-2xl lg:py-6"
         >
@@ -43,93 +46,101 @@
                         src="../assets/lab.jpg"
                         class="lg:w-[80vw] rounded-2xl lg:h-[90vh]"
                     />
-                    <button
-                        style="backdrop-filter: blur(20px)"
-                        class="flex absolute bottom-[90px] left-[110px] grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-[200px] md:left-[200px] lg:bottom-[100px] lg:left-[250px]"
-                    >
-                        <i
-                            ><svg
-                                class="hidden w-6 h-6 text-gray-800 dark:text-white"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 16 12"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M1 5.917 5.724 10.5 15 1.5"
-                                /></svg></i
-                        ><span>Game 1</span>
-                    </button>
-                    <button
-                        style="backdrop-filter: blur(20px)"
-                        class="flex absolute bottom-20 right-20 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-[300px] lg:bottom-[200px]"
-                    >
-                        <i
-                            ><svg
-                                class="hidden w-6 h-6 text-gray-800 dark:text-white"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 16 12"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M1 5.917 5.724 10.5 15 1.5"
-                                /></svg
-                        ></i>
-                        <span>Game 2</span>
-                    </button>
-                    <button
-                        style="backdrop-filter: blur(20px)"
-                        class="flex absolute bottom-32 left-2 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-72 lg:bottom-[180px]"
-                    >
-                        <i
-                            ><svg
-                                class="hidden w-6 h-6 text-gray-800 dark:text-white"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 16 12"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M1 5.917 5.724 10.5 15 1.5"
-                                /></svg
-                        ></i>
-                        <span>Game 3</span>
-                    </button>
-                    <button
-                        style="backdrop-filter: blur(20px)"
-                        class="flex absolute bottom-32 right-32 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-36 md:right-44 lg:right-80"
-                    >
-                        <i
-                            ><svg
-                                class="hidden w-6 h-6 text-gray-800 dark:text-white"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 16 12"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M1 5.917 5.724 10.5 15 1.5"
-                                /></svg
-                        ></i>
-                        <span>Game 4</span>
-                    </button>
+                    <router-link to="/juego1">
+                        <button
+                            style="backdrop-filter: blur(20px)"
+                            class="flex absolute bottom-[90px] left-[110px] grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-[200px] md:left-[200px] lg:bottom-[100px] lg:left-[250px]"
+                        >
+                            <i
+                                ><svg
+                                    class="hidden w-6 h-6 text-gray-800 dark:text-white"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 16 12"
+                                >
+                                    <path
+                                        stroke="currentColor"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M1 5.917 5.724 10.5 15 1.5"
+                                    /></svg></i
+                            ><span>Game 1</span>
+                        </button>
+                    </router-link>
+                    <router-link to="/juego2">
+                        <button
+                            style="backdrop-filter: blur(20px)"
+                            class="flex absolute bottom-20 right-20 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-[300px] lg:bottom-[200px]"
+                        >
+                            <i
+                                ><svg
+                                    class="hidden w-6 h-6 text-gray-800 dark:text-white"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 16 12"
+                                >
+                                    <path
+                                        stroke="currentColor"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M1 5.917 5.724 10.5 15 1.5"
+                                    /></svg
+                            ></i>
+                            <span>Game 2</span>
+                        </button>
+                    </router-link>
+                    <router-link to="/juego3">
+                        <button
+                            style="backdrop-filter: blur(20px)"
+                            class="flex absolute bottom-32 left-2 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-72 lg:bottom-[180px]"
+                        >
+                            <i
+                                ><svg
+                                    class="hidden w-6 h-6 text-gray-800 dark:text-white"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 16 12"
+                                >
+                                    <path
+                                        stroke="currentColor"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M1 5.917 5.724 10.5 15 1.5"
+                                    /></svg
+                            ></i>
+                            <span>Game 3</span>
+                        </button>
+                    </router-link>
+                    <router-link to="/juego4">
+                        <button
+                            style="backdrop-filter: blur(20px)"
+                            class="flex absolute bottom-32 right-32 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-36 md:right-44 lg:right-80"
+                        >
+                            <i
+                                ><svg
+                                    class="hidden w-6 h-6 text-gray-800 dark:text-white"
+                                    aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 16 12"
+                                >
+                                    <path
+                                        stroke="currentColor"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M1 5.917 5.724 10.5 15 1.5"
+                                    /></svg
+                            ></i>
+                            <span>Game 4</span>
+                        </button>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -143,11 +154,13 @@
 
 <script>
 import Footer from "../components/Footer.vue";
+import BtnSalir from "../components/BtnSalir.vue";
 
 export default {
     name: "Index",
     components: {
         Footer,
+        BtnSalir,
     },
 };
 </script>

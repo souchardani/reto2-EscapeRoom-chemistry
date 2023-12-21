@@ -58,7 +58,7 @@
             </div>
 
             <div
-                class="flex items-center w-full max-w-md px-6 mx-auto lg:w-1/3 mt-10"
+                class="flex items-center w-full max-w-md px-6 mx-auto lg:w-1/3 mt-10 mb-12"
             >
                 <div class="flex-1">
                     <div class="text-center">
@@ -136,6 +136,33 @@
                                                 placeholder="Debes buscar la clave con las pistas de la web"
                                                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                                             />
+                                        </div>
+                                        <div class="mt-6">
+                                            <div
+                                                class="flex justify-between mb-2"
+                                            >
+                                                <label
+                                                    for="dificultad"
+                                                    class="text-sm font-bold"
+                                                    >Nivel de Dificultad</label
+                                                >
+                                            </div>
+                                            <select
+                                                name="dificultad"
+                                                id="dificultad"
+                                                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                            >
+                                                option
+                                                <option value="principiante">
+                                                    Principiante
+                                                </option>
+                                                <option value="medio">
+                                                    Medio
+                                                </option>
+                                                <option value="avanzado">
+                                                    Avanzado
+                                                </option>
+                                            </select>
                                         </div>
 
                                         <div class="mt-6 flex">
