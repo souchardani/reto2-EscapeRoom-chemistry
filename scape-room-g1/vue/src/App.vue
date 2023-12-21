@@ -1,14 +1,13 @@
-<script setup>
 
-
-// import GameOne from './components/GameOne.vue';
-import GameFour from './components/GameFour.vue';
-</script>
 <template>
-    <!-- <GameOne/> -->
-    <GameFour/>
+    <router-view></router-view>
 </template>
 
-<style scoped>
-</style>
+<script>
+export default {
+    components: {},
+    methods: {},
+};
+</script>
+
 
