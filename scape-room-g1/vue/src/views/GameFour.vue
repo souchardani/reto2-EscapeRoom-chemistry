@@ -1,23 +1,52 @@
 <template>
-    <h4 class="text-xl m-4 p-4">Selecciona la casilla que corresponas:</h4>
-    <h4 class="text-3xl text-center">{{ quizs[contador].quiz }}</h4>
-    <div class="text-center m-4">
-        <select name="answeres" class="p-4 m-4">
-            <option v-for="grow in grows" value="">{{ grow.answere }}</option>
-        </select>
-    </div>
+    <div>
+        <div class="flex justify-center mb-12">
+            <div
+                id="tarjeta-info"
+                class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative"
+            >
+                <i class="ph ph-info text-2xl"></i>
+                <span class="text-left"
+                    >Selecciona la casilla que corresponda</span
+                >
+                <i
+                    class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
+                ></i>
+            </div>
+        </div>
+        <GlassCard>
+            <h4 class="text-3xl text-center">{{ quizs[contador].quiz }}</h4>
+        </GlassCard>
 
-    <div class="text-center m-4 p-4">
-        <button
-            class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-            @click="contador++"
-        >
-            Next
-        </button>
+        <div class="text-center m-4 flex justify-center">
+            <select
+                name="answeres"
+                class="block px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            >
+                <option v-for="grow in grows" value="">
+                    {{ grow.answere }}
+                </option>
+            </select>
+        </div>
+
+        <div class="text-center m-4 p-4 flex justify-center w-48 m-auto">
+            <GlassBtn
+                ><button class="w-28" @click="contador++">
+                    Next
+                </button></GlassBtn
+            >
+        </div>
     </div>
 </template>
 <script>
+import GlassCard from "../components/GlassCard.vue";
+import GlassBtn from "../components/GlassBtn.vue";
+
 export default {
+    components: {
+        GlassCard,
+        GlassBtn,
+    },
     data() {
         return {
             muestra: false,
