@@ -114,8 +114,9 @@ class AdminController extends Controller
         // assigns the img the same name as the molecule and adds the png extension
         $imgName = $request->molecule.".png";
         $old_imgName = $_REQUEST['old_imgName'];
-// NO VA EL IF
-        if(isset($_REQUEST['img_molecule'])) {
+
+        // if a new img was uploaded
+        if(isset($_FILES['img_molecule'])) {
             echo ("ha entrado al if");
             // modifies the question in the database
             $game1 = Game1_puzzle::find($id);
