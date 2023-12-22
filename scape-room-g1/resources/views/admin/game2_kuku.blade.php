@@ -2,6 +2,9 @@
 @section('title', 'CRUD Admin - Juego 2')
 @section('content')
 
+<a href="{{route('admin.game2create')}}">Crear</a>
+<br><br><br>
+
 <table class="text-center">
     <tr>
         <th>Compuesto</th>
@@ -13,7 +16,8 @@
         <tr>
             <td>{{ $game2->compound }}</td>
             <td>{{ $game2->category }}</td>
-            <td><a href="">botones</a></td>
+            <td><a class="" href="{{route('admin.game2edit', $game2->id)}}">Editar</a></td>
+            <td><a class="" href="{{route('admin.game2destroy', $game2->id)}}">Eliminar</a></td>
         </tr>
     @endforeach
 </table>
