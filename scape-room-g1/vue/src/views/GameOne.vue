@@ -1,106 +1,80 @@
 <template>
     <!-- main cards -->
-    <div
-        class="grid grid-cols-2 gap-5 items-center m-5 justify-items-center m-5"
-    >
-        <CardJuego v-for="card in cards">
-            <div class="card">
-                <div class="back"></div>
-                <div class="front">
+    <div class="grid grid-cols-2 place-content-center justify-items-center" @change="comprobar">
+         <FlipCard @volteo="volteo=$event" :ref="'FlipCard'+index" v-for="(card,index) in cards" :key="index">
                     <p class="text-center">{{ card.name }}</p>
-                </div>
-            </div>
-        </CardJuego>
-        <CardJuego v-for="card in cards">
-            <div class="card">
-                <div class="back"></div>
-                <div class="front"><img :src="obtenerImagenes(card.name)" alt="" /></div>
-            </div>
-        </CardJuego>
-    </div>
-</template>
-
-<!-- glass component -->
-<!-- <div class="w-100 p-3 m-6">
-    <div
-        class="text-justify relative px-8 py-10 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-60 border border-gray-200"
-        style="backdrop-filter: blur(20px)"
-    >
-        <div class="mx-auto">
-            contenido
+        </FlipCard>
+       <!--  <FlipCard v-for="(card) in cards">
+                <img :src="obtenerImagenes(card.name)"/>
+         </FlipCard>-->
         </div>
-    </div>
-</div> -->
-
-<!-- boton component -->
-<!-- <a
-    href="#"
-    class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-    style="backdrop-filter: blur(20px)"
->Iniciar Partida</a> -->
-<!-- <template>
-    </div>
-</template> -->
+</template>
 <script>
 import DescripcionJuego from "../components/DescripcionJuego.vue";
 import GlassCard from "../components/GlassCard.vue";
 import Reloj from "../components/Reloj.vue";
 import ProgressBar from "../components/ProgressBar.vue";
-import CardJuego from "../components/CardJuego.vue";
 import BtnSalir from "../components/BtnSalir.vue";
-
+import FlipCard from "../components/Flip-Card.vue";
 export default {
     data() {
         return {
             cards: [],
+            volteo:null,
+            names:[],
+            imgs:[],
+            parejas:[],
+            arrayconcatenado:[],
+            arrayDesordenado:[],
+            giradas:0,
             FormulaNames: [
                 {
                     //los objetos estan hardcodeados para hacer pruebas, deaspues se tendrán que recoger de la BD
-                    name: "Formaldehído",
+                    name: "Formaldehyde.svg",
                     img: "Formaldehyde.svg",
                 },
                 {
-                    name: "Galactosa",
+                    name: "Beta-D-Galactopyranose.svg",
                     img: "Beta-D-Galactopyranose.svg",
                 },
                 {
-                    name: "Ribosa",
+                    name: "D-ribosa.svg",
                     img: "D-ribosa.svg",
                 },
                 {
-                    name: "Piruvato",
+                    name: "Pyruvate_decarb_1.svg",
                     img: "Pyruvate_decarb_1.svg",
                 },
                 {
-                    name: "Acido Lactico",
+                    name: "Lactic-acid-skeletal.svg",
                     img: "Lactic-acid-skeletal.svg",
                 },
                 {
-                    name: "Cloruro de Bencilo",
+                    name: "Benzyl_chloride.svg",
                     img: "Benzyl_chloride.svg",
                 },
                 {
-                    name: "Fenol",
+                    name: "Phenol_chemical_structure_es.svg",
                     img: "Phenol_chemical_structure_es.svg",
                 },
                 {
-                    name: "Anisol",
+                    name: "Anisol.svg",
                     img: "Anisol.svg",
                 },
                 {
-                    name: "Acetato Sódico",
+                    name: "Sodium_acetate_formula_V_1.svg",
                     img: "Sodium_acetate_formula_V_1.svg",
                 },
                 {
-                    name: "Benzoato de etilo",
+                    name: "Ethyl_benzoate.svg",
                     img: "Ethyl_benzoate.svg",
                 },
                 {
-                    name: "Acetato de Metilo",
+                    name: "Methyl_acetate.svg",
                     img: "Methyl_acetate.svg",
                 },
                 {
-                    name: "Anhídrido Benzoico",
+                    name: "Benzoic_anhydride.svg",
                     img: "Benzoic_anhydride.svg",
                 },
             ],
@@ -116,6 +90,25 @@ export default {
             }
             return this.cards;
         },
+        //en esta funcion separo de las imagenes que se han seleccionado, separo el nombre y el nombre de la img
+        selectName(array){
+            array.forEach(element => {
+                let name=element['name'];
+                this.names.push(name);
+                let img=element['img'];
+                this.imgs.push(img);
+                });
+            },
+        //concateno los dos arrays de nombre y nombre de imgenes
+        concatenarArray(array,array2){
+            this.arrayconcatenado=array.concat(array2)
+            return this.arrayconcatenado;
+        },
+        //desordeno el array para que aparezcan en posiciones diferentes
+        desordenarArray(array){
+            this.arrayDesordenado=array.sort(function(){return Math.random() -0.5});
+            return this.arrayDesordenado;
+        },
         obtenerImagenes(name) {
             let respuestaAObtener = this.FormulaNames.filter(
                 (respuesta) => respuesta.name === name
@@ -124,52 +117,37 @@ export default {
             console.log(img);
             return "game1_puzzles_img/" + img;
         },
+        comprobar(){
+                    this.cards.forEach(card => {
+                        // Accedo a la instancia del componente hijo usando $refs
+                        const flipCardInstance = this.$refs['FlipCard' + card.index][0];
+
+                        // Ahora puedes acceder a la propiedad ConVolteo
+                        if (flipCardInstance.ConVolteo) {
+                        this.giradas++;
+                        }
+                    });
+                },
+
     },
     mounted() {
         this.getNames();
+        this.selectName(this.cards);
+        this.concatenarArray(this.names,this.imgs);
+        this.desordenarArray(this.arrayconcatenado);
     },
+
     components: {
         DescripcionJuego,
         GlassCard,
         Reloj,
         ProgressBar,
-        CardJuego,
         BtnSalir,
+        FlipCard
     },
-    computed: {},
+    computed: {
+
+    },
 };
  </script>
-<!--<style>
-.card {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
 
-.card div {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backface-visibility: hidden;
-  transition: 1s;
-}
-
-.card .back {
-  transform: perspective(500px) rotate(0deg);
-}
-
-.card .front {
-  transform: perspective(500px) rotate(180deg);
-}
-
-.card:hover .back {
-  transform: perspective(500px) rotate(-180deg);
-}
-
-.card:hover .front {
-  transform: perspective(500px) rotate(0deg);
-}
-</style> -->
