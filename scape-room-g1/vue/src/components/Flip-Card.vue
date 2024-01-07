@@ -8,6 +8,10 @@
 </template>
 <script>
 export default{
+    props:{
+        name:String,
+        id:Number
+    },
 		data() {
 				return {
 						Sinvolteo:true,
@@ -16,18 +20,24 @@ export default{
 		},
 		methods:{
 				flipCard(){
-						if(this.Sinvolteo==true){
+						if(this.Sinvolteo){
 								this.Sinvolteo=false;
 								this.ConVolteo=true;
-						}else if(this.Sinvolteo==false){
-								this.Sinvolteo=true;
-								this.ConVolteo=false;
+                                setTimeout(() => {
+                                    this.$emit('volteo',this.Sinvolteo,this.id);
+                                },500);
+
 						}
-				}
+				},
+                voltearDeNuevo(){
+
+                    if(this.ConVolteo){
+                        this.Sinvolteo=true;
+                        this.ConVolteo=false;
+                        console.log("dando la vuelta a "+this.id);
+                    }
+                }
 		},
-        mounted() {
-            this.$emit('volteo',this.Sinvolteo);
-        },
 
 }
 </script>
@@ -86,7 +96,7 @@ export default{
 	z-index: -1;
 	background-color: rgba(255, 255, 255, 0.603);
 	border-radius: 1.5rem;
-    	border: 1px solid rgb(229 231 235);
+    border: 1px solid rgb(229 231 235);
 	position: absolute;
 	opacity: 80%;
 	overflow: hidden;

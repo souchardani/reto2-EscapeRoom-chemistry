@@ -1,12 +1,12 @@
 <template>
     <!-- main cards -->
-    <div class="grid grid-cols-2 place-content-center justify-items-center" @change="comprobar">
-         <FlipCard @volteo="volteo=$event" :ref="'FlipCard'+index" v-for="(card,index) in cards" :key="index">
+    <div class="grid grid-cols-2 place-content-center justify-items-center">
+        <FlipCard  @volteo="comprobar" v-for="(card,index) in cards" :key="index" :name="card.name" :id="card.id" :ref="card.id">
                     <p class="text-center">{{ card.name }}</p>
         </FlipCard>
-       <!--  <FlipCard v-for="(card) in cards">
+        <FlipCard  @volteo="comprobar" v-for="(card,index) in cards" :key="index" :name="card.name" :id="card.id" :ref="card.id">
                 <img :src="obtenerImagenes(card.name)"/>
-         </FlipCard>-->
+         </FlipCard>
         </div>
 </template>
 <script>
@@ -30,51 +30,63 @@ export default {
             FormulaNames: [
                 {
                     //los objetos estan hardcodeados para hacer pruebas, deaspues se tendrán que recoger de la BD
-                    name: "Formaldehyde.svg",
+                    id:1,
+                    name: "Formaldehyde",
                     img: "Formaldehyde.svg",
                 },
                 {
-                    name: "Beta-D-Galactopyranose.svg",
+                    id:2,
+                    name: "Beta-D-Galactopyranose",
                     img: "Beta-D-Galactopyranose.svg",
                 },
                 {
-                    name: "D-ribosa.svg",
+                    id:3,
+                    name: "D-ribosa",
                     img: "D-ribosa.svg",
                 },
                 {
-                    name: "Pyruvate_decarb_1.svg",
+                    id:4,
+                    name: "Pyruvate_decarb_1",
                     img: "Pyruvate_decarb_1.svg",
                 },
                 {
-                    name: "Lactic-acid-skeletal.svg",
+                    id:5,
+                    name: "Lactic-acid-skeletal",
                     img: "Lactic-acid-skeletal.svg",
                 },
                 {
-                    name: "Benzyl_chloride.svg",
+                    id:6,
+                    name: "Benzyl_chloride",
                     img: "Benzyl_chloride.svg",
                 },
                 {
-                    name: "Phenol_chemical_structure_es.svg",
+                    id:7,
+                    name: "Phenol_chemical_structure_es",
                     img: "Phenol_chemical_structure_es.svg",
                 },
                 {
-                    name: "Anisol.svg",
+                    id:8,
+                    name: "Anisol",
                     img: "Anisol.svg",
                 },
                 {
-                    name: "Sodium_acetate_formula_V_1.svg",
+                    id:9,
+                    name: "Sodium_acetate_formula_V_1",
                     img: "Sodium_acetate_formula_V_1.svg",
                 },
                 {
-                    name: "Ethyl_benzoate.svg",
+                    id:10,
+                    name: "Ethyl_benzoate",
                     img: "Ethyl_benzoate.svg",
                 },
                 {
-                    name: "Methyl_acetate.svg",
+                    id:11,
+                    name: "Methyl_acetate",
                     img: "Methyl_acetate.svg",
                 },
                 {
-                    name: "Benzoic_anhydride.svg",
+                    id:12,
+                    name: "Benzoic_anhydride",
                     img: "Benzoic_anhydride.svg",
                 },
             ],
@@ -117,8 +129,27 @@ export default {
             console.log(img);
             return "game1_puzzles_img/" + img;
         },
-        comprobar(){
-                    this.cards.forEach(card => {
+        comprobar(estado,id){
+
+                this.parejas.push(id);
+                this.giradas++;
+                if(this.giradas==2){
+                    if(this.parejas[0]===this.parejas[1]){
+                        alert ("pareja encontrada");
+                    }else{
+                        alert("las parejas no son iguales");
+                        this.parejas.forEach(pareja=>{
+                           this.$refs[pareja][0].voltearDeNuevo();
+                           this.$refs[pareja][1].voltearDeNuevo();
+                        });
+                    }
+                    this.parejas=[];
+                    this.giradas=0;
+                }
+
+
+
+                   /*  this.cards.forEach(card => {
                         // Accedo a la instancia del componente hijo usando $refs
                         const flipCardInstance = this.$refs['FlipCard' + card.index][0];
 
@@ -126,7 +157,7 @@ export default {
                         if (flipCardInstance.ConVolteo) {
                         this.giradas++;
                         }
-                    });
+                    }); */
                 },
 
     },
