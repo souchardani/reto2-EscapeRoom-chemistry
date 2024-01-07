@@ -52,8 +52,8 @@
                             class="flex absolute bottom-[90px] left-[110px] grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-[200px] md:left-[200px] lg:bottom-[100px] lg:left-[250px]"
                         >
                             <i
-                                ><svg
-                                    class="hidden w-6 h-6 text-gray-800 dark:text-white"
+                                ><svg ref="juego1"
+                                    :class="{'check':activo}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -63,20 +63,20 @@
                                         stroke="currentColor"
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
-                                        stroke-width="2"
+                                        stroke-width="4"
                                         d="M1 5.917 5.724 10.5 15 1.5"
                                     /></svg></i
                             ><span>Game 1</span>
                         </button>
                     </router-link>
                     <router-link to="/juego2">
-                        <button
+                        <button ref="juego2"
                             style="backdrop-filter: blur(20px)"
                             class="flex absolute bottom-20 right-20 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-[300px] lg:bottom-[200px]"
                         >
                             <i
                                 ><svg
-                                    class="hidden w-6 h-6 text-gray-800 dark:text-white"
+                                    :class="{'check':activo}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -86,7 +86,7 @@
                                         stroke="currentColor"
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
-                                        stroke-width="2"
+                                        stroke-width="4"
                                         d="M1 5.917 5.724 10.5 15 1.5"
                                     /></svg
                             ></i>
@@ -94,13 +94,13 @@
                         </button>
                     </router-link>
                     <router-link to="/juego3">
-                        <button
+                        <button ref="juego3"
                             style="backdrop-filter: blur(20px)"
                             class="flex absolute bottom-32 left-2 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-72 lg:bottom-[180px]"
                         >
                             <i
                                 ><svg
-                                    class="hidden w-6 h-6 text-gray-800 dark:text-white"
+                                    :class="{'check':activo}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -110,7 +110,7 @@
                                         stroke="currentColor"
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
-                                        stroke-width="2"
+                                        stroke-width="4"
                                         d="M1 5.917 5.724 10.5 15 1.5"
                                     /></svg
                             ></i>
@@ -118,13 +118,13 @@
                         </button>
                     </router-link>
                     <router-link to="/juego4">
-                        <button
+                        <button ref="juego4"
                             style="backdrop-filter: blur(20px)"
                             class="flex absolute bottom-32 right-32 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-36 md:right-44 lg:right-80"
                         >
                             <i
                                 ><svg
-                                    class="hidden w-6 h-6 text-gray-800 dark:text-white"
+                                :class="{'check':activo}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -134,7 +134,7 @@
                                         stroke="currentColor"
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
-                                        stroke-width="2"
+                                        stroke-width="4"
                                         d="M1 5.917 5.724 10.5 15 1.5"
                                     /></svg
                             ></i>
@@ -150,17 +150,44 @@
             <Footer></Footer>
         </div>
     </div>
+    <button @click="activacheck">cambiar check</button>
 </template>
 
 <script>
 import Footer from "../components/Footer.vue";
 import BtnSalir from "../components/BtnSalir.vue";
 
+
 export default {
+    data(){
+        return{
+            activo:false,
+
+
+        }
+    },
     name: "Index",
     components: {
         Footer,
         BtnSalir,
     },
+    methods:{
+        activacheck(){
+            if(this.activo===false){
+            this.activo = true;
+            }else{
+                this.activo=false;
+            }
+        }
+    },
+
 };
 </script>
+<style scoped
+>
+.check{
+    width: 3rem;
+    height: 1rem;
+    color: rgb(89, 240, 89);
+}
+</style>
