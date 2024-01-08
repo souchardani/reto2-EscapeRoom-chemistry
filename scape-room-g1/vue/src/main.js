@@ -1,5 +1,6 @@
 import { createApp } from "vue";
-import Pinia  from 'pinia';
+import { createPinia }  from 'pinia';
+const Pinia = createPinia()
 import App from "./App.vue";
 import "./index.css";
 //vue store with vuex
