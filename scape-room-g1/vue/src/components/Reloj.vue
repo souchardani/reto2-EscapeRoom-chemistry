@@ -1,23 +1,26 @@
 <template>
-    <div class="bg-gray-800 p-4 rounded-lg inline-block m-5 w-11/12">
-        <div
-            class="flex items-center gap-3 flex-col justify-center font-bold text-white"
-        >
-            <h1 class="text-4xl">Tiempo restante</h1>
-            <div class="text-6xl bg-[#131921] rounded-full px-9 py-2">
-                <span>{{ minutes }}</span>
-                <span>:</span>
-                <span>{{ seconds }}</span>
+    <GlassCard>
+        <div class="">
+            <div
+                class="flex items-center gap-3 flex-col justify-center font-bold"
+            >
+                <h1 class="text-3xl md:text-4xl">Tiempo restante</h1>
+                <div class="rounded-full px-9 py-2 text-3xl md:text-4xl">
+                    <span>{{ minutes }}</span>
+                    <span>:</span>
+                    <span>{{ seconds }}</span>
+                </div>
             </div>
         </div>
-    </div>
+    </GlassCard>
 </template>
 
 <script>
+import GlassCard from "./GlassCard.vue";
 export default {
     data() {
         return {
-            totalTime: 1800, // 30 minutos en segundos
+            totalTime: 1800,
             currentTime: 1800, // Tiempo actual en segundos
         };
     },
@@ -45,6 +48,7 @@ export default {
             }
         }, 1000);
     },
+    components: { GlassCard },
 };
 </script>
 

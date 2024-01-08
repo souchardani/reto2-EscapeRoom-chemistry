@@ -1,49 +1,46 @@
 <template>
+    <!-- main cards -->
     <div
-        class="container-fluid md: lg xl bg-gradient-to-r from-emerald-500 to-emerald-900"
+        class="grid grid-cols-2 gap-5 items-center m-5 justify-items-center m-5"
     >
-        <header>
-            <h1
-                class="text-4xl text-center font-bold text-gray-50 bg-black px-3 py-8 m-1"
-            >
-                El Rompecabezas de los Elementos
-            </h1>
-        </header>
-
-        <main class="m-5">
-            <p
-                class="border-transparent shadow-xl p-2 rounded-lg m-1 text-center m-auto bg-gradient-to-r from-slate-300 to-slate-400"
-            >
-                Trabaja tu memoria volteado las tarjetas y juntando las imagenes
-                con los nombres
-            </p>
-        </main>
-        <div class="w-full bg-red-600 rounded-full h-2.5 dark:bg-red-600">
-            <div
-                class="bg-blue-600 h-2.5 rounded-full"
-                style="width: 10%"
-            ></div>
-        </div>
-
-        <div
-            class="grid grid-cols-2 gap-5 items-center m-5 justify-items-center m-5"
-        >
-            <div
-                v-for="card in cards"
-                class="w-32 h-32 bg-gradient-to-r from-slate-300 to-slate-400 rounded-xl shadow-lg p-3 text-center align-center md:hover:scale-110"
-            >
-                <p class="hidden">{{ card.name }}</p>
-            </div>
-            <div
-                v-for="card in cards"
-                class="w-32 h-32 bg-gradient-to-r from-slate-300 to-slate-400 rounded-xl shadow-lg p-3 text-center align-center"
-            >
-                <p class="hidden">{{ card.img }}</p>
-            </div>
-        </div>
+        <CardJuego v-for="card in cards">
+            <p class="text-center">{{ card.name }}</p>
+        </CardJuego>
+        <CardJuego v-for="card in cards">
+            <img :src="obtenerImagenes(card.name)" alt="" />
+        </CardJuego>
     </div>
 </template>
+
+<!-- glass component -->
+<!-- <div class="w-100 p-3 m-6">
+    <div
+        class="text-justify relative px-8 py-10 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-60 border border-gray-200"
+        style="backdrop-filter: blur(20px)"
+    >
+        <div class="mx-auto">
+            contenido
+        </div>
+    </div>
+</div> -->
+
+<!-- boton component -->
+<!-- <a
+    href="#"
+    class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+    style="backdrop-filter: blur(20px)"
+>Iniciar Partida</a> -->
+<!-- <template>
+    </div>
+</template> -->
 <script>
+import DescripcionJuego from "../components/DescripcionJuego.vue";
+import GlassCard from "../components/GlassCard.vue";
+import Reloj from "../components/Reloj.vue";
+import ProgressBar from "../components/ProgressBar.vue";
+import CardJuego from "../components/CardJuego.vue";
+import BtnSalir from "../components/BtnSalir.vue";
+
 export default {
     data() {
         return {
@@ -111,9 +108,26 @@ export default {
             }
             return this.cards;
         },
+        obtenerImagenes(name) {
+            let respuestaAObtener = this.FormulaNames.filter(
+                (respuesta) => respuesta.name === name
+            );
+            let img = respuestaAObtener[0].img;
+            console.log(img);
+            return "game1_puzzles_img/" + img;
+        },
     },
     mounted() {
         this.getNames();
     },
+    components: {
+        DescripcionJuego,
+        GlassCard,
+        Reloj,
+        ProgressBar,
+        CardJuego,
+        BtnSalir,
+    },
+    computed: {},
 };
 </script>
