@@ -17,7 +17,19 @@ export default {
     },
     methods: {
         reduceTime() {
-            this.$refs.relojContador.reduceTime(60); // Reducir 1 minuto (60 segundos)
+            this.$refs.relojContador.reduceTime(60); // Reduce el tiempo en segundos
+            /* Tiempos
+            60  - 1min
+            120 - 2mins
+            180 - 3mins
+            240 - 4mins
+            300 - 5mins
+            360 - 6mins
+            420 - 7mins
+            480 - 8mins
+            540 - 8mins
+            600 - 10mins
+            */
         },
     },
     mounted() {
