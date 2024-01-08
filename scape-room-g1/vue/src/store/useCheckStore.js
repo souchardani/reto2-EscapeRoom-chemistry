@@ -25,5 +25,5 @@ export const useCheckStore = defineStore('checks',{
         },
     }
 
-})
+});
 

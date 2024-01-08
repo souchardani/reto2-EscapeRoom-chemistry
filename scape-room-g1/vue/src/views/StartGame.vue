@@ -53,7 +53,7 @@
                         >
                             <i
                                 ><svg ref="juego1"
-                                    :class="{'check':juego1}"
+                                    :class="{'check':activo}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -76,7 +76,7 @@
                         >
                             <i
                                 ><svg
-                                    :class="{'check':juego2}"
+                                    :class="{'check':activo}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -100,7 +100,7 @@
                         >
                             <i
                                 ><svg
-                                    :class="{'check':juego3}"
+                                    :class="{'check':activo}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -124,7 +124,7 @@
                         >
                             <i
                                 ><svg
-                                :class="{'check':juego4}"
+                                :class="{'check':activo}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -150,44 +150,38 @@
             <Footer></Footer>
         </div>
     </div>
+    <button @click="activacheck">cambiar check</button>
 </template>
 
 <script>
 import Footer from "../components/Footer.vue";
 import BtnSalir from "../components/BtnSalir.vue";
-import { useCheckStore } from "../store/useCheckStore";
-const CheckStore=useCheckStore();
+import { useStore } from 'pinia';
+
 export default {
-    data(){
-        return{
+  name: "Index",
+  components: {
+    Footer,
+    BtnSalir,
+  },
+  setup() {
+    const store = useStore();
 
-        }
-    },
-    name: "Index",
-    components: {
-        Footer,
-        BtnSalir,
-    },
-    methods:{
+    const activo = ref(false);
 
-    },
-    computed:{
-        juego1() {
-            return useCheckStore().juego1;
-        },
-        juego2() {
-            return useCheckStore().juego2;
-        },
-        juego3() {
-            return useCheckStore().juego3;
-        },
-        juego4() {
-            return useCheckStore().juego4;
-        }
-    },
+    const activaCheck = () => {
+      activo.value = !activo.value;
+    };
 
+    return {
+      store,
+      activo,
+      activaCheck,
+    };
+  },
 };
 </script>
+
 <style scoped
 >
 .check{
