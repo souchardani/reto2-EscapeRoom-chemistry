@@ -53,7 +53,7 @@
                         >
                             <i
                                 ><svg ref="juego1"
-                                    :class="{'check':activo}"
+                                    :class="{'check':juego1}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -76,7 +76,7 @@
                         >
                             <i
                                 ><svg
-                                    :class="{'check':activo}"
+                                    :class="{'check':juego2}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -100,7 +100,7 @@
                         >
                             <i
                                 ><svg
-                                    :class="{'check':activo}"
+                                    :class="{'check':juego3}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -124,7 +124,7 @@
                         >
                             <i
                                 ><svg
-                                :class="{'check':activo}"
+                                :class="{'check':juego4}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -150,19 +150,16 @@
             <Footer></Footer>
         </div>
     </div>
-    <button @click="activacheck">cambiar check</button>
 </template>
 
 <script>
 import Footer from "../components/Footer.vue";
 import BtnSalir from "../components/BtnSalir.vue";
-
-
+import { useCheckStore } from "../store/useCheckStore";
+const CheckStore=useCheckStore();
 export default {
     data(){
         return{
-            activo:false,
-
 
         }
     },
@@ -172,12 +169,20 @@ export default {
         BtnSalir,
     },
     methods:{
-        activacheck(){
-            if(this.activo===false){
-            this.activo = true;
-            }else{
-                this.activo=false;
-            }
+
+    },
+    computed:{
+        juego1() {
+            return useCheckStore().juego1;
+        },
+        juego2() {
+            return useCheckStore().juego2;
+        },
+        juego3() {
+            return useCheckStore().juego3;
+        },
+        juego4() {
+            return useCheckStore().juego4;
         }
     },
 

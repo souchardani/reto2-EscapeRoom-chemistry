@@ -1,12 +1,19 @@
 import { createApp } from "vue";
-import { createPinia }  from 'pinia';
-const Pinia = createPinia()
+import { createPinia } from 'pinia';
 import App from "./App.vue";
 import "./index.css";
-//vue store with vuex
+// Vue store with Vuex
 import store from "./store";
-//vue router
+// Vue router
 import router from "./router";
 
+// Crear una instancia de Pinia
+const pinia = createPinia();
 
-createApp(App).use(store).use(Pinia).use(router).mount("#app");
+// Crear la aplicación y usar Pinia
+createApp(App)
+  .use(pinia)  // Usar Pinia en lugar de VueX store
+  .use(store)
+  .use(router)
+  .mount("#app");
+
