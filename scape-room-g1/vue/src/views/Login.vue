@@ -6,9 +6,7 @@
                 class="relative hidden bg-cover lg:block lg:w-2/3"
                 style="background-image: url(/puerta.jpg)"
             >
-                <div
-                    class="flex items-center h-full px-20 bg-gray-900 bg-opacity-75"
-                >
+                <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-75">
                     <div>
                         <h2 class="text-4xl font-bold text-white">
                             Que tenía el Vial
@@ -20,9 +18,7 @@
                             aventuras!
                         </p>
                     </div>
-                    <i
-                        class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"
-                    ></i>
+                    <i class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"></i>
                 </div>
             </div>
 
@@ -31,9 +27,7 @@
             >
                 <div class="flex-1">
                     <div class="text-center">
-                        <h2
-                            class="text-4xl font-bold text-center text-gray-100 dark:text-white"
-                        >
+                        <h2 class="text-4xl font-bold text-center text-gray-100 dark:text-white">
                             Accede al juego
                         </h2>
                         <!-- <img src="../assets/img/puerta.jpg" alt="" /> -->
@@ -49,26 +43,20 @@
                             class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative"
                         >
                             <i class="ph ph-info text-2xl"></i>
-                            <span class="text-left"
-                                >Aqui tienes tu primer reto, presiona el tubo de
-                                ensayo escondido en la página (debes buscar
-                                bien) y descubre como puedes encontrar la
-                                contraseña de acceso</span
-                            >
-                            <i
-                                class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
-                            ></i>
+                            <span class="text-left">
+                                Aqui tienes tu primer reto, presiona el tubo de ensayo escondido en la página
+                                (debes buscar bien) y descubre como puedes encontrar la contraseña de acceso
+                                </span>
+                            <i class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"></i>
                         </div>
                     </div>
 
                     <div class="mt-8">
                         <form>
                             <div>
-                                <label
-                                    for="nickJugador"
-                                    class="block mb-2 text-sm text-gray-200 font-bold"
-                                    >Nick del juego</label
-                                >
+                                <label for="nickJugador" class="block mb-2 text-sm text-gray-200 font-bold">
+                                    Nick del juego
+                                </label>
                                 <input
                                     type="text"
                                     name="nickJugador"
@@ -80,16 +68,12 @@
 
                             <div class="mt-6">
                                 <div class="flex justify-between mb-2">
-                                    <label
-                                        for="clave-acceso"
-                                        class="text-sm text-gray-200 font-bold"
-                                        >Clave de acceso</label
-                                    >
-                                    <a
-                                        href="#"
-                                        class="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline"
-                                        >No tienes la clave?</a
-                                    >
+                                    <label for="clave-acceso" class="text-sm text-gray-200 font-bold">
+                                        Clave de acceso
+                                    </label>
+                                    <a href="#" class="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline">
+                                        No tienes la clave?
+                                    </a>
                                 </div>
 
                                 <input
@@ -102,9 +86,7 @@
                             </div>
 
                             <div class="mt-6">
-                                <button
-                                    class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-                                >
+                                <button class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                                     Iniciar partida
                                 </button>
                             </div>
@@ -114,6 +96,15 @@
             </div>
         </div>
     </div>
+    <LoginLogica></LoginLogica>
 </template>
 
-<script></script>
+<script>
+import LoginLogica from "../components/LoginLogica.vue";
+export default {
+    components: {
+        LoginLogica
+    }
+}
+
+</script>
