@@ -1,8 +1,8 @@
 <template>
     <div class="card-container" @click="flipCard">
         <div class="card">
-            <div v-bind:class="{'card-superior':Sinvolteo,'card-superior-volteo':ConVolteo}">BUSCA Y ENCUENTRA</div>
-            <div v-bind:class="{'card-inferior':Sinvolteo,'card-inferior-volteo':ConVolteo}"><slot></slot></div>
+            <div v-bind:class="{'card-superior':Sinvolteo,'card-superior-volteo':ConVolteo,'correcto':correcto}">BUSCA Y ENCUENTRA</div>
+            <div v-bind:class="{'card-inferior':Sinvolteo,'card-inferior-volteo':ConVolteo,'correcto':correcto}"><slot></slot></div>
 	   </div>
     </div>
 </template>
@@ -15,7 +15,9 @@ export default{
 		data() {
 				return {
 						Sinvolteo:true,
-						ConVolteo:false
+						ConVolteo:false,
+                        correcto:false,
+                        incorrecto:false
 				}
 		},
 		methods:{
@@ -26,7 +28,6 @@ export default{
                                 setTimeout(() => {
                                     this.$emit('volteo',this.Sinvolteo,this.id);
                                 },500);
-
 						}
 				},
                 voltearDeNuevo(){
@@ -35,7 +36,15 @@ export default{
                         this.Sinvolteo=true;
                         this.ConVolteo=false;
                         console.log("dando la vuelta a "+this.id);
+                        //desde aqui llamo a la progress bar para sumar un error
+                        // this.incorrecto=true;
+                        // this.$emit('contabilizaError',this.incorrecto)
                     }
+                },
+                correct(){
+                    this.Sinvolteo=false;
+                    this.ConVolteo=true;
+                    this.correcto=true;
                 }
 		},
 
@@ -72,6 +81,7 @@ export default{
     border: 1px solid rgb(229 231 235);
 	position: absolute;
 	opacity: 80%;
+
 }
 .card-inferior{
 	display: flex;
@@ -82,7 +92,7 @@ export default{
 	overflow: hidden;
 	background-color: white;
 	border-radius: 1.5rem;
-    	border: 1px solid rgb(229 231 235);
+    border: 1px solid rgb(229 231 235);
 	position: absolute;
 	backface-visibility: hidden;
 	transform: rotateY(180deg);
@@ -114,5 +124,21 @@ export default{
     border: 1px solid rgb(229 231 235);
 	position: absolute;
 	transform: rotateY(360deg);
+
+}
+.correcto{
+    z-index: 1;
+    display: flex;
+	height: 100%;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+	border-radius: 1.5rem;
+	position: absolute;
+	transform: rotateY(360deg);
+    border: 1px solid rgb(55, 246, 42);
+    box-shadow: 0px 0px 35px rgb(55, 246, 42);
+
 }
 </style>

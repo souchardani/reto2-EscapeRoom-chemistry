@@ -136,28 +136,21 @@ export default {
                 if(this.giradas==2){
                     if(this.parejas[0]===this.parejas[1]){
                         alert ("pareja encontrada");
+                        this.parejas.forEach(pareja=>{
+                        this.$refs[pareja][0].correct();//correct es la clase de resultado encontrado
+                        this.$refs[pareja][1].correct();
+                    });
+
                     }else{
                         alert("las parejas no son iguales");
                         this.parejas.forEach(pareja=>{
-                           this.$refs[pareja][0].voltearDeNuevo();
+                           this.$refs[pareja][0].voltearDeNuevo();//esta funcion devuelve las card a su estado inicial en caso de error
                            this.$refs[pareja][1].voltearDeNuevo();
                         });
                     }
                     this.parejas=[];
                     this.giradas=0;
                 }
-
-
-
-                   /*  this.cards.forEach(card => {
-                        // Accedo a la instancia del componente hijo usando $refs
-                        const flipCardInstance = this.$refs['FlipCard' + card.index][0];
-
-                        // Ahora puedes acceder a la propiedad ConVolteo
-                        if (flipCardInstance.ConVolteo) {
-                        this.giradas++;
-                        }
-                    }); */
                 },
 
     },
