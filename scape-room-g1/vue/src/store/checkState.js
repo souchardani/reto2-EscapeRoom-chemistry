@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
 
-export const useCheckStore = defineStore('checks',{
-    state:{
+export const useCheckStore = defineStore('checkState',{
+    state:()=>{
+        return{
         juego1:false,
         juego2:false,
         juego3:false,
         juego4:false
+        }
     },
     getters:{
 
@@ -24,6 +26,5 @@ export const useCheckStore = defineStore('checks',{
             this.juego4=true;
         },
     }
-
 });
 

@@ -53,7 +53,7 @@
                         >
                             <i
                                 ><svg ref="juego1"
-                                    :class="{'check':activo}"
+                                    :class="{'check':store.juego1}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -76,7 +76,7 @@
                         >
                             <i
                                 ><svg
-                                    :class="{'check':activo}"
+                                    :class="{'check':store.juego2}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -100,7 +100,7 @@
                         >
                             <i
                                 ><svg
-                                    :class="{'check':activo}"
+                                    :class="{'check':store.juego3}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -124,7 +124,7 @@
                         >
                             <i
                                 ><svg
-                                :class="{'check':activo}"
+                                :class="{'check':store.juego4}"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -153,35 +153,16 @@
     <button @click="activacheck">cambiar check</button>
 </template>
 
-<script>
+<script setup>
+
 import Footer from "../components/Footer.vue";
 import BtnSalir from "../components/BtnSalir.vue";
-import { useStore } from 'pinia';
+import { useCheckStore } from '../store/checkState';
 
-export default {
-  name: "Index",
-  components: {
-    Footer,
-    BtnSalir,
-  },
-  setup() {
-    const store = useStore();
+const store = useCheckStore();
 
-    const activo = ref(false);
 
-    const activaCheck = () => {
-      activo.value = !activo.value;
-    };
-
-    return {
-      store,
-      activo,
-      activaCheck,
-    };
-  },
-};
 </script>
-
 <style scoped
 >
 .check{
