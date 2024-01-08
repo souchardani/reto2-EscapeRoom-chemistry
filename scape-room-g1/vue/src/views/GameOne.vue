@@ -4,7 +4,7 @@
         <FlipCard  @volteo="comprobar" v-for="(card,index) in cards" :key="index" :name="card.name" :id="card.id" :ref="card.id">
                     <p class="text-center">{{ card.name }}</p>
         </FlipCard>
-        <FlipCard  @volteo="comprobar" v-for="(card,index) in cards" :key="index" :name="card.name" :id="card.id" :ref="card.id">
+        <FlipCard  @volteo="comprobar" v-for="(card,index) in cardsCopia" :key="index" :name="card.name" :id="card.id" :ref="card.id">
                 <img :src="obtenerImagenes(card.name)"/>
          </FlipCard>
         </div>
@@ -20,12 +20,11 @@ export default {
     data() {
         return {
             cards: [],
+            cardsCopia:[],
             volteo:null,
             names:[],
             imgs:[],
             parejas:[],
-            arrayconcatenado:[],
-            arrayDesordenado:[],
             giradas:0,
             FormulaNames: [
                 {
@@ -94,33 +93,27 @@ export default {
     },
     methods: {
         getNames() {
-            for (let i = 0; i < 4; i++) {
-                let formulas = Math.floor(
-                    Math.random() * this.FormulaNames.length
-                );
-                this.cards.push(this.FormulaNames[formulas]);
-            }
-            return this.cards;
+        while (this.cards.length < 4) {
+            const randomIndex = Math.floor(Math.random() * this.FormulaNames.length);
+            const selectedFormula = this.FormulaNames[randomIndex];
+
+            // Verificar si el elemento ya está en this.cards antes de agregarlo
+            if (!this.cards.includes(selectedFormula)) {
+                 this.cards.push(selectedFormula);
+        }
+    }
+
+        return this.cards;
         },
-        //en esta funcion separo de las imagenes que se han seleccionado, separo el nombre y el nombre de la img
-        selectName(array){
-            array.forEach(element => {
-                let name=element['name'];
-                this.names.push(name);
-                let img=element['img'];
-                this.imgs.push(img);
-                });
-            },
-        //concateno los dos arrays de nombre y nombre de imgenes
-        concatenarArray(array,array2){
-            this.arrayconcatenado=array.concat(array2)
-            return this.arrayconcatenado;
+        getNamesCopia(array){
+            this.cardsCopia=array.slice();
+            for (let i = this.cardsCopia.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.cardsCopia[i], this.cardsCopia[j]] = [this.cardsCopia[j], this.cardsCopia[i]];
+    }
         },
-        //desordeno el array para que aparezcan en posiciones diferentes
-        desordenarArray(array){
-            this.arrayDesordenado=array.sort(function(){return Math.random() -0.5});
-            return this.arrayDesordenado;
-        },
+
+
         obtenerImagenes(name) {
             let respuestaAObtener = this.FormulaNames.filter(
                 (respuesta) => respuesta.name === name
@@ -156,9 +149,7 @@ export default {
     },
     mounted() {
         this.getNames();
-        this.selectName(this.cards);
-        this.concatenarArray(this.names,this.imgs);
-        this.desordenarArray(this.arrayconcatenado);
+        this.getNamesCopia(this.cards);
     },
 
     components: {
