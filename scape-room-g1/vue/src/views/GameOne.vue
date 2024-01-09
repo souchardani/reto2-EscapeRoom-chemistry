@@ -1,98 +1,91 @@
 <template>
     <!-- main cards -->
-    <div
-        class="grid grid-cols-2 gap-5 items-center m-5 justify-items-center m-5"
-    >
-        <CardJuego v-for="card in cards">
-            <p class="text-center">{{ card.name }}</p>
-        </CardJuego>
-        <CardJuego v-for="card in cards">
-            <img :src="obtenerImagenes(card.name)" alt="" />
-        </CardJuego>
-    </div>
-</template>
-
-<!-- glass component -->
-<!-- <div class="w-100 p-3 m-6">
-    <div
-        class="text-justify relative px-8 py-10 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-60 border border-gray-200"
-        style="backdrop-filter: blur(20px)"
-    >
-        <div class="mx-auto">
-            contenido
+    <div class="grid grid-cols-2 place-content-center justify-items-center">
+        <FlipCard  @volteo="comprobar" v-for="(card,index) in cards" :key="index" :name="card.name" :id="card.id" :ref="card.id">
+                    <p class="text-center">{{ card.name }}</p>
+        </FlipCard>
+        <FlipCard  @volteo="comprobar" v-for="(card,index) in cardsCopia" :key="index" :name="card.name" :id="card.id" :ref="card.id">
+                <img :src="obtenerImagenes(card.name)"/>
+         </FlipCard>
         </div>
-    </div>
-</div> -->
-
-<!-- boton component -->
-<!-- <a
-    href="#"
-    class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-    style="backdrop-filter: blur(20px)"
->Iniciar Partida</a> -->
-<!-- <template>
-    </div>
-</template> -->
+</template>
 <script>
 import DescripcionJuego from "../components/DescripcionJuego.vue";
 import GlassCard from "../components/GlassCard.vue";
 import Reloj from "../components/Reloj.vue";
 import ProgressBar from "../components/ProgressBar.vue";
-import CardJuego from "../components/CardJuego.vue";
 import BtnSalir from "../components/BtnSalir.vue";
-
+import FlipCard from "../components/Flip-Card.vue";
 export default {
     data() {
         return {
             cards: [],
+            cardsCopia:[],
+            volteo:null,
+            names:[],
+            imgs:[],
+            parejas:[],
+            giradas:0,
             FormulaNames: [
                 {
                     //los objetos estan hardcodeados para hacer pruebas, deaspues se tendrán que recoger de la BD
-                    name: "Formaldehído",
+                    id:1,
+                    name: "Formaldehyde",
                     img: "Formaldehyde.svg",
                 },
                 {
-                    name: "Galactosa",
+                    id:2,
+                    name: "Beta-D-Galactopyranose",
                     img: "Beta-D-Galactopyranose.svg",
                 },
                 {
-                    name: "Ribosa",
+                    id:3,
+                    name: "D-ribosa",
                     img: "D-ribosa.svg",
                 },
                 {
-                    name: "Piruvato",
+                    id:4,
+                    name: "Pyruvate_decarb_1",
                     img: "Pyruvate_decarb_1.svg",
                 },
                 {
-                    name: "Acido Lactico",
+                    id:5,
+                    name: "Lactic-acid-skeletal",
                     img: "Lactic-acid-skeletal.svg",
                 },
                 {
-                    name: "Cloruro de Bencilo",
+                    id:6,
+                    name: "Benzyl_chloride",
                     img: "Benzyl_chloride.svg",
                 },
                 {
-                    name: "Fenol",
+                    id:7,
+                    name: "Phenol_chemical_structure_es",
                     img: "Phenol_chemical_structure_es.svg",
                 },
                 {
+                    id:8,
                     name: "Anisol",
                     img: "Anisol.svg",
                 },
                 {
-                    name: "Acetato Sódico",
+                    id:9,
+                    name: "Sodium_acetate_formula_V_1",
                     img: "Sodium_acetate_formula_V_1.svg",
                 },
                 {
-                    name: "Benzoato de etilo",
+                    id:10,
+                    name: "Ethyl_benzoate",
                     img: "Ethyl_benzoate.svg",
                 },
                 {
-                    name: "Acetato de Metilo",
+                    id:11,
+                    name: "Methyl_acetate",
                     img: "Methyl_acetate.svg",
                 },
                 {
-                    name: "Anhídrido Benzoico",
+                    id:12,
+                    name: "Benzoic_anhydride",
                     img: "Benzoic_anhydride.svg",
                 },
             ],
@@ -100,14 +93,27 @@ export default {
     },
     methods: {
         getNames() {
-            for (let i = 0; i < 4; i++) {
-                let formulas = Math.floor(
-                    Math.random() * this.FormulaNames.length
-                );
-                this.cards.push(this.FormulaNames[formulas]);
-            }
-            return this.cards;
+        while (this.cards.length < 4) {
+            const randomIndex = Math.floor(Math.random() * this.FormulaNames.length);
+            const selectedFormula = this.FormulaNames[randomIndex];
+
+            // Verificar si el elemento ya está en this.cards antes de agregarlo
+            if (!this.cards.includes(selectedFormula)) {
+                 this.cards.push(selectedFormula);
+        }
+    }
+
+        return this.cards;
         },
+        getNamesCopia(array){
+            this.cardsCopia=array.slice();
+            for (let i = this.cardsCopia.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.cardsCopia[i], this.cardsCopia[j]] = [this.cardsCopia[j], this.cardsCopia[i]];
+    }
+        },
+
+
         obtenerImagenes(name) {
             let respuestaAObtener = this.FormulaNames.filter(
                 (respuesta) => respuesta.name === name
@@ -116,18 +122,47 @@ export default {
             console.log(img);
             return "game1_puzzles_img/" + img;
         },
+        comprobar(estado,id){
+
+                this.parejas.push(id);
+                this.giradas++;
+                if(this.giradas==2){
+                    if(this.parejas[0]===this.parejas[1]){
+                        alert ("pareja encontrada");
+                        this.parejas.forEach(pareja=>{
+                        this.$refs[pareja][0].correct();//correct es la clase de resultado encontrado
+                        this.$refs[pareja][1].correct();
+                    });
+
+                    }else{
+                        alert("las parejas no son iguales");
+                        this.parejas.forEach(pareja=>{
+                           this.$refs[pareja][0].voltearDeNuevo();//esta funcion devuelve las card a su estado inicial en caso de error
+                           this.$refs[pareja][1].voltearDeNuevo();
+                        });
+                    }
+                    this.parejas=[];
+                    this.giradas=0;
+                }
+                },
+
     },
     mounted() {
         this.getNames();
+        this.getNamesCopia(this.cards);
     },
+
     components: {
         DescripcionJuego,
         GlassCard,
         Reloj,
         ProgressBar,
-        CardJuego,
         BtnSalir,
+        FlipCard
     },
-    computed: {},
+    computed: {
+
+    },
 };
-</script>
+ </script>
+
