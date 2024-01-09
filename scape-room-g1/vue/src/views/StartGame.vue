@@ -160,8 +160,6 @@ import BtnSalir from "../components/BtnSalir.vue";
 import { useCheckStore } from '../store/checkState';
 
 const store = useCheckStore();
-
-
 </script>
 <style scoped
 >
