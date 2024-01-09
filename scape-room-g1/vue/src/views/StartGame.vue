@@ -72,7 +72,7 @@
                     <router-link to="/juego2">
                         <button ref="juego2"
                             style="backdrop-filter: blur(20px)"
-                            class="flex absolute bottom-20 right-20 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-[300px] lg:bottom-[200px]"
+                            class="pointer-events-none flex absolute bottom-20 right-20 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-[300px] lg:bottom-[200px]"
                         >
                             <i
                                 ><svg
@@ -96,7 +96,7 @@
                     <router-link to="/juego3">
                         <button ref="juego3"
                             style="backdrop-filter: blur(20px)"
-                            class="flex absolute bottom-32 left-2 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-72 lg:bottom-[180px]"
+                            class="pointer-events-none flex absolute bottom-32 left-2 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-72 lg:bottom-[180px]"
                         >
                             <i
                                 ><svg
@@ -120,7 +120,7 @@
                     <router-link to="/juego4">
                         <button ref="juego4"
                             style="backdrop-filter: blur(20px)"
-                            class="flex absolute bottom-32 right-32 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-36 md:right-44 lg:right-80"
+                            class="pointer-events-none flex absolute bottom-32 right-32 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-36 md:right-44 lg:right-80"
                         >
                             <i
                                 ><svg

@@ -6,7 +6,8 @@ export const useCheckStore = defineStore('checkState',{
         juego1:false,
         juego2:false,
         juego3:false,
-        juego4:false
+        juego4:false,
+        activarJuego2:true,
         }
     },
     getters:{
@@ -15,6 +16,7 @@ export const useCheckStore = defineStore('checkState',{
     actions:{
         changeJuego1(){
             this.juego1=true;
+            this.activarJuego2 = false;
         },
         changeJuego2(){
             this.juego2=true;
