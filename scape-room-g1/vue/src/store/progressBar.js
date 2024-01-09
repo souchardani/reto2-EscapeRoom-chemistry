@@ -44,7 +44,6 @@ export const useProgressBarStore=defineStore('progressbar',{
             this.inicio5=false;
             this.fallo5=true;
             setTimeout(() => {
-            alert("no has completado el juego, se descontarán 5 min");
                         this.contador=1;
                         this.fallo1=false;
                         this.inicio1=true;

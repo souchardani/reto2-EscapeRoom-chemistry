@@ -150,7 +150,6 @@
             <Footer></Footer>
         </div>
     </div>
-    <button @click="activacheck">cambiar check</button>
 </template>
 
 <script setup>
