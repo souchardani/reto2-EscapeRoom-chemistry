@@ -17,37 +17,23 @@
 
 <script>
 import GlassCard from "./GlassCard.vue";
+import { useTemporizadorStore } from "../store/ContadorStore";
+import { mapWritableState, mapActions } from "pinia";
 export default {
-    data() {
-        return {
-            totalTime: 1800,
-            currentTime: 1800, // Tiempo actual en segundos
-        };
-    },
+    data() {},
     computed: {
-        minutes() {
-            return String(Math.floor(this.currentTime / 60)).padStart(2, "0");
-        },
-        seconds() {
-            return String(this.currentTime % 60).padStart(2, "0");
-        },
+        ...mapWritableState(useTemporizadorStore, [
+            "tiempo",
+            "totalTime",
+            "currentTime",
+            "minutes",
+            "seconds",
+        ]),
     },
     methods: {
-        reduceTime(seconds) {
-            // Asegúrate de que no reduzca el tiempo por debajo de cero
-            this.currentTime = Math.max(0, this.currentTime - seconds);
-        },
+        ...mapActions(useTemporizadorStore, ["getTiempo"]),
     },
-    mounted() {
-        // Inicializar el temporizador
-        setInterval(() => {
-            if (this.currentTime > 0) {
-                this.currentTime -= 1;
-            } else {
-                // Puedes agregar lógica aquí cuando el tiempo llega a cero
-            }
-        }, 1000);
-    },
+    mounted() {},
     components: { GlassCard },
 };
 </script>

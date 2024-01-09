@@ -52,8 +52,9 @@
                             class="flex absolute bottom-[90px] left-[110px] grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-[200px] md:left-[200px] lg:bottom-[100px] lg:left-[250px]"
                         >
                             <i
-                                ><svg ref="juego1"
-                                    :class="{'check':store.juego1}"
+                                ><svg
+                                    ref="juego1"
+                                    :class="{ check: store.juego1 }"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -70,13 +71,14 @@
                         </button>
                     </router-link>
                     <router-link to="/juego2">
-                        <button ref="juego2"
+                        <button
+                            ref="juego2"
                             style="backdrop-filter: blur(20px)"
                             class="flex absolute bottom-20 right-20 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-[300px] lg:bottom-[200px]"
                         >
                             <i
                                 ><svg
-                                    :class="{'check':store.juego2}"
+                                    :class="{ check: store.juego2 }"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -94,13 +96,14 @@
                         </button>
                     </router-link>
                     <router-link to="/juego3">
-                        <button ref="juego3"
+                        <button
+                            ref="juego3"
                             style="backdrop-filter: blur(20px)"
                             class="flex absolute bottom-32 left-2 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-72 lg:bottom-[180px]"
                         >
                             <i
                                 ><svg
-                                    :class="{'check':store.juego3}"
+                                    :class="{ check: store.juego3 }"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -118,13 +121,14 @@
                         </button>
                     </router-link>
                     <router-link to="/juego4">
-                        <button ref="juego4"
+                        <button
+                            ref="juego4"
                             style="backdrop-filter: blur(20px)"
                             class="flex absolute bottom-32 right-32 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-36 md:right-44 lg:right-80"
                         >
                             <i
                                 ><svg
-                                :class="{'check':store.juego4}"
+                                    :class="{ check: store.juego4 }"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -154,18 +158,16 @@
 </template>
 
 <script setup>
-
 import Footer from "../components/Footer.vue";
 import BtnSalir from "../components/BtnSalir.vue";
-import { useCheckStore } from '../store/checkState';
+import { useCheckStore } from "../store/checkState";
+import { useLoginStore } from "../store/LoginStore";
 
 const store = useCheckStore();
-
-
+const storeLogin = useLoginStore();
 </script>
-<style scoped
->
-.check{
+<style scoped>
+.check {
     width: 3rem;
     height: 1rem;
     color: rgb(89, 240, 89);

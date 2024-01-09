@@ -37,11 +37,9 @@
                 class="relative bg-cover lg:block lg:w-2/3 max-md:mx-8 max-md:rounded-2xl overflow-hidden"
                 style="background-image: url(/puerta.jpg)"
             >
-
                 <div
                     class="flex items-center h-96 md:h-full px-20 bg-gray-900 bg-opacity-75"
                 >
-
                     <div>
                         <h2 class="text-4xl font-bold text-white">
                             Que tenía el Vial
@@ -53,7 +51,9 @@
                             aventuras!
                         </p>
                     </div>
-                    <i class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"></i>
+                    <i
+                        class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"
+                    ></i>
                 </div>
             </div>
 
@@ -62,9 +62,7 @@
             >
                 <div class="flex-1">
                     <div class="text-center">
-
                         <h2 class="text-4xl font-bold text-center">
-
                             Accede al juego
                         </h2>
                         <!-- <img src="../assets/img/puerta.jpg" alt="" /> -->
@@ -81,10 +79,14 @@
                         >
                             <i class="ph ph-info text-2xl"></i>
                             <span class="text-left">
-                                Aqui tienes tu primer reto, presiona el tubo de ensayo escondido en la página
-                                (debes buscar bien) y descubre como puedes encontrar la contraseña de acceso
-                                </span>
-                            <i class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"></i>
+                                Aqui tienes tu primer reto, presiona el tubo de
+                                ensayo escondido en la página (debes buscar
+                                bien) y descubre como puedes encontrar la
+                                contraseña de acceso
+                            </span>
+                            <i
+                                class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
+                            ></i>
                         </div>
                     </div>
                     <div class="w-100 my-8">
@@ -103,6 +105,7 @@
                                                 >Nick del juego</label
                                             >
                                             <input
+                                                v-model="txtNick"
                                                 type="text"
                                                 name="nickJugador"
                                                 id="nickJugador"
@@ -110,7 +113,6 @@
                                                 class="block w-full px-4 py-2 mt-2 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                                             />
                                         </div>
-
 
                                         <div class="mt-6">
                                             <div
@@ -129,6 +131,7 @@
                                             </div>
 
                                             <input
+                                                v-mdoel="txtPassword"
                                                 type="password"
                                                 name="clave-acceso"
                                                 id="clave-acceso"
@@ -147,6 +150,7 @@
                                                 >
                                             </div>
                                             <select
+                                                v-model="cmbDificultad"
                                                 name="dificultad"
                                                 id="dificultad"
                                                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -166,6 +170,7 @@
                                         <router-link to="StartGame">
                                             <div class="mt-6 flex">
                                                 <button
+                                                    @click="validar"
                                                     style="
                                                         backdrop-filter: blur(
                                                             20px
@@ -180,7 +185,6 @@
                                     </form>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -200,7 +204,6 @@
                                 <span class=""
                                     >Alumnos de 2DW3A y dpto. Química</span
                                 >
-
                             </div>
                             <div class="my-1">
                                 <span class="font-medium">Email: </span>
@@ -221,10 +224,40 @@
 
 <script>
 import LoginLogica from "../components/LoginLogica.vue";
-export default {
-    components: {
-        LoginLogica
-    }
-}
+import { useLoginStore } from "../store/LoginStore";
+import { useTemporizadorStore } from "../store/ContadorStore";
+import { mapWritableState, mapActions } from "pinia";
 
+//este es el store de pinia
+
+export default {
+    data() {
+        return {
+            txtNick: "",
+            txtPassword: "",
+            cmbDificultad: "Principiante",
+        };
+    },
+    components: {
+        LoginLogica,
+    },
+    methods: {
+        validar() {
+            alert("entrando a validar");
+            console.log(this.usuario);
+            this.usuario.nick = "dani";
+            alert("entrando en la partida");
+            //inicializamos el reloj para el ranking
+            this.iniciarTemporizador();
+            this.iniciarCuentaAtras();
+        },
+        ...mapActions(useTemporizadorStore, [
+            "iniciarTemporizador",
+            "iniciarCuentaAtras",
+        ]),
+    },
+    computed: {
+        ...mapWritableState(useLoginStore, ["usuario"]),
+    },
+};
 </script>
