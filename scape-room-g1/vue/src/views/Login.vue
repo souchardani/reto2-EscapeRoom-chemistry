@@ -224,7 +224,9 @@
 export default {
     data() {
         return {
-            pass: ""
+            pass: "",
+            userPass: "",
+            nick: ""
         };
     },
 
@@ -245,6 +247,21 @@ export default {
 
         showPass() {
             alert("Encontraste una etiqueta que anota el vial. En la etiqueta se lee: "+this.pass);
+        },
+
+        checkLogin() {
+            // obtengo los datos
+            this.nick = document.getElementById("nickJugador").value;
+            this.userPass = document.getElementById("clave-acceso").value;
+
+            // si la contraseña introducida coincide
+            if (this.userPass == this.pass) {
+                alert("Login correcto");
+            }
+
+            else {
+                alert("Login incorrecto");
+            }
         }
 
     },
