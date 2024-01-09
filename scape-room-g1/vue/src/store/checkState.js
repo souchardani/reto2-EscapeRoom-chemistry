@@ -24,9 +24,13 @@ export const useCheckStore = defineStore('checkState',{
         },
         changeJuego2(){
             this.juego2=true;
+            this.activarJuego3= false;
+            this.activarJuego2= true;
         },
         changeJuego3(){
             this.juego3=true;
+            this.activarJuego4=false;
+            this.activarJuego3=true;
         },
         changeJuego4(){
             this.juego4=true;
