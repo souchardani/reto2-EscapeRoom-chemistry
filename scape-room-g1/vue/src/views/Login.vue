@@ -53,7 +53,7 @@
                             aventuras!
                         </p>
                     </div>
-                    <i class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"></i>
+                    <i class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl" @click="showPass"></i>
                 </div>
             </div>
 
@@ -216,15 +216,42 @@
             </div>
         </div>
     </div>
-    <LoginLogica></LoginLogica>
+
 </template>
 
 <script>
-import LoginLogica from "../components/LoginLogica.vue";
+
 export default {
-    components: {
-        LoginLogica
+    data() {
+        return {
+            pass: ""
+        };
+    },
+
+    methods: {
+        generatePass() {
+            //this.pass = ""
+
+            // genera la contraseña usando los siguientes caracteres
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const charactersLength = characters.length;
+            let counter = 0;
+
+            while (counter < 5) {
+                this.pass += characters.charAt(Math.floor(Math.random() * charactersLength));
+                counter += 1;
+            }
+        },
+
+        showPass() {
+            alert("Encontraste una etiqueta que anota el vial. En la etiqueta se lee: "+this.pass);
+        }
+
+    },
+    mounted() {
+        this.generatePass()
     }
 }
+
 
 </script>
