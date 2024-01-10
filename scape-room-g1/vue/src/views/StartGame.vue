@@ -34,11 +34,13 @@
         <div class="flex justify-end">
             <BtnSalir></BtnSalir>
         </div>
+
         <h1
-            class="text-center font-medium p-5 py-12 text-5xl md:text-4xl mb-5 drop-shadow-2xl lg:py-6"
+            class="text-center font-medium text-5xl md:text-4xl mb-5 drop-shadow-2xl lg:pb-2"
         >
             Scape Room
         </h1>
+
         <div class="flex">
             <div class="w-100 mx-auto md:w-100">
                 <div class="relative">
@@ -46,14 +48,28 @@
                         src="../assets/lab.jpg"
                         class="lg:w-[80vw] rounded-2xl lg:h-[90vh]"
                     />
+                    <!-- reloj -->
+                    <div
+                        class="absolute bottom-[600px] m-auto w-4/5 md:w-1/2 text-justify relative px-8 py-2 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-30 border border-gray-200 mb-3"
+                        style="backdrop-filter: blur(20px)"
+                    >
+                        <h1
+                            class="text-center font-medium text-3xl md:text-4xl pb-2 drop-shadow-2xl text-red-500"
+                        >
+                            Te quedan {{ storeTemporizador.minutes }}:{{
+                                storeTemporizador.seconds
+                            }}
+                        </h1>
+                    </div>
                     <router-link to="/juego1">
                         <button
                             style="backdrop-filter: blur(20px)"
                             :class="[{'pointer-events-none':store.activarJuego1},'flex', 'absolute', 'bottom-[90px]', 'left-[110px]', 'grow', 'rounded-2xl', 'bg-white', 'bg-opacity-20', 'px-3.5', 'py-2.5', 'mb-8', 'text-sm', 'font-semibold', 'text-gray-900', 'shadow-sm', 'hover:bg-gray-200', 'focus-visible:outline', 'focus-visible:outline-2', 'focus-visible:outline-offset-2', 'focus-visible:outline-white', 'md:bottom-[200px]', 'md:left-[200px]', 'lg:bottom-[100px]', 'lg:left-[250px]']"
                         >
                             <i
-                                ><svg ref="juego1"
-                                    :class="{'check':store.juego1}"
+                                ><svg
+                                    ref="juego1"
+                                    :class="{ check: store.juego1 }"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -70,13 +86,14 @@
                         </button>
                     </router-link>
                     <router-link to="/juego2">
-                        <button ref="juego2"
+                        <button
+                            ref="juego2"
                             style="backdrop-filter: blur(20px)"
                             :class="[{'pointer-events-none':store.activarJuego2},'flex', 'absolute', 'bottom-20', 'right-20', 'grow', 'rounded-2xl', 'bg-white', 'bg-opacity-20', 'px-3.5', 'py-2.5', 'mb-8', 'text-sm', 'font-semibold', 'text-gray-900', 'shadow-sm', 'hover:bg-gray-200', 'focus-visible:outline', 'focus-visible:outline-2', 'focus-visible:outline-offset-2', 'focus-visible:outline-white', 'md:bottom-[300px]', 'lg:bottom-[200px]']"
                         >
                             <i
                                 ><svg
-                                    :class="{'check':store.juego2}"
+                                    :class="{ check: store.juego2 }"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -94,13 +111,14 @@
                         </button>
                     </router-link>
                     <router-link to="/juego3">
-                        <button ref="juego3"
+                        <button
+                            ref="juego3"
                             style="backdrop-filter: blur(20px)"
                             :class="[{'pointer-events-none':store.activarJuego3},'flex', 'absolute', 'bottom-32', 'left-2', 'grow', 'rounded-2xl', 'bg-white', 'bg-opacity-20', 'px-3.5','py-2.5', 'mb-8', 'text-sm', 'font-semibold', 'text-gray-900', 'shadow-sm', 'hover:bg-gray-200', 'focus-visible:outline', 'focus-visible:outline-2', 'focus-visible:outline-offset-2', 'focus-visible:outline-white', 'md:bottom-72', 'lg:bottom-[180px]']"
                         >
                             <i
                                 ><svg
-                                    :class="{'check':store.juego3}"
+                                    :class="{ check: store.juego3 }"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -118,13 +136,14 @@
                         </button>
                     </router-link>
                     <router-link to="/juego4">
-                        <button ref="juego4"
+                        <button
+                            ref="juego4"
                             style="backdrop-filter: blur(20px)"
                             :class="[{'pointer-events-none':store.activarJuego4},'flex', 'absolute', 'bottom-32', 'right-32', 'grow', 'rounded-2xl', 'bg-white', 'bg-opacity-20', 'px-3.5', 'py-2.5', 'mb-8', 'text-sm', 'font-semibold', 'text-gray-900', 'shadow-sm', 'hover:bg-gray-200', 'focus-visible:outline', 'focus-visible:outline-2', 'focus-visible:outline-offset-2', 'focus-visible:outline-white', 'md:bottom-36', 'md:right-44', 'lg:right-80']"
                         >
                             <i
                                 ><svg
-                                :class="{'check':store.juego4}"
+                                    :class="{ check: store.juego4 }"
                                     aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -145,7 +164,7 @@
             </div>
         </div>
         <!--footer-->
-        <div class="w-100 py-5 pt-12 max-sm:max-w-xl max-sm:mx-auto max-sm:m-6">
+        <div class="w-100 py-2 max-sm:max-w-xl max-sm:mx-auto max-sm:m-6">
             <!-- aqui va el footer -->
             <Footer></Footer>
         </div>
@@ -153,16 +172,21 @@
 </template>
 
 <script setup>
-
 import Footer from "../components/Footer.vue";
 import BtnSalir from "../components/BtnSalir.vue";
-import { useCheckStore } from '../store/checkState';
+import { useCheckStore } from "../store/checkState";
+import { useLoginStore } from "../store/LoginStore";
+import Reloj from "../components/Reloj.vue";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { mapWritableState, mapActions } from "pinia";
 
 const store = useCheckStore();
+const storeLogin = useLoginStore();
+const storeTemporizador = useTemporizadorStore();
+
 </script>
-<style scoped
->
-.check{
+<style scoped>
+.check {
     width: 3rem;
     height: 1rem;
     color: rgb(89, 240, 89);
