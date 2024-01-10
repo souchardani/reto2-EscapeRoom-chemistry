@@ -1,6 +1,6 @@
 <template>
     <!-- main cards -->
-    <div class="grid grid-cols-2 place-content-center justify-items-center">
+    <div class="grid grid-cols-4 place-content-center justify-items-center">
         <FlipCard
             @volteo="comprobar"
             v-for="(card, index) in cards"

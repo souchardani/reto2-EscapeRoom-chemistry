@@ -53,7 +53,7 @@ export default{
 <style scoped>
 .card-container{
 	box-sizing: border-box;
-	padding: 1rem;
+	padding: 0.5rem;
 
 }
 .card div{
@@ -64,7 +64,7 @@ export default{
     height: 9rem;
     position: relative;
     perspective: 1000px;
-    margin: 1rem;
+    margin: 0.5rem;
     transform-style: preserve-3d;
 }
 
