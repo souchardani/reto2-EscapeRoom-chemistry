@@ -51,7 +51,10 @@
                             aventuras!
                         </p>
                     </div>
-                    <i class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl" @click="showPass"></i>
+                    <i
+                        class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"
+                        @click="showPass"
+                    ></i>
                 </div>
             </div>
 
@@ -213,14 +216,12 @@
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
 import { useLoginStore } from "../store/LoginStore";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { mapWritableState, mapActions } from "pinia";
-
 
 export default {
     data() {
@@ -229,20 +230,21 @@ export default {
             txtPassword: "",
             cmbDificultad: "Principiante",
             pass: "",
-            userPass: "",
-            nick: ""
         };
     },
-    components: {
-        LoginLogica,
-    },
+    components: {},
     methods: {
         validar() {
             if (this.txtNick.length < 4) {
                 alert("El nick debe tener más de 4 caracteres.");
+                return;
             }
             if (!this.cmbDificultad) {
                 alert("Debes seleccionar una opción.");
+                return;
+            }
+            if (this.txtPassword == !this.pass) {
+                alert("Las contraseñas no coinciden.");
                 return;
             }
 
@@ -255,6 +257,7 @@ export default {
                 return;
             }
             //llamamos a inicio del luego
+            alert("Bienvenido al juego ");
             this.inicioJuego();
         },
         inicioJuego() {
@@ -279,41 +282,31 @@ export default {
             //this.pass = ""
 
             // genera la contraseña usando los siguientes caracteres
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const characters =
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             const charactersLength = characters.length;
             let counter = 0;
 
             while (counter < 5) {
-                this.pass += characters.charAt(Math.floor(Math.random() * charactersLength));
+                this.pass += characters.charAt(
+                    Math.floor(Math.random() * charactersLength)
+                );
                 counter += 1;
             }
         },
 
         showPass() {
-            alert("Encontraste una etiqueta que anota el vial. En la etiqueta se lee: "+this.pass);
+            alert(
+                "Encontraste una etiqueta que anota el vial. En la etiqueta se lee: " +
+                    this.pass
+            );
         },
-
-        checkLogin() {
-            // obtengo los datos
-            this.nick = document.getElementById("nickJugador").value;
-            this.userPass = document.getElementById("clave-acceso").value;
-
-            // si la contraseña introducida coincide
-            if (this.userPass == this.pass) {
-                alert("Login correcto");
-                this.$route.push("/startGame");
-            }
-
-            else {
-                alert("Login incorrecto");
-            }
-        }
     },
     computed: {
         ...mapWritableState(useLoginStore, ["usuario"]),
     },
     mounted() {
-        this.generatePass()
-    }
+        this.generatePass();
+    },
 };
 </script>
