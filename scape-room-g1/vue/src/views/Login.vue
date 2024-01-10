@@ -243,7 +243,7 @@ export default {
                 alert("Debes seleccionar una opción.");
                 return;
             }
-            if (this.txtPassword == !this.pass) {
+            if (this.txtPassword !== this.pass) {
                 alert("Las contraseñas no coinciden.");
                 return;
             }
