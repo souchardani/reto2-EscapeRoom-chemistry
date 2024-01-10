@@ -53,7 +53,7 @@
                             aventuras!
                         </p>
                     </div>
-                    <i class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"></i>
+                    <i class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl" @click="showPass"></i>
                 </div>
             </div>
 
@@ -163,20 +163,15 @@
                                                 </option>
                                             </select>
                                         </div>
-                                        <router-link to="StartGame">
+
                                             <div class="mt-6 flex">
-                                                <button
-                                                    style="
-                                                        backdrop-filter: blur(
-                                                            20px
-                                                        );
-                                                    "
-                                                    class="grow rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                                                <button style="backdrop-filter: blur(20px);" @click="checkLogin"
+                                                        class="grow rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                                                 >
                                                     Iniciar partida
                                                 </button>
                                             </div>
-                                        </router-link>
+
                                     </form>
                                 </div>
                             </div>
@@ -216,15 +211,60 @@
             </div>
         </div>
     </div>
-    <LoginLogica></LoginLogica>
+
 </template>
 
 <script>
-import LoginLogica from "../components/LoginLogica.vue";
+
 export default {
-    components: {
-        LoginLogica
+    data() {
+        return {
+            pass: "",
+            userPass: "",
+            nick: ""
+        };
+    },
+
+    methods: {
+        generatePass() {
+            //this.pass = ""
+
+            // genera la contraseña usando los siguientes caracteres
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const charactersLength = characters.length;
+            let counter = 0;
+
+            while (counter < 5) {
+                this.pass += characters.charAt(Math.floor(Math.random() * charactersLength));
+                counter += 1;
+            }
+        },
+
+        showPass() {
+            alert("Encontraste una etiqueta que anota el vial. En la etiqueta se lee: "+this.pass);
+        },
+
+        checkLogin() {
+            // obtengo los datos
+            this.nick = document.getElementById("nickJugador").value;
+            this.userPass = document.getElementById("clave-acceso").value;
+
+            // si la contraseña introducida coincide
+            if (this.userPass == this.pass) {
+                alert("Login correcto");
+                this.$route.push("/startGame");
+            }
+
+            else {
+                alert("Login incorrecto");
+            }
+        }
+
+    },
+    mounted() {
+        this.generatePass()
     }
 }
+
 
 </script>
