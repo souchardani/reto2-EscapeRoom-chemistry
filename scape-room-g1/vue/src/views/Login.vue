@@ -53,6 +53,7 @@
                     </div>
                     <i
                         class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"
+                        @click="showPass"
                     ></i>
                 </div>
             </div>
@@ -78,12 +79,12 @@
                             class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative"
                         >
                             <i class="ph ph-info text-2xl"></i>
-                            <span class="text-left"
-                                >Aqui tienes tu primer reto, presiona el tubo de
+                            <span class="text-left">
+                                Aqui tienes tu primer reto, presiona el tubo de
                                 ensayo escondido en la página (debes buscar
                                 bien) y descubre como puedes encontrar la
-                                contraseña de acceso</span
-                            >
+                                contraseña de acceso
+                            </span>
                             <i
                                 class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
                             ></i>
@@ -97,7 +98,7 @@
                             <div class="mx-auto">
                                 <!-- aqui va el contenido dentro del glass -->
                                 <div class="mt-8">
-                                    <form>
+                                    <form @submit.prevent>
                                         <div>
                                             <label
                                                 for="nickJugador"
@@ -105,6 +106,7 @@
                                                 >Nick del juego</label
                                             >
                                             <input
+                                                v-model="txtNick"
                                                 type="text"
                                                 name="nickJugador"
                                                 id="nickJugador"
@@ -130,6 +132,7 @@
                                             </div>
 
                                             <input
+                                                v-model="txtPassword"
                                                 type="password"
                                                 name="clave-acceso"
                                                 id="clave-acceso"
@@ -148,6 +151,7 @@
                                                 >
                                             </div>
                                             <select
+                                                v-model="cmbDificultad"
                                                 name="dificultad"
                                                 id="dificultad"
                                                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -164,9 +168,9 @@
                                                 </option>
                                             </select>
                                         </div>
-
                                         <div class="mt-6 flex">
                                             <button
+                                                @click="validar"
                                                 style="
                                                     backdrop-filter: blur(20px);
                                                 "
@@ -214,4 +218,95 @@
     </div>
 </template>
 
-<script></script>
+<script>
+import { useLoginStore } from "../store/LoginStore";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { mapWritableState, mapActions } from "pinia";
+
+export default {
+    data() {
+        return {
+            txtNick: "",
+            txtPassword: "",
+            cmbDificultad: "Principiante",
+            pass: "",
+        };
+    },
+    components: {},
+    methods: {
+        validar() {
+            if (this.txtNick.length < 4) {
+                alert("El nick debe tener más de 4 caracteres.");
+                return;
+            }
+            if (!this.cmbDificultad) {
+                alert("Debes seleccionar una opción.");
+                return;
+            }
+            if (this.txtPassword == !this.pass) {
+                alert("Las contraseñas no coinciden.");
+                return;
+            }
+
+            if (
+                this.txtNick === "" ||
+                !this.cmbDificultad ||
+                this.txtPassword === ""
+            ) {
+                alert("Todos los campos son obligatorios.");
+                return;
+            }
+            //llamamos a inicio del luego
+            alert("Bienvenido al juego ");
+            this.inicioJuego();
+        },
+        inicioJuego() {
+            //guardamos las variable de inicio de sesion en el store de pinia
+            this.usuario.nick = this.txtNick;
+            this.usuario.dificultad = this.cmbDificultad;
+            this.iniciado = true;
+            console.log(this.usuario);
+            //iniciamos los dos temporizadores
+            //1.reloj para el ranking
+            this.iniciarTemporizador();
+            //2.reloj visual de la pagina
+            this.iniciarCuentaAtras();
+            //redirigimos a la pagina de inicio del juego
+            this.$router.push("/startGame");
+        },
+        ...mapActions(useTemporizadorStore, [
+            "iniciarTemporizador",
+            "iniciarCuentaAtras",
+        ]),
+        generatePass() {
+            //this.pass = ""
+
+            // genera la contraseña usando los siguientes caracteres
+            const characters =
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            const charactersLength = characters.length;
+            let counter = 0;
+
+            while (counter < 5) {
+                this.pass += characters.charAt(
+                    Math.floor(Math.random() * charactersLength)
+                );
+                counter += 1;
+            }
+        },
+
+        showPass() {
+            alert(
+                "Encontraste una etiqueta que anota el vial. En la etiqueta se lee: " +
+                    this.pass
+            );
+        },
+    },
+    computed: {
+        ...mapWritableState(useLoginStore, ["usuario"]),
+    },
+    mounted() {
+        this.generatePass();
+    },
+};
+</script>

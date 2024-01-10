@@ -7,7 +7,7 @@
     >
         <div class="mx-auto">
             <div>
-                <div class="text-black w-full h-25 p-4">
+                <div class="text-black w-full h-25 p-1">
                     <div class="my-1">
                         <span class="font-medium">Colaboradores:</span>
                         <span class="">Alumnos de 2DW3A y dpto. Química</span>
