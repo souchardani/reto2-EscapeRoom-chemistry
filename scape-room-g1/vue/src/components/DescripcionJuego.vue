@@ -1,5 +1,5 @@
 <template>
-    <div class="w-100 py-3 my-6">
+    <div class="w-100 py-1 mt-2 mb-5">
         <div
             class="text-justify relative px-8 py-7 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-60 border border-gray-200"
             style="backdrop-filter: blur(20px)"
