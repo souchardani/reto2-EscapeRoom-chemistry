@@ -64,7 +64,7 @@
                     <router-link to="/juego1">
                         <button
                             style="backdrop-filter: blur(20px)"
-                            class="flex absolute bottom-[90px] left-[110px] grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-[200px] md:left-[200px] lg:bottom-[100px] lg:left-[250px]"
+                            :class="[{'pointer-events-none':store.activarJuego1},'flex', 'absolute', 'bottom-[90px]', 'left-[110px]', 'grow', 'rounded-2xl', 'bg-white', 'bg-opacity-20', 'px-3.5', 'py-2.5', 'mb-8', 'text-sm', 'font-semibold', 'text-gray-900', 'shadow-sm', 'hover:bg-gray-200', 'focus-visible:outline', 'focus-visible:outline-2', 'focus-visible:outline-offset-2', 'focus-visible:outline-white', 'md:bottom-[200px]', 'md:left-[200px]', 'lg:bottom-[100px]', 'lg:left-[250px]']"
                         >
                             <i
                                 ><svg
@@ -89,7 +89,7 @@
                         <button
                             ref="juego2"
                             style="backdrop-filter: blur(20px)"
-                            class="flex absolute bottom-20 right-20 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-[300px] lg:bottom-[200px]"
+                            :class="[{'pointer-events-none':store.activarJuego2},'flex', 'absolute', 'bottom-20', 'right-20', 'grow', 'rounded-2xl', 'bg-white', 'bg-opacity-20', 'px-3.5', 'py-2.5', 'mb-8', 'text-sm', 'font-semibold', 'text-gray-900', 'shadow-sm', 'hover:bg-gray-200', 'focus-visible:outline', 'focus-visible:outline-2', 'focus-visible:outline-offset-2', 'focus-visible:outline-white', 'md:bottom-[300px]', 'lg:bottom-[200px]']"
                         >
                             <i
                                 ><svg
@@ -114,7 +114,7 @@
                         <button
                             ref="juego3"
                             style="backdrop-filter: blur(20px)"
-                            class="flex absolute bottom-32 left-2 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-72 lg:bottom-[180px]"
+                            :class="[{'pointer-events-none':store.activarJuego3},'flex', 'absolute', 'bottom-32', 'left-2', 'grow', 'rounded-2xl', 'bg-white', 'bg-opacity-20', 'px-3.5','py-2.5', 'mb-8', 'text-sm', 'font-semibold', 'text-gray-900', 'shadow-sm', 'hover:bg-gray-200', 'focus-visible:outline', 'focus-visible:outline-2', 'focus-visible:outline-offset-2', 'focus-visible:outline-white', 'md:bottom-72', 'lg:bottom-[180px]']"
                         >
                             <i
                                 ><svg
@@ -139,7 +139,7 @@
                         <button
                             ref="juego4"
                             style="backdrop-filter: blur(20px)"
-                            class="flex absolute bottom-32 right-32 grow rounded-2xl bg-white bg-opacity-20 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:bottom-36 md:right-44 lg:right-80"
+                            :class="[{'pointer-events-none':store.activarJuego4},'flex', 'absolute', 'bottom-32', 'right-32', 'grow', 'rounded-2xl', 'bg-white', 'bg-opacity-20', 'px-3.5', 'py-2.5', 'mb-8', 'text-sm', 'font-semibold', 'text-gray-900', 'shadow-sm', 'hover:bg-gray-200', 'focus-visible:outline', 'focus-visible:outline-2', 'focus-visible:outline-offset-2', 'focus-visible:outline-white', 'md:bottom-36', 'md:right-44', 'lg:right-80']"
                         >
                             <i
                                 ><svg
@@ -169,7 +169,6 @@
             <Footer></Footer>
         </div>
     </div>
-    <button @click="activacheck">cambiar check</button>
 </template>
 
 <script setup>
@@ -184,6 +183,7 @@ import { mapWritableState, mapActions } from "pinia";
 const store = useCheckStore();
 const storeLogin = useLoginStore();
 const storeTemporizador = useTemporizadorStore();
+
 </script>
 <style scoped>
 .check {

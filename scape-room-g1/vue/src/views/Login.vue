@@ -51,9 +51,7 @@
                             aventuras!
                         </p>
                     </div>
-                    <i
-                        class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"
-                    ></i>
+                    <i class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl" @click="showPass"></i>
                 </div>
             </div>
 
@@ -167,7 +165,6 @@
                                                 </option>
                                             </select>
                                         </div>
-
                                         <div class="mt-6 flex">
                                             <button
                                                 @click="validar"
@@ -216,16 +213,14 @@
             </div>
         </div>
     </div>
-    <LoginLogica></LoginLogica>
+
 </template>
 
 <script>
-import LoginLogica from "../components/LoginLogica.vue";
 import { useLoginStore } from "../store/LoginStore";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { mapWritableState, mapActions } from "pinia";
 
-//este es el store de pinia
 
 export default {
     data() {
@@ -233,6 +228,9 @@ export default {
             txtNick: "",
             txtPassword: "",
             cmbDificultad: "Principiante",
+            pass: "",
+            userPass: "",
+            nick: ""
         };
     },
     components: {
@@ -277,9 +275,45 @@ export default {
             "iniciarTemporizador",
             "iniciarCuentaAtras",
         ]),
+        generatePass() {
+            //this.pass = ""
+
+            // genera la contraseña usando los siguientes caracteres
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            const charactersLength = characters.length;
+            let counter = 0;
+
+            while (counter < 5) {
+                this.pass += characters.charAt(Math.floor(Math.random() * charactersLength));
+                counter += 1;
+            }
+        },
+
+        showPass() {
+            alert("Encontraste una etiqueta que anota el vial. En la etiqueta se lee: "+this.pass);
+        },
+
+        checkLogin() {
+            // obtengo los datos
+            this.nick = document.getElementById("nickJugador").value;
+            this.userPass = document.getElementById("clave-acceso").value;
+
+            // si la contraseña introducida coincide
+            if (this.userPass == this.pass) {
+                alert("Login correcto");
+                this.$route.push("/startGame");
+            }
+
+            else {
+                alert("Login incorrecto");
+            }
+        }
     },
     computed: {
         ...mapWritableState(useLoginStore, ["usuario"]),
     },
+    mounted() {
+        this.generatePass()
+    }
 };
 </script>
