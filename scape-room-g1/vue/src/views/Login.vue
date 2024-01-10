@@ -163,20 +163,15 @@
                                                 </option>
                                             </select>
                                         </div>
-                                        <router-link to="StartGame">
+
                                             <div class="mt-6 flex">
-                                                <button
-                                                    style="
-                                                        backdrop-filter: blur(
-                                                            20px
-                                                        );
-                                                    "
-                                                    class="grow rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                                                <button style="backdrop-filter: blur(20px);" @click="checkLogin"
+                                                        class="grow rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                                                 >
                                                     Iniciar partida
                                                 </button>
                                             </div>
-                                        </router-link>
+
                                     </form>
                                 </div>
                             </div>
@@ -257,6 +252,7 @@ export default {
             // si la contraseña introducida coincide
             if (this.userPass == this.pass) {
                 alert("Login correcto");
+                this.$route.push("/startGame");
             }
 
             else {
