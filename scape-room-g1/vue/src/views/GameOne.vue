@@ -1,6 +1,6 @@
 <template>
     <!-- main cards -->
-    <div class="grid grid-cols-4 place-content-center justify-items-center">
+    <div class="grid grid-cols-2 md:grid-cols-4 place-content-center justify-items-center">
         <FlipCard
             @volteo="comprobar"
             v-for="(card, index) in cards"
@@ -21,6 +21,7 @@
         >
             <img :src="obtenerImagenes(card.name)" />
         </FlipCard>
+        <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal"></success>
         <unsuccess v-bind:mostrar="mostrar" @clicked="closeModal"></unsuccess>
     </div>
 </template>
@@ -37,13 +38,14 @@ import { useCheckStore } from "../store/checkState";
 import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
 import unsuccess from "../components/modals/unsuccess.vue";
+import success from "../components/modals/success.vue";
 export default {
     data() {
         return {
 
             errores:0,
             mostrar:false,//esta variable es del componente modal unsuccess
-
+            enhorabuena:false,
             acierto:0,
 
             cards: [],
@@ -136,6 +138,7 @@ export default {
         },
         closeModal(){
             this.mostrar= false;
+            this.enhorabuena=false;
             this.$router.push("StartGame");
         },
         getNamesCopia(array) {
@@ -157,23 +160,22 @@ export default {
             console.log(img);
             return "game1_puzzles_img/" + img;
         },
-        comprobar(estado, id) {
+        comprobar(estado,id) {
             this.parejas.push(id);
             this.giradas++;
             if (this.giradas == 2) {
                 if (this.parejas[0] === this.parejas[1]) {
-                    alert("pareja encontrada");
+                    this.acierto++;
+                    if(this.acierto==4){
+                        this.changeJuego1();
+                        this.enhorabuena=true;
+                    }
                     this.parejas.forEach((pareja) => {
                         this.$refs[pareja][0].correct(); //correct es la clase de resultado encontrado
                         this.$refs[pareja][1].correct();
                     });
-                    this.acierto++;
-                    if(this.acierto==4){
 
-                        this.changeJuego1();
-                        alert("enhoraBuena, has completado el juego");
-                        this.$router.push("/StartGame");
-                    }
+
 
                 } else {
                     alert("las parejas no son iguales");
@@ -186,14 +188,11 @@ export default {
                     if(this.errores==5){
                         this.mostrar=true;
                     }
-
-                    console.log("el contador es" + this.contador);
                 }
                 this.parejas = [];
                 this.giradas = 0;
             }
         },
-
         ...mapActions(useProgressBarStore, [
             "insertaFallo1",
             "insertaFallo2",
@@ -236,7 +235,8 @@ export default {
     ProgressBar,
     BtnSalir,
     FlipCard,
-    unsuccess
+    unsuccess,
+    success
 },
     computed: {
         ...mapWritableState(useProgressBarStore, ["contador"]),

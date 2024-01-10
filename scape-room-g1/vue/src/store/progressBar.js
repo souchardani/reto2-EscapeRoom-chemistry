@@ -59,7 +59,6 @@ export const useProgressBarStore=defineStore('progressbar',{
         },
         incrementafallo(){
             this.contador++;
-            console.log(this.contador);
         }
     }
 });
