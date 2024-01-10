@@ -3,10 +3,10 @@
         <label for="">Introduce una letra</label>
         <div class="pb-5 mt-20 mb-12">
 
-            <img :src="imagen" class='mx-auto'>
+            <img v-bind:src="imagen" class='mx-auto'>
 
         </div>
-        <input type="text" id="letra" maxlength="1" size="1" ><br><br>
+        <input type="text" id="letra" maxlength="1" size="1" style="text-align:center"><br><br>
         <button class="rounded-2xl bg-white bg-opacity-40 px-5 py-1.5 mb-5 text-2xl font-semibold text-gray-900 shadow-sm hover:bg-red-500 hover:text-white cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             style="backdrop-filter: blur(20px)" @click="mostrarLetra()">pulsar</button><br>
 
@@ -21,7 +21,7 @@
 <script>
 
 
-
+let z=1;
 
 export default {
 
@@ -34,7 +34,7 @@ export default {
             palabraBarra:"",
             mostrar:[],
             letra:"",
-            imagen: "../assets/game3_hangman_img/hangman1.png",
+            imagen: "",
 
         }
     },
@@ -45,23 +45,33 @@ export default {
         },
         mostrarLetra(){
             this.letra=document.getElementById('letra').value;
+            let acertado=false;
 
-            for (let i = 0; i < this.random.length; i++) {
+                // Oculta la palabra con _ _ _
+                for (let i = 0; i < this.random.length; i++) {
+                    if (this.mostrar[i]==null) {
+                        this.mostrar[i]="_";
+                    }
 
-               if (this.letra==this.random[i]) {
-                    alert('has acertado');
-                    // this.mostrar+=this.random[i];
-                    this.mostrar[i]=this.letra;
-               }
+                    // Si es correcta la letra
+                    if (this.letra==this.random[i]) {
+                            alert('has acertado');
+                            // this.mostrar+=this.random[i];
+                            this.mostrar[i]=this.letra;
+                            acertado=true;
 
-               if(this.letra!=this.random[i] ){
-                    // this.imagen='../assets/game3_hangman_img/hangman1.png'
-               }
+                    }
 
-               if (this.mostrar[i]==null) {
-                this.mostrar[i]="_";
-               }
-            }
+
+                }
+
+                // si al recorrer la palabra falla
+
+                if(acertado==false && z<12) {
+                    this.imagen="../../public/game3_hangman_img/hangman"+z+".png";
+                    z=z+1;
+                }
+
         },
 
     },
