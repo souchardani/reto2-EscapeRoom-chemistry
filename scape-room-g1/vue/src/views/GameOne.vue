@@ -33,14 +33,19 @@ import ProgressBar from "../components/ProgressBar.vue";
 import BtnSalir from "../components/BtnSalir.vue";
 import FlipCard from "../components/Flip-Card.vue";
 import { useProgressBarStore } from "../store/progressBar";
+import { useCheckStore } from "../store/checkState";
 import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
 import unsuccess from "../components/modals/unsuccess.vue";
 export default {
     data() {
         return {
+
             errores:0,
             mostrar:false,//esta variable es del componente modal unsuccess
+
+            acierto:0,
+
             cards: [],
             cardsCopia: [],
             volteo: null,
@@ -162,6 +167,14 @@ export default {
                         this.$refs[pareja][0].correct(); //correct es la clase de resultado encontrado
                         this.$refs[pareja][1].correct();
                     });
+                    this.acierto++;
+                    if(this.acierto==4){
+
+                        this.changeJuego1();
+                        alert("enhoraBuena, has completado el juego");
+                        this.$router.push("/StartGame");
+                    }
+
                 } else {
                     alert("las parejas no son iguales");
                     this.parejas.forEach((pareja) => {
@@ -187,8 +200,9 @@ export default {
             "insertaFallo3",
             "insertaFallo4",
             "insertaFallo5",
-            "incrementafallo",
+            "incrementafallo"
         ]),
+        ...mapActions(useCheckStore,["changeJuego1"]),
 
         marcaError(contador) {
             switch (contador) {
@@ -226,6 +240,7 @@ export default {
 },
     computed: {
         ...mapWritableState(useProgressBarStore, ["contador"]),
+
     },
 };
 </script>
