@@ -1,6 +1,6 @@
 <template>
     <!-- main cards -->
-    <div class="grid grid-cols-2 place-content-center justify-items-center">
+    <div class="grid grid-cols-4 place-content-center justify-items-center">
         <FlipCard
             @volteo="comprobar"
             v-for="(card, index) in cards"
@@ -21,9 +21,11 @@
         >
             <img :src="obtenerImagenes(card.name)" />
         </FlipCard>
+        <unsuccess v-bind:mostrar="mostrar" @clicked="closeModal"></unsuccess>
     </div>
 </template>
 <script>
+
 import DescripcionJuego from "../components/DescripcionJuego.vue";
 import GlassCard from "../components/GlassCard.vue";
 import Reloj from "../components/Reloj.vue";
@@ -34,10 +36,16 @@ import { useProgressBarStore } from "../store/progressBar";
 import { useCheckStore } from "../store/checkState";
 import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
+import unsuccess from "../components/modals/unsuccess.vue";
 export default {
     data() {
         return {
+
+            errores:0,
+            mostrar:false,//esta variable es del componente modal unsuccess
+
             acierto:0,
+
             cards: [],
             cardsCopia: [],
             volteo: null,
@@ -126,6 +134,10 @@ export default {
 
             return this.cards;
         },
+        closeModal(){
+            this.mostrar= false;
+            this.$router.push("StartGame");
+        },
         getNamesCopia(array) {
             this.cardsCopia = array.slice();
             for (let i = this.cardsCopia.length - 1; i > 0; i--) {
@@ -170,6 +182,10 @@ export default {
                         this.$refs[pareja][1].voltearDeNuevo();
                     });
                     this.marcaError(this.contador);
+                    this.errores++;
+                    if(this.errores==5){
+                        this.mostrar=true;
+                    }
 
                     console.log("el contador es" + this.contador);
                 }
@@ -214,13 +230,14 @@ export default {
     },
 
     components: {
-        DescripcionJuego,
-        GlassCard,
-        Reloj,
-        ProgressBar,
-        BtnSalir,
-        FlipCard,
-    },
+    DescripcionJuego,
+    GlassCard,
+    Reloj,
+    ProgressBar,
+    BtnSalir,
+    FlipCard,
+    unsuccess
+},
     computed: {
         ...mapWritableState(useProgressBarStore, ["contador"]),
 
