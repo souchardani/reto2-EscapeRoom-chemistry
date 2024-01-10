@@ -37,11 +37,9 @@
                 class="relative bg-cover lg:block lg:w-2/3 max-md:mx-8 max-md:rounded-2xl overflow-hidden"
                 style="background-image: url(/puerta.jpg)"
             >
-
                 <div
                     class="flex items-center h-96 md:h-full px-20 bg-gray-900 bg-opacity-75"
                 >
-
                     <div>
                         <h2 class="text-4xl font-bold text-white">
                             Que tenía el Vial
@@ -62,9 +60,7 @@
             >
                 <div class="flex-1">
                     <div class="text-center">
-
                         <h2 class="text-4xl font-bold text-center">
-
                             Accede al juego
                         </h2>
                         <!-- <img src="../assets/img/puerta.jpg" alt="" /> -->
@@ -81,10 +77,14 @@
                         >
                             <i class="ph ph-info text-2xl"></i>
                             <span class="text-left">
-                                Aqui tienes tu primer reto, presiona el tubo de ensayo escondido en la página
-                                (debes buscar bien) y descubre como puedes encontrar la contraseña de acceso
-                                </span>
-                            <i class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"></i>
+                                Aqui tienes tu primer reto, presiona el tubo de
+                                ensayo escondido en la página (debes buscar
+                                bien) y descubre como puedes encontrar la
+                                contraseña de acceso
+                            </span>
+                            <i
+                                class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
+                            ></i>
                         </div>
                     </div>
                     <div class="w-100 my-8">
@@ -95,7 +95,7 @@
                             <div class="mx-auto">
                                 <!-- aqui va el contenido dentro del glass -->
                                 <div class="mt-8">
-                                    <form>
+                                    <form @submit.prevent>
                                         <div>
                                             <label
                                                 for="nickJugador"
@@ -103,6 +103,7 @@
                                                 >Nick del juego</label
                                             >
                                             <input
+                                                v-model="txtNick"
                                                 type="text"
                                                 name="nickJugador"
                                                 id="nickJugador"
@@ -110,7 +111,6 @@
                                                 class="block w-full px-4 py-2 mt-2 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                                             />
                                         </div>
-
 
                                         <div class="mt-6">
                                             <div
@@ -129,6 +129,7 @@
                                             </div>
 
                                             <input
+                                                v-model="txtPassword"
                                                 type="password"
                                                 name="clave-acceso"
                                                 id="clave-acceso"
@@ -147,6 +148,7 @@
                                                 >
                                             </div>
                                             <select
+                                                v-model="cmbDificultad"
                                                 name="dificultad"
                                                 id="dificultad"
                                                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -163,19 +165,20 @@
                                                 </option>
                                             </select>
                                         </div>
-
-                                            <div class="mt-6 flex">
-                                                <button style="backdrop-filter: blur(20px);" @click="checkLogin"
-                                                        class="grow rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                                                >
-                                                    Iniciar partida
-                                                </button>
-                                            </div>
-
+                                        <div class="mt-6 flex">
+                                            <button
+                                                @click="validar"
+                                                style="
+                                                    backdrop-filter: blur(20px);
+                                                "
+                                                class="grow rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                                            >
+                                                Iniciar partida
+                                            </button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -195,7 +198,6 @@
                                 <span class=""
                                     >Alumnos de 2DW3A y dpto. Química</span
                                 >
-
                             </div>
                             <div class="my-1">
                                 <span class="font-medium">Email: </span>
@@ -215,17 +217,64 @@
 </template>
 
 <script>
+import { useLoginStore } from "../store/LoginStore";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { mapWritableState, mapActions } from "pinia";
+
 
 export default {
     data() {
         return {
+            txtNick: "",
+            txtPassword: "",
+            cmbDificultad: "Principiante",
             pass: "",
             userPass: "",
             nick: ""
         };
     },
-
+    components: {
+        LoginLogica,
+    },
     methods: {
+        validar() {
+            if (this.txtNick.length < 4) {
+                alert("El nick debe tener más de 4 caracteres.");
+            }
+            if (!this.cmbDificultad) {
+                alert("Debes seleccionar una opción.");
+                return;
+            }
+
+            if (
+                this.txtNick === "" ||
+                !this.cmbDificultad ||
+                this.txtPassword === ""
+            ) {
+                alert("Todos los campos son obligatorios.");
+                return;
+            }
+            //llamamos a inicio del luego
+            this.inicioJuego();
+        },
+        inicioJuego() {
+            //guardamos las variable de inicio de sesion en el store de pinia
+            this.usuario.nick = this.txtNick;
+            this.usuario.dificultad = this.cmbDificultad;
+            this.iniciado = true;
+            console.log(this.usuario);
+            //iniciamos los dos temporizadores
+            //1.reloj para el ranking
+            this.iniciarTemporizador();
+            //2.reloj visual de la pagina
+            this.iniciarCuentaAtras();
+            //redirigimos a la pagina de inicio del juego
+            this.$router.push("/startGame");
+        },
+        ...mapActions(useTemporizadorStore, [
+            "iniciarTemporizador",
+            "iniciarCuentaAtras",
+        ]),
         generatePass() {
             //this.pass = ""
 
@@ -259,12 +308,12 @@ export default {
                 alert("Login incorrecto");
             }
         }
-
+    },
+    computed: {
+        ...mapWritableState(useLoginStore, ["usuario"]),
     },
     mounted() {
         this.generatePass()
     }
-}
-
-
+};
 </script>
