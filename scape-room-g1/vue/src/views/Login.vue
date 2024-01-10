@@ -97,7 +97,7 @@
                             <div class="mx-auto">
                                 <!-- aqui va el contenido dentro del glass -->
                                 <div class="mt-8">
-                                    <form>
+                                    <form @submit.prevent>
                                         <div>
                                             <label
                                                 for="nickJugador"
@@ -131,7 +131,7 @@
                                             </div>
 
                                             <input
-                                                v-mdoel="txtPassword"
+                                                v-model="txtPassword"
                                                 type="password"
                                                 name="clave-acceso"
                                                 id="clave-acceso"
@@ -167,21 +167,18 @@
                                                 </option>
                                             </select>
                                         </div>
-                                        <router-link to="StartGame">
-                                            <div class="mt-6 flex">
-                                                <button
-                                                    @click="validar"
-                                                    style="
-                                                        backdrop-filter: blur(
-                                                            20px
-                                                        );
-                                                    "
-                                                    class="grow rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                                                >
-                                                    Iniciar partida
-                                                </button>
-                                            </div>
-                                        </router-link>
+
+                                        <div class="mt-6 flex">
+                                            <button
+                                                @click="validar"
+                                                style="
+                                                    backdrop-filter: blur(20px);
+                                                "
+                                                class="grow rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                                            >
+                                                Iniciar partida
+                                            </button>
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -225,7 +222,7 @@
 <script>
 import LoginLogica from "../components/LoginLogica.vue";
 import { useLoginStore } from "../store/LoginStore";
-import { useTemporizadorStore } from "../store/ContadorStore";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { mapWritableState, mapActions } from "pinia";
 
 //este es el store de pinia
@@ -243,13 +240,38 @@ export default {
     },
     methods: {
         validar() {
-            alert("entrando a validar");
+            if (this.txtNick.length < 4) {
+                alert("El nick debe tener más de 4 caracteres.");
+            }
+            if (!this.cmbDificultad) {
+                alert("Debes seleccionar una opción.");
+                return;
+            }
+
+            if (
+                this.txtNick === "" ||
+                !this.cmbDificultad ||
+                this.txtPassword === ""
+            ) {
+                alert("Todos los campos son obligatorios.");
+                return;
+            }
+            //llamamos a inicio del luego
+            this.inicioJuego();
+        },
+        inicioJuego() {
+            //guardamos las variable de inicio de sesion en el store de pinia
+            this.usuario.nick = this.txtNick;
+            this.usuario.dificultad = this.cmbDificultad;
+            this.iniciado = true;
             console.log(this.usuario);
-            this.usuario.nick = "dani";
-            alert("entrando en la partida");
-            //inicializamos el reloj para el ranking
+            //iniciamos los dos temporizadores
+            //1.reloj para el ranking
             this.iniciarTemporizador();
+            //2.reloj visual de la pagina
             this.iniciarCuentaAtras();
+            //redirigimos a la pagina de inicio del juego
+            this.$router.push("/startGame");
         },
         ...mapActions(useTemporizadorStore, [
             "iniciarTemporizador",

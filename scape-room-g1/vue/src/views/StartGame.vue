@@ -34,11 +34,13 @@
         <div class="flex justify-end">
             <BtnSalir></BtnSalir>
         </div>
+
         <h1
-            class="text-center font-medium p-5 py-12 text-5xl md:text-4xl mb-5 drop-shadow-2xl lg:py-6"
+            class="text-center font-medium text-5xl md:text-4xl mb-5 drop-shadow-2xl lg:pb-2"
         >
             Scape Room
         </h1>
+
         <div class="flex">
             <div class="w-100 mx-auto md:w-100">
                 <div class="relative">
@@ -46,6 +48,19 @@
                         src="../assets/lab.jpg"
                         class="lg:w-[80vw] rounded-2xl lg:h-[90vh]"
                     />
+                    <!-- reloj -->
+                    <div
+                        class="absolute bottom-[600px] m-auto w-4/5 md:w-1/2 text-justify relative px-8 py-2 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-30 border border-gray-200 mb-3"
+                        style="backdrop-filter: blur(20px)"
+                    >
+                        <h1
+                            class="text-center font-medium text-3xl md:text-4xl pb-2 drop-shadow-2xl text-red-500"
+                        >
+                            Te quedan {{ storeTemporizador.minutes }}:{{
+                                storeTemporizador.seconds
+                            }}
+                        </h1>
+                    </div>
                     <router-link to="/juego1">
                         <button
                             style="backdrop-filter: blur(20px)"
@@ -149,7 +164,7 @@
             </div>
         </div>
         <!--footer-->
-        <div class="w-100 py-5 pt-12 max-sm:max-w-xl max-sm:mx-auto max-sm:m-6">
+        <div class="w-100 py-2 max-sm:max-w-xl max-sm:mx-auto max-sm:m-6">
             <!-- aqui va el footer -->
             <Footer></Footer>
         </div>
@@ -162,9 +177,13 @@ import Footer from "../components/Footer.vue";
 import BtnSalir from "../components/BtnSalir.vue";
 import { useCheckStore } from "../store/checkState";
 import { useLoginStore } from "../store/LoginStore";
+import Reloj from "../components/Reloj.vue";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { mapWritableState, mapActions } from "pinia";
 
 const store = useCheckStore();
 const storeLogin = useLoginStore();
+const storeTemporizador = useTemporizadorStore();
 </script>
 <style scoped>
 .check {

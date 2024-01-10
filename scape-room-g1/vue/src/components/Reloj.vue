@@ -1,9 +1,7 @@
 <template>
     <GlassCard>
         <div class="">
-            <div
-                class="flex items-center gap-3 flex-col justify-center font-bold"
-            >
+            <div class="flex items-center flex-col justify-center font-bold">
                 <h1 class="text-3xl md:text-4xl">Tiempo restante</h1>
                 <div class="rounded-full px-9 py-2 text-3xl md:text-4xl">
                     <span>{{ minutes }}</span>
@@ -17,7 +15,7 @@
 
 <script>
 import GlassCard from "./GlassCard.vue";
-import { useTemporizadorStore } from "../store/ContadorStore";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { mapWritableState, mapActions } from "pinia";
 export default {
     data() {},
