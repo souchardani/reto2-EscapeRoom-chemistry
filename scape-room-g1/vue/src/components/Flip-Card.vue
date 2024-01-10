@@ -1,8 +1,8 @@
 <template>
     <div class="card-container" @click="flipCard">
         <div class="card">
-            <div v-bind:class="{'card-superior':Sinvolteo,'card-superior-volteo':ConVolteo,'correcto':correcto}">BUSCA Y ENCUENTRA</div>
-            <div v-bind:class="{'card-inferior':Sinvolteo,'card-inferior-volteo':ConVolteo,'correcto':correcto}"><slot></slot></div>
+            <div :class="{'card-superior':Sinvolteo,'card-superior-volteo':ConVolteo,'correcto':correcto,'incorreto':incorrecto}">BUSCA Y ENCUENTRA</div>
+            <div :class="{'card-inferior':Sinvolteo,'card-inferior-volteo':ConVolteo,'correcto':correcto,'incorreto':incorrecto}"><slot></slot></div>
 	   </div>
     </div>
 </template>
@@ -35,19 +35,21 @@ export default{
                     if(this.ConVolteo){
                         this.Sinvolteo=true;
                         this.ConVolteo=false;
-                        console.log("dando la vuelta a "+this.id);
-                        //desde aqui llamo a la progress bar para sumar un error
-                        // this.incorrecto=true;
-                        // this.$emit('contabilizaError',this.incorrecto)
+                        this.incorrecto=false;
                     }
                 },
                 correct(){
                     this.Sinvolteo=false;
                     this.ConVolteo=true;
                     this.correcto=true;
+                },
+                incorrectoF(){
+                    this.incorrecto=true;
+                    setTimeout(() => {
+                        voltearDeNuevo();
+                    }, 500);
                 }
 		},
-
 }
 </script>
 <style scoped>
@@ -66,6 +68,7 @@ export default{
     perspective: 1000px;
     margin: 0.5rem;
     transform-style: preserve-3d;
+
 }
 
 .card-superior{
@@ -96,6 +99,7 @@ export default{
 	position: absolute;
 	backface-visibility: hidden;
 	transform: rotateY(180deg);
+    content-visibility: hidden;
 }
 .card-superior-volteo{
 	display: flex;
@@ -112,6 +116,7 @@ export default{
 	overflow: hidden;
 	backface-visibility: hidden;
 	transform: rotateY(180deg);
+
 }
 .card-inferior-volteo{
 	display: flex;
@@ -125,6 +130,7 @@ export default{
 	position: absolute;
 	transform: rotateY(360deg);
 
+
 }
 .correcto{
     z-index: 1;
@@ -136,9 +142,21 @@ export default{
 	background-color: white;
 	border-radius: 1.5rem;
 	position: absolute;
-	transform: rotateY(360deg);
     border: 1px solid rgb(55, 246, 42);
     box-shadow: 0px 0px 35px rgb(55, 246, 42);
 
+}
+.incorrecto{
+    z-index: 1;
+    display: flex;
+	height: 100%;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+	border-radius: 1.5rem;
+	position: absolute;
+    border: 1px solid rgb(244, 69, 56);
+    box-shadow: 0px 0px 35px rgb(244, 69, 56);
 }
 </style>
