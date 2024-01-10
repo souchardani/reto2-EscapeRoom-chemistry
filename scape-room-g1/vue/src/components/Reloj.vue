@@ -1,14 +1,12 @@
 <template>
     <GlassCard>
         <div class="">
-            <div
-                class="flex items-center gap-3 flex-col justify-center font-bold"
-            >
-                <h1 class="text-3xl md:text-4xl">Tiempo restante</h1>
+            <div class="flex items-center flex-col justify-center font-bold">
                 <div class="rounded-full px-9 py-2 text-3xl md:text-4xl">
                     <span>{{ minutes }}</span>
                     <span>:</span>
                     <span>{{ seconds }}</span>
+                    <span class="text-3xl md:text-4xl"> Para salvarte</span>
                 </div>
             </div>
         </div>
@@ -17,37 +15,23 @@
 
 <script>
 import GlassCard from "./GlassCard.vue";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { mapWritableState, mapActions } from "pinia";
 export default {
-    data() {
-        return {
-            totalTime: 1800,
-            currentTime: 1800, // Tiempo actual en segundos
-        };
-    },
+    data() {},
     computed: {
-        minutes() {
-            return String(Math.floor(this.currentTime / 60)).padStart(2, "0");
-        },
-        seconds() {
-            return String(this.currentTime % 60).padStart(2, "0");
-        },
+        ...mapWritableState(useTemporizadorStore, [
+            "tiempo",
+            "totalTime",
+            "currentTime",
+            "minutes",
+            "seconds",
+        ]),
     },
     methods: {
-        reduceTime(seconds) {
-            // Asegúrate de que no reduzca el tiempo por debajo de cero
-            this.currentTime = Math.max(0, this.currentTime - seconds);
-        },
+        ...mapActions(useTemporizadorStore, ["getTiempo"]),
     },
-    mounted() {
-        // Inicializar el temporizador
-        setInterval(() => {
-            if (this.currentTime > 0) {
-                this.currentTime -= 1;
-            } else {
-                // Puedes agregar lógica aquí cuando el tiempo llega a cero
-            }
-        }, 1000);
-    },
+    mounted() {},
     components: { GlassCard },
 };
 </script>
