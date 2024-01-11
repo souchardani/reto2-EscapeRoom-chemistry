@@ -25,12 +25,15 @@ export const useLoginStore = defineStore("LoginStore", {
         setSalirAntesDeTiempo() {
             this.usuario.salirAntesDeTiempo = true;
         },
-        reset() {
+        resetUser() {
             this.usuario.nick = null;
             this.usuario.dificultad = null;
             this.usuario.iniciado = false;
             this.usuario.terminado = false;
             this.usuario.salirAntesDeTiempo = false;
+        },
+        getUsuario() {
+            return this.usuario;
         },
     },
 });

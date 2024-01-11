@@ -246,7 +246,7 @@ export default {
         },
         validar() {
             if (this.txtNick.length < 4) {
-                alert("El nick debe tener más de 4 caracteres.");
+                alert("El nick debe tener al menos 4 caracteres.");
                 return;
             }
             if (!this.cmbDificultad) {
@@ -274,7 +274,7 @@ export default {
             //guardamos las variable de inicio de sesion en el store de pinia
             this.usuario.nick = this.txtNick;
             this.usuario.dificultad = this.cmbDificultad;
-            this.iniciado = true;
+            this.usuario.iniciado = true;
             console.log(this.usuario);
             //iniciamos los dos temporizadores
             //1.reloj para el ranking
