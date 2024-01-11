@@ -7,21 +7,21 @@
             @volteo="comprobar"
             v-for="(card, index) in cards"
             :key="index"
-            :name="card.name"
+            :name="card.molecule"
             :id="card.id"
             :ref="card.id"
         >
-            <p class="text-center">{{ card.name }}</p>
+            <p class="text-center">{{ card.molecule }}</p>
         </FlipCard>
         <FlipCard
             @volteo="comprobar"
             v-for="(card, index) in cardsCopia"
             :key="index"
-            :name="card.name"
+            :name="card.molecule"
             :id="card.id"
             :ref="card.id"
         >
-            <img :src="obtenerImagenes(card.name)" />
+            <img :src="obtenerImagenes(card.molecule)" />
         </FlipCard>
         <success
             v-bind:enhorabuena="enhorabuena"
@@ -39,11 +39,13 @@ import BtnSalir from "../components/BtnSalir.vue";
 import FlipCard from "../components/Flip-Card.vue";
 import { useProgressBarStore } from "../store/progressBar";
 import { useCheckStore } from "../store/checkState";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
 import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
 import JSConfetti from "js-confetti";
+import axios from "axios";
 export default {
     data() {
         return {
@@ -59,69 +61,7 @@ export default {
             imgs: [],
             parejas: [],
             giradas: 0,
-            FormulaNames: [
-                {
-                    //los objetos estan hardcodeados para hacer pruebas, deaspues se tendrán que recoger de la BD
-                    id: 1,
-                    name: "Formaldehyde",
-                    img: "Formaldehyde.svg",
-                },
-                {
-                    id: 2,
-                    name: "Beta-D-Galactopyranose",
-                    img: "Beta-D-Galactopyranose.svg",
-                },
-                {
-                    id: 3,
-                    name: "D-ribosa",
-                    img: "D-ribosa.svg",
-                },
-                {
-                    id: 4,
-                    name: "Pyruvate_decarb_1",
-                    img: "Pyruvate_decarb_1.svg",
-                },
-                {
-                    id: 5,
-                    name: "Lactic-acid-skeletal",
-                    img: "Lactic-acid-skeletal.svg",
-                },
-                {
-                    id: 6,
-                    name: "Benzyl_chloride",
-                    img: "Benzyl_chloride.svg",
-                },
-                {
-                    id: 7,
-                    name: "Phenol_chemical_structure_es",
-                    img: "Phenol_chemical_structure_es.svg",
-                },
-                {
-                    id: 8,
-                    name: "Anisol",
-                    img: "Anisol.svg",
-                },
-                {
-                    id: 9,
-                    name: "Sodium_acetate_formula_V_1",
-                    img: "Sodium_acetate_formula_V_1.svg",
-                },
-                {
-                    id: 10,
-                    name: "Ethyl_benzoate",
-                    img: "Ethyl_benzoate.svg",
-                },
-                {
-                    id: 11,
-                    name: "Methyl_acetate",
-                    img: "Methyl_acetate.svg",
-                },
-                {
-                    id: 12,
-                    name: "Benzoic_anhydride",
-                    img: "Benzoic_anhydride.svg",
-                },
-            ],
+            FormulaNames: [],
         };
     },
     methods: {
@@ -158,9 +98,9 @@ export default {
 
         obtenerImagenes(name) {
             let respuestaAObtener = this.FormulaNames.filter(
-                (respuesta) => respuesta.name === name
+                (respuesta) => respuesta.molecule === name
             );
-            let img = respuestaAObtener[0].img;
+            let img = respuestaAObtener[0].img_molecule;
             console.log(img);
             return "game1_puzzles_img/" + img;
         },
@@ -190,6 +130,7 @@ export default {
                     this.errores++;
                     if (this.errores == 5) {
                         this.mostrar = true;
+                        this.reduceTime(300);
                     }
                 }
                 this.parejas = [];
@@ -203,8 +144,10 @@ export default {
             "insertaFallo4",
             "insertaFallo5",
             "incrementafallo",
+            ,
         ]),
         ...mapActions(useCheckStore, ["changeJuego1"]),
+        ...mapActions(useTemporizadorStore, ["reduceTime"]),
 
         marcaError(contador) {
             switch (contador) {
@@ -225,10 +168,18 @@ export default {
                     break;
             }
         },
+        async getAllData() {
+            const allData = await axios.get(
+                "http://127.0.0.1:8000/api/getjuego1"
+            );
+            this.FormulaNames = allData.data;
+            console.log(this.FormulaNames);
+            this.getNames();
+            this.getNamesCopia(this.cards);
+        },
     },
     mounted() {
-        this.getNames();
-        this.getNamesCopia(this.cards);
+        this.getAllData();
     },
 
     components: {
