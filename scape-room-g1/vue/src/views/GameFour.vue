@@ -65,126 +65,126 @@ export default {
             contador: 0,
             quizs: [],
             quizsAxios: [],
-            grows: [
+            quizsLocal: [
                 {
-                    quiz: "Recuento de mesófilos, aerobios y heterótrofos.",
-                    answere: "PCA",
+                    growth: "Recuento de mesófilos, aerobios y heterótrofos.",
+                    caracteristics: "PCA",
                 },
                 {
-                    quiz: "Detección de Coliformes, los de fermentación lenta tardan en crecer.",
-                    answere: "MCCONKEY",
+                    growth: "Detección de Coliformes, los de fermentación lenta tardan en crecer.",
+                    caracteristics: "MCCONKEY",
                 },
                 {
-                    quiz: "Detección y recuento de E. coli y coliformes.",
-                    answere: "CCA",
+                    growth: "Detección y recuento de E. coli y coliformes.",
+                    caracteristics: "CCA",
                 },
                 {
-                    quiz: "Para la confirmación de enterococos.",
-                    answere: "KAA",
+                    growth: "Para la confirmación de enterococos.",
+                    caracteristics: "KAA",
                 },
                 {
-                    quiz: "Detección y recuento de coliformes en agua, alimentos….",
-                    answere: "VRBG",
+                    growth: "Detección y recuento de coliformes en agua, alimentos….",
+                    caracteristics: "VRBG",
                 },
                 {
-                    quiz: "Se usa para el aislamiento y el cultivo de microorganismos Gram - entéricos, y especialmente para el aislamiento de especies de Shigella y Salmonella.",
-                    answere: "HEKTOEN",
+                    growth: "Se usa para el aislamiento y el cultivo de microorganismos Gram - entéricos, y especialmente para el aislamiento de especies de Shigella y Salmonella.",
+                    caracteristics: "HEKTOEN",
                 },
                 {
-                    quiz: "Crecimiento general. Recuento de totales.",
-                    answere: "TSA",
+                    growth: "Crecimiento general. Recuento de totales.",
+                    caracteristics: "TSA",
                 },
                 {
-                    quiz: "Diferenciación de enterobacterias en base a la fermentación de hidratos de carbono y a la producción de ácido sulfhídrico.",
-                    answere: "KIA",
+                    growth: "Diferenciación de enterobacterias en base a la fermentación de hidratos de carbono y a la producción de ácido sulfhídrico.",
+                    caracteristics: "KIA",
                 },
                 {
-                    quiz: "Diferenciación de enterobacterias en base la capacidad de usar citrato como única fuente de carbono y energía.",
-                    answere: "CITRATO SIMMONS",
+                    growth: "Diferenciación de enterobacterias en base la capacidad de usar citrato como única fuente de carbono y energía.",
+                    caracteristics: "CITRATO SIMMONS",
                 },
                 {
-                    quiz: "Se utiliza para la detección de coliformes y la detección fluorogénica de Escherichia coli en un entorno de laboratorio.",
-                    answere: "LAURIL SULFATO CON MUG",
+                    growth: "Se utiliza para la detección de coliformes y la detección fluorogénica de Escherichia coli en un entorno de laboratorio.",
+                    caracteristics: "LAURIL SULFATO CON MUG",
                 },
                 {
-                    quiz: "Es ideal para la enumeración de enterococos mediante el método de dilución en serie (NMP).",
-                    answere: "CALDO DE GLUCOSA ACIDA (ROTHE)",
+                    growth: "Es ideal para la enumeración de enterococos mediante el método de dilución en serie (NMP).",
+                    caracteristics: "CALDO DE GLUCOSA ACIDA (ROTHE)",
                 },
                 {
-                    quiz: "Aislamiento y recuento de enterococos.",
-                    answere: "AGAR SLANETZ Y BARTLEY",
+                    growth: "Aislamiento y recuento de enterococos.",
+                    caracteristics: "AGAR SLANETZ Y BARTLEY",
                 },
                 {
-                    quiz: "Al ser con sangre permite crecimiento de organismos nutricionalmente exigentes y la clara visualización de la hemólisis.",
-                    answere: "AGAR SANGRE",
+                    growth: "Al ser con sangre permite crecimiento de organismos nutricionalmente exigentes y la clara visualización de la hemólisis.",
+                    caracteristics: "AGAR SANGRE",
                 },
                 {
-                    quiz: "Aislamiento y recuento selectivo de Clostridium perfringens y sus esporas. Colonias amarillo-verdosas.",
-                    answere: "MCP",
+                    growth: "Aislamiento y recuento selectivo de Clostridium perfringens y sus esporas. Colonias amarillo-verdosas.",
+                    caracteristics: "MCP",
                 },
                 {
-                    quiz: "Aislamiento  y recuento de Clostridium perfringens en agua, alimentos….",
-                    answere: "TSC",
+                    growth: "Aislamiento  y recuento de Clostridium perfringens en agua, alimentos….",
+                    caracteristics: "TSC",
                 },
                 {
-                    quiz: "Diluyente y enriquecimiento bacteriano Se usa en la prueba INDOL y ONPG.",
-                    answere: "AGUA DE PEPTONA",
+                    growth: "Diluyente y enriquecimiento bacteriano Se usa en la prueba INDOL y ONPG.",
+                    caracteristics: "AGUA DE PEPTONA",
                 },
                 {
-                    quiz: "Para analizar la sensibilidad de cepas aisladas a partir de agentes antimicrobianos ANTIBIOGRAMAS.",
-                    answere: "MUELLER-HILTON",
+                    growth: "Para analizar la sensibilidad de cepas aisladas a partir de agentes antimicrobianos ANTIBIOGRAMAS.",
+                    caracteristics: "MUELLER-HILTON",
                 },
                 {
-                    quiz: "Diferenciación de la fermentación de lactosa  de tipo butanodiólica y ácido mixta (Diferenciar Serratia-E.coli).",
-                    answere: "EMB",
+                    growth: "Diferenciación de la fermentación de lactosa  de tipo butanodiólica y ácido mixta (Diferenciar Serratia-E.coli).",
+                    caracteristics: "EMB",
                 },
                 {
-                    quiz: "Se utiliza para el cultivo de microorganismos heterótrofos.",
-                    answere: "BACTO 2R",
+                    growth: "Se utiliza para el cultivo de microorganismos heterótrofos.",
+                    caracteristics: "BACTO 2R",
                 },
                 {
-                    quiz: "Medio selectivo y diferencial utilizado para el control presuntivo de E. coli y coliformes en aguas.",
-                    answere: "CHAPMAN TTC",
+                    growth: "Medio selectivo y diferencial utilizado para el control presuntivo de E. coli y coliformes en aguas.",
+                    caracteristics: "CHAPMAN TTC",
                 },
                 {
-                    quiz: "Es utilizado en el control de esterilidad de productos biológicos, farmacéuticos y cosméticos.",
-                    answere: "TSB",
+                    growth: "Es utilizado en el control de esterilidad de productos biológicos, farmacéuticos y cosméticos.",
+                    caracteristics: "TSB",
                 },
                 {
-                    quiz: "Medio selectivo y diferencial para enumeración de coliformes fecales por la técnica de Filtración de Membrana, en aguas.",
-                    answere: "M-FC",
+                    growth: "Medio selectivo y diferencial para enumeración de coliformes fecales por la técnica de Filtración de Membrana, en aguas.",
+                    caracteristics: "M-FC",
                 },
                 {
-                    quiz: "Este medio se utiliza para el aislamiento primario de Salmonella a partir de muestras fecales humanas.",
-                    answere: "SALMONELLA-SHIGELLA",
+                    growth: "Este medio se utiliza para el aislamiento primario de Salmonella a partir de muestras fecales humanas.",
+                    caracteristics: "SALMONELLA-SHIGELLA",
                 },
                 {
-                    quiz: "La selectividad se debe al sulfito de sodio, supresión parcial de los microorganismos Gram +",
-                    answere: "ENDO",
+                    growth: "La selectividad se debe al sulfito de sodio, supresión parcial de los microorganismos Gram +",
+                    caracteristics: "ENDO",
                 },
                 {
-                    quiz: "Medio para la detección y recuento de enterococos.",
-                    answere: "ESTREPTOCOCOS-KF",
+                    growth: "Medio para la detección y recuento de enterococos.",
+                    caracteristics: "ESTREPTOCOCOS-KF",
                 },
                 {
-                    quiz: "Se usa para el aislamiento de hongos.",
-                    answere: "SABOURAUD CON CLORANFENICOL",
+                    growth: "Se usa para el aislamiento de hongos.",
+                    caracteristics: "SABOURAUD CON CLORANFENICOL",
                 },
                 {
-                    quiz: "Es un medio nutricionalmente rico que se utiliza principalmente para el cultivo de bacterias..",
-                    answere: "LURIA",
+                    growth: "Es un medio nutricionalmente rico que se utiliza principalmente para el cultivo de bacterias..",
+                    caracteristics: "LURIA",
                 },
                 {
-                    quiz: "Recuento y detección de E. coli en alimentos.",
-                    answere: "TSX",
+                    growth: "Recuento y detección de E. coli en alimentos.",
+                    caracteristics: "TSX",
                 },
                 {
-                    quiz: "Medio de cultivo utilizado para diferenciar microorganismos, especialmente Salmonella spp., basado en la descarboxilación y desaminación de la lisina y en la producción de ácido sulfhídrico.",
-                    answere: "LIA",
+                    growth: "Medio de cultivo utilizado para diferenciar microorganismos, especialmente Salmonella spp., basado en la descarboxilación y desaminación de la lisina y en la producción de ácido sulfhídrico.",
+                    caracteristics: "LIA",
                 },
                 {
-                    quiz: "Medio para ensayos de Rojo de metilo y Voges-Proskauer (APHA) para la identificación acorde al IMVIC.",
-                    answere: "CLARCK Y LUBS",
+                    growth: "Medio para ensayos de Rojo de metilo y Voges-Proskauer (APHA) para la identificación acorde al IMVIC.",
+                    caracteristics: "CLARCK Y LUBS",
                 },
             ],
         };
@@ -192,7 +192,7 @@ export default {
     methods: {/*
         loadQuizs() {
             for (let i = 0; i < 10; i++) {
-                let random = Math.floor(Math.random() * this.grows.length);
+                let random = Math.floor(Math.random() * this.quizsLocal.length);
 
                 let object = {
                     growth: this.quizsAxios[random],
@@ -211,12 +211,13 @@ export default {
             //this.getNames();
             //this.getNamesCopia(this.cards);
             //this.loadQuizs();
-            console.log(this.quizsAxios[0].growth + " - " + this.quizsAxios[0].caracteristics);
+            console.log(this.quizsAxios[0].id + " - " + this.quizsAxios[0].growth + " - " + this.quizsAxios[0].caracteristics);
 
             for (let i = 0; i < 10; i++) {
                 let random = Math.floor(Math.random() * this.quizsAxios.length);
 
                 let object = {
+                    id: this.quizsAxios[random].id,
                     growth: this.quizsAxios[random].growth,
                     caracteristics: this.quizsAxios[random].caracteristics
                 };
@@ -226,11 +227,11 @@ export default {
     },/*
     beforeMount() {
         for (let i = 0; i < 10; i++) {
-            let qquiz = Math.floor(Math.random() * this.grows.length);
+            let qquiz = Math.floor(Math.random() * this.quizsLocal.length);
 
             let object = {
-                quiz: this.grows[qquiz].quiz,
-                answere: this.grows[qquiz].answere,
+                growth: this.quizsLocal[qquiz].growth,
+                caracteristics: this.quizsLocal[qquiz].caracteristics,
             };
             this.quizs.push(object);
         }
