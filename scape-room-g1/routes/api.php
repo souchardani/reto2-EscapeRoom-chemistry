@@ -17,4 +17,7 @@ use App\Http\Controllers\JuegoController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Get game data with Axios
 Route::get('/getjuego1',[JuegoController::class,'getInfoJuego1'])->name('getJuego1');
+Route::get('/getjuego4',[JuegoController::class,'getInfoJuego4'])->name('getJuego4');

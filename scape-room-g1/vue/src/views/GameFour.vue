@@ -15,7 +15,7 @@
             </div>
         </div>
         <GlassCard>
-            <h4 class="text-3xl text-center">{{ quizs[contador].quiz }}</h4>
+            <!--<h4 class="text-3xl text-center">{{ quizs[contador].caracteristics }}</h4>-->
         </GlassCard>
 
         <div class="text-center m-4 flex justify-center">
@@ -23,8 +23,8 @@
                 name="answeres"
                 class="block px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
             >
-                <option v-for="grow in grows" value="">
-                    {{ grow.answere }}
+                <option v-for="grow in quizs" value="">
+                    {{ grow.growth }}
                 </option>
             </select>
         </div>
@@ -41,8 +41,20 @@
 <script>
 import GlassCard from "../components/GlassCard.vue";
 import GlassBtn from "../components/GlassBtn.vue";
+import axios from "axios";
 
 export default {
+
+    /*
+     1- obtener registros mediante axios
+     2- meter en un array 10 registros aleatorios
+     3- cuando se hace click comprueba si la opcion seleccionada es correcta
+        las respuestas correctas se eliminan del array
+        los fallos se guardan en la barra de fallos
+     4- cuando se hace click pasa al siguiente registro como un carrusel
+
+    */
+
     components: {
         GlassCard,
         GlassBtn,
@@ -52,6 +64,7 @@ export default {
             muestra: false,
             contador: 0,
             quizs: [],
+            quizsAxios: [],
             grows: [
                 {
                     quiz: "Recuento de mesófilos, aerobios y heterótrofos.",
@@ -176,21 +189,43 @@ export default {
             ],
         };
     },
-    methods: {
+    methods: {/*
         loadQuizs() {
-            for (let i = 0; i < 15; i++) {
-                let qquiz = Math.floor(Math.random() * this.grows.length);
+            for (let i = 0; i < 10; i++) {
+                let random = Math.floor(Math.random() * this.grows.length);
 
                 let object = {
-                    quiz: this.grows[qquiz].quiz,
-                    answere: this.grows[qquiz].answere,
+                    growth: this.quizsAxios[random],
+                    caracteristics: this.quizsAxios[random]
+                };
+                this.quizs.push(object);
+            }
+        },*/
+
+        async getAllData() {
+            const allData = await axios.get(
+                "http://127.0.0.1:8000/api/getjuego4"
+            );
+            this.quizsAxios = allData.data;
+            console.log(this.quizsAxios);
+            //this.getNames();
+            //this.getNamesCopia(this.cards);
+            //this.loadQuizs();
+            console.log(this.quizsAxios[0].growth + " - " + this.quizsAxios[0].caracteristics);
+
+            for (let i = 0; i < 10; i++) {
+                let random = Math.floor(Math.random() * this.quizsAxios.length);
+
+                let object = {
+                    growth: this.quizsAxios[random].growth,
+                    caracteristics: this.quizsAxios[random].caracteristics
                 };
                 this.quizs.push(object);
             }
         },
-    },
+    },/*
     beforeMount() {
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 10; i++) {
             let qquiz = Math.floor(Math.random() * this.grows.length);
 
             let object = {
@@ -199,6 +234,10 @@ export default {
             };
             this.quizs.push(object);
         }
-    },
+    },*/
+    mounted() {
+        this.getAllData();
+
+    }
 };
 </script>
