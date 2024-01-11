@@ -1,6 +1,8 @@
 <template>
     <!-- main cards -->
-    <div class="grid grid-cols-2 md:grid-cols-4 place-content-center justify-items-center">
+    <div
+        class="grid grid-cols-2 md:grid-cols-4 place-content-center justify-items-center"
+    >
         <FlipCard
             @volteo="comprobar"
             v-for="(card, index) in cards"
@@ -21,12 +23,14 @@
         >
             <img :src="obtenerImagenes(card.name)" />
         </FlipCard>
-        <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal"></success>
+        <success
+            v-bind:enhorabuena="enhorabuena"
+            @clicked2="closeModal"
+        ></success>
         <unsuccess v-bind:mostrar="mostrar" @clicked="closeModal"></unsuccess>
     </div>
 </template>
 <script>
-
 import DescripcionJuego from "../components/DescripcionJuego.vue";
 import GlassCard from "../components/GlassCard.vue";
 import Reloj from "../components/Reloj.vue";
@@ -39,14 +43,14 @@ import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
 import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
+import JSConfetti from "js-confetti";
 export default {
     data() {
         return {
-
-            errores:0,
-            mostrar:false,//esta variable es del componente modal unsuccess
-            enhorabuena:false,
-            acierto:0,
+            errores: 0,
+            mostrar: false, //esta variable es del componente modal unsuccess
+            enhorabuena: false,
+            acierto: 0,
 
             cards: [],
             cardsCopia: [],
@@ -136,9 +140,9 @@ export default {
 
             return this.cards;
         },
-        closeModal(){
-            this.mostrar= false;
-            this.enhorabuena=false;
+        closeModal() {
+            this.mostrar = false;
+            this.enhorabuena = false;
             this.$router.push("StartGame");
         },
         getNamesCopia(array) {
@@ -160,23 +164,22 @@ export default {
             console.log(img);
             return "game1_puzzles_img/" + img;
         },
-        comprobar(estado,id) {
+        comprobar(estado, id) {
             this.parejas.push(id);
             this.giradas++;
             if (this.giradas == 2) {
                 if (this.parejas[0] === this.parejas[1]) {
                     this.acierto++;
-                    if(this.acierto==4){
+                    if (this.acierto == 4) {
                         this.changeJuego1();
-                        this.enhorabuena=true;
+                        this.enhorabuena = true;
+                        const jsConfetti = new JSConfetti();
+                        jsConfetti.addConfetti();
                     }
                     this.parejas.forEach((pareja) => {
                         this.$refs[pareja][0].correct(); //correct es la clase de resultado encontrado
                         this.$refs[pareja][1].correct();
                     });
-
-
-
                 } else {
                     alert("las parejas no son iguales");
                     this.parejas.forEach((pareja) => {
@@ -185,8 +188,8 @@ export default {
                     });
                     this.marcaError(this.contador);
                     this.errores++;
-                    if(this.errores==5){
-                        this.mostrar=true;
+                    if (this.errores == 5) {
+                        this.mostrar = true;
                     }
                 }
                 this.parejas = [];
@@ -199,9 +202,9 @@ export default {
             "insertaFallo3",
             "insertaFallo4",
             "insertaFallo5",
-            "incrementafallo"
+            "incrementafallo",
         ]),
-        ...mapActions(useCheckStore,["changeJuego1"]),
+        ...mapActions(useCheckStore, ["changeJuego1"]),
 
         marcaError(contador) {
             switch (contador) {
@@ -229,18 +232,17 @@ export default {
     },
 
     components: {
-    DescripcionJuego,
-    GlassCard,
-    Reloj,
-    ProgressBar,
-    BtnSalir,
-    FlipCard,
-    unsuccess,
-    success
-},
+        DescripcionJuego,
+        GlassCard,
+        Reloj,
+        ProgressBar,
+        BtnSalir,
+        FlipCard,
+        unsuccess,
+        success,
+    },
     computed: {
         ...mapWritableState(useProgressBarStore, ["contador"]),
-
     },
 };
 </script>

@@ -10,5 +10,12 @@
 </template>
 
 <script>
-export default {};
+import { mapWritableState } from "pinia";
+import { mapActions } from "pinia";
+
+export default {
+    data() {
+        return {};
+    },
+};
 </script>

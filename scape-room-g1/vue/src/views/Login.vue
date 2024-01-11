@@ -43,7 +43,14 @@
                     <div>
                         <h2 class="text-4xl font-bold text-white">
                             Que tenía el Vial
-                            <i class="ph ph-flask font-5xl"></i>
+                            <i
+                                class="ph ph-flask font-5xl"
+                                @click="
+                                    alerta(
+                                        'JAJA, te has equivocado, y recuerda, este no es un tubo de ensayo, es un matraz'
+                                    )
+                                "
+                            ></i>
                         </h2>
 
                         <p class="max-w-xl mt-3 text-gray-300 text-lg">
@@ -234,6 +241,9 @@ export default {
     },
     components: {},
     methods: {
+        alerta(mensaje) {
+            alert(mensaje);
+        },
         validar() {
             if (this.txtNick.length < 4) {
                 alert("El nick debe tener más de 4 caracteres.");
