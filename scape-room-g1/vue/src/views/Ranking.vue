@@ -32,8 +32,13 @@
                 );
         "
     >
-        <div class="container-fluid mt-5">
+        <div class="container-fluid mt-5 flex content-center justify-center">
             <h1 class="text-4xl text-center">Ranking de Mejores Tiempos</h1>
+            <select v-model="opcionSeleccionado" @change="filtrar" class="mx-5 p-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" name="" id="">
+                <option value="Fácil">Principiante</option>
+                <option value="Normal">Intermedio</option>
+                <option value="Difícil">Avanzado</option>
+            </select>
         </div>
         <div class="container-fluid flex flex-col justify-center p-1 m-2">
             <GlassCard>
@@ -53,62 +58,21 @@
                         </tr>
                     </thead>
                     <tbody class="">
-                        <tr class="shadow-xl rounded-xl">
-                            <td class="md:p-3 rounded-l-xl text-center">1</td>
+                        <tr class="shadow-xl rounded-xl" v-for="(jugador,index) in nivel" :key="index">
+                            <td class="md:p-3 rounded-l-xl text-center">{{ index+1 }}</td>
                             <td
                                 class="md:p-3 font-medium uppercase text-center"
                             >
-                                Daniel
+                                {{ jugador.player_nickname }}
                             </td>
-                            <td class="md:p-3 text-center">05:27:47</td>
+                            <td class="md:p-3 text-center">{{ jugador.time }}</td>
                             <td
                                 class="md:p-3 capitalize rounded-r-xl text-center"
                             >
-                                Principiante
+                                {{ jugador.difficulty }}
                             </td>
                         </tr>
-                        <tr class="shadow-xl rounded-xl">
-                            <td class="md:p-3 rounded-l-xl text-center">2</td>
-                            <td
-                                class="md:p-3 font-medium uppercase text-center"
-                            >
-                                David
-                            </td>
-                            <td class="md:p-3 text-center">06:10:39</td>
-                            <td
-                                class="md:p-3 capitalize rounded-r-xl text-center"
-                            >
-                                Medio
-                            </td>
-                        </tr>
-                        <tr class="shadow-xl rounded-xl">
-                            <td class="md:p-3 rounded-l-xl text-center">3</td>
-                            <td
-                                class="md:p-3 font-medium uppercase text-center"
-                            >
-                                Nestor
-                            </td>
-                            <td class="md:p-3 text-center">12:34:53</td>
-                            <td
-                                class="md:p-3 capitalize rounded-r-xl text-center"
-                            >
-                                Avanzado
-                            </td>
-                        </tr>
-                        <tr class="shadow-xl rounded-xl">
-                            <td class="md:p-3 rounded-l-xl text-center">4</td>
-                            <td
-                                class="md:p-3 font-medium uppercase text-center"
-                            >
-                                Xabier
-                            </td>
-                            <td class="md:p-3 text-center">20:23:43</td>
-                            <td
-                                class="md:p-3 capitalize rounded-r-xl text-center"
-                            >
-                                Medio
-                            </td>
-                        </tr>
+
                     </tbody>
                 </table>
             </GlassCard>
@@ -127,7 +91,33 @@
 import GlassCard from "../components/GlassCard.vue";
 import GlassBtn from "../components/GlassBtn.vue";
 import Footer from "../components/footer.vue";
+import axios from "axios";
+
 export default {
+    data() {
+        return {
+            opcionSeleccionado:null,
+            jugadores:[],
+            nivel:[]
+        }
+    },
+    methods: {
+        async dataRanking(){
+            try{
+                const ranking= await axios.get('http://127.0.0.1:8000/api/getRanking');
+                this.jugadores=ranking.data;
+            }catch(error){
+                console.log(error);
+            }
+        },
+        filtrar(){
+             this.nivel=this.jugadores.filter(jugador=>jugador.difficulty==this.opcionSeleccionado);
+            console.log(this.nivel);
+        }
+    },
+    mounted(){
+        this.dataRanking();
+    },
     components: { GlassCard, GlassBtn, Footer },
 };
 </script>

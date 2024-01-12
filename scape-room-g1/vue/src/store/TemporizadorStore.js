@@ -7,6 +7,7 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
             temporizador: null,
             totalTime: 1800,
             currentTime: 1800,
+            temporizadorCuentaAtras: null,
         };
     },
     getters: {
@@ -27,11 +28,13 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
         iniciarTemporizador() {
             this.temporizador = setInterval(() => {
                 this.tiempo++;
+                console.log(this.tiempo);
             }, 1000);
         },
         detenerTemporizador() {
             clearInterval(this.temporizador);
         },
+
         getTiempo() {
             return `${this.minutos} minutos, ${this.segundos} segundos`;
         },
@@ -41,7 +44,7 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
         },
         iniciarCuentaAtras() {
             // Inicializar el temporizador
-            setInterval(() => {
+            this.temporizadorCuentaAtras = setInterval(() => {
                 if (this.currentTime > 0) {
                     this.currentTime -= 1;
                 } else {
@@ -49,6 +52,17 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
                     alert("el juego ha terminado");
                 }
             }, 1000);
+        },
+        detenerCuentaAtras() {},
+        reiniciarEstadoTiempo() {
+            alert("reiniciando tiempo");
+            this.tiempo = 0;
+            clearInterval(this.temporizador);
+            this.temporizador = null;
+            this.totalTime = 1800;
+            this.currentTime = 1800;
+            clearInterval(this.temporizadorCuentaAtras);
+            this.temporizadorCuentaAtras = null;
         },
     },
 });

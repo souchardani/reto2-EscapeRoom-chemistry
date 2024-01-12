@@ -44,6 +44,7 @@ import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
 import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
+import JSConfetti from "js-confetti";
 import axios from "axios";
 export default {
     data() {
@@ -112,6 +113,8 @@ export default {
                     if (this.acierto == 4) {
                         this.changeJuego1();
                         this.enhorabuena = true;
+                        const jsConfetti = new JSConfetti();
+                        jsConfetti.addConfetti();
                     }
                     this.parejas.forEach((pareja) => {
                         this.$refs[pareja][0].correct(); //correct es la clase de resultado encontrado
