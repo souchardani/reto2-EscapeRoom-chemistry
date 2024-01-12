@@ -6,41 +6,50 @@
                 class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative"
             >
                 <i class="ph ph-info text-2xl"></i>
-                <span class="text-left"
-                    >Selecciona la casilla que corresponda</span
-                >
-                <i
-                    class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
-                ></i>
+                <span class="text-left">Selecciona la casilla que corresponda</span>
+                <i class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"></i>
             </div>
         </div>
-        <GlassCard>
-            <!--<h4 class="text-3xl text-center">{{ quizs[contador].caracteristics }}</h4>-->
-        </GlassCard>
 
-        <div class="text-center m-4 flex justify-center">
-            <select
-                name="answeres"
-                class="block px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-            >
-                <option v-for="grow in quizs" value="">
-                    {{ grow.growth }}
-                </option>
-            </select>
-        </div>
+        <form @submit.prevent>
+            <GlassCard>
+                <!-- Muestra la pregunta -->
+                <input
+                    type="text" disabled name="question" id="question"
+                    class="text-3xl text-center w-full"
+                    v-bind:value="quizs[contador].caracteristics" v-if="quizs.length>0"
+                >
+                <!-- Se hace la comprobacion con el input hidden -->
+                <input type="hidden" name="questionID" id="questionID" v-bind:value="quizs[contador].id" v-if="quizs.length>0">
+            </GlassCard>
+            <div class="text-center m-4 flex justify-center">
+                <select
+                    name="answers"
+                    id="answers"
+                    class="block px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                >
+                    <option v-for="grow in quizs" v-bind:value="grow.id">
+                        {{ grow.growth }}
+                    </option>
+                </select>
+            </div>
 
-        <div class="text-center m-4 p-4 flex justify-center w-48 m-auto">
-            <GlassBtn
-                ><button class="w-28" @click="contador++">
-                    Next
-                </button></GlassBtn
-            >
-        </div>
+            <div class="text-center m-4 p-4 flex justify-center w-48 m-auto">
+                <GlassBtn>
+                    <button class="w-28" @click="contador++">
+                        Siguiente
+                    </button>
+                </GlassBtn>
+            </div>
+        </form>
+
     </div>
 </template>
 <script>
 import GlassCard from "../components/GlassCard.vue";
 import GlassBtn from "../components/GlassBtn.vue";
+import { mapWritableState } from "pinia";
+import { mapActions } from "pinia";
 import axios from "axios";
 
 export default {
@@ -64,6 +73,7 @@ export default {
             muestra: false,
             contador: 0,
             quizs: [],
+            randomNumbers: [],
             quizsAxios: [],
             quizsLocal: [
                 {
@@ -189,54 +199,46 @@ export default {
             ],
         };
     },
-    methods: {/*
-        loadQuizs() {
-            for (let i = 0; i < 10; i++) {
-                let random = Math.floor(Math.random() * this.quizsLocal.length);
-
-                let object = {
-                    growth: this.quizsAxios[random],
-                    caracteristics: this.quizsAxios[random]
-                };
-                this.quizs.push(object);
-            }
-        },*/
+    methods: {
 
         async getAllData() {
+            // obtiene mediante axios los datos del juego
             const allData = await axios.get(
                 "http://127.0.0.1:8000/api/getjuego4"
             );
+
             this.quizsAxios = allData.data;
             console.log(this.quizsAxios);
-            //this.getNames();
-            //this.getNamesCopia(this.cards);
-            //this.loadQuizs();
-            console.log(this.quizsAxios[0].id + " - " + this.quizsAxios[0].growth + " - " + this.quizsAxios[0].caracteristics);
 
+            // inserta 10 de los registros en el quizs
             for (let i = 0; i < 10; i++) {
                 let random = Math.floor(Math.random() * this.quizsAxios.length);
 
-                let object = {
-                    id: this.quizsAxios[random].id,
-                    growth: this.quizsAxios[random].growth,
-                    caracteristics: this.quizsAxios[random].caracteristics
-                };
-                this.quizs.push(object);
+                // previene que se repita el mismo registro
+                if (this.randomNumbers.includes(random)) {
+                    random = Math.floor(Math.random() * this.quizsAxios.length);
+                    i--;
+                }
+
+                else {
+                    // inserta el registro aleatorio
+                    let object = {
+                        id: this.quizsAxios[random].id,
+                        growth: this.quizsAxios[random].growth,
+                        caracteristics: this.quizsAxios[random].caracteristics
+                    };
+                    this.quizs.push(object);
+                    this.randomNumbers.push(random);
+                    console.log(this.quizs[i]);
+                }
             }
         },
-    },/*
-    beforeMount() {
-        for (let i = 0; i < 10; i++) {
-            let qquiz = Math.floor(Math.random() * this.quizsLocal.length);
+        checkQuestion() {
 
-            let object = {
-                growth: this.quizsLocal[qquiz].growth,
-                caracteristics: this.quizsLocal[qquiz].caracteristics,
-            };
-            this.quizs.push(object);
         }
-    },*/
-    mounted() {
+
+    },
+    created() {
         this.getAllData();
 
     }
