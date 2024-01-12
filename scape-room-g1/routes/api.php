@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JuegoController;
+use App\Http\Controllers\RankingController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/getjuego1',[JuegoController::class,'getInfoJuego1'])->name('getJuego1');
 Route::get('/getjuego3',[JuegoController::class,'getInfoJuego3'])->name('getJuego3');
+Route::get('/getRanking',[RankingController::class,'getInfoRanking'])->name('getRanking');
