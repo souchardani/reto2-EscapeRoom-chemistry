@@ -14,7 +14,7 @@
     <div>
         <!-- <h1>{{ palabraBarra }}</h1> -->
         <h2>{{ mostrar }}</h2>
-        <!-- <h1>{{ imagen }}</h1> -->
+
     </div>
     <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal"></success>
     <unsuccess v-bind:mostrar="mostrarm" @clicked="closeModal"></unsuccess>
@@ -23,17 +23,19 @@
 <script>
 let z=0;
 let aciertos=0;
+// document.getElementById('letra').style.backgroundColor="blue";
 import ProgressBar from "../components/ProgressBar.vue";
 import { mapWritableState,mapActions  } from "pinia";
 import {useProgressBarStore} from "../store/progressBar";
 import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
-
+import axios from "axios";
 export default {
 
     data() {
         return {
-            palabras:["botella","manzana","escoba"],
+            // palabras:["botella","manzana","escoba"],
+            palabras:[],
             random:"",
             oculto:"",
             palabraBarra:"",
@@ -48,45 +50,56 @@ export default {
     methods: {
         insertarPalabra(){
             this.random=this.palabras[Math.floor(Math.random()*this.palabras.length)];
-            return this.random;
+            return this.random.word;
         },
         mostrarLetra(){
-            this.letra=document.getElementById('letra').value;
+
+            this.letra=document.getElementById('letra').value.toLowerCase();
+
             let acertado=false;
 
                 // Oculta la palabra con _ _ _
-                for (let i = 0; i < this.random.length; i++) {
+                for (let i = 0; i < this.random.word.length; i++) {
 
                     if (this.mostrar[i]==null) {
                         this.mostrar[i]="_";
                     }
 
                     // Si es correcta la letra
-                    if (this.letra==this.random[i]) {
+                    if (this.letra==this.random.word[i]) {
 
                             this.mostrar[i]=this.letra;
                             acertado=true;
                             aciertos++;
-
+                            document.getElementById('letra').style.backgroundColor="green";
 
                     }
-
-
 
                 }
 
                 // si al recorrer la palabra falla
 
-                if(acertado==false && z<6) {
+                if(acertado==false && z<6 && z>0) {
                     this.imagen="../../public/game3_hangman_img/hangman"+z+".png";
                     this.marcaError(z);
                     z=z+1;
+                    document.getElementById('letra').style.backgroundColor="red";
+                }
+                if(z==0 && acertado==false){
+                    this.imagen="../../public/game3_hangman_img/hangman"+z+".png";
+                    this.marcaError(z);
+                    z=z+1;
+                    document.getElementById('letra').style.backgroundColor="white";
                 }
                 if(z==6){
                     this.mostrarm=true;
                 }
 
-                // if(this.mostrar.filter())
+
+
+                if(this.mostrar.includes("_")==false){
+                    this.enhorabuena=true;
+                }
 
         },
         closeModal() {
@@ -123,10 +136,19 @@ export default {
                     break;
             }
     },
+    async getAllData() {
+            const allData = await axios.get(
+                "http://127.0.0.1:8000/api/getjuego3"
+            );
+            this.palabras = allData.data;
+            console.log(this.palabras);
+            this.insertarPalabra();
+            this.mostrarLetra();
+        },
     },
     mounted(){
-        this.insertarPalabra();
-        this.mostrarLetra();
+
+        this.getAllData();
     },
     components:{
         ProgressBar,
