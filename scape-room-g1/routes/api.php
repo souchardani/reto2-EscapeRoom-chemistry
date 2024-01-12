@@ -19,4 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/getjuego1',[JuegoController::class,'getInfoJuego1'])->name('getJuego1');
+Route::get('/getjuego3',[JuegoController::class,'getInfoJuego3'])->name('getJuego3');
 Route::get('/getRanking',[RankingController::class,'getInfoRanking'])->name('getRanking');
