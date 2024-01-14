@@ -1,6 +1,6 @@
 <template>
     <div
-        class="relative container-fluid backdrop-blur-lg min-h-screen px-12 p-3"
+        class="relative container-fluid backdrop-blur-lg min-h-screen px-8 p-3 md:px-20"
         style="
             background-color: rgb(88, 28, 135);
             background-image: radial-gradient(

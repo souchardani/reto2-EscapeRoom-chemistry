@@ -51,8 +51,7 @@ const routes = [
                 component: GameTwo,
                 meta: {
                     title: "Agrupando",
-                    description:
-                        "Demuestra tu conocimiento agrupando los compuestos con sus categorías.",
+                    description: `Demuestra tu conocimiento agrupando los compuestos con sus categorías.\nDebes arrastrar los compuestos a la categoría correspondiente.`,
                 },
             },
             {
