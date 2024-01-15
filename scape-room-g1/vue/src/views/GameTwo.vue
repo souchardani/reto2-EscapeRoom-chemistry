@@ -22,9 +22,15 @@
                         v-for="compoundElement in compoundDataEach.backlog"
                         :key="compoundElement.compound"
                     >
-                        <GlassJuego2>{{
-                            compoundElement.compound
-                        }}</GlassJuego2>
+                        <GlassJuego2
+                            :class="{
+                                'border border-green-500 border-4':
+                                    compoundElement.estado.exito,
+                                'border border-red-500 border-4':
+                                    compoundElement.estado.error,
+                            }"
+                            >{{ compoundElement.compound }}</GlassJuego2
+                        >
                     </Draggable>
                 </Container>
             </div>
@@ -44,7 +50,15 @@
                         v-for="compuesto in compoundDataEach.analisis"
                         :key="compuesto.compound"
                     >
-                        <GlassJuego2>{{ compuesto.compound }}</GlassJuego2>
+                        <GlassJuego2
+                            :class="{
+                                'border border-green-500 border-4':
+                                    compuesto.estado.exito,
+                                'border border-red-500 border-4':
+                                    compuesto.estado.error,
+                            }"
+                            >{{ compuesto.compound }}</GlassJuego2
+                        >
                     </Draggable>
                 </Container>
             </div>
@@ -64,7 +78,15 @@
                         v-for="compuesto in compoundDataEach.microbiologia"
                         :key="compuesto.compound"
                     >
-                        <GlassJuego2>{{ compuesto.compound }}</GlassJuego2>
+                        <GlassJuego2
+                            :class="{
+                                'border border-green-500 border-4':
+                                    compuesto.estado.exito,
+                                'border border-red-500 border-4':
+                                    compuesto.estado.error,
+                            }"
+                            >{{ compuesto.compound }}</GlassJuego2
+                        >
                     </Draggable>
                 </Container>
             </div>
@@ -84,7 +106,15 @@
                         v-for="compuesto in compoundDataEach.medida"
                         :key="compuesto.compound"
                     >
-                        <GlassJuego2>{{ compuesto.compound }}</GlassJuego2>
+                        <GlassJuego2
+                            :class="{
+                                'border border-green-500 border-4':
+                                    compuesto.estado.exito,
+                                'border border-red-500 border-4':
+                                    compuesto.estado.error,
+                            }"
+                            >{{ compuesto.compound }}</GlassJuego2
+                        >
                     </Draggable>
                 </Container>
             </div>
@@ -104,7 +134,15 @@
                         v-for="compuesto in compoundDataEach.biotecnologia"
                         :key="compuesto.compound"
                     >
-                        <GlassJuego2>{{ compuesto.compound }}</GlassJuego2>
+                        <GlassJuego2
+                            :class="{
+                                'border border-green-500 border-4':
+                                    compuesto.estado.exito,
+                                'border border-red-500 border-4':
+                                    compuesto.estado.error,
+                            }"
+                            >{{ compuesto.compound }}</GlassJuego2
+                        >
                     </Draggable>
                 </Container>
             </div>
@@ -144,6 +182,15 @@ export default {
     },
     data() {
         return {
+            classError: {
+                estado: false,
+                clase: "border border-red-500 border-4",
+            },
+            classSuccess: {
+                estado: false,
+                clase: "bg-green-500",
+            },
+
             // datos de prueba para el diseño
             compoundTestData: [
                 {
@@ -184,6 +231,10 @@ export default {
                     {
                         compound: "Arrastra aqui ☝️☝️",
                         category: "ANALISIS",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
                     },
                 ],
 
@@ -191,52 +242,96 @@ export default {
                     {
                         compound: "Arrastra aqui ☝️☝️",
                         category: "ANALISIS",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
                     },
                 ],
                 medida: [
                     {
                         compound: "Arrastra aqui ☝️☝️",
                         category: "ANALISIS",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
                     },
                 ],
                 biotecnologia: [
                     {
                         compound: "Arrastra aqui ☝️☝️",
                         category: "ANALISIS",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
                     },
                 ],
                 backlog: [
                     {
                         compound: "compuesto 1",
                         category: "ANALISIS",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
                     },
                     {
                         compound: "compuesto 2",
                         category: "ANALISIS",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
                     },
                     {
                         compound: "compuesto 3",
                         category: "MICROBIOLOGÍA",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
                     },
                     {
                         compound: "compuesto 4",
                         category: "MICROBIOLOGÍA",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
                     },
                     {
                         compound: "compuesto 5",
                         category: "MEDIDA",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
                     },
                     {
                         compound: "compuesto 6",
                         category: "MEDIDA",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
                     },
                     {
                         compound: "compuesto 7",
                         category: "BIOTECNOLOGÍA",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
                     },
                     {
                         compound: "compuesto 8",
                         category: "BIOTECNOLOGÍA",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
                     },
                 ],
             },
@@ -249,7 +344,6 @@ export default {
     },
     methods: {
         handleDragStart(fila, dragResult) {
-            console.log(dragResult);
             const { payload, isSource } = dragResult;
             if (isSource) {
                 this.dragginCard = {
@@ -259,11 +353,9 @@ export default {
                         ...this.compoundDataEach[fila][payload.index],
                     },
                 };
-                console.log(this.dragginCard);
             }
         },
         handleDrop(fila, dropResult) {
-            console.log(dropResult);
             const { removedIndex, addedIndex, payload } = dropResult;
             if (fila === this.dragginCard.fila && removedIndex === addedIndex) {
                 return;
@@ -277,12 +369,29 @@ export default {
                     0,
                     this.dragginCard.cardData
                 );
+                this.comprobarFamilia(
+                    fila,
+                    this.dragginCard.cardData,
+                    addedIndex
+                );
             }
         },
         getChildPayload(index) {
             return {
                 index,
             };
+        },
+        comprobarFamilia(filaSoltada, datosTarjeta, addedIndex) {
+            console.log(filaSoltada, datosTarjeta);
+            if (filaSoltada === datosTarjeta.category.toLowerCase()) {
+                this.compoundDataEach[filaSoltada][
+                    addedIndex
+                ].estado.exito = true;
+            } else {
+                this.compoundDataEach[filaSoltada][
+                    addedIndex
+                ].estado.error = true;
+            }
         },
     },
     mounted() {},
