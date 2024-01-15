@@ -14,13 +14,14 @@
         <form @submit.prevent>
             <GlassCard>
                 <!-- Muestra la pregunta -->
+                <!-- el if hace que muestre la pregunta despues de que se hayan añadido al quizs con axios -->
                 <input
                     type="text" disabled name="question" id="question"
                     class="text-3xl text-center w-full"
-                    v-bind:value="quizs[contador].caracteristics" v-if="quizs.length>0"
+                    v-bind:value="quizs[quizsIndex].id + quizs[quizsIndex].caracteristics" v-if="quizs.length>0"
                 >
                 <!-- Se hace la comprobacion con el input hidden -->
-                <input type="hidden" name="questionID" id="questionID" v-bind:value="quizs[contador].id" v-if="quizs.length>0">
+                <input type="hidden" name="questionID" id="questionID" v-bind:value="quizs[quizsIndex].id" v-if="quizs.length>0">
             </GlassCard>
             <div class="text-center m-4 flex justify-center">
                 <select
@@ -29,20 +30,21 @@
                     class="block px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 >
                     <option v-for="grow in quizs" v-bind:value="grow.id">
-                        {{ grow.growth }}
+                        {{ grow.growth }} - {{ grow.id }}
                     </option>
                 </select>
             </div>
 
             <div class="text-center m-4 p-4 flex justify-center w-48 m-auto">
                 <GlassBtn>
-                    <button class="w-28" @click="contador++">
+                    <button class="w-28" @click="checkQuestion">
                         Siguiente
                     </button>
                 </GlassBtn>
             </div>
         </form>
-
+        <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal"></success>
+        <unsuccess v-bind:mostrar="mostrarm" @clicked="closeModal"></unsuccess>
     </div>
 </template>
 <script>
@@ -50,6 +52,10 @@ import GlassCard from "../components/GlassCard.vue";
 import GlassBtn from "../components/GlassBtn.vue";
 import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
+import ProgressBar from "../components/ProgressBar.vue";
+import {useProgressBarStore} from "../store/progressBar";
+import unsuccess from "../components/modals/unsuccess.vue";
+import success from "../components/modals/success.vue";
 import axios from "axios";
 
 export default {
@@ -67,137 +73,126 @@ export default {
     components: {
         GlassCard,
         GlassBtn,
+        ProgressBar,
+        unsuccess,
+        success
     },
     data() {
         return {
             muestra: false,
-            contador: 0,
+            quizsIndex: 0,
+            errores: 0,
             quizs: [],
             randomNumbers: [],
             quizsAxios: [],
             quizsLocal: [
                 {
+                    id: 1,
                     growth: "Recuento de mesófilos, aerobios y heterótrofos.",
                     caracteristics: "PCA",
                 },
                 {
+                    id: 2,
                     growth: "Detección de Coliformes, los de fermentación lenta tardan en crecer.",
                     caracteristics: "MCCONKEY",
                 },
                 {
+                    id: 3,
                     growth: "Detección y recuento de E. coli y coliformes.",
                     caracteristics: "CCA",
                 },
                 {
+                    id: 4,
                     growth: "Para la confirmación de enterococos.",
                     caracteristics: "KAA",
                 },
                 {
+                    id: 5,
                     growth: "Detección y recuento de coliformes en agua, alimentos….",
                     caracteristics: "VRBG",
                 },
                 {
+                    id: 6,
                     growth: "Se usa para el aislamiento y el cultivo de microorganismos Gram - entéricos, y especialmente para el aislamiento de especies de Shigella y Salmonella.",
                     caracteristics: "HEKTOEN",
                 },
                 {
+                    id: 7,
                     growth: "Crecimiento general. Recuento de totales.",
                     caracteristics: "TSA",
                 },
                 {
+                    id: 8,
                     growth: "Diferenciación de enterobacterias en base a la fermentación de hidratos de carbono y a la producción de ácido sulfhídrico.",
                     caracteristics: "KIA",
                 },
                 {
+                    id: 9,
                     growth: "Diferenciación de enterobacterias en base la capacidad de usar citrato como única fuente de carbono y energía.",
                     caracteristics: "CITRATO SIMMONS",
                 },
                 {
+                    id: 10,
                     growth: "Se utiliza para la detección de coliformes y la detección fluorogénica de Escherichia coli en un entorno de laboratorio.",
                     caracteristics: "LAURIL SULFATO CON MUG",
                 },
                 {
+                    id: 11,
                     growth: "Es ideal para la enumeración de enterococos mediante el método de dilución en serie (NMP).",
                     caracteristics: "CALDO DE GLUCOSA ACIDA (ROTHE)",
                 },
                 {
+                    id: 12,
                     growth: "Aislamiento y recuento de enterococos.",
                     caracteristics: "AGAR SLANETZ Y BARTLEY",
                 },
                 {
+                    id: 13,
                     growth: "Al ser con sangre permite crecimiento de organismos nutricionalmente exigentes y la clara visualización de la hemólisis.",
                     caracteristics: "AGAR SANGRE",
                 },
                 {
+                    id: 14,
                     growth: "Aislamiento y recuento selectivo de Clostridium perfringens y sus esporas. Colonias amarillo-verdosas.",
                     caracteristics: "MCP",
                 },
                 {
+                    id: 15,
                     growth: "Aislamiento  y recuento de Clostridium perfringens en agua, alimentos….",
                     caracteristics: "TSC",
                 },
                 {
+                    id: 16,
                     growth: "Diluyente y enriquecimiento bacteriano Se usa en la prueba INDOL y ONPG.",
                     caracteristics: "AGUA DE PEPTONA",
                 },
                 {
+                    id: 17,
                     growth: "Para analizar la sensibilidad de cepas aisladas a partir de agentes antimicrobianos ANTIBIOGRAMAS.",
                     caracteristics: "MUELLER-HILTON",
                 },
                 {
+                    id: 18,
                     growth: "Diferenciación de la fermentación de lactosa  de tipo butanodiólica y ácido mixta (Diferenciar Serratia-E.coli).",
                     caracteristics: "EMB",
                 },
                 {
+                    id: 19,
                     growth: "Se utiliza para el cultivo de microorganismos heterótrofos.",
                     caracteristics: "BACTO 2R",
                 },
                 {
+                    id: 20,
                     growth: "Medio selectivo y diferencial utilizado para el control presuntivo de E. coli y coliformes en aguas.",
                     caracteristics: "CHAPMAN TTC",
-                },
-                {
-                    growth: "Es utilizado en el control de esterilidad de productos biológicos, farmacéuticos y cosméticos.",
-                    caracteristics: "TSB",
-                },
-                {
-                    growth: "Medio selectivo y diferencial para enumeración de coliformes fecales por la técnica de Filtración de Membrana, en aguas.",
-                    caracteristics: "M-FC",
-                },
-                {
-                    growth: "Este medio se utiliza para el aislamiento primario de Salmonella a partir de muestras fecales humanas.",
-                    caracteristics: "SALMONELLA-SHIGELLA",
-                },
-                {
-                    growth: "La selectividad se debe al sulfito de sodio, supresión parcial de los microorganismos Gram +",
-                    caracteristics: "ENDO",
-                },
-                {
-                    growth: "Medio para la detección y recuento de enterococos.",
-                    caracteristics: "ESTREPTOCOCOS-KF",
-                },
-                {
-                    growth: "Se usa para el aislamiento de hongos.",
-                    caracteristics: "SABOURAUD CON CLORANFENICOL",
-                },
-                {
-                    growth: "Es un medio nutricionalmente rico que se utiliza principalmente para el cultivo de bacterias..",
-                    caracteristics: "LURIA",
-                },
-                {
-                    growth: "Recuento y detección de E. coli en alimentos.",
-                    caracteristics: "TSX",
-                },
-                {
-                    growth: "Medio de cultivo utilizado para diferenciar microorganismos, especialmente Salmonella spp., basado en la descarboxilación y desaminación de la lisina y en la producción de ácido sulfhídrico.",
-                    caracteristics: "LIA",
-                },
-                {
-                    growth: "Medio para ensayos de Rojo de metilo y Voges-Proskauer (APHA) para la identificación acorde al IMVIC.",
-                    caracteristics: "CLARCK Y LUBS",
-                },
+                }
             ],
+            mostrarm: false,
+            enhorabuena:false
         };
+
+        //this.mostrarm=true; perdido
+        //this.enhorabuena=true; ganado
     },
     methods: {
 
@@ -229,18 +224,103 @@ export default {
                     };
                     this.quizs.push(object);
                     this.randomNumbers.push(random);
-                    console.log(this.quizs[i]);
+                    this.quizsIndex = Math.floor(Math.random() * this.quizs.length);
+                    //console.log(this.quizs[i]);
                 }
             }
         },
         checkQuestion() {
+            // obtiene los datos
+            // se usan las ID para hacer la comprobacion
+            let question = document.getElementById("questionID").value;
+            let answerUser = document.getElementById("answers").value;
+            //console.log(question, answerUser);
+//-------------------------------------------------------------------------------- Bug de repeticion de respuestas
+            // si es correcto
+            if (question == answerUser) {
+                console.log("Correcto!");
 
-        }
+                // obten el indice de la respuesta
+                let i = this.quizs.indexOf(this.quizs.includes(question));
+                // borra la pregunta correcta para evitar que se repita
+                this.quizs.splice(i,1);
+                console.log(this.quizs);
+                console.log("index: "+this.quizsIndex);
+
+                // pasa a la siguiente pregunta
+                this.quizsIndex = this.quizsIndex + 1;
+                console.log("nuevo index:"+this.quizsIndex);
+                //this.quizsIndex = Math.floor(Math.random() * this.quizs.length);
+
+                // vuelve al inicio cuando llega al final del quizs
+                if (this.quizsIndex == this.quizs.length || this.quizsIndex > this.quizs.length) {
+                    this.quizsIndex = 0;
+                }
+            }
+            else {
+                console.log("Incorrecto!");
+
+                this.errores++;
+                this.marcaError(this.errores);
+
+                // pasa a la siguiente pregunta
+                this.quizsIndex++;
+                // vuelve al inicio cuando llega al final del quizs
+                if (this.quizsIndex == this.quizs.length) {
+                    this.quizsIndex = 0;
+                }
+            }
+            if (this.errores == 5) {
+                this.mostrarm=true;
+            }
+            if (this.quizs.length == 0) {
+                this.enhorabuena=true;
+            }
+        },
+
+        closeModal() {
+            this.mostrarm = false;
+            this.enhorabuena = false;
+            this.$router.push("StartGame");
+        },
+
+        ...mapActions(useProgressBarStore, [
+            "insertaFallo1",
+            "insertaFallo2",
+            "insertaFallo3",
+            "insertaFallo4",
+            "insertaFallo5",
+            "incrementafallo",
+
+        ]),
+
+        marcaError(contador) {
+            switch (contador) {
+                case 1:
+                    this.insertaFallo1();
+                    break;
+                case 2:
+                    this.insertaFallo2();
+                    break;
+                case 3:
+                    this.insertaFallo3();
+                    break;
+                case 4:
+                    this.insertaFallo4();
+                    break;
+                case 5:
+                    this.insertaFallo5();
+                    break;
+            }
+    }
 
     },
     created() {
         this.getAllData();
 
+    },
+    computed:{
+        ...mapWritableState(useProgressBarStore,["contador"]),
     }
 };
 </script>
