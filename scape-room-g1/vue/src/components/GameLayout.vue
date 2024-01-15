@@ -1,6 +1,6 @@
 <template>
     <div
-        class="relative container-fluid backdrop-blur-lg min-h-screen px-8 p-3 md:px-20"
+        class="relative container-fluid min-h-screen px-8 p-3 md:px-20"
         style="
             background-color: rgb(88, 28, 135);
             background-image: radial-gradient(
@@ -39,12 +39,12 @@
         <GameTitle :texto="titulo"></GameTitle>
         <!--Descripcion del juego-->
         <DescripcionJuego :texto="descripcion"></DescripcionJuego>
+        <!--Reloj del juego-->
+        <Reloj></Reloj>
         <!--barra de progreso-->
         <ProgressBar></ProgressBar>
         <!--juego-->
         <router-view></router-view>
-        <!--Reloj del juego-->
-        <Reloj></Reloj>
     </div>
 </template>
 <script>
