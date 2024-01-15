@@ -32,13 +32,13 @@
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                             <a href="#" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                                 aria-current="page">Inicio</a>
-                            <a href="#"
+                            <a href="{{ route('admin.game1') }}"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Juego 1</a>
-                            <a href="#"
+                            <a href="{{ route('admin.game2') }}"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Juego 2</a>
-                            <a href="#"
+                            <a href="{{ route('admin.game3') }}"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Juego 3</a>
-                            <a href="#"
+                            <a href="{{ route('admin.game4') }}"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Juego 4</a>
                         </div>
                     </div>

@@ -12,7 +12,6 @@ class Game1_puzzle extends Model
     protected $table = "game1_puzzles";
     protected $primaryKey = "id";
     protected $fillable = ['molecule', 'img_molecule'];
-    protected $hidden = ['id'];
 
     // en caso de que la tabla no tenga timestamps
     // public $timestamps = false;
