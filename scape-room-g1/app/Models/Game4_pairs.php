@@ -12,7 +12,7 @@ class Game4_pairs extends Model
     protected $table = "game4_pairs";
     protected $primaryKey = "id";
     protected $fillable = ['growth', 'caracteristics'];
-    protected $hidden = ['id'];
+    //protected $hidden = ['id'];
 
     // en caso de que la tabla no tenga timestamps
     // public $timestamps = false;
