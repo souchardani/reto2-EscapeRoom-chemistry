@@ -23,10 +23,14 @@
 <script>
 let z=0;
 let aciertos=0;
-// document.getElementById('letra').style.backgroundColor="blue";
+
+
 import ProgressBar from "../components/ProgressBar.vue";
 import { mapWritableState,mapActions  } from "pinia";
 import {useProgressBarStore} from "../store/progressBar";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { useCheckStore } from "../store/checkState";
+import Reloj from "../components/Reloj.vue";
 import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
 import axios from "axios";
@@ -48,6 +52,7 @@ export default {
         }
     },
     methods: {
+        ...mapActions(useTemporizadorStore, ["reduceTime"]),
         insertarPalabra(){
             this.random=this.palabras[Math.floor(Math.random()*this.palabras.length)];
             return this.random.word;
@@ -90,15 +95,21 @@ export default {
                     this.marcaError(z);
                     z=z+1;
                     document.getElementById('letra').style.backgroundColor="white";
+
+
                 }
                 if(z==6){
+
                     this.mostrarm=true;
+                    this.reduceTime(300);
+
                 }
 
 
-
+                //si se muestra toda la palabra
                 if(this.mostrar.includes("_")==false){
                     this.enhorabuena=true;
+
                 }
 
         },
@@ -151,6 +162,7 @@ export default {
         this.getAllData();
     },
     components:{
+        Reloj,
         ProgressBar,
         unsuccess,
         success
