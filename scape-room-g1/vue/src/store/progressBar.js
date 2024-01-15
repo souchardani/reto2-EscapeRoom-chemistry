@@ -1,6 +1,7 @@
 import { defineStore} from 'pinia';
 
 export const useProgressBarStore=defineStore('progressbar',{
+    //variables
     state:()=>{
         return{
             contador:1,
@@ -16,9 +17,11 @@ export const useProgressBarStore=defineStore('progressbar',{
             inicio5:true
         }
     },
+    //propiedades computadas
     getters:{
 
     },
+    //setters o metodos
     actions:{
         insertaFallo1(){
             this.inicio1=false;
