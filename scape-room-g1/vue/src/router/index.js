@@ -11,6 +11,7 @@ import GameFour from "../views/GameFour.vue";
 import AdminLogin from "../views/AdminLogin.vue";
 import StartGame from "../views/StartGame.vue";
 import Ranking from "../views/Ranking.vue";
+import PruebaDrag from "../views/PruebaDrag.vue";
 
 //store with vuex
 import store from "../store";
@@ -51,8 +52,7 @@ const routes = [
                 component: GameTwo,
                 meta: {
                     title: "Agrupando",
-                    description:
-                        "Demuestra tu conocimiento agrupando los compuestos con sus categorías.",
+                    description: `Demuestra tu conocimiento agrupando los compuestos con sus categorías.\nDebes arrastrar los compuestos a la categoría correspondiente.`,
                 },
             },
             {
@@ -105,6 +105,11 @@ const routes = [
         path: "/ranking",
         name: "Ranking",
         component: Ranking,
+    },
+    {
+        path: "/test",
+        name: "Ranking",
+        component: PruebaDrag,
     },
 ];
 

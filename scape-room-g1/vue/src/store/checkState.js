@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 
 export const useCheckStore = defineStore('checkState',{
+    //variables
     state:()=>{
         return{
         juego1:false,
@@ -13,9 +14,11 @@ export const useCheckStore = defineStore('checkState',{
         activarJuego4:true,
         }
     },
+    //propiedades computadas
     getters:{
 
     },
+    //metodos o setters
     actions:{
         changeJuego1(){
             this.juego1=true;
