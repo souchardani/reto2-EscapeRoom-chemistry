@@ -14,6 +14,7 @@ use App\Http\Controllers\AdminController;
 |
 */
 
+
 Route::get('/inicio', function () {
     return view('index');
 });
@@ -64,3 +65,4 @@ Route::delete('/admin/game1destroyConfirm{id}', [AdminController::class, 'game1d
 Route::delete('/admin/game2destroyConfirm{id}', [AdminController::class, 'game2destroyConfirm'])->name('admin.game2destroyConfirm');
 Route::delete('/admin/game1destroyConfirm{id}', [AdminController::class, 'game1destroyConfirm'])->name('admin.game1destroyConfirm');
 Route::delete('/admin/game1destroyConfirm{id}', [AdminController::class, 'game1destroyConfirm'])->name('admin.game1destroyConfirm');
+
