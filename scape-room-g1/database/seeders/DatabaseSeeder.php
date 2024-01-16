@@ -10,6 +10,7 @@ use App\Models\Game1_puzzle;
 use App\Models\Game2_kuku;
 use App\Models\Game3_hangman;
 use App\Models\Game4_pairs;
+use App\Models\Game5_needPassword;
 use App\Models\Ranking;
 
 class DatabaseSeeder extends Seeder
@@ -32,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Game2_kukuSeeder::class);
         $this->call(Game3_hangmanSeeder::class);
         $this->call(Game4_pairsSeeder::class);
+        $this->call(Game5_needPasswordSeeder::class);
         $this->call(RankingSeeder::class);
     }
 }
