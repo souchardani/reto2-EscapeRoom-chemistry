@@ -34,7 +34,6 @@
 import DescripcionJuego from "../components/DescripcionJuego.vue";
 import GlassCard from "../components/GlassCard.vue";
 import Reloj from "../components/Reloj.vue";
-import ProgressBar from "../components/ProgressBar.vue";
 import BtnSalir from "../components/BtnSalir.vue";
 import FlipCard from "../components/Flip-Card.vue";
 import { useProgressBarStore } from "../store/progressBar";
@@ -51,7 +50,7 @@ export default {
         return {
             errores: 0,
             mostrar: false, //esta variable es del componente modal unsuccess
-            enhorabuena: false,//esta variable es para controlar el modal success
+            enhorabuena: false, //esta variable es para controlar el modal success
             acierto: 0,
 
             cards: [],
@@ -120,13 +119,14 @@ export default {
                         //animacion cuando completas
                         const jsConfetti = new JSConfetti();
                         jsConfetti.addConfetti();
+                        //reiniciar estado de barra de errores
+                        this.resetState();
                     }
                     this.parejas.forEach((pareja) => {
                         this.$refs[pareja][0].correct(); //correct es la clase de resultado encontrado
                         this.$refs[pareja][1].correct();
                     });
                 } else {
-
                     this.parejas.forEach((pareja) => {
                         this.$refs[pareja][0].voltearDeNuevo(); //esta funcion devuelve las card a su estado inicial en caso de error
                         this.$refs[pareja][1].voltearDeNuevo();
@@ -152,7 +152,7 @@ export default {
             "insertaFallo4",
             "insertaFallo5",
             "incrementafallo",
-            ,
+            "resetState",
         ]),
         ...mapActions(useCheckStore, ["changeJuego1"]),
         ...mapActions(useTemporizadorStore, ["reduceTime"]),
@@ -196,7 +196,7 @@ export default {
         DescripcionJuego,
         GlassCard,
         Reloj,
-        ProgressBar,
+
         BtnSalir,
         FlipCard,
         unsuccess,
