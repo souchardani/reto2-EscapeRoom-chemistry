@@ -12,7 +12,7 @@ class Game2_kuku extends Model
     protected $table = "game2_kukus";
     protected $primaryKey = "id";
     protected $fillable = ['compound', 'category'];
-    protected $hidden = ['id'];
+    protected $hidden = ['created_at', "updated_at"];
 
     // en caso de que la tabla no tenga timestamps
     // public $timestamps = false;

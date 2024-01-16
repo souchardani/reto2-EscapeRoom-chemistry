@@ -203,6 +203,7 @@ import { useCheckStore } from "../store/checkState";
 //libreria para el draggable
 import { Container, Draggable } from "vue3-smooth-dnd";
 import GlassJuego2 from "../components/GlassJuego2.vue";
+import axios from "axios";
 
 export default {
     components: {
@@ -214,7 +215,7 @@ export default {
     },
     data() {
         return {
-            erroresTotales: 8,
+            erroresTotales: 20,
             contador: 0,
             mostrar: false, //esta variable es del componente modal unsuccess
             enhorabuena: false, //esta variable es para controlar el modal success
@@ -268,72 +269,7 @@ export default {
                 analisis: [],
                 medida: [],
                 biotecnologia: [],
-                backlog: [
-                    {
-                        compound: "compuesto 1",
-                        category: "ANALISIS",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                    {
-                        compound: "compuesto 2",
-                        category: "ANALISIS",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                    {
-                        compound: "compuesto 3",
-                        category: "MICROBIOLOGIA",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                    {
-                        compound: "compuesto 4",
-                        category: "MICROBIOLOGIA",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                    {
-                        compound: "compuesto 5",
-                        category: "MEDIDA",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                    {
-                        compound: "compuesto 6",
-                        category: "MEDIDA",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                    {
-                        compound: "compuesto 7",
-                        category: "BIOTECNOLOGIA",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                    {
-                        compound: "compuesto 8",
-                        category: "BIOTECNOLOGIA",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                ],
+                backlog: [],
             },
             dragginCard: {
                 fila: "",
@@ -449,77 +385,40 @@ export default {
                 analisis: [],
                 medida: [],
                 biotecnologia: [],
-                backlog: [
-                    {
-                        compound: "compuesto 1",
-                        category: "ANALISIS",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                    {
-                        compound: "compuesto 2",
-                        category: "ANALISIS",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                    {
-                        compound: "compuesto 3",
-                        category: "MICROBIOLOGÍA",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                    {
-                        compound: "compuesto 4",
-                        category: "MICROBIOLOGÍA",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                    {
-                        compound: "compuesto 5",
-                        category: "MEDIDA",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                    {
-                        compound: "compuesto 6",
-                        category: "MEDIDA",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                    {
-                        compound: "compuesto 7",
-                        category: "BIOTECNOLOGÍA",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                    {
-                        compound: "compuesto 8",
-                        category: "BIOTECNOLOGÍA",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                ],
+                backlog: [],
             };
             this.contador = 0;
         },
+        getCardData() {
+            return axios
+                .get("http://127.0.0.1:8000/api/getjuego2")
+                .then((response) => {
+                    this.compoundDataEach.backlog = response.data;
+                    this.mezclarArray(this.compoundDataEach.backlog);
+                    this.addExitoError();
+                });
+        },
+        addExitoError() {
+            this.compoundDataEach.backlog.forEach((element) => {
+                element.estado = {
+                    exito: false,
+                    error: false,
+                };
+            });
+        },
+        mezclarArray() {
+            this.compoundDataEach.backlog.sort(() => Math.random() - 0.5);
+        },
     },
-    mounted() {},
+
+    mounted() {
+        this.getCardData().then(() => {
+            console.log(
+                "*********Para los que no controlamos de quimica, las respuestas correctas son:*******"
+            );
+            console.log(this.compoundDataEach.backlog);
+        });
+    },
 };
 </script>
 
