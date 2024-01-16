@@ -9,9 +9,9 @@ export const useCheckStore = defineStore("checkState", {
             juego3: false,
             juego4: false,
             activarJuego1: false,
-            activarJuego2: false,
-            activarJuego3: false,
-            activarJuego4: false,
+            activarJuego2: true,
+            activarJuego3: true,
+            activarJuego4: true,
         };
     },
     //propiedades computadas

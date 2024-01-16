@@ -46,7 +46,11 @@
                     :get-child-payload="getChildPayload"
                     :drop-placeholder="{ className: 'placeholder' }"
                 >
+                    <GlassJuego2 v-if="compoundDataEach.analisis.length == 0">{{
+                        "Arrastra aqui &#x261D; &#x261D;"
+                    }}</GlassJuego2>
                     <Draggable
+                        v-else
                         v-for="compuesto in compoundDataEach.analisis"
                         :key="compuesto.compound"
                     >
@@ -74,7 +78,12 @@
                     :get-child-payload="getChildPayload"
                     :drop-placeholder="{ className: 'placeholder' }"
                 >
+                    <GlassJuego2
+                        v-if="compoundDataEach.microbiologia.length == 0"
+                        >{{ "Arrastra aqui &#x261D; &#x261D;" }}</GlassJuego2
+                    >
                     <Draggable
+                        v-else
                         v-for="compuesto in compoundDataEach.microbiologia"
                         :key="compuesto.compound"
                     >
@@ -102,7 +111,11 @@
                     :get-child-payload="getChildPayload"
                     :drop-placeholder="{ className: 'placeholder' }"
                 >
+                    <GlassJuego2 v-if="compoundDataEach.medida.length == 0">{{
+                        "Arrastra aqui &#x261D; &#x261D;"
+                    }}</GlassJuego2>
                     <Draggable
+                        v-else
                         v-for="compuesto in compoundDataEach.medida"
                         :key="compuesto.compound"
                     >
@@ -130,7 +143,12 @@
                     :get-child-payload="getChildPayload"
                     :drop-placeholder="{ className: 'placeholder' }"
                 >
+                    <GlassJuego2
+                        v-if="compoundDataEach.biotecnologia.length == 0"
+                        >{{ "Arrastra aqui &#x261D; &#x261D;" }}</GlassJuego2
+                    >
                     <Draggable
+                        v-else
                         v-for="compuesto in compoundDataEach.biotecnologia"
                         :key="compuesto.compound"
                     >
@@ -148,6 +166,10 @@
             </div>
         </div>
     </div>
+
+    <!-- modals -->
+    <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal"></success>
+    <unsuccess v-bind:mostrar="mostrar" @clicked="closeModal"></unsuccess>
 
     <!-- El div de los compuestos -->
     <!-- <div class="my-12">
@@ -170,6 +192,14 @@
     </div> -->
 </template>
 <script>
+import { useProgressBarStore } from "../store/progressBar";
+import { mapWritableState } from "pinia";
+import { mapActions } from "pinia";
+import unsuccess from "../components/modals/unsuccess.vue";
+import success from "../components/modals/success.vue";
+import JSConfetti from "js-confetti";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { useCheckStore } from "../store/checkState";
 //libreria para el draggable
 import { Container, Draggable } from "vue3-smooth-dnd";
 import GlassJuego2 from "../components/GlassJuego2.vue";
@@ -179,9 +209,15 @@ export default {
         GlassJuego2,
         Container,
         Draggable,
+        unsuccess,
+        success,
     },
     data() {
         return {
+            erroresTotales: 8,
+            contador: 0,
+            mostrar: false, //esta variable es del componente modal unsuccess
+            enhorabuena: false, //esta variable es para controlar el modal success
             classError: {
                 estado: false,
                 clase: "border border-red-500 border-4",
@@ -203,11 +239,11 @@ export default {
                 },
                 {
                     compound: "compuesto 3",
-                    category: "MICROBIOLOGÍA",
+                    category: "MICROBIOLOGIA",
                 },
                 {
                     compound: "compuesto 4",
-                    category: "MICROBIOLOGÍA",
+                    category: "MICROBIOLOGIA",
                 },
                 {
                     compound: "compuesto 5",
@@ -219,55 +255,200 @@ export default {
                 },
                 {
                     compound: "compuesto 7",
-                    category: "BIOTECNOLOGÍA",
+                    category: "BIOTECNOLOGIA",
                 },
                 {
                     compound: "compuesto 8",
-                    category: "BIOTECNOLOGÍA",
+                    category: "BIOTECNOLOGIA",
                 },
             ],
             compoundDataEach: {
-                microbiologia: [
-                    {
-                        compound: "Arrastra aqui ☝️☝️",
-                        category: "ANALISIS",
-                        estado: {
-                            exito: false,
-                            error: false,
-                        },
-                    },
-                ],
+                microbiologia: [],
 
-                analisis: [
+                analisis: [],
+                medida: [],
+                biotecnologia: [],
+                backlog: [
                     {
-                        compound: "Arrastra aqui ☝️☝️",
+                        compound: "compuesto 1",
                         category: "ANALISIS",
                         estado: {
                             exito: false,
                             error: false,
                         },
                     },
-                ],
-                medida: [
                     {
-                        compound: "Arrastra aqui ☝️☝️",
+                        compound: "compuesto 2",
                         category: "ANALISIS",
                         estado: {
                             exito: false,
                             error: false,
                         },
                     },
-                ],
-                biotecnologia: [
                     {
-                        compound: "Arrastra aqui ☝️☝️",
-                        category: "ANALISIS",
+                        compound: "compuesto 3",
+                        category: "MICROBIOLOGIA",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
+                    },
+                    {
+                        compound: "compuesto 4",
+                        category: "MICROBIOLOGIA",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
+                    },
+                    {
+                        compound: "compuesto 5",
+                        category: "MEDIDA",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
+                    },
+                    {
+                        compound: "compuesto 6",
+                        category: "MEDIDA",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
+                    },
+                    {
+                        compound: "compuesto 7",
+                        category: "BIOTECNOLOGIA",
+                        estado: {
+                            exito: false,
+                            error: false,
+                        },
+                    },
+                    {
+                        compound: "compuesto 8",
+                        category: "BIOTECNOLOGIA",
                         estado: {
                             exito: false,
                             error: false,
                         },
                     },
                 ],
+            },
+            dragginCard: {
+                fila: "",
+                index: -1,
+                cardData: {},
+            },
+        };
+    },
+    methods: {
+        handleDragStart(fila, dragResult) {
+            const { payload, isSource } = dragResult;
+            if (isSource) {
+                this.dragginCard = {
+                    fila,
+                    index: payload.index,
+                    cardData: {
+                        ...this.compoundDataEach[fila][payload.index],
+                    },
+                };
+            }
+        },
+        handleDrop(fila, dropResult) {
+            const { removedIndex, addedIndex, payload } = dropResult;
+            if (fila === this.dragginCard.fila && removedIndex === addedIndex) {
+                return;
+            }
+            if (removedIndex !== null) {
+                this.compoundDataEach[fila].splice(removedIndex, 1);
+            }
+            if (addedIndex !== null) {
+                this.compoundDataEach[fila].splice(
+                    addedIndex,
+                    0,
+                    this.dragginCard.cardData
+                );
+                this.comprobarFamilia(
+                    fila,
+                    this.dragginCard.cardData,
+                    addedIndex
+                );
+            }
+        },
+        getChildPayload(index) {
+            return {
+                index,
+            };
+        },
+        comprobarFamilia(filaSoltada, datosTarjeta, addedIndex) {
+            if (filaSoltada === "backlog") {
+                this.compoundDataEach[filaSoltada][
+                    addedIndex
+                ].estado.error = false;
+                this.compoundDataEach[filaSoltada][
+                    addedIndex
+                ].estado.exito = false;
+            } else {
+                if (filaSoltada === datosTarjeta.category.toLowerCase()) {
+                    //*******ES UN ACIERTO */
+                    this.erroresTotales--;
+                    this.compoundDataEach[filaSoltada][
+                        addedIndex
+                    ].estado.exito = true;
+                    this.compoundDataEach[filaSoltada][
+                        addedIndex
+                    ].estado.error = false;
+                    if (this.erroresTotales == 0) {
+                        this.enhorabuena = true;
+                        const jsConfetti = new JSConfetti();
+                        jsConfetti.addConfetti();
+                        this.changeJuego2();
+                        //reiniciar estado de barra de errores
+                        this.resetState();
+                    }
+                } else {
+                    //*******ES UN ERROR */
+                    this.compoundDataEach[filaSoltada][
+                        addedIndex
+                    ].estado.error = true;
+                    this.compoundDataEach[filaSoltada][
+                        addedIndex
+                    ].estado.exito = false;
+                    this.contador++;
+                    this.marcaError(this.contador);
+                    if (this.contador == 5) {
+                        this.mostrar = true;
+                        this.reduceTime(300);
+                    }
+                }
+            }
+        },
+        ...mapActions(useProgressBarStore, [
+            "insertaFallo1",
+            "insertaFallo2",
+            "insertaFallo3",
+            "insertaFallo4",
+            "insertaFallo5",
+            "incrementafallo",
+            "marcaError",
+            "resetState",
+        ]),
+        ...mapActions(useTemporizadorStore, ["reduceTime"]),
+        ...mapActions(useCheckStore, ["changeJuego2"]),
+        closeModal() {
+            this.mostrar = false;
+            this.enhorabuena = false;
+            this.$router.push("StartGame");
+            this.resetState();
+        },
+        resetState() {
+            this.compoundDataEach = {
+                microbiologia: [],
+
+                analisis: [],
+                medida: [],
+                biotecnologia: [],
                 backlog: [
                     {
                         compound: "compuesto 1",
@@ -334,64 +515,8 @@ export default {
                         },
                     },
                 ],
-            },
-            dragginCard: {
-                fila: "",
-                index: -1,
-                cardData: {},
-            },
-        };
-    },
-    methods: {
-        handleDragStart(fila, dragResult) {
-            const { payload, isSource } = dragResult;
-            if (isSource) {
-                this.dragginCard = {
-                    fila,
-                    index: payload.index,
-                    cardData: {
-                        ...this.compoundDataEach[fila][payload.index],
-                    },
-                };
-            }
-        },
-        handleDrop(fila, dropResult) {
-            const { removedIndex, addedIndex, payload } = dropResult;
-            if (fila === this.dragginCard.fila && removedIndex === addedIndex) {
-                return;
-            }
-            if (removedIndex !== null) {
-                this.compoundDataEach[fila].splice(removedIndex, 1);
-            }
-            if (addedIndex !== null) {
-                this.compoundDataEach[fila].splice(
-                    addedIndex,
-                    0,
-                    this.dragginCard.cardData
-                );
-                this.comprobarFamilia(
-                    fila,
-                    this.dragginCard.cardData,
-                    addedIndex
-                );
-            }
-        },
-        getChildPayload(index) {
-            return {
-                index,
             };
-        },
-        comprobarFamilia(filaSoltada, datosTarjeta, addedIndex) {
-            console.log(filaSoltada, datosTarjeta);
-            if (filaSoltada === datosTarjeta.category.toLowerCase()) {
-                this.compoundDataEach[filaSoltada][
-                    addedIndex
-                ].estado.exito = true;
-            } else {
-                this.compoundDataEach[filaSoltada][
-                    addedIndex
-                ].estado.error = true;
-            }
+            this.contador = 0;
         },
     },
     mounted() {},
