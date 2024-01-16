@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Get game data with Axios
 Route::get('/getjuego1',[JuegoController::class,'getInfoJuego1'])->name('getJuego1');
+Route::get('/getjuego2',[JuegoController::class,'getInfoJuego2'])->name('getJuego2');
 Route::get('/getjuego3',[JuegoController::class,'getInfoJuego3'])->name('getJuego3');
 Route::get('/getjuego4',[JuegoController::class,'getInfoJuego4'])->name('getJuego4');
 Route::get('/getRanking',[RankingController::class,'getInfoRanking'])->name('getRanking');

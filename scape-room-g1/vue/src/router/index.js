@@ -108,7 +108,7 @@ const routes = [
     },
     {
         path: "/test",
-        name: "Ranking",
+        name: "TestJuego2",
         component: PruebaDrag,
     },
 ];
