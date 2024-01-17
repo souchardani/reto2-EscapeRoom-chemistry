@@ -2,38 +2,32 @@
     <div>
         <label for="">Introduce una letra</label>
         <div class="pb-5 mt-20 mb-12">
-            <img v-bind:src="imagen" class="mx-auto" />
+
+            <img v-bind:src="imagen" class='mx-auto'>
+
         </div>
-        <input
-            type="text"
-            id="letra"
-            maxlength="1"
-            size="1"
-            style="text-align: center"
-        /><br /><br />
-        <button
-            class="rounded-2xl bg-white bg-opacity-40 px-5 py-1.5 mb-5 text-2xl font-semibold text-gray-900 shadow-sm hover:bg-red-500 hover:text-white cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-            style="backdrop-filter: blur(20px)"
-            @click="mostrarLetra()"
-        >
-            pulsar</button
-        ><br />
+        <input type="text" id="letra" maxlength="1" size="1" @click="vaciar()" class="border-4 text-center">
+        <div class="mt-4 p-4 flex text-center m-auto justify-center w-48">
+            <GlassBtn  @click="mostrarLetra()">pulsar</GlassBtn>
+        </div>
     </div>
     <div>
         <!-- <h1>{{ palabraBarra }}</h1> -->
-        <h2>{{ mostrar }}</h2>
+        <h2>{{ mostrar.toString() }}</h2>
+
+
     </div>
     <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal" :pista="this.clave[3]"></success>
     <unsuccess v-bind:mostrar="mostrarm" @clicked="closeModal"></unsuccess>
 </template>
 
 <script>
-let z = 0;
-let aciertos = 0;
+let z=0;
 
 import ProgressBar from "../components/ProgressBar.vue";
-import { mapWritableState, mapActions } from "pinia";
-import { useProgressBarStore } from "../store/progressBar";
+import GlassBtn from "../components/GlassBtn.vue";
+import { mapWritableState,mapActions  } from "pinia";
+import {useProgressBarStore} from "../store/progressBar";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { useCheckStore } from "../store/checkState";
 import Reloj from "../components/Reloj.vue";
@@ -42,15 +36,16 @@ import success from "../components/modals/success.vue";
 import axios from "axios";
 import { useFinalyWord } from "../store/finalyWord";
 export default {
+
     data() {
         return {
             // palabras:["botella","manzana","escoba"],
-            palabras: [],
-            random: "",
-            oculto: "",
-            palabraBarra: "",
-            mostrar: [],
-            letra: "",
+            palabras:[],
+            random:"",
+            oculto:"",
+            palabraBarra:"",
+            mostrar:[],
+            letra:"",
             imagen: "",
             mostrarm: false,
             enhorabuena: false,
@@ -58,60 +53,68 @@ export default {
         };
     },
     methods: {
-        ...mapActions(useTemporizadorStore, ["reduceTime"]),
-        insertarPalabra() {
-            this.random =
-                this.palabras[Math.floor(Math.random() * this.palabras.length)];
-            console.log("La respuesta correcta es: " + this.random.word);
+        vaciar(){
+            document.getElementById('letra').value="";
+        },
+        insertarPalabra(){
+            this.random=this.palabras[Math.floor(Math.random()*this.palabras.length)];
             return this.random.word;
         },
-        mostrarLetra() {
-            this.letra = document.getElementById("letra").value.toLowerCase();
+        mostrarLetra(){
+            this.letra=document.getElementById('letra').value.toLowerCase();
+            let letram= this.random.word.toLowerCase();
+            let acertado=false;
 
-            let acertado = false;
+                for (let i = 0; i < letram.length; i++) {
+                    // Oculta la palabra con _ _ _
+                    if (this.mostrar[i]==null) {
+                        this.mostrar[i]="_";
+                    }
+                    // si hay un espacio que me muestre el espacio
+                    if(letram[i]==" "){
+                        this.mostrar[i]=" ";
+                    }
 
-            // Oculta la palabra con _ _ _
-            for (let i = 0; i < this.random.word.length; i++) {
-                if (this.mostrar[i] == null) {
-                    this.mostrar[i] = "_";
+                    // Si es correcta la letra te marca verde
+                    if (this.letra==letram[i]) {
+                            acertado=true;
+                            this.mostrar[i]=this.letra;
+                            document.getElementById('letra').style.borderColor="green";
+                    }
+
                 }
 
-                // Si es correcta la letra
-                if (this.letra == this.random.word[i]) {
-                    this.mostrar[i] = this.letra;
-                    acertado = true;
-                    aciertos++;
-                    document.getElementById("letra").style.backgroundColor =
-                        "green";
+                // si al recorrer la palabra falla
+
+                if(acertado==false && z<6 && z>0) {
+                    this.imagen="../../public/game3_hangman_img/hangman"+z+".png";
+                    this.marcaError(z);
+                    z=z+1;
+                    document.getElementById('letra').style.borderColor="red";
                 }
-            }
+                // para que el inicio del juego el input sea de color blanco
+                if(z==0 && acertado==false){
+                    this.imagen="../../public/game3_hangman_img/hangman"+z+".png";
+                    this.marcaError(z);
+                    z=z+1;
+                    document.getElementById('letra').style.borderColor="black";
 
-            // si al recorrer la palabra falla
+                // cuando haces 6 fallos se termina el
+                }
+                if(z==6){
+                    this.mostrarm=true;
+                    this.reduceTime(300);
 
-            if (acertado == false && z < 6 && z > 0) {
-                this.imagen =
-                    "../../public/game3_hangman_img/hangman" + z + ".png";
-                this.marcaError(z);
-                z = z + 1;
-                document.getElementById("letra").style.backgroundColor = "red";
-            }
-            if (z == 0 && acertado == false) {
-                this.imagen =
-                    "../../public/game3_hangman_img/hangman" + z + ".png";
-                this.marcaError(z);
-                z = z + 1;
-                document.getElementById("letra").style.backgroundColor =
-                    "white";
-            }
-            if (z == 6) {
-                this.mostrarm = true;
-                this.reduceTime(300);
-            }
+                }
 
-            //si se muestra toda la palabra
-            if (this.mostrar.includes("_") == false) {
-                this.enhorabuena = true;
-            }
+
+                //si se muestra toda la palabra
+                if(this.mostrar.includes("_")==false){
+                    this.enhorabuena=true;
+                    this.changeJuego3();
+                }
+                console.log(this.random.word);
+
         },
         closeModal() {
             this.mostrarm = false;
@@ -125,7 +128,10 @@ export default {
             "insertaFallo4",
             "insertaFallo5",
             "incrementafallo",
+
         ]),
+        ...mapActions(useTemporizadorStore, ["reduceTime"]),
+        ...mapActions(useCheckStore, ["changeJuego3"]),
 
         marcaError(contador) {
             switch (contador) {
@@ -145,8 +151,8 @@ export default {
                     this.insertaFallo5();
                     break;
             }
-        },
-        async getAllData() {
+    },
+    async getAllData() {
             const allData = await axios.get(
                 "http://127.0.0.1:8000/api/getjuego3"
             );
@@ -156,10 +162,12 @@ export default {
             this.mostrarLetra();
         },
     },
-    mounted() {
+    mounted(){
+
         this.getAllData();
     },
-    components: {
+    components:{
+        GlassBtn,
         Reloj,
         ProgressBar,
         unsuccess,
@@ -169,5 +177,5 @@ export default {
         ...mapWritableState(useProgressBarStore, ["contador"]),
         ...mapWritableState(useFinalyWord,["clave"]),
     },
-};
+}
 </script>
