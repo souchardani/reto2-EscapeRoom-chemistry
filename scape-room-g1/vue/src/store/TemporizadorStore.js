@@ -28,7 +28,6 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
         iniciarTemporizador() {
             this.temporizador = setInterval(() => {
                 this.tiempo++;
-                console.log(this.tiempo);
             }, 1000);
         },
         detenerTemporizador() {
