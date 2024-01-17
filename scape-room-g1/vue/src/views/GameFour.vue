@@ -58,6 +58,7 @@ import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
 import ProgressBar from "../components/ProgressBar.vue";
 import {useProgressBarStore} from "../store/progressBar";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
 import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
 import axios from "axios";
@@ -282,6 +283,7 @@ export default {
             // perdido
             if (this.errores == 5) {
                 this.mostrarm=true;
+                this.reduceTime(300);
             }
             // ganado
             if (this.quizs.length == 0) {
@@ -295,7 +297,7 @@ export default {
             this.enhorabuena = false;
             this.$router.push("StartGame");
         },
-
+        ...mapActions(useTemporizadorStore, ["reduceTime"]),
         ...mapActions(useProgressBarStore, [
             "insertaFallo1",
             "insertaFallo2",
