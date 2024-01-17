@@ -10,11 +10,9 @@ export const useFinalyWord= defineStore('finalyWord',{
             cientifico:"",
             clave:""
         }
-
     },
     //getters o propiedades computadas
     getters:{
-
     },
     //setters o metodos
     actions:{
@@ -23,7 +21,6 @@ export const useFinalyWord= defineStore('finalyWord',{
             const response = await axios.get('http://127.0.0.1:8000/api/getjuego5');
             this.dataBaseData=response.data;
             this.getClaveAleatoria(this.dataBaseData);
-
         },
         //funcion seleccionar clave aleatoriamente
         getClaveAleatoria(array){
