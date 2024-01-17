@@ -6,14 +6,15 @@
             <img v-bind:src="imagen" class='mx-auto'>
 
         </div>
-        <input type="text" id="letra" maxlength="1" size="1" style="text-align:center"><br><br>
-        <button class="rounded-2xl bg-white bg-opacity-40 px-5 py-1.5 mb-5 text-2xl font-semibold text-gray-900 shadow-sm hover:bg-red-500 hover:text-white cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-            style="backdrop-filter: blur(20px)" @click="mostrarLetra()">pulsar</button><br>
-
+        <input type="text" id="letra" maxlength="1" size="1" @click="vaciar()" class="border-4 text-center">
+        <div class="mt-4 p-4 flex text-center m-auto justify-center w-48">
+            <GlassBtn  @click="mostrarLetra()">pulsar</GlassBtn>
+        </div>
     </div>
     <div>
         <!-- <h1>{{ palabraBarra }}</h1> -->
-        <h2>{{ mostrar }}</h2>
+        <h2>{{ mostrar.toString() }}</h2>
+
 
     </div>
     <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal"></success>
@@ -22,10 +23,9 @@
 
 <script>
 let z=0;
-let aciertos=0;
-
 
 import ProgressBar from "../components/ProgressBar.vue";
+import GlassBtn from "../components/GlassBtn.vue";
 import { mapWritableState,mapActions  } from "pinia";
 import {useProgressBarStore} from "../store/progressBar";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
@@ -48,36 +48,36 @@ export default {
             imagen: "",
             mostrarm: false,
             enhorabuena:false,
-
         }
     },
     methods: {
-        ...mapActions(useTemporizadorStore, ["reduceTime"]),
+        vaciar(){
+            document.getElementById('letra').value="";
+        },
         insertarPalabra(){
             this.random=this.palabras[Math.floor(Math.random()*this.palabras.length)];
             return this.random.word;
         },
         mostrarLetra(){
-
             this.letra=document.getElementById('letra').value.toLowerCase();
-
+            let letram= this.random.word.toLowerCase();
             let acertado=false;
 
-                // Oculta la palabra con _ _ _
-                for (let i = 0; i < this.random.word.length; i++) {
-
+                for (let i = 0; i < letram.length; i++) {
+                    // Oculta la palabra con _ _ _
                     if (this.mostrar[i]==null) {
                         this.mostrar[i]="_";
                     }
+                    // si hay un espacio que me muestre el espacio
+                    if(letram[i]==" "){
+                        this.mostrar[i]=" ";
+                    }
 
-                    // Si es correcta la letra
-                    if (this.letra==this.random.word[i]) {
-
-                            this.mostrar[i]=this.letra;
+                    // Si es correcta la letra te marca verde
+                    if (this.letra==letram[i]) {
                             acertado=true;
-                            aciertos++;
-                            document.getElementById('letra').style.backgroundColor="green";
-
+                            this.mostrar[i]=this.letra;
+                            document.getElementById('letra').style.borderColor="green";
                     }
 
                 }
@@ -88,18 +88,18 @@ export default {
                     this.imagen="../../public/game3_hangman_img/hangman"+z+".png";
                     this.marcaError(z);
                     z=z+1;
-                    document.getElementById('letra').style.backgroundColor="red";
+                    document.getElementById('letra').style.borderColor="red";
                 }
+                // para que el inicio del juego el input sea de color blanco
                 if(z==0 && acertado==false){
                     this.imagen="../../public/game3_hangman_img/hangman"+z+".png";
                     this.marcaError(z);
                     z=z+1;
-                    document.getElementById('letra').style.backgroundColor="white";
+                    document.getElementById('letra').style.borderColor="black";
 
-
+                // cuando haces 6 fallos se termina el
                 }
                 if(z==6){
-
                     this.mostrarm=true;
                     this.reduceTime(300);
 
@@ -109,8 +109,9 @@ export default {
                 //si se muestra toda la palabra
                 if(this.mostrar.includes("_")==false){
                     this.enhorabuena=true;
-
+                    this.changeJuego3();
                 }
+                console.log(this.random.word);
 
         },
         closeModal() {
@@ -127,6 +128,8 @@ export default {
             "incrementafallo",
 
         ]),
+        ...mapActions(useTemporizadorStore, ["reduceTime"]),
+        ...mapActions(useCheckStore, ["changeJuego3"]),
 
         marcaError(contador) {
             switch (contador) {
@@ -162,6 +165,7 @@ export default {
         this.getAllData();
     },
     components:{
+        GlassBtn,
         Reloj,
         ProgressBar,
         unsuccess,
