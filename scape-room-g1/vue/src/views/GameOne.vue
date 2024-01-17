@@ -34,7 +34,6 @@
 import DescripcionJuego from "../components/DescripcionJuego.vue";
 import GlassCard from "../components/GlassCard.vue";
 import Reloj from "../components/Reloj.vue";
-import ProgressBar from "../components/ProgressBar.vue";
 import BtnSalir from "../components/BtnSalir.vue";
 import FlipCard from "../components/Flip-Card.vue";
 import { useProgressBarStore } from "../store/progressBar";
@@ -51,7 +50,7 @@ export default {
         return {
             errores: 0,
             mostrar: false, //esta variable es del componente modal unsuccess
-            enhorabuena: false,
+            enhorabuena: false, //esta variable es para controlar el modal success
             acierto: 0,
 
             cards: [],
@@ -65,6 +64,7 @@ export default {
         };
     },
     methods: {
+        //recojo datos de la base de datos y relleno el array de manera aleatoria para que no se repita el juego
         getNames() {
             while (this.cards.length < 4) {
                 const randomIndex = Math.floor(
@@ -80,11 +80,13 @@ export default {
 
             return this.cards;
         },
+        //este metodo controla la aparicion del modal
         closeModal() {
             this.mostrar = false;
             this.enhorabuena = false;
             this.$router.push("StartGame");
         },
+        //funcion para concatenar los diferentes array de elementos y volver a seleccionar de manera aleatoria
         getNamesCopia(array) {
             this.cardsCopia = array.slice();
             for (let i = this.cardsCopia.length - 1; i > 0; i--) {
@@ -95,7 +97,7 @@ export default {
                 ];
             }
         },
-
+        //funcion para mostrar las imagenes en las cards
         obtenerImagenes(name) {
             let respuestaAObtener = this.FormulaNames.filter(
                 (respuesta) => respuesta.molecule === name
@@ -104,6 +106,7 @@ export default {
             console.log(img);
             return "game1_puzzles_img/" + img;
         },
+
         comprobar(estado, id) {
             this.parejas.push(id);
             this.giradas++;
@@ -113,19 +116,22 @@ export default {
                     if (this.acierto == 4) {
                         this.changeJuego1();
                         this.enhorabuena = true;
+                        //animacion cuando completas
                         const jsConfetti = new JSConfetti();
                         jsConfetti.addConfetti();
+                        //reiniciar estado de barra de errores
+                        this.resetState();
                     }
                     this.parejas.forEach((pareja) => {
                         this.$refs[pareja][0].correct(); //correct es la clase de resultado encontrado
                         this.$refs[pareja][1].correct();
                     });
                 } else {
-                    alert("las parejas no son iguales");
                     this.parejas.forEach((pareja) => {
                         this.$refs[pareja][0].voltearDeNuevo(); //esta funcion devuelve las card a su estado inicial en caso de error
                         this.$refs[pareja][1].voltearDeNuevo();
                     });
+                    //compropar los errores de la barra y llama a la funcion de restar tiempo
                     this.marcaError(this.contador);
                     this.errores++;
                     if (this.errores == 5) {
@@ -137,6 +143,8 @@ export default {
                 this.giradas = 0;
             }
         },
+        //por cada componente de que tenga un store de pinia , y utilizar sus metodos o actions debemos iportar MAPACTIONS
+        //por cada componente en un array añadiremos sus metodos
         ...mapActions(useProgressBarStore, [
             "insertaFallo1",
             "insertaFallo2",
@@ -144,7 +152,7 @@ export default {
             "insertaFallo4",
             "insertaFallo5",
             "incrementafallo",
-            ,
+            "resetState",
         ]),
         ...mapActions(useCheckStore, ["changeJuego1"]),
         ...mapActions(useTemporizadorStore, ["reduceTime"]),
@@ -168,6 +176,7 @@ export default {
                     break;
             }
         },
+        //peticion asincrona de los datos de la base de datos
         async getAllData() {
             const allData = await axios.get(
                 "http://127.0.0.1:8000/api/getjuego1"
@@ -178,20 +187,23 @@ export default {
             this.getNamesCopia(this.cards);
         },
     },
+    //al montar, llamo a la funcion que me cargue los datos
     mounted() {
         this.getAllData();
     },
-
+    //añadimos los componetes que vamos a utilizar
     components: {
         DescripcionJuego,
         GlassCard,
         Reloj,
-        ProgressBar,
+
         BtnSalir,
         FlipCard,
         unsuccess,
         success,
     },
+    //por cada componente de que tenga un store de pinia , para utilizar sus propiedade computadas o getters y las variables debemos iportar mapWritableState
+    //por cada componente en un array añadiremos sus metodos computados y sus variables
     computed: {
         ...mapWritableState(useProgressBarStore, ["contador"]),
     },
