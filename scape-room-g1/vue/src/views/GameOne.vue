@@ -26,6 +26,7 @@
         <success
             v-bind:enhorabuena="enhorabuena"
             @clicked2="closeModal"
+            :pista="this.clave[1]"
         ></success>
         <unsuccess v-bind:mostrar="mostrar" @clicked="closeModal"></unsuccess>
     </div>
@@ -38,6 +39,7 @@ import BtnSalir from "../components/BtnSalir.vue";
 import FlipCard from "../components/Flip-Card.vue";
 import { useProgressBarStore } from "../store/progressBar";
 import { useCheckStore } from "../store/checkState";
+import { useFinalyWord } from "../store/finalyWord";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
@@ -52,6 +54,7 @@ export default {
             mostrar: false, //esta variable es del componente modal unsuccess
             enhorabuena: false, //esta variable es para controlar el modal success
             acierto: 0,
+            pista:"",
 
             cards: [],
             cardsCopia: [],
@@ -115,6 +118,7 @@ export default {
                     this.acierto++;
                     if (this.acierto == 4) {
                         this.changeJuego1();
+                        this.pista=this.clave[1];
                         this.enhorabuena = true;
                         //animacion cuando completas
                         const jsConfetti = new JSConfetti();
@@ -156,6 +160,7 @@ export default {
         ]),
         ...mapActions(useCheckStore, ["changeJuego1"]),
         ...mapActions(useTemporizadorStore, ["reduceTime"]),
+        ...mapActions(useFinalyWord,["getDataBase"]),
 
         marcaError(contador) {
             switch (contador) {
@@ -190,6 +195,7 @@ export default {
     //al montar, llamo a la funcion que me cargue los datos
     mounted() {
         this.getAllData();
+        this.getDataBase();
     },
     //añadimos los componetes que vamos a utilizar
     components: {
@@ -206,6 +212,7 @@ export default {
     //por cada componente en un array añadiremos sus metodos computados y sus variables
     computed: {
         ...mapWritableState(useProgressBarStore, ["contador"]),
+        ...mapWritableState(useFinalyWord,['clave'])
     },
 };
 </script>

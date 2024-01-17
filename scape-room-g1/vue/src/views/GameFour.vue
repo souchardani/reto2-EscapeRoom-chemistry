@@ -47,13 +47,14 @@
                 </div>
             </div>
         </form>
-        <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal"></success>
+        <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal" :pista="this.clave[4]"></success>
         <unsuccess v-bind:mostrar="mostrarm" @clicked="closeModal"></unsuccess>
     </div>
 </template>
 <script>
 import GlassCard from "../components/GlassCard.vue";
 import GlassBtn from "../components/GlassBtn.vue";
+import { useFinalyWord } from "../store/finalyWord";
 import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
 import ProgressBar from "../components/ProgressBar.vue";
@@ -84,6 +85,7 @@ export default {
     },
     data() {
         return {
+            pista:"",//variable que le pasamos a los props del componente success
             muestra: false,
             help: true,
             quizsIndex: 0,
@@ -334,10 +336,12 @@ export default {
     },
     computed:{
         ...mapWritableState(useProgressBarStore,["contador"]),
+        ...mapWritableState(useFinalyWord,["clave"]),//store de juego 5
 
         quizEliminar() {
             return this.quizs;
         }
+
     }
 }
 </script>
