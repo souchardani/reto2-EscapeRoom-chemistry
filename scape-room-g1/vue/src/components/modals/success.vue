@@ -52,6 +52,7 @@
                                     Has superado el Mini-Juego y aún te queda
                                     tiempo!
                                 </p>
+                                <h3> Deberás recordar esta clave: <span>{{ pista }}</span></h3>
                             </div>
 
                             <div
@@ -75,12 +76,13 @@
 export default {
     props: {
         enhorabuena: Boolean,
+        pista:String,
     },
     methods: {
         clicked2() {
             this.$emit("clicked2", false);
-            
         },
+
     },
 };
 </script>

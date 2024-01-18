@@ -12,7 +12,7 @@
             >
                 <div class="filaTitulo mb-5">Por Completar 👉👉</div>
                 <Container
-                    class="p-3 rounded-xl sm:grid-cols-4 p-0 text-center gap-y-1 gap-x-2 bg-opacity-75"
+                    class="p-3 rounded-xl sm:grid-cols-4 text-center gap-y-1 gap-x-2 bg-opacity-75"
                     group-name="compuestos"
                     @drag-start="handleDragStart('backlog', $event)"
                     @drop="handleDrop('backlog', $event)"
@@ -24,9 +24,9 @@
                     >
                         <GlassJuego2
                             :class="{
-                                'border border-green-500 border-4':
+                                ' border-green-500 border-4':
                                     compoundElement.estado.exito,
-                                'border border-red-500 border-4':
+                                ' border-red-500 border-4':
                                     compoundElement.estado.error,
                             }"
                             >{{ compoundElement.compound }}</GlassJuego2
@@ -56,9 +56,9 @@
                     >
                         <GlassJuego2
                             :class="{
-                                'border border-green-500 border-4':
+                                ' border-green-500 border-4':
                                     compuesto.estado.exito,
-                                'border border-red-500 border-4':
+                                ' border-red-500 border-4':
                                     compuesto.estado.error,
                             }"
                             >{{ compuesto.compound }}</GlassJuego2
@@ -89,9 +89,9 @@
                     >
                         <GlassJuego2
                             :class="{
-                                'border border-green-500 border-4':
+                                ' border-green-500 border-4':
                                     compuesto.estado.exito,
-                                'border border-red-500 border-4':
+                                ' border-red-500 border-4':
                                     compuesto.estado.error,
                             }"
                             >{{ compuesto.compound }}</GlassJuego2
@@ -121,9 +121,9 @@
                     >
                         <GlassJuego2
                             :class="{
-                                'border border-green-500 border-4':
+                                ' border-green-500 border-4':
                                     compuesto.estado.exito,
-                                'border border-red-500 border-4':
+                                ' border-red-500 border-4':
                                     compuesto.estado.error,
                             }"
                             >{{ compuesto.compound }}</GlassJuego2
@@ -154,9 +154,9 @@
                     >
                         <GlassJuego2
                             :class="{
-                                'border border-green-500 border-4':
+                                ' border-green-500 border-4':
                                     compuesto.estado.exito,
-                                'border border-red-500 border-4':
+                                ' border-red-500 border-4':
                                     compuesto.estado.error,
                             }"
                             >{{ compuesto.compound }}</GlassJuego2
@@ -168,7 +168,7 @@
     </div>
 
     <!-- modals -->
-    <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal"></success>
+    <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal" :pista="this.clave[2]"></success>
     <unsuccess v-bind:mostrar="mostrar" @clicked="closeModal"></unsuccess>
 
     <!-- El div de los compuestos -->
@@ -193,6 +193,7 @@
 </template>
 <script>
 import { useProgressBarStore } from "../store/progressBar";
+import { useFinalyWord } from "../store/finalyWord";
 import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
 import unsuccess from "../components/modals/unsuccess.vue";
@@ -215,6 +216,7 @@ export default {
     },
     data() {
         return {
+            pista:"",
             erroresTotales: 20,
             contador: 0,
             mostrar: false, //esta variable es del componente modal unsuccess
@@ -419,6 +421,9 @@ export default {
             console.log(this.compoundDataEach.backlog);
         });
     },
+    computed:{
+        ...mapWritableState(useFinalyWord,["clave"])
+    }
 };
 </script>
 

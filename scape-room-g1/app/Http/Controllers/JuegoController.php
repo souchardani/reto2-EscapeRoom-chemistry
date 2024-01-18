@@ -7,6 +7,7 @@ use App\Models\Game1_puzzle;
 use App\Models\Game2_kuku;
 use App\Models\Game4_pairs;
 use App\Models\Game3_hangman;
+use App\Models\Game5_needPassword;
 
 class JuegoController extends Controller
 {
@@ -25,5 +26,9 @@ class JuegoController extends Controller
     public function getInfoJuego4(){
         $game4=Game4_pairs::all();
         return $game4;
+    }
+    public function getInfoJuego5(){
+        $game5=Game5_needPassword::all();
+        return $game5;
     }
 }
