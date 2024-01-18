@@ -205,6 +205,7 @@ import success from "../components/modals/success.vue";
 import JSConfetti from "js-confetti";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { useCheckStore } from "../store/checkState";
+import { useLoginStore } from "../store/LoginStore";
 //libreria para el draggable
 import { Container, Draggable } from "vue3-smooth-dnd";
 import GlassJuego2 from "../components/GlassJuego2.vue";
@@ -225,6 +226,7 @@ export default {
             contador: 0,
             mostrar: false, //esta variable es del componente modal unsuccess
             enhorabuena: false, //esta variable es para controlar el modal success
+            descontarTiempo:0,//esta variable determina el tiempo a descontar dependiendo de la dificultad
             classError: {
                 estado: false,
                 clase: "border border-red-500 border-4",
@@ -361,7 +363,8 @@ export default {
                     this.marcaError(this.contador);
                     if (this.contador == 5) {
                         this.mostrar = true;
-                        this.reduceTime(300);
+                        this.descontarTiempo=this.saberTiempoXdificultad(this.usuario.dificultad);
+                        this.reduceTime(this.descontarTiempo);
                     }
                 }
             }
@@ -376,8 +379,9 @@ export default {
             "marcaError",
             "resetState",
         ]),
-        ...mapActions(useTemporizadorStore, ["reduceTime"]),
+        ...mapActions(useTemporizadorStore, ["reduceTime","saberTiempoXdificultad"]),
         ...mapActions(useCheckStore, ["changeJuego2"]),
+
         closeModal() {
             this.mostrar = false;
             this.enhorabuena = false;
@@ -437,6 +441,7 @@ export default {
     },
     computed: {
         ...mapWritableState(useFinalyWord, ["clave"]),
+        ...mapWritableState(useLoginStore,["usuario"]),//para usar la variable de usuario del store
     },
 };
 </script>

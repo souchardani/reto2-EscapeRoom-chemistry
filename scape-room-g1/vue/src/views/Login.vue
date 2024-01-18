@@ -287,6 +287,7 @@ export default {
             //redirigimos a la pagina de inicio del juego
             this.$router.push("/startGame");
         },
+        
         ...mapActions(useTemporizadorStore, [
             "iniciarTemporizador",
             "iniciarCuentaAtras",
