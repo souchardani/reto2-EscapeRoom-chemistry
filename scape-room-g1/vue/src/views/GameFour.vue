@@ -208,6 +208,20 @@ export default {
             this.help = false;
         },
 
+        resetData() {
+            this.muestra = false;
+            this.help = true,
+            this.quizsIndex = 0;
+            this.errores = 0;
+            this.success = 0;
+            this.quizs = [];
+            this.growObject = 0;
+            this.randomNumbers = [];
+            this.quizsAxios = [];
+            this.mostrarm = false;
+            this.enhorabuena = false;
+        },
+
         async getAllData() {
             // obtiene mediante axios los datos del juego
             const allData = await axios.get(
@@ -332,6 +346,7 @@ export default {
 
     },
     created() {
+        this.resetData();
         this.getAllData();
     },
     computed:{
