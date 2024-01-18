@@ -286,6 +286,7 @@
                             <span>4</span>
                         </button>
                     </router-link>
+                    <router-link to="Ranking">Texto</router-link>
                 </div>
             </div>
         </div>
