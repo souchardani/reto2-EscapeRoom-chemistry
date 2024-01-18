@@ -31,7 +31,7 @@
 
 <script>
 let z=0;
-
+let contador=0;
 import ProgressBar from "../components/ProgressBar.vue";
 import GlassBtn from "../components/GlassBtn.vue";
 import { mapWritableState,mapActions  } from "pinia";
@@ -53,6 +53,7 @@ export default {
             mostrar:[],
             letra:"",
             imagen: "",
+
             mostrarm: false,
             enhorabuena:false,
             audioAcertado:new Audio('../../public/sounds/1200.mp3'),
@@ -63,14 +64,15 @@ export default {
     },
     methods: {
         resetData(){
-            this.palabras=[],
-            this.random="",
-            this.palabraBarra="",
-            this.mostrar=[],
-            this.letra="",
-            this.imagen= "",
+            this.palabras=[];
+            this.random="";
+            this.palabraBarra="";
+            this.mostrar=[];
+            this.letra="";
+            this.imagen= "";
+            contador=0;
             this.mostrarm= false;
-            this.enhorabuena=false
+            this.enhorabuena=false;
         },
         apagar(){
             this.audioAcertado.muted=true;
@@ -120,15 +122,17 @@ export default {
 
                 if(acertado==false && z<6 && z>0) {
                     this.imagen="../../public/game3_hangman_img/hangman"+z+".png";
-                    this.marcaError(z);
+                    this.marcaError(contador);
                     z=z+1;
+                    contador=contador+1;
                     this.audioIncorrecto.play();
                     document.getElementById('letra').style.borderColor="red";
                 }
                 // para que el inicio del juego el input sea de color blanco
                 if(z==0 && acertado==false){
                     this.imagen="../../public/game3_hangman_img/hangman"+z+".png";
-                    this.marcaError(z);
+                    this.marcaError(contador);
+                    contador=contador+1;
                     z=z+1;
                     document.getElementById('letra').style.borderColor="black";
 
