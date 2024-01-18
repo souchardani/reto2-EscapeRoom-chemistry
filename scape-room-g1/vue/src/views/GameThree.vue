@@ -32,7 +32,7 @@
 
 
         </div>
-        <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal"></success>
+        <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal" :pista="this.clave[2]"></success>
         <unsuccess v-bind:mostrar="mostrarm" @clicked="closeModal"></unsuccess>
 
     </div>
@@ -50,6 +50,7 @@ import Reloj from "../components/Reloj.vue";
 import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
 import axios from "axios";
+import { useFinalyWord } from "../store/finalyWord";
 export default {
 
     data() {
@@ -61,7 +62,7 @@ export default {
             mostrar:[],
             letra:"",
             imagen: "",
-
+            pista:"",
             mostrarm: false,
             enhorabuena:false,
             audioAcertado:new Audio('../../public/sounds/1200.mp3'),
@@ -224,6 +225,7 @@ export default {
     },
     computed:{
         ...mapWritableState(useProgressBarStore,["contador"]),
+        ...mapWritableState(useFinalyWord,["clave"])
     }
 }
 </script>
