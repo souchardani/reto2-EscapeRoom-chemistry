@@ -229,7 +229,7 @@ export default {
             );
 
             this.quizsAxios = allData.data;
-            console.log(this.quizsAxios);
+            //console.log(this.quizsAxios);
 
             // inserta 10 de los registros en el quizs
             for (let i = 0; i < 10; i++) {
@@ -253,6 +253,9 @@ export default {
                     this.quizsIndex = Math.floor(Math.random() * this.quizs.length);
                 }
             }
+            // muestra las preguntas con sus respuestas
+            console.log("--Las respuestas correctas:");
+            console.log(this.quizs);
         },
         checkQuestion() {
             // obtiene los datos
@@ -309,8 +312,9 @@ export default {
 
         // modals de juego ganado o perdido
         closeModal() {
-            this.mostrarm = false;
+            this.mostrar = false;
             this.enhorabuena = false;
+            this.resetState();
             this.$router.push("StartGame");
         },
         ...mapActions(useTemporizadorStore, ["reduceTime"]),
@@ -321,7 +325,7 @@ export default {
             "insertaFallo4",
             "insertaFallo5",
             "incrementafallo",
-
+            "resetState"
         ]),
 
         marcaError(contador) {
