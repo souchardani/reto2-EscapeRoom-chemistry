@@ -168,7 +168,11 @@
     </div>
 
     <!-- modals -->
-    <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal" :pista="this.clave[2]"></success>
+    <success
+        v-bind:enhorabuena="enhorabuena"
+        @clicked2="closeModal"
+        :pista="this.clave[2]"
+    ></success>
     <unsuccess v-bind:mostrar="mostrar" @clicked="closeModal"></unsuccess>
 
     <!-- El div de los compuestos -->
@@ -216,7 +220,7 @@ export default {
     },
     data() {
         return {
-            pista:"",
+            pista: "",
             erroresTotales: 20,
             contador: 0,
             mostrar: false, //esta variable es del componente modal unsuccess
@@ -383,7 +387,6 @@ export default {
         resetState() {
             this.compoundDataEach = {
                 microbiologia: [],
-
                 analisis: [],
                 medida: [],
                 biotecnologia: [],
@@ -396,8 +399,12 @@ export default {
                 .get("http://127.0.0.1:8000/api/getjuego2")
                 .then((response) => {
                     this.compoundDataEach.backlog = response.data;
+                    //mezclamos el array
                     this.mezclarArray(this.compoundDataEach.backlog);
+                    //añadimos el objeto que maneja el estado de cada card
                     this.addExitoError();
+                    //obtenemos 10 compuestos aleatorios
+                    this.obtener20();
                 });
         },
         addExitoError() {
@@ -411,6 +418,13 @@ export default {
         mezclarArray() {
             this.compoundDataEach.backlog.sort(() => Math.random() - 0.5);
         },
+        obtener20() {
+            let array20 = [];
+            for (let i = 0; i < 20; i++) {
+                array20.push(this.compoundDataEach.backlog[i]);
+            }
+            this.compoundDataEach.backlog = array20;
+        },
     },
 
     mounted() {
@@ -421,9 +435,9 @@ export default {
             console.log(this.compoundDataEach.backlog);
         });
     },
-    computed:{
-        ...mapWritableState(useFinalyWord,["clave"])
-    }
+    computed: {
+        ...mapWritableState(useFinalyWord, ["clave"]),
+    },
 };
 </script>
 
