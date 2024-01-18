@@ -47,17 +47,19 @@
                 </div>
             </div>
         </form>
-        <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal"></success>
+        <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal" :pista="this.clave[4]"></success>
         <unsuccess v-bind:mostrar="mostrarm" @clicked="closeModal"></unsuccess>
     </div>
 </template>
 <script>
 import GlassCard from "../components/GlassCard.vue";
 import GlassBtn from "../components/GlassBtn.vue";
+import { useFinalyWord } from "../store/finalyWord";
 import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
 import ProgressBar from "../components/ProgressBar.vue";
 import {useProgressBarStore} from "../store/progressBar";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
 import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
 import axios from "axios";
@@ -83,6 +85,7 @@ export default {
     },
     data() {
         return {
+            pista:"",//variable que le pasamos a los props del componente success
             muestra: false,
             help: true,
             quizsIndex: 0,
@@ -205,6 +208,20 @@ export default {
             this.help = false;
         },
 
+        resetData() {
+            this.muestra = false;
+            this.help = true,
+            this.quizsIndex = 0;
+            this.errores = 0;
+            this.success = 0;
+            this.quizs = [];
+            this.growObject = 0;
+            this.randomNumbers = [];
+            this.quizsAxios = [];
+            this.mostrarm = false;
+            this.enhorabuena = false;
+        },
+
         async getAllData() {
             // obtiene mediante axios los datos del juego
             const allData = await axios.get(
@@ -282,6 +299,7 @@ export default {
             // perdido
             if (this.errores == 5) {
                 this.mostrarm=true;
+                this.reduceTime(300);
             }
             // ganado
             if (this.quizs.length == 0) {
@@ -295,7 +313,7 @@ export default {
             this.enhorabuena = false;
             this.$router.push("StartGame");
         },
-
+        ...mapActions(useTemporizadorStore, ["reduceTime"]),
         ...mapActions(useProgressBarStore, [
             "insertaFallo1",
             "insertaFallo2",
@@ -328,14 +346,17 @@ export default {
 
     },
     created() {
+        this.resetData();
         this.getAllData();
     },
     computed:{
         ...mapWritableState(useProgressBarStore,["contador"]),
+        ...mapWritableState(useFinalyWord,["clave"]),//store de juego 5
 
         quizEliminar() {
             return this.quizs;
         }
+
     }
 }
 </script>

@@ -40,7 +40,7 @@
         >
             Scape Room
         </h1>
-
+        <h2></h2>
         <div class="flex">
             <!-- <button @click="storeTemporizador.reiniciarEstadoTiempo()">
                 resetear contador
@@ -306,6 +306,7 @@
 </template>
 
 <script setup>
+
 import Footer from "../components/Footer.vue";
 import BtnSalir from "../components/BtnSalir.vue";
 import { useCheckStore } from "../store/checkState";

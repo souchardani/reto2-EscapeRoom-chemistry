@@ -8,6 +8,7 @@ import GameOne from "../views/GameOne.vue";
 import GameTwo from "../views/GameTwo.vue";
 import GameThree from "../views/GameThree.vue";
 import GameFour from "../views/GameFour.vue";
+import EndGame from "../views/EndGame.vue"
 import AdminLogin from "../views/AdminLogin.vue";
 import StartGame from "../views/StartGame.vue";
 import Ranking from "../views/Ranking.vue";
@@ -74,6 +75,16 @@ const routes = [
                     title: "Cada Oveja con su Pareja",
                     description:
                         "Agrupa los compuestos con sus nombres y formula. Ya estas cerca de conseguir el objetivo, solo tendrás que terminar esta prueba. Deberás responder bie a 10 cuestiones seleccionando las respuestas que estan en el desplegable. Solo se te concederán 5 fallos. Te deseo Suerte!",
+                },
+            },
+            {
+                path: "/juego5",
+                name: "Juego5",
+                component: EndGame,
+                meta: {
+                    title: "Resuelve la combinación",
+                    description:
+                        "Tendras que colocar y completar las pistas que has estado recibiendo. Con el nombre del científico, deberías saber completar el hueco que te falta",
                 },
             },
         ],

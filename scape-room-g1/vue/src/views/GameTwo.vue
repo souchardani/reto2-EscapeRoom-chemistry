@@ -168,7 +168,7 @@
     </div>
 
     <!-- modals -->
-    <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal"></success>
+    <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal" :pista="this.clave[2]"></success>
     <unsuccess v-bind:mostrar="mostrar" @clicked="closeModal"></unsuccess>
 
     <!-- El div de los compuestos -->
@@ -193,6 +193,7 @@
 </template>
 <script>
 import { useProgressBarStore } from "../store/progressBar";
+import { useFinalyWord } from "../store/finalyWord";
 import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
 import unsuccess from "../components/modals/unsuccess.vue";
@@ -215,6 +216,7 @@ export default {
     },
     data() {
         return {
+            pista:"",
             erroresTotales: 20,
             contador: 0,
             mostrar: false, //esta variable es del componente modal unsuccess
@@ -419,6 +421,9 @@ export default {
             console.log(this.compoundDataEach.backlog);
         });
     },
+    computed:{
+        ...mapWritableState(useFinalyWord,["clave"])
+    }
 };
 </script>
 

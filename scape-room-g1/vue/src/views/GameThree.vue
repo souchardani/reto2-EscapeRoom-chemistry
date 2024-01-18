@@ -11,7 +11,8 @@ import Ahorcadowords from '../components/Ahorcadowords.vue';
 
 
 export default{
-    components: { Ahorcadowords }
+    components: { Ahorcadowords },
+
 };
 
 
