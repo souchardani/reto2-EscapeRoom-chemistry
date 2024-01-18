@@ -39,13 +39,13 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
         },
         saberTiempoXdificultad(dificultad,menosT){
             switch (dificultad){
-                case "principiante":
+                case "Facil":
                     menosT=300;
                     return menosT;
-                case "medio":
+                case "Normal":
                     menosT=420;
                     return menosT;
-                case "avanzado":
+                case "Dificil":
                     menosT=720;
                     return menosT;
             }
