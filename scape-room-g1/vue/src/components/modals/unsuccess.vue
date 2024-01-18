@@ -12,7 +12,7 @@
                             <div class="flex flex-col text-center p-5 items-center justify-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="88" height="88" fill="#ed5050" viewBox="0 0 256 256"><path d="M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm-12-80V80a12,12,0,0,1,24,0v52a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,172Z"/></svg>
                                 <h3 class="text-xl font-bold py-4 ">No has superado el Mini-Juego</h3>
-                                <p class="text-xl font-bold py-4" >Se descontarán 5 minutos de tu tiempo</p>
+                                <p class="text-xl font-bold py-4" >Se descontará tiempo para resolver el juego completo!!</p>
                             </div>
 
                             <div class="p-3  mt-2 text-center space-x-4 md:block">
