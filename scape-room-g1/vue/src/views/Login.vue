@@ -82,6 +82,7 @@
                         <!-- tarjeta -->
 
                         <div
+                            v-show="showModal"
                             id="tarjeta-info"
                             class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative"
                         >
@@ -94,6 +95,7 @@
                             </span>
                             <i
                                 class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
+                                @click="showModal = false"
                             ></i>
                         </div>
                     </div>
@@ -233,6 +235,7 @@ import { mapWritableState, mapActions } from "pinia";
 export default {
     data() {
         return {
+            showModal: true,
             txtNick: "",
             txtPassword: "",
             cmbDificultad: "Principiante",
