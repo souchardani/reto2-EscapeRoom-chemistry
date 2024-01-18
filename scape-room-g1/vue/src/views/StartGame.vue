@@ -69,10 +69,7 @@
                             @click="handleModal(store.juego1)"
                             style="backdrop-filter: blur(20px)"
                             :class="[
-                                {
-                                    'bg-green-400': !store.activarJuego1,
-                                    'bg-green-400': store.juego1,
-                                },
+                                'bg-green-400',
                                 'flex',
                                 'absolute',
                                 'bottom-[110px]',
@@ -117,7 +114,9 @@
                             ><span>1</span>
                         </button>
                     </router-link>
-                    <router-link :to="store.juego1 ? '/juego2' : ''">
+                    <router-link
+                        :to="store.juego1 && !store.juego2 ? '/juego2' : ''"
+                    >
                         <button
                             @click="handleModal(store.juego2, store.juego1)"
                             ref="juego2"
@@ -125,8 +124,9 @@
                             :class="[
                                 {
                                     // isDisabled: store.activarJuego2,
-                                    'bg-red-400': store.activarJuego2,
-                                    'bg-green-400': !store.activarJuego2,
+                                    'bg-red-400': !store.juego1,
+                                    'bg-green-400':
+                                        store.juego1 || store.juego2,
                                 },
                                 'flex',
                                 'absolute',
@@ -172,7 +172,9 @@
                             <span>2</span>
                         </button>
                     </router-link>
-                    <router-link :to="store.juego2 ? '/juego3' : ''">
+                    <router-link
+                        :to="store.juego2 && !store.juego3 ? '/juego3' : ''"
+                    >
                         <button
                             @click="handleModal(store.juego3, store.juego2)"
                             ref="juego3"
@@ -180,8 +182,9 @@
                             :class="[
                                 {
                                     // 'pointer-events-none': store.activarJuego3,
-                                    'bg-red-400': store.activarJuego3,
-                                    'bg-green-400': !store.activarJuego3,
+                                    'bg-red-400': !store.juego2,
+                                    'bg-green-400':
+                                        store.juego2 || store.juego3,
                                 },
                                 'flex',
                                 'absolute',
@@ -225,15 +228,18 @@
                             <span>3</span>
                         </button>
                     </router-link>
-                    <router-link :to="store.juego3 ? '/juego4' : ''">
+                    <router-link
+                        :to="store.juego3 && !store.juego4 ? '/juego4' : ''"
+                    >
                         <button
                             @click="handleModal(store.juego3, store.juego4)"
                             ref="juego4"
                             style="backdrop-filter: blur(20px)"
                             :class="[
                                 {
-                                    'bg-red-400': store.activarJuego4,
-                                    'bg-green-400': !store.activarJuego4,
+                                    'bg-red-400': !store.juego3,
+                                    'bg-green-400':
+                                        store.juego3 || store.juego4,
                                 },
                                 'flex',
                                 'absolute',
@@ -318,6 +324,14 @@ const storeTemporizador = useTemporizadorStore();
 const titulo = ref();
 const descripcion = ref();
 const background = ref();
+
+const obtenerRojo = (juegoActual, juegoPrevio) => {
+    if (juegoPrevio) {
+        return false;
+    } else {
+        return true;
+    }
+};
 
 const showModal = ref(false);
 
