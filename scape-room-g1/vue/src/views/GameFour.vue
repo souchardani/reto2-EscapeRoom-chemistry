@@ -345,6 +345,7 @@ export default {
     },
     created() {
         this.resetData();
+        this.resetState();
         this.getAllData();
     },
     computed:{
