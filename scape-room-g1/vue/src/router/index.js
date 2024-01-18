@@ -13,6 +13,7 @@ import AdminLogin from "../views/AdminLogin.vue";
 import StartGame from "../views/StartGame.vue";
 import Ranking from "../views/Ranking.vue";
 import PruebaDrag from "../views/PruebaDrag.vue";
+import ModalStartGame from "../components/modals/ModalStartGame.vue";
 
 //store with vuex
 import store from "../store";
@@ -120,7 +121,7 @@ const routes = [
     {
         path: "/test",
         name: "TestJuego2",
-        component: PruebaDrag,
+        component: ModalStartGame,
     },
 ];
 
