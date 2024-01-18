@@ -49,20 +49,29 @@ export default {
             // palabras:["botella","manzana","escoba"],
             palabras:[],
             random:"",
-            oculto:"",
             palabraBarra:"",
             mostrar:[],
             letra:"",
             imagen: "",
             mostrarm: false,
             enhorabuena:false,
-            audioAcertado:new Audio('../../public/sonidos/1200.mp3'),
-            audioIncorrecto:new Audio('../../public/sonidos/incorrect-cbt-sound.mp3'),
-            aplausos:new Audio('../../public/sonidos/claps-44774.mp3'),
-            fail:new Audio('../../public/sonidos/fail-144746.mp3'),
+            audioAcertado:new Audio('../../public/sounds/1200.mp3'),
+            audioIncorrecto:new Audio('../../public/sounds/incorrect-cbt-sound.mp3'),
+            aplausos:new Audio('../../public/sounds/claps-44774.mp3'),
+            fail:new Audio('../../public/sounds/fail-144746.mp3'),
         }
     },
     methods: {
+        resetData(){
+            this.palabras=[],
+            this.random="",
+            this.palabraBarra="",
+            this.mostrar=[],
+            this.letra="",
+            this.imagen= "",
+            this.mostrarm= false;
+            this.enhorabuena=false
+        },
         apagar(){
             this.audioAcertado.muted=true;
             this.audioIncorrecto.muted=true;
@@ -189,7 +198,7 @@ export default {
         },
     },
     mounted(){
-
+        this.resetData();
         this.getAllData();
     },
     components:{
