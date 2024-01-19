@@ -36,12 +36,21 @@
             <h1 class="text-4xl text-center">Ranking de Mejores Tiempos</h1>
             <select
                 v-model="opcionSeleccionado"
+                @="primerfiltrado"
                 @change="filtrar"
                 class="mx-5 p-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 name=""
                 id=""
             >
-                <option :value="dificultad.value" v-for="dificultad in dificultades" :selected="dificultad.value==usuario.dificultad ? true : false">{{ dificultad.texto }}</option>
+                <option
+                    :value="dificultad.value"
+                    v-for="dificultad in dificultades"
+                    :selected="
+                        dificultad.value == usuario.dificultad ? true : false
+                    "
+                >
+                    {{ dificultad.texto }}
+                </option>
             </select>
         </div>
         <div class="container-fluid flex flex-col justify-center p-1 m-2">
@@ -112,7 +121,11 @@ export default {
             opcionSeleccionado: null,
             jugadores: [],
             nivel: [],
-            dificultades: [{ value: "Facil", texto: "Principiante" },{ value: "Normal", texto: "Intermedio" },{ value: "Dificil", texto: "Avanzado" }],
+            dificultades: [
+                { value: "Facil", texto: "Principiante" },
+                { value: "Normal", texto: "Intermedio" },
+                { value: "Dificil", texto: "Avanzado" },
+            ],
         };
     },
     methods: {
@@ -134,11 +147,17 @@ export default {
         },
         primerfiltrado() {
             this.opcionSeleccionado = this.usuario.dificultad;
+            console.log(
+                "entrando en primer filtrado, el valor del opcionSeleccionado es :" +
+                    this.opcionSeleccionado
+            );
         },
     },
-
-    mounted() {
-        this.dataRanking();
+    beforeMount() {
+        this.primerfiltrado();
+    },
+    async mounted() {
+        await this.dataRanking();
         this.primerfiltrado();
         this.filtrar();
     },
