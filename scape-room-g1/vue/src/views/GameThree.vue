@@ -32,7 +32,7 @@
 
 
         </div>
-        <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal"></success>
+        <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal" :pista="this.clave[2]"></success>
         <unsuccess v-bind:mostrar="mostrarm" @clicked="closeModal"></unsuccess>
 
     </div>
@@ -46,10 +46,12 @@ import { mapWritableState,mapActions  } from "pinia";
 import {useProgressBarStore} from "../store/progressBar";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { useCheckStore } from "../store/checkState";
+import { useLoginStore } from "../store/LoginStore";
 import Reloj from "../components/Reloj.vue";
 import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
 import axios from "axios";
+import { useFinalyWord } from "../store/finalyWord";
 export default {
 
     data() {
@@ -61,13 +63,14 @@ export default {
             mostrar:[],
             letra:"",
             imagen: "",
-
+            pista:"",
             mostrarm: false,
             enhorabuena:false,
             audioAcertado:new Audio('../../public/sounds/1200.mp3'),
             audioIncorrecto:new Audio('../../public/sounds/incorrect-cbt-sound.mp3'),
             aplausos:new Audio('../../public/sounds/claps-44774.mp3'),
             fail:new Audio('../../public/sounds/fail-144746.mp3'),
+            descontarTiempo:0,//variable para saber el tiempo a descontar
         }
     },
     methods: {
@@ -150,8 +153,8 @@ export default {
                 if(z==6){
                     this.fail.play();
                     this.mostrarm=true;
-                    this.reduceTime(300);
-
+                    this.descontarTiempo=this.saberTiempoXdificultad(this.usuario.dificultad);
+                    this.reduceTime(this.descontarTiempo);
                 }
 
 
@@ -178,7 +181,7 @@ export default {
             "incrementafallo",
 
         ]),
-        ...mapActions(useTemporizadorStore, ["reduceTime"]),
+        ...mapActions(useTemporizadorStore, ["reduceTime","saberTiempoXdificultad"]),
         ...mapActions(useCheckStore, ["changeJuego3"]),
         ...mapActions(useProgressBarStore,["resetState"]),
         marcaError(contador) {
@@ -224,6 +227,8 @@ export default {
     },
     computed:{
         ...mapWritableState(useProgressBarStore,["contador"]),
+        ...mapWritableState(useFinalyWord,["clave"]),
+        ...mapWritableState(useLoginStore,["usuario"]),
     }
 }
 </script>

@@ -41,6 +41,7 @@ import { useProgressBarStore } from "../store/progressBar";
 import { useCheckStore } from "../store/checkState";
 import { useFinalyWord } from "../store/finalyWord";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { useLoginStore } from "../store/LoginStore";
 import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
 import unsuccess from "../components/modals/unsuccess.vue";
@@ -55,7 +56,7 @@ export default {
             enhorabuena: false, //esta variable es para controlar el modal success
             acierto: 0,
             pista:"",
-
+            descontarTiempo:0,
             cards: [],
             cardsCopia: [],
             volteo: null,
@@ -64,6 +65,7 @@ export default {
             parejas: [],
             giradas: 0,
             FormulaNames: [],
+
         };
     },
     methods: {
@@ -140,7 +142,9 @@ export default {
                     this.errores++;
                     if (this.errores == 5) {
                         this.mostrar = true;
-                        this.reduceTime(300);
+                        //funcion de reducir tiempo en funcion al nivel sabiendo la dificultad
+                        this.descontarTiempo=this.saberTiempoXdificultad(this.usuario.dificultad);
+                        this.reduceTime(this.descontarTiempo);
                     }
                 }
                 this.parejas = [];
@@ -159,7 +163,7 @@ export default {
             "resetState",
         ]),
         ...mapActions(useCheckStore, ["changeJuego1"]),
-        ...mapActions(useTemporizadorStore, ["reduceTime"]),
+        ...mapActions(useTemporizadorStore, ["reduceTime","saberTiempoXdificultad"]),
         ...mapActions(useFinalyWord,["getDataBase"]),
 
         marcaError(contador) {
@@ -212,7 +216,8 @@ export default {
     //por cada componente en un array añadiremos sus metodos computados y sus variables
     computed: {
         ...mapWritableState(useProgressBarStore, ["contador"]),
-        ...mapWritableState(useFinalyWord,['clave'])
+        ...mapWritableState(useFinalyWord,['clave']),
+        ...mapWritableState(useLoginStore,["usuario"]),
     },
 };
 </script>

@@ -18,6 +18,7 @@ import { useFinalyWord } from '../store/finalyWord';
 import { useProgressBarStore } from '../store/progressBar';
 import { mapWritableState,mapActions } from 'pinia';
 import { useTemporizadorStore } from '../store/TemporizadorStore';
+import { useLoginStore } from '../store/LoginStore';
 import unsuccess from '../components/modals/unsuccess.vue';
 export default{
     data() {
@@ -34,7 +35,8 @@ export default{
             estado:true,
             contador:0,
             mostrar:false,
-            aciertos:0
+            aciertos:0,
+            descontarTiempo:0
         }
 
     },
@@ -58,7 +60,8 @@ export default{
             compruebafallo(contador,array){
                 if(contador==5){
                     this.mostrar=true;
-                    this.reduceTime(300);
+                    this.descontarTiempo=this.saberTiempoXdificultad(this.usuario.dificultad);
+                    this.reduceTime(this.descontarTiempo);
                     this.resetState();
                     this.contador=0;
                     array.forEach(element => {
@@ -85,12 +88,13 @@ export default{
                                                 "incrementafallo",
                                                 "marcaError",
                                                 "resetState",]),
-            ...mapActions(useTemporizadorStore,["reduceTime"]),
+            ...mapActions(useTemporizadorStore,["reduceTime","saberTiempoXdificultad"]),
     },
     computed:{
 
 
         ...mapWritableState(useFinalyWord,["cientifico","clave"]),
+        ...mapWritableState(useLoginStore,["usuario"])
     },
     components:{
         unsuccess

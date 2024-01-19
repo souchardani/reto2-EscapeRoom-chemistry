@@ -60,6 +60,7 @@ import { mapActions } from "pinia";
 import ProgressBar from "../components/ProgressBar.vue";
 import {useProgressBarStore} from "../store/progressBar";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { useLoginStore } from "../store/LoginStore";
 import { useCheckStore } from "../store/checkState";
 import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
@@ -86,6 +87,7 @@ export default {
     },
     data() {
         return {
+            descontarTiempo:0,
             pista:"",//variable que le pasamos a los props del componente success
             muestra: false,
             help: true,
@@ -303,7 +305,8 @@ export default {
             // perdido
             if (this.errores == 5) {
                 this.mostrarm=true;
-                this.reduceTime(300);
+                this.descontarTiempo=this.saberTiempoXdificultad(this.usuario.dificultad);
+                this.reduceTime(this.descontarTiempo);
             }
             // ganado
             if (this.quizs.length == 0) {
@@ -360,6 +363,7 @@ export default {
     computed:{
         ...mapWritableState(useProgressBarStore,["contador"]),
         ...mapWritableState(useFinalyWord,["clave"]),//store de juego 5
+        ...mapWritableState(useLoginStore,["usuario"]),//store de login
 
         quizEliminar() {
             return this.quizs;
