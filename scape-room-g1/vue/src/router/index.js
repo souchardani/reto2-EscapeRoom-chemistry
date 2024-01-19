@@ -14,7 +14,7 @@ import StartGame from "../views/StartGame.vue";
 import Ranking from "../views/Ranking.vue";
 import PruebaDrag from "../views/PruebaDrag.vue";
 import ModalStartGame from "../components/modals/ModalStartGame.vue";
-
+import pruebas from "../views/pruebas.vue";
 //store with vuex
 import store from "../store";
 
@@ -86,6 +86,15 @@ const routes = [
                     description:
                         "Tendras que colocar y completar las pistas que has estado recibiendo. Con el nombre del científico, deberías saber completar el hueco que te falta",
                 },
+            },{
+                path: "/pruebas",
+                name: "pruebas",
+                component: pruebas,
+                meta: {
+                    title: "Pruebas",
+                    description:
+                        "pruebas",
+                },
             },
         ],
     },
@@ -123,6 +132,11 @@ const routes = [
         name: "TestJuego2",
         component: ModalStartGame,
     },
+    // {
+    //     path: "/pruebas",
+    //     name: "pruebas",
+    //     component: pruebas,
+    // },
 ];
 
 const router = createRouter({
