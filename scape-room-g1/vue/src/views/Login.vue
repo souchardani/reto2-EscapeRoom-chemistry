@@ -82,6 +82,7 @@
                         <!-- tarjeta -->
 
                         <div
+                            v-show="showModal"
                             id="tarjeta-info"
                             class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative"
                         >
@@ -94,6 +95,7 @@
                             </span>
                             <i
                                 class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
+                                @click="showModal = false"
                             ></i>
                         </div>
                     </div>
@@ -164,13 +166,13 @@
                                                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                                             >
                                                 option
-                                                <option value="principiante">
+                                                <option value="Facil">
                                                     Principiante
                                                 </option>
-                                                <option value="medio">
+                                                <option value="Normal">
                                                     Medio
                                                 </option>
-                                                <option value="avanzado">
+                                                <option value="Dificil">
                                                     Avanzado
                                                 </option>
                                             </select>
@@ -233,6 +235,7 @@ import { mapWritableState, mapActions } from "pinia";
 export default {
     data() {
         return {
+            showModal: true,
             txtNick: "",
             txtPassword: "",
             cmbDificultad: "Principiante",
@@ -284,6 +287,7 @@ export default {
             //redirigimos a la pagina de inicio del juego
             this.$router.push("/startGame");
         },
+
         ...mapActions(useTemporizadorStore, [
             "iniciarTemporizador",
             "iniciarCuentaAtras",

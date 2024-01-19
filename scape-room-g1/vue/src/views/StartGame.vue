@@ -53,11 +53,11 @@
                     />
                     <!-- reloj -->
                     <div
-                        class="absolute bottom-[600px] m-auto w-4/5 md:w-1/2 text-justify relative px-8 py-2 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-30 border border-gray-200 mb-3"
+                        class="bottom-[300px] md:bottom-[600px] m-auto w-4/5 md:w-1/2 text-justify relative px-8 py-2 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-30 border border-gray-200 mb-3"
                         style="backdrop-filter: blur(20px)"
                     >
                         <h1
-                            class="text-center font-medium text-3xl md:text-4xl pb-2 drop-shadow-2xl text-red-500"
+                            class="text-center font-medium text-2xl md:text-4xl pb-2 drop-shadow-2xl text-red-500"
                         >
                             Te quedan {{ storeTemporizador.minutes }}:{{
                                 storeTemporizador.seconds
@@ -306,7 +306,6 @@
 </template>
 
 <script setup>
-
 import Footer from "../components/Footer.vue";
 import BtnSalir from "../components/BtnSalir.vue";
 import { useCheckStore } from "../store/checkState";

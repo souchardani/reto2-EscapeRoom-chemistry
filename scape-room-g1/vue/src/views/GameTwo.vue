@@ -168,7 +168,11 @@
     </div>
 
     <!-- modals -->
-    <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal" :pista="this.clave[2]"></success>
+    <success
+        v-bind:enhorabuena="enhorabuena"
+        @clicked2="closeModal"
+        :pista="this.clave[2]"
+    ></success>
     <unsuccess v-bind:mostrar="mostrar" @clicked="closeModal"></unsuccess>
 
     <!-- El div de los compuestos -->
@@ -201,6 +205,7 @@ import success from "../components/modals/success.vue";
 import JSConfetti from "js-confetti";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { useCheckStore } from "../store/checkState";
+import { useLoginStore } from "../store/LoginStore";
 //libreria para el draggable
 import { Container, Draggable } from "vue3-smooth-dnd";
 import GlassJuego2 from "../components/GlassJuego2.vue";
@@ -216,11 +221,12 @@ export default {
     },
     data() {
         return {
-            pista:"",
+            pista: "",
             erroresTotales: 20,
             contador: 0,
             mostrar: false, //esta variable es del componente modal unsuccess
             enhorabuena: false, //esta variable es para controlar el modal success
+            descontarTiempo:0,//esta variable determina el tiempo a descontar dependiendo de la dificultad
             classError: {
                 estado: false,
                 clase: "border border-red-500 border-4",
@@ -357,7 +363,8 @@ export default {
                     this.marcaError(this.contador);
                     if (this.contador == 5) {
                         this.mostrar = true;
-                        this.reduceTime(300);
+                        this.descontarTiempo=this.saberTiempoXdificultad(this.usuario.dificultad);
+                        this.reduceTime(this.descontarTiempo);
                     }
                 }
             }
@@ -372,8 +379,9 @@ export default {
             "marcaError",
             "resetState",
         ]),
-        ...mapActions(useTemporizadorStore, ["reduceTime"]),
+        ...mapActions(useTemporizadorStore, ["reduceTime","saberTiempoXdificultad"]),
         ...mapActions(useCheckStore, ["changeJuego2"]),
+
         closeModal() {
             this.mostrar = false;
             this.enhorabuena = false;
@@ -383,7 +391,6 @@ export default {
         resetState() {
             this.compoundDataEach = {
                 microbiologia: [],
-
                 analisis: [],
                 medida: [],
                 biotecnologia: [],
@@ -396,8 +403,12 @@ export default {
                 .get("http://127.0.0.1:8000/api/getjuego2")
                 .then((response) => {
                     this.compoundDataEach.backlog = response.data;
+                    //mezclamos el array
                     this.mezclarArray(this.compoundDataEach.backlog);
+                    //añadimos el objeto que maneja el estado de cada card
                     this.addExitoError();
+                    //obtenemos 10 compuestos aleatorios
+                    this.obtener20();
                 });
         },
         addExitoError() {
@@ -411,6 +422,13 @@ export default {
         mezclarArray() {
             this.compoundDataEach.backlog.sort(() => Math.random() - 0.5);
         },
+        obtener20() {
+            let array20 = [];
+            for (let i = 0; i < 20; i++) {
+                array20.push(this.compoundDataEach.backlog[i]);
+            }
+            this.compoundDataEach.backlog = array20;
+        },
     },
 
     mounted() {
@@ -421,9 +439,10 @@ export default {
             console.log(this.compoundDataEach.backlog);
         });
     },
-    computed:{
-        ...mapWritableState(useFinalyWord,["clave"])
-    }
+    computed: {
+        ...mapWritableState(useFinalyWord, ["clave"]),
+        ...mapWritableState(useLoginStore,["usuario"]),//para usar la variable de usuario del store
+    },
 };
 </script>
 

@@ -12,7 +12,9 @@ export const useLoginStore = defineStore("LoginStore", {
             },
         };
     },
-    getters: {},
+    getters: {
+        
+    },
     actions: {
         setUsuario(nick, dificultad) {
             this.usuario.nick = nick;
