@@ -37,16 +37,20 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
         getTiempo() {
             return `${this.minutos} minutos, ${this.segundos} segundos`;
         },
-        saberTiempoXdificultad(dificultad,menosT){
-            switch (dificultad){
+        getTiempoLaravel() {
+            clearInterval(this.temporizador);
+            return `00:${this.minutos}:${this.segundos}`;
+        },
+        saberTiempoXdificultad(dificultad, menosT) {
+            switch (dificultad) {
                 case "Facil":
-                    menosT=300;
+                    menosT = 300;
                     return menosT;
                 case "Normal":
-                    menosT=420;
+                    menosT = 420;
                     return menosT;
                 case "Dificil":
-                    menosT=720;
+                    menosT = 720;
                     return menosT;
             }
         },
@@ -65,7 +69,7 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
                 }
             }, 1000);
         },
-        detenerCuentaAtras() {},
+        detenerCuentaAtras() { },
         reiniciarEstadoTiempo() {
             alert("reiniciando tiempo");
             this.tiempo = 0;

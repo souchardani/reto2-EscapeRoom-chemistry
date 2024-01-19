@@ -20,6 +20,7 @@ import { mapWritableState,mapActions } from 'pinia';
 import { useTemporizadorStore } from '../store/TemporizadorStore';
 import { useLoginStore } from '../store/LoginStore';
 import unsuccess from '../components/modals/unsuccess.vue';
+import axios from 'axios';
 export default{
     data() {
         return {
@@ -36,7 +37,8 @@ export default{
             contador:0,
             mostrar:false,
             aciertos:0,
-            descontarTiempo:0
+            descontarTiempo:0,
+            nuevotiempo:0
         }
 
     },
@@ -57,6 +59,14 @@ export default{
                         }
                 }
             },
+            async addPlayerToRanking(){
+                try {
+                    await axios.post("http://127.0.0.1:8000/api/addToRanking",{nick:this.usuario.nick,dificultad:this.usuario.dificultad,tiempo:this.nuevotiempo});
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+            ,
             compruebafallo(contador,array){
                 if(contador==5){
                     this.mostrar=true;
@@ -77,6 +87,8 @@ export default{
             },
             compruebaAciertos(aciertos){
                 if(aciertos==5){
+                    this.nuevotiempo=this.getTiempoLaravel();
+                    this.addPlayerToRanking();
                     this.$router.push("Ranking");
                 }
             },
@@ -88,11 +100,11 @@ export default{
                                                 "incrementafallo",
                                                 "marcaError",
                                                 "resetState",]),
-            ...mapActions(useTemporizadorStore,["reduceTime","saberTiempoXdificultad"]),
+            ...mapActions(useTemporizadorStore,["reduceTime","saberTiempoXdificultad","getTiempoLaravel"]),
     },
     computed:{
 
-
+        ...mapWritableState(useTemporizadorStore,["totalTime"]),
         ...mapWritableState(useFinalyWord,["cientifico","clave"]),
         ...mapWritableState(useLoginStore,["usuario"])
     },

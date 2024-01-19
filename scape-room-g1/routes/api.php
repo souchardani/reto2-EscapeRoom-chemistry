@@ -26,4 +26,4 @@ Route::get('/getjuego3',[JuegoController::class,'getInfoJuego3'])->name('getJueg
 Route::get('/getjuego4',[JuegoController::class,'getInfoJuego4'])->name('getJuego4');
 Route::get('/getjuego5',[JuegoController::class,'getInfoJuego5'])->name('getJuego5');
 Route::get('/getRanking',[RankingController::class,'getInfoRanking'])->name('getRanking');
-
+Route::post('/addToRanking',[RankingController::class,'addPlayerToRanking'])->name('addPlayer');
