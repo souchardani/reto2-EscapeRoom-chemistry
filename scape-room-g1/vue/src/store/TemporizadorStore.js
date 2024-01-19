@@ -37,6 +37,19 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
         getTiempo() {
             return `${this.minutos} minutos, ${this.segundos} segundos`;
         },
+        saberTiempoXdificultad(dificultad,menosT){
+            switch (dificultad){
+                case "Facil":
+                    menosT=300;
+                    return menosT;
+                case "Normal":
+                    menosT=420;
+                    return menosT;
+                case "Dificil":
+                    menosT=720;
+                    return menosT;
+            }
+        },
         reduceTime(seconds) {
             // Asegúrate de que no reduzca el tiempo por debajo de cero
             this.currentTime = Math.max(0, this.currentTime - seconds);

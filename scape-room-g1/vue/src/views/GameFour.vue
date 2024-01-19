@@ -16,11 +16,12 @@
             <GlassCard>
                 <!-- Muestra la pregunta -->
                 <!-- el if hace que muestre la pregunta despues de que se hayan añadido al quizs con axios -->
-                <input
-                    type="text" disabled name="question" id="question"
+                <h2
+                    name="question" id="question" v-if="quizs.length>0"
                     class="text-3xl text-center w-full bg-inherit"
-                    v-bind:value="quizs[quizsIndex].caracteristics" v-if="quizs.length>0"
                 >
+                    {{ quizs[quizsIndex].caracteristics }}
+                </h2>
                 <!-- Se hace la comprobacion con el input hidden -->
                 <input type="hidden" name="questionID" id="questionID" v-bind:value="quizs[quizsIndex].id" v-if="quizs.length>0">
             </GlassCard>
@@ -42,7 +43,7 @@
                         Siguiente
                     </button>
                 </GlassBtn>
-                <div class="mt-4 font-semibold text-gray-900 text-lg">
+                <div class="mt-4 font-semibold text-gray-200 text-2xl">
                     <h3>{{success}} / 10</h3>
                 </div>
             </div>
@@ -60,6 +61,8 @@ import { mapActions } from "pinia";
 import ProgressBar from "../components/ProgressBar.vue";
 import {useProgressBarStore} from "../store/progressBar";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { useLoginStore } from "../store/LoginStore";
+import { useCheckStore } from "../store/checkState";
 import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
 import axios from "axios";
@@ -85,6 +88,7 @@ export default {
     },
     data() {
         return {
+            descontarTiempo:0,
             pista:"",//variable que le pasamos a los props del componente success
             muestra: false,
             help: true,
@@ -229,7 +233,7 @@ export default {
             );
 
             this.quizsAxios = allData.data;
-            console.log(this.quizsAxios);
+            //console.log(this.quizsAxios);
 
             // inserta 10 de los registros en el quizs
             for (let i = 0; i < 10; i++) {
@@ -253,6 +257,9 @@ export default {
                     this.quizsIndex = Math.floor(Math.random() * this.quizs.length);
                 }
             }
+            // muestra las preguntas con sus respuestas
+            console.log("--Las respuestas correctas:");
+            console.log(this.quizs);
         },
         checkQuestion() {
             // obtiene los datos
@@ -299,21 +306,25 @@ export default {
             // perdido
             if (this.errores == 5) {
                 this.mostrarm=true;
-                this.reduceTime(300);
+                this.descontarTiempo=this.saberTiempoXdificultad(this.usuario.dificultad);
+                this.reduceTime(this.descontarTiempo);
             }
             // ganado
             if (this.quizs.length == 0) {
                 this.enhorabuena=true;
+                this.changeJuego4();
             }
         },
 
         // modals de juego ganado o perdido
         closeModal() {
-            this.mostrarm = false;
+            this.mostrar = false;
             this.enhorabuena = false;
+            this.resetState();
             this.$router.push("StartGame");
         },
         ...mapActions(useTemporizadorStore, ["reduceTime"]),
+        ...mapActions(useCheckStore, ["changeJuego4"]),
         ...mapActions(useProgressBarStore, [
             "insertaFallo1",
             "insertaFallo2",
@@ -321,7 +332,7 @@ export default {
             "insertaFallo4",
             "insertaFallo5",
             "incrementafallo",
-
+            "resetState"
         ]),
 
         marcaError(contador) {
@@ -347,11 +358,13 @@ export default {
     },
     created() {
         this.resetData();
+        this.resetState();
         this.getAllData();
     },
     computed:{
         ...mapWritableState(useProgressBarStore,["contador"]),
         ...mapWritableState(useFinalyWord,["clave"]),//store de juego 5
+        ...mapWritableState(useLoginStore,["usuario"]),//store de login
 
         quizEliminar() {
             return this.quizs;

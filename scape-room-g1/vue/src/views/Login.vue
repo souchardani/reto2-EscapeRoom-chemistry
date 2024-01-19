@@ -166,13 +166,13 @@
                                                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                                             >
                                                 option
-                                                <option value="principiante">
+                                                <option value="Facil">
                                                     Principiante
                                                 </option>
-                                                <option value="medio">
+                                                <option value="Normal">
                                                     Medio
                                                 </option>
-                                                <option value="avanzado">
+                                                <option value="Dificil">
                                                     Avanzado
                                                 </option>
                                             </select>
@@ -287,6 +287,7 @@ export default {
             //redirigimos a la pagina de inicio del juego
             this.$router.push("/startGame");
         },
+
         ...mapActions(useTemporizadorStore, [
             "iniciarTemporizador",
             "iniciarCuentaAtras",
