@@ -16,11 +16,12 @@
             <GlassCard>
                 <!-- Muestra la pregunta -->
                 <!-- el if hace que muestre la pregunta despues de que se hayan añadido al quizs con axios -->
-                <input
-                    type="text" disabled name="question" id="question"
-                    class="text-xl text-center w-full bg-inherit"
-                    v-bind:value="quizs[quizsIndex].caracteristics" v-if="quizs.length>0"
+                <h2
+                    name="question" id="question" v-if="quizs.length>0"
+                    class="text-3xl text-center w-full bg-inherit"
                 >
+                    {{ quizs[quizsIndex].caracteristics }}
+                </h2>
                 <!-- Se hace la comprobacion con el input hidden -->
                 <input type="hidden" name="questionID" id="questionID" v-bind:value="quizs[quizsIndex].id" v-if="quizs.length>0">
             </GlassCard>
