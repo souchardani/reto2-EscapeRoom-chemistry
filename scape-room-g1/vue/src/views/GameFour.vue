@@ -18,7 +18,7 @@
                 <!-- el if hace que muestre la pregunta despues de que se hayan añadido al quizs con axios -->
                 <input
                     type="text" disabled name="question" id="question"
-                    class="text-3xl text-center w-full bg-inherit"
+                    class="text-xl text-center w-full bg-inherit"
                     v-bind:value="quizs[quizsIndex].caracteristics" v-if="quizs.length>0"
                 >
                 <!-- Se hace la comprobacion con el input hidden -->
@@ -42,7 +42,7 @@
                         Siguiente
                     </button>
                 </GlassBtn>
-                <div class="mt-4 font-semibold text-gray-900 text-lg">
+                <div class="mt-4 font-semibold text-gray-200 text-2xl">
                     <h3>{{success}} / 10</h3>
                 </div>
             </div>
@@ -61,6 +61,7 @@ import ProgressBar from "../components/ProgressBar.vue";
 import {useProgressBarStore} from "../store/progressBar";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { useLoginStore } from "../store/LoginStore";
+import { useCheckStore } from "../store/checkState";
 import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
 import axios from "axios";
@@ -310,6 +311,7 @@ export default {
             // ganado
             if (this.quizs.length == 0) {
                 this.enhorabuena=true;
+                this.changeJuego4();
             }
         },
 
@@ -321,6 +323,7 @@ export default {
             this.$router.push("StartGame");
         },
         ...mapActions(useTemporizadorStore, ["reduceTime"]),
+        ...mapActions(useCheckStore, ["changeJuego4"]),
         ...mapActions(useProgressBarStore, [
             "insertaFallo1",
             "insertaFallo2",
