@@ -40,6 +40,7 @@
         >
             Scape Room
         </h1>
+        <button @click="completarJuegos()">Completar todos los juegos</button>
         <h2></h2>
         <div class="flex">
             <!-- <button @click="storeTemporizador.reiniciarEstadoTiempo()">
@@ -115,7 +116,7 @@
                         </button>
                     </router-link>
                     <router-link
-                        :to="!store.juego4 ? '/juego5' : ''"
+                        :to="store.juego4 ? '/juego5' : ''"
                         v-show="store.juego4"
                     >
                         <button
@@ -1043,6 +1044,12 @@ const obtenerRojo = (juegoActual, juegoPrevio) => {
 };
 
 const showModal = ref(false);
+
+const completarJuegos = () => {
+    store.juego2 = true;
+    store.juego3 = true;
+    store.juego4 = true;
+};
 
 const handleModal = (terminado, juegoPrevio = null) => {
     if (juegoPrevio == null) {
