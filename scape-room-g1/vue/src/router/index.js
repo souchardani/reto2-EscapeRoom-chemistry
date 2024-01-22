@@ -129,6 +129,7 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
 });
+//https://router.vuejs.org/guide/advanced/navigation-guards.html
 
 // router.beforeEach((to, from, next) => {
 //     if (to.meta.requiresAuth && !store.state.user.token) {
