@@ -33,8 +33,8 @@
 
         </div>
         <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal" :pista="this.clave[2]"></success>
-        <unsuccess v-bind:mostrar="mostrarm" @clicked="closeModal"></unsuccess>
-        <ModalFailGame v-bind:ftiempo="ftiempo" @clicked3="closeModal"></ModalFailGame>
+        <unsuccess v-bind:mostrarm="mostrarm" @clicked="closeModal"></unsuccess>
+        <ModalFailGame :showModal="showModal" @cerrar-modal="closeModalTime" />
     </div>
 </template>
 <script>
@@ -58,6 +58,7 @@ import ModalFailGame from "../components/modals/ModalFailGame.vue";
 
 export default {
 
+
     data() {
         return {
             // palabras:["botella","manzana","escoba"],
@@ -76,16 +77,11 @@ export default {
             aplausos:new Audio('../../public/sounds/claps-44774.mp3'),
             fail:new Audio('../../public/sounds/fail-144746.mp3'),
             descontarTiempo:0,//variable para saber el tiempo a descontar
+
         }
     },
     methods: {
-        tiempofinalizado(){
-            if (this.currentTime==0) {
-                alert("tiempo 0")
-                this.mostrarm=true;
-            }
 
-        },
         resetData(){
             this.palabras=[];
             this.random="";
@@ -180,10 +176,14 @@ export default {
 
         },
         closeModal() {
-            this.ftiempo=false;
             this.mostrarm = false;
             this.enhorabuena = false;
             this.$router.push("StartGame");
+        },
+        closeModalTime(){
+            this.mostrarm = false;
+            this.enhorabuena = false;
+            this.$router.push("login");
         },
         ...mapActions(useProgressBarStore, [
             "insertaFallo1",
@@ -223,17 +223,21 @@ export default {
             );
             this.palabras = allData.data;
             console.log(this.palabras);
-            this.iniciarCuentaAtras();
+
             this.insertarPalabra();
             this.mostrarLetra();
-            this.tiempofinalizado();
+
+
 
         },
     },
     mounted(){
+        this.iniciarCuentaAtras();
         this.resetState();
         this.resetData();
         this.getAllData();
+
+
     },
     components:{
     GlassBtn,
@@ -247,13 +251,7 @@ export default {
         ...mapWritableState(useProgressBarStore,["contador"]),
         ...mapWritableState(useFinalyWord,["clave"]),
         ...mapWritableState(useLoginStore,["usuario"]),
-        ...mapWritableState(useTemporizadorStore, [
-            "tiempo",
-            "totalTime",
-            "currentTime",
-            "minutes",
-            "seconds",
-        ]),
+        ...mapWritableState(useTemporizadorStore, ["showModal"]),
     }
 }
 </script>

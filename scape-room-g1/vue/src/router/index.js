@@ -132,11 +132,7 @@ const routes = [
         name: "TestJuego2",
         component: ModalStartGame,
     },
-    // {
-    //     path: "/pruebas",
-    //     name: "pruebas",
-    //     component: pruebas,
-    // },
+
 ];
 
 const router = createRouter({
