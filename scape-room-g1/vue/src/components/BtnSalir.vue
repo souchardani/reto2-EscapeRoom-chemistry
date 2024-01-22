@@ -20,6 +20,7 @@ export default {
     methods: {
         ...mapActions(useTemporizadorStore, ["reiniciarEstadoTiempo"]),
         ...mapActions(useLoginStore, ["resetUser"]),
+        ...mapWritableState(useLoginStore, ["getUsuario"]),
         ...mapActions(useCheckStore, ["resetSetState"]),
         finishBeforeTimeGame() {
             const salir = confirm(

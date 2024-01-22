@@ -22,11 +22,14 @@
                     bgColor,
                 ]"
             >
-                <h2 class="text-lg font-semibold">{{ titulo }}</h2>
+                <h2 class="text-lg font-semibold">
+                    Estas Seguro que quieres salir del juego?
+                </h2>
             </div>
             <!-- Modal Body -->
             <div class="p-4">
-                {{ texto }}
+                Esto hará que pierdas la partida, eliminando tu progreso, y
+                tendrás que volver a empezar.
                 <slot></slot>
             </div>
             <!-- Modal Footer -->

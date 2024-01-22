@@ -8,15 +8,15 @@ import GameOne from "../views/GameOne.vue";
 import GameTwo from "../views/GameTwo.vue";
 import GameThree from "../views/GameThree.vue";
 import GameFour from "../views/GameFour.vue";
-import EndGame from "../views/EndGame.vue"
+import EndGame from "../views/EndGame.vue";
 import AdminLogin from "../views/AdminLogin.vue";
 import StartGame from "../views/StartGame.vue";
 import Ranking from "../views/Ranking.vue";
 import PruebaDrag from "../views/PruebaDrag.vue";
 import ModalStartGame from "../components/modals/ModalStartGame.vue";
 
-//store with vuex
-import store from "../store";
+//store with pinia
+import { useLoginStore } from "../store/LoginStore";
 
 const routes = [
     {
@@ -35,7 +35,7 @@ const routes = [
         path: "/juegos",
         redirect: "/juego1",
         name: "Juego",
-        meta: { juegoIniciado: true },
+        meta: { juegoIniciado: true, requiresAuth: true },
         component: GameLayout,
         children: [
             {
@@ -130,14 +130,13 @@ const router = createRouter({
     routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//     if (to.meta.requiresAuth && !store.state.user.token) {
-//         next({ name: "Login" });
-//     } else if (store.state.user.token && to.meta.isGuest) {
-//         next({ name: "Dashboard" });
-//     } else {
-//         next();
-//     }
-// });
+router.beforeEach((to, from, next) => {
+    const store = useLoginStore();
+    if (to.meta.requiresAuth && !store.$state.usuario.nick) {
+        next({ name: "Login" });
+    } else {
+        next();
+    }
+});
 
 export default router;

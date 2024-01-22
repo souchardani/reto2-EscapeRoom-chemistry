@@ -128,7 +128,7 @@
                             <a
                                 href="#"
                                 class="text-sm font-semibold leading-6 text-white"
-                                >Mas Informacion
+                                >Acceder al ranking
                                 <span aria-hidden="true">→</span></a
                             >
                         </div>
