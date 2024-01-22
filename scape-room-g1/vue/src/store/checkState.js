@@ -26,5 +26,11 @@ export const useCheckStore = defineStore("checkState", {
         changeJuego4() {
             this.juego4 = true;
         },
+        resetSetState() {
+            this.juego1 = false;
+            this.juego2 = false;
+            this.juego3 = false;
+            this.juego4 = false;
+        },
     },
 });

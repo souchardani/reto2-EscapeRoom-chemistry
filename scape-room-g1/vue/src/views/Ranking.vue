@@ -97,9 +97,9 @@
                 </table>
             </GlassCard>
             <div class="flex flex-col items-center m-5 mb-20">
-                <router-link to="Login">
-                    <GlassBtn>Volver a Jugar</GlassBtn>
-                </router-link>
+                <div>
+                    <GlassBtn @click="volveraJugar">Volver a Jugar</GlassBtn>
+                </div>
             </div>
             <!-- footer -->
             <Footer></Footer>
@@ -112,7 +112,9 @@ import GlassCard from "../components/GlassCard.vue";
 import GlassBtn from "../components/GlassBtn.vue";
 import Footer from "../components/footer.vue";
 import { useLoginStore } from "../store/LoginStore";
-import { mapWritableState } from "pinia";
+import { useCheckStore } from "../store/checkState";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { mapWritableState, mapActions } from "pinia";
 import axios from "axios";
 
 export default {
@@ -152,6 +154,19 @@ export default {
                     this.opcionSeleccionado
             );
         },
+        volveraJugar() {
+            //reinicamos los valores de usuario
+            this.resetUser();
+            //ponemos el tiempo final de nuevo a 0
+            this.reiniciarEstadoTiempo();
+            //reiciamos el setState
+            this.resetSetState();
+            this.$router.push("/login");
+            console.log(this.getUsuario());
+        },
+        ...mapActions(useTemporizadorStore, ["reiniciarEstadoTiempo"]),
+        ...mapActions(useLoginStore, ["resetUser"]),
+        ...mapActions(useCheckStore, ["resetSetState"]),
     },
     beforeMount() {
         this.primerfiltrado();

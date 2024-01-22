@@ -11,6 +11,7 @@
 <script>
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { useLoginStore } from "../store/LoginStore";
+import { useCheckStore } from "../store/checkState";
 import { mapWritableState, mapActions } from "pinia";
 export default {
     data() {
@@ -18,7 +19,8 @@ export default {
     },
     methods: {
         ...mapActions(useTemporizadorStore, ["reiniciarEstadoTiempo"]),
-        ...mapActions(useLoginStore, ["resetUser", "getUsuario"]),
+        ...mapActions(useLoginStore, ["resetUser"]),
+        ...mapActions(useCheckStore, ["resetSetState"]),
         finishBeforeTimeGame() {
             const salir = confirm(
                 "¿Estás seguro de que quieres salir del juego? Esto hará que pierdas la partida, eliminando tu progreso, y tendrás que volver a empezar."
@@ -28,6 +30,8 @@ export default {
                 this.resetUser();
                 //ponemos el tiempo final de nuevo a 0
                 this.reiniciarEstadoTiempo();
+                //reiciamos el setState
+                this.resetSetState();
                 this.$router.push("/login");
                 console.log(this.getUsuario());
             }
