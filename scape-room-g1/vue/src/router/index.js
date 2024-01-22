@@ -131,6 +131,26 @@ const router = createRouter({
 });
 //https://router.vuejs.org/guide/advanced/navigation-guards.html
 
+// const UserDetails = {
+//     template: `
+//       <div>
+//         <!-- Contenido del componente -->
+//       </div>
+//     `,
+//     beforeRouteLeave(to, from, next) {
+//       // Preguntar al usuario si realmente desea abandonar la página
+//       const confirmMessage = '¿Está seguro de que desea abandonar la página? Se perderán los datos no guardados.';
+
+//       if (window.confirm(confirmMessage)) {
+//         // Si el usuario confirma, permite la navegación
+//         next();
+//       } else {
+//         // Si el usuario cancela, evita la navegación
+//         next(false);
+//       }
+//     }
+//   };
+
 // router.beforeEach((to, from, next) => {
 //     if (to.meta.requiresAuth && !store.state.user.token) {
 //         next({ name: "Login" });
