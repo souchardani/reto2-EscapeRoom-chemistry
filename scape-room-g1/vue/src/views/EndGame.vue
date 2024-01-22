@@ -37,8 +37,8 @@
                 'md:text-5xl',
                 'font-medium',
             ]"
-            @keyup="$event.target.nextElementSibling.focus()"
-            @keypress="comprobarClave(0)"
+
+            @keyup="comprobarClave(0),$event.target.nextElementSibling.focus()"
         />
         <input
             type="text"
@@ -74,7 +74,7 @@
                 'md:text-5xl',
                 'font-medium',
             ]"
-            @keyup="comprobarClave(1)"
+            @keyup="comprobarClave(1),$event.target.nextElementSibling.focus()"
         />
         <input
             type="text"
@@ -110,7 +110,7 @@
                 'md:text-5xl',
                 'font-medium',
             ]"
-            @keyup="comprobarClave(2)"
+            @keyup="comprobarClave(2),$event.target.nextElementSibling.focus()"
         />
         <input
             type="text"
@@ -146,7 +146,7 @@
                 'md:text-5xl',
                 'font-medium',
             ]"
-            @keyup="comprobarClave(3)"
+            @keyup="comprobarClave(3),$event.target.nextElementSibling.focus()"
         />
         <input
             type="text"
@@ -243,6 +243,7 @@ export default {
                     dificultad: this.usuario.dificultad,
                     tiempo: this.nuevotiempo,
                 });
+
             } catch (error) {
                 console.log(error);
             }
@@ -275,10 +276,10 @@ export default {
         closeModal() {
             this.mostrar = false;
         },
-        compruebaAciertos(aciertos) {
+        async compruebaAciertos(aciertos) {
             if (aciertos == 5) {
                 this.nuevotiempo = this.getTiempoLaravel();
-                this.addPlayerToRanking();
+                await this.addPlayerToRanking();
                 this.$router.push("Ranking");
             }
         },
