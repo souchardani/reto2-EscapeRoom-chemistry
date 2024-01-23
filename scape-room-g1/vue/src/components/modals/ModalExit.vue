@@ -22,15 +22,33 @@
                     bgColor,
                 ]"
             >
-                <h2 class="text-lg font-semibold">{{ titulo }}</h2>
+                <h2 class="text-lg font-semibold">
+                    Estas Seguro que quieres salir del juego?
+                </h2>
             </div>
             <!-- Modal Body -->
             <div class="p-4">
-                {{ texto }}
+                Esto hará que pierdas la partida, eliminando tu progreso, y
+                tendrás que volver a empezar.
                 <slot></slot>
             </div>
             <!-- Modal Footer -->
             <div class="border-t px-4 py-2 flex justify-end">
+                <button
+                    @click="cancelar"
+                    :class="[
+                        'px-3',
+                        'py-1',
+                        'text-black',
+                        'rounded-md',
+                        'w-full',
+                        'sm:w-auto',
+                        'bg-slate-300',
+                        'mr-2',
+                    ]"
+                >
+                    Cancelar
+                </button>
                 <button
                     @click="enviarCierre"
                     :class="[
@@ -43,7 +61,11 @@
                         bgColor,
                     ]"
                 >
-                    {{ textoBotonCerrar ? textoBotonCerrar : "Cerrar" }}
+                    {{
+                        textoBotonCerrar
+                            ? textoBotonCerrar
+                            : "Finalizar Partida"
+                    }}
                 </button>
             </div>
         </div>
@@ -64,6 +86,9 @@ export default {
     methods: {
         enviarCierre() {
             this.$emit("close");
+        },
+        cancelar() {
+            this.$emit("cancelar");
         },
     },
     mounted() {},
