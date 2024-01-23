@@ -1,4 +1,15 @@
 <template>
+    <div class="flex justify-center mb-12">
+        <div
+            v-show="help"
+            id="tarjeta-info"
+            class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative"
+        >
+            <i class="ph ph-info text-2xl"></i>
+            <span class="text-left">Arrastra los elementos hasta su lugar correspondiente.</span>
+            <i class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer" @click="hideTutorial"></i>
+        </div>
+    </div>
     <!-- Los divs de las categorias -->
     <div class="mt-8">
         <div
@@ -221,6 +232,7 @@ export default {
     },
     data() {
         return {
+            help: true,
             pista: "",
             erroresTotales: 20,
             contador: 0,
@@ -287,6 +299,14 @@ export default {
         };
     },
     methods: {
+        resetData() {
+            this.help = true;
+        },
+
+        hideTutorial() {
+            this.help = false;
+        },
+
         handleDragStart(fila, dragResult) {
             const { payload, isSource } = dragResult;
             if (isSource) {
@@ -432,6 +452,7 @@ export default {
     },
 
     mounted() {
+        this.resetData();
         this.getCardData().then(() => {
             console.log(
                 "*********Para los que no controlamos de quimica, las respuestas correctas son:*******"

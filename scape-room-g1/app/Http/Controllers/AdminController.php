@@ -119,7 +119,7 @@ class AdminController extends Controller
 
         // if a new img was uploaded
         if(isset($_FILES['img_molecule'])) {
-            echo ("ha entrado al if");
+            //echo ("ha entrado al if");
             // modifies the question in the database
             $game1 = Game1_puzzle::find($id);
             $game1->molecule = $request->molecule;
