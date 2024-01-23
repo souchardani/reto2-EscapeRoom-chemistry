@@ -25,7 +25,7 @@
                 <h2 class="text-lg font-semibold">{{ titulo }}</h2>
             </div>
             <!-- Modal Body -->
-            <div class="p-4">
+            <div class="p-4 flex flex-col justify-center items-center gap-4">
                 {{ texto }}
                 <slot></slot>
             </div>

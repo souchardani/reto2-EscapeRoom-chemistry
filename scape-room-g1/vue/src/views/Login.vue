@@ -46,9 +46,14 @@
                             <i
                                 class="ph ph-flask font-5xl"
                                 @click="
-                                    alerta(
-                                        'JAJA, te has equivocado, y recuerda, este no es un tubo de ensayo, es un matraz'
-                                    )
+                                    showPass({
+                                        descripcion:
+                                            'JAJA, te has equivocado, y recuerda, este no es un tubo de ensayo, es un matraz',
+                                        titulo: 'No tan Rápido',
+                                        bgColor: 'bg-red-500',
+                                        srcGift:
+                                            'https://media.giphy.com/media/l0HlUxcWRsqROFYuk/giphy.gif',
+                                    })
                                 "
                             ></i>
                         </h2>
@@ -60,7 +65,15 @@
                     </div>
                     <i
                         class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"
-                        @click="showPass"
+                        @click="
+                            showPass({
+                                titulo: 'Lo has Conseguido',
+                                bgColor: 'bg-green-500',
+                                descripcion: `Enhorabuena, Encontraste una etiqueta en el vial. En ella se lee: ${this.pass}`,
+                                srcGift:
+                                    'https://media.giphy.com/media/PkoGC4SZK3DynYxlXy/giphy.gif',
+                            })
+                        "
                     ></i>
                 </div>
             </div>
@@ -154,6 +167,9 @@
                                                     >Clave de acceso</label
                                                 >
                                                 <a
+                                                    @click.prevent="
+                                                        showModalInfo = true
+                                                    "
                                                     href="#"
                                                     class="text-sm focus:text-blue-500 hover:text-blue-500 hover:underline"
                                                     >No tienes la clave?</a
@@ -280,6 +296,17 @@
                 juego, perderás 5 minutos. ¡Ánimo, y mucha suerte!
             </p></ModalStartGame
         >
+        <ModalStartGame
+            @close="hint.showModalHints = false"
+            :showModal="hint.showModalHints"
+            :bgColor="hint.bgHint"
+            :titulo="hint.titulo"
+            :texto="hint.descripcion"
+        >
+            <div @mouseover.prevent class="w-60 pb-6 relative">
+                <img :src="hint.srcGift" alt="" />
+            </div>
+        </ModalStartGame>
     </div>
 </template>
 
@@ -300,13 +327,17 @@ export default {
             showModalInfo: true,
             showErrorMessage: false,
             txtErrorMsg: "",
+            hint: {
+                showModalHints: false,
+                bgHint: "bg-blue-500",
+                titulo: "Bienvenido al juego",
+                descripcion: "descripcion placeholder",
+                srcGift: "",
+            },
         };
     },
     components: { ModalStartGame },
     methods: {
-        alerta(mensaje) {
-            alert(mensaje);
-        },
         validar() {
             if (this.txtNick.length < 4) {
                 this.txtErrorMsg = "El nick debe tener al menos 4 caracteres.";
@@ -378,11 +409,12 @@ export default {
             }
         },
 
-        showPass() {
-            alert(
-                "Encontraste una etiqueta que anota el vial. En la etiqueta se lee: " +
-                    this.pass
-            );
+        showPass(obj) {
+            this.hint.showModalHints = true;
+            this.hint.bgHint = obj.bgColor;
+            this.hint.titulo = obj.titulo;
+            this.hint.descripcion = obj.descripcion;
+            this.hint.srcGift = obj.srcGift;
         },
     },
     computed: {
