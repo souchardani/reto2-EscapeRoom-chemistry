@@ -8,6 +8,8 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
             totalTime: 1800,
             currentTime: 1800,
             temporizadorCuentaAtras: null,
+            showModal:false,
+
         };
     },
     getters: {
@@ -37,16 +39,20 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
         getTiempo() {
             return `${this.minutos} minutos, ${this.segundos} segundos`;
         },
-        saberTiempoXdificultad(dificultad,menosT){
-            switch (dificultad){
+        getTiempoLaravel() {
+            clearInterval(this.temporizador);
+            return `00:${this.minutos}:${this.segundos}`;
+        },
+        saberTiempoXdificultad(dificultad, menosT) {
+            switch (dificultad) {
                 case "Facil":
-                    menosT=300;
+                    menosT = 300;
                     return menosT;
                 case "Normal":
-                    menosT=420;
+                    menosT = 420;
                     return menosT;
                 case "Dificil":
-                    menosT=720;
+                    menosT = 720;
                     return menosT;
             }
         },
@@ -58,16 +64,18 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
             // Inicializar el temporizador
             this.temporizadorCuentaAtras = setInterval(() => {
                 if (this.currentTime > 0) {
-                    this.currentTime -= 1;
-                } else {
-                    // Puedes agregar lógica aquí cuando el tiempo llega a cero
-                    alert("el juego ha terminado");
+                    this.finalizado=false;
+                    this.currentTime--;
                 }
+                if(this.currentTime==0){
+                    this.showModal = true;
+
+                }
+
             }, 1000);
         },
-        detenerCuentaAtras() {},
+        detenerCuentaAtras() { },
         reiniciarEstadoTiempo() {
-            alert("reiniciando tiempo");
             this.tiempo = 0;
             clearInterval(this.temporizador);
             this.temporizador = null;
@@ -77,4 +85,6 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
             this.temporizadorCuentaAtras = null;
         },
     },
+
 });
+
