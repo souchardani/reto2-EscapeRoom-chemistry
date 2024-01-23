@@ -83,6 +83,7 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
             this.currentTime = 1800;
             clearInterval(this.temporizadorCuentaAtras);
             this.temporizadorCuentaAtras = null;
+            this.showModal= false;
         },
     },
 

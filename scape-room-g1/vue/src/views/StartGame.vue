@@ -1013,6 +1013,7 @@
             :texto="descripcion"
         ></ModalStartGame>
     </div>
+    <ModalFailGame :showModal="showModalTemp" @cerrar-modal="closeModalTime" />
 </template>
 
 <script setup>
@@ -1023,9 +1024,11 @@ import { useLoginStore } from "../store/LoginStore";
 import Reloj from "../components/Reloj.vue";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { mapWritableState, mapActions } from "pinia";
-import { ref } from "vue";
+import { watch,ref } from "vue";
 import { reactive, computed } from "vue";
 import ModalStartGame from "../components/modals/ModalStartGame.vue";
+import ModalFailGame from "../components/modals/ModalFailGame.vue";
+import { useRoute, useRouter } from 'vue-router';
 
 const store = useCheckStore();
 const storeLogin = useLoginStore();
@@ -1043,7 +1046,21 @@ const obtenerRojo = (juegoActual, juegoPrevio) => {
     }
 };
 
+const showModalTemp = ref(storeTemporizador.showModal);
+
+watch(() => storeTemporizador.showModal, (newValue) => {
+  showModalTemp.value = newValue;
+});
+
+const router = useRouter();
+
+const closeModalTime = () => {
+    storeTemporizador.reiniciarEstadoTiempo();
+  router.push('Login');
+};
+
 const showModal = ref(false);
+
 
 const completarJuegos = () => {
     store.juego2 = true;
@@ -1076,6 +1093,7 @@ const handleModal = (terminado, juegoPrevio = null) => {
         }
     }
 };
+
 </script>
 <style scoped>
 .check {
