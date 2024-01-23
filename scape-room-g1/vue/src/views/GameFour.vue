@@ -214,7 +214,7 @@ export default {
 
         resetData() {
             this.muestra = false;
-            this.help = true,
+            this.help = true;
             this.quizsIndex = 0;
             this.errores = 0;
             this.success = 0;
