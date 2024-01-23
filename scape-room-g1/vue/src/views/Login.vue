@@ -120,11 +120,10 @@
                             <div class="mx-auto">
                                 <!-- aqui va el contenido dentro del glass -->
                                 <div class="mt-6">
-                                    <!-- este el el alert de un error -->
+                                    <!-- este el el badge de un error -->
                                     <div
                                         v-show="showErrorMessage"
                                         class="relative bg-red-100 border-t border-b text-red-700 px-4 py-3 rounded-xl mb-4"
-                                        role="alert"
                                     >
                                         <p class="font-bold">
                                             Error en el formulario
@@ -275,22 +274,19 @@
             ><strong
                 >Bienvenido al juego,
                 <span class="text-blue-900">{{ this.txtNick }}</span></strong
-            ><br /><br />
+            >
             <p>
                 Tienes la oportunidad de demostrar que eres un verdadero
                 químico.
             </p>
-            <br />
             <p>
                 Para ello, deberás superar una serie de pruebas que te llevarán
                 a descubrir la contraseña final y salvar a la humanidad.
             </p>
-            <br />
             <p>
                 Tendras que usar tus habilidad e ingenio para resolver los retos
                 que te proponemos.
             </p>
-            <br />
             <p>
                 Recuerda, tienes solo 30 minutos, y cada vez que falles en un
                 juego, perderás 5 minutos. ¡Ánimo, y mucha suerte!
@@ -350,7 +346,7 @@ export default {
                 return;
             }
             if (this.txtPassword !== this.pass) {
-                this.txtErrorMsg = "Las contraseñas no coinciden.";
+                this.txtErrorMsg = "La clave de acceso no es correcta";
                 this.showErrorMessage = true;
                 return;
             }
