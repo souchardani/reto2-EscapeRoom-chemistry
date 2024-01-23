@@ -17,6 +17,7 @@ import ModalStartGame from "../components/modals/ModalStartGame.vue";
 
 //store with pinia
 import { useLoginStore } from "../store/LoginStore";
+import pruebas from "../views/pruebas.vue";
 
 const routes = [
     {
@@ -86,6 +87,15 @@ const routes = [
                     description:
                         "Tendras que colocar y completar las pistas que has estado recibiendo. Con el nombre del científico, deberías saber completar el hueco que te falta",
                 },
+            },{
+                path: "/pruebas",
+                name: "pruebas",
+                component: pruebas,
+                meta: {
+                    title: "Pruebas",
+                    description:
+                        "pruebas",
+                },
             },
         ],
     },
@@ -123,12 +133,14 @@ const routes = [
         name: "TestJuego2",
         component: ModalStartGame,
     },
+
 ];
 
 const router = createRouter({
     history: createWebHistory(),
     routes,
 });
+
 
 router.beforeEach((to, from, next) => {
     const store = useLoginStore();
@@ -140,5 +152,6 @@ router.beforeEach((to, from, next) => {
         next();
     }
 });
+
 
 export default router;

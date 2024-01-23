@@ -16,11 +16,11 @@
                 </GlassBtn>
             </div>
             <label for="">Introduce una letra</label>
-            <div class="pb-5 mt-20 mb-12">
+            <!-- <div class="pb-5 mt-20 mb-12">
 
                 <img v-bind:src="imagen" class='mx-auto'>
 
-            </div>
+            </div> -->
             <input type="text" id="letra" maxlength="1" size="1" @click="vaciar()" class="border-4 text-center">
             <div class="mt-4 p-4 flex text-center m-auto justify-center w-48">
                 <GlassBtn @click="mostrarLetra()">pulsar</GlassBtn>
@@ -33,9 +33,8 @@
 
         </div>
         <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal" :pista="this.clave[2]"></success>
-        <unsuccess v-bind:mostrar="mostrarm" @clicked="closeModal"></unsuccess>
+        <unsuccess v-bind:mostrarm="mostrarm" @clicked="closeModal"></unsuccess>
         <ModalFailGame :showModal="showModal" @cerrar-modal="closeModalTime" />
-
     </div>
 </template>
 <script>
@@ -43,7 +42,7 @@ let z=0;
 let contador=0;
 import ProgressBar from "../components/ProgressBar.vue";
 import GlassBtn from "../components/GlassBtn.vue";
-import { mapWritableState,mapActions  } from "pinia";
+import { mapWritableState,mapActions,mapState} from "pinia";
 import {useProgressBarStore} from "../store/progressBar";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { useCheckStore } from "../store/checkState";
@@ -55,7 +54,10 @@ import axios from "axios";
 import { useFinalyWord } from "../store/finalyWord";
 import ModalFailGame from "../components/modals/ModalFailGame.vue";
 
+
+
 export default {
+
 
     data() {
         return {
@@ -69,14 +71,17 @@ export default {
             pista:"",
             mostrarm: false,
             enhorabuena:false,
+            ftiempo:false,
             audioAcertado:new Audio('../../public/sounds/1200.mp3'),
             audioIncorrecto:new Audio('../../public/sounds/incorrect-cbt-sound.mp3'),
             aplausos:new Audio('../../public/sounds/claps-44774.mp3'),
             fail:new Audio('../../public/sounds/fail-144746.mp3'),
             descontarTiempo:0,//variable para saber el tiempo a descontar
+
         }
     },
     methods: {
+
         resetData(){
             this.palabras=[];
             this.random="";
@@ -84,8 +89,10 @@ export default {
             this.mostrar=[];
             this.letra="";
             this.imagen= "";
+            this.ftiempo=false;
             this.mostrarm= false;
             this.enhorabuena=false;
+
         },
         apagar(){
             this.audioAcertado.muted=true;
@@ -187,9 +194,10 @@ export default {
             "incrementafallo",
 
         ]),
-        ...mapActions(useTemporizadorStore, ["reduceTime","saberTiempoXdificultad"]),
+        ...mapActions(useTemporizadorStore, ["reduceTime","saberTiempoXdificultad","iniciarCuentaAtras","getTiempo"]),
         ...mapActions(useCheckStore, ["changeJuego3"]),
         ...mapActions(useProgressBarStore,["resetState"]),
+
         marcaError(contador) {
             switch (contador) {
                 case 1:
@@ -215,23 +223,30 @@ export default {
             );
             this.palabras = allData.data;
             console.log(this.palabras);
+
             this.insertarPalabra();
             this.mostrarLetra();
+
+
+
         },
     },
     mounted(){
+        this.iniciarCuentaAtras();
         this.resetState();
         this.resetData();
         this.getAllData();
+
+
     },
     components:{
-        GlassBtn,
-        Reloj,
-        ProgressBar,
-        unsuccess,
-        success,
-        ModalFailGame,
-    },
+    GlassBtn,
+    Reloj,
+    ProgressBar,
+    unsuccess,
+    success,
+    ModalFailGame
+},
     computed:{
         ...mapWritableState(useProgressBarStore,["contador"]),
         ...mapWritableState(useFinalyWord,["clave"]),
