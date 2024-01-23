@@ -76,7 +76,6 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
         },
         detenerCuentaAtras() { },
         reiniciarEstadoTiempo() {
-            alert("reiniciando tiempo");
             this.tiempo = 0;
             clearInterval(this.temporizador);
             this.temporizador = null;
