@@ -19,7 +19,8 @@
                             <div
                                 class="flex flex-col text-center p-5 items-center justify-center"
                             >
-                                <svg class="w-16"
+                                <svg
+                                    class="w-16"
                                     xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink"
                                     version="1.1"
@@ -52,7 +53,10 @@
                                     Has superado el Mini-Juego y aún te queda
                                     tiempo!
                                 </p>
-                                <h3> Deberás recordar esta clave: <span>{{ pista }}</span></h3>
+                                <h3>
+                                    Deberás recordar esta clave:
+                                    <span>{{ pista }}</span>
+                                </h3>
                             </div>
 
                             <div
@@ -76,13 +80,12 @@
 export default {
     props: {
         enhorabuena: Boolean,
-        pista:String,
+        pista: String,
     },
     methods: {
         clicked2() {
-            this.$emit("clicked2", false);
+            this.$emit("clicked2");
         },
-
     },
 };
 </script>

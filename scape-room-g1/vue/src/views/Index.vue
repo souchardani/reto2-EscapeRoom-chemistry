@@ -125,11 +125,11 @@
                                     Iniciar Partida
                                 </div>
                             </router-link>
-                            <a
-                                href="#"
+                            <router-link
+                                to="/Ranking"
                                 class="text-sm font-semibold leading-6 text-white"
                                 >Acceder al ranking
-                                <span aria-hidden="true">→</span></a
+                                <span aria-hidden="true">→</span></router-link
                             >
                         </div>
                     </div>

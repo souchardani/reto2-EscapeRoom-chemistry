@@ -110,7 +110,7 @@ const routes = [
     {
         path: "/startGame",
         name: "startGame",
-        meta: { autenticado: false },
+        meta: { autenticado: false, requiresAuth: true },
         component: StartGame,
     },
     {
@@ -134,6 +134,8 @@ router.beforeEach((to, from, next) => {
     const store = useLoginStore();
     if (to.meta.requiresAuth && !store.$state.usuario.nick) {
         next({ name: "Login" });
+    } else if (to.name === "Login" && store.$state.usuario.nick) {
+        return { name: "StartGame" };
     } else {
         next();
     }

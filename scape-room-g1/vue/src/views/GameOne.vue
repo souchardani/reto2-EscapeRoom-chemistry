@@ -55,8 +55,8 @@ export default {
             mostrar: false, //esta variable es del componente modal unsuccess
             enhorabuena: false, //esta variable es para controlar el modal success
             acierto: 0,
-            pista:"",
-            descontarTiempo:0,
+            pista: "",
+            descontarTiempo: 0,
             cards: [],
             cardsCopia: [],
             volteo: null,
@@ -65,7 +65,6 @@ export default {
             parejas: [],
             giradas: 0,
             FormulaNames: [],
-
         };
     },
     methods: {
@@ -120,7 +119,7 @@ export default {
                     this.acierto++;
                     if (this.acierto == 4) {
                         this.changeJuego1();
-                        this.pista=this.clave[1];
+                        this.pista = this.clave[1];
                         this.enhorabuena = true;
                         //animacion cuando completas
                         const jsConfetti = new JSConfetti();
@@ -143,7 +142,9 @@ export default {
                     if (this.errores == 5) {
                         this.mostrar = true;
                         //funcion de reducir tiempo en funcion al nivel sabiendo la dificultad
-                        this.descontarTiempo=this.saberTiempoXdificultad(this.usuario.dificultad);
+                        this.descontarTiempo = this.saberTiempoXdificultad(
+                            this.usuario.dificultad
+                        );
                         this.reduceTime(this.descontarTiempo);
                     }
                 }
@@ -163,8 +164,11 @@ export default {
             "resetState",
         ]),
         ...mapActions(useCheckStore, ["changeJuego1"]),
-        ...mapActions(useTemporizadorStore, ["reduceTime","saberTiempoXdificultad"]),
-        ...mapActions(useFinalyWord,["getDataBase"]),
+        ...mapActions(useTemporizadorStore, [
+            "reduceTime",
+            "saberTiempoXdificultad",
+        ]),
+        ...mapActions(useFinalyWord, ["getDataBase"]),
 
         marcaError(contador) {
             switch (contador) {
@@ -216,8 +220,8 @@ export default {
     //por cada componente en un array añadiremos sus metodos computados y sus variables
     computed: {
         ...mapWritableState(useProgressBarStore, ["contador"]),
-        ...mapWritableState(useFinalyWord,['clave']),
-        ...mapWritableState(useLoginStore,["usuario"]),
+        ...mapWritableState(useFinalyWord, ["clave"]),
+        ...mapWritableState(useLoginStore, ["usuario"]),
     },
 };
 </script>

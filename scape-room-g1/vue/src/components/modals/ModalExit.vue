@@ -35,6 +35,21 @@
             <!-- Modal Footer -->
             <div class="border-t px-4 py-2 flex justify-end">
                 <button
+                    @click="cancelar"
+                    :class="[
+                        'px-3',
+                        'py-1',
+                        'text-black',
+                        'rounded-md',
+                        'w-full',
+                        'sm:w-auto',
+                        'bg-slate-300',
+                        'mr-2',
+                    ]"
+                >
+                    Cancelar
+                </button>
+                <button
                     @click="enviarCierre"
                     :class="[
                         'px-3',
@@ -46,7 +61,11 @@
                         bgColor,
                     ]"
                 >
-                    {{ textoBotonCerrar ? textoBotonCerrar : "Cerrar" }}
+                    {{
+                        textoBotonCerrar
+                            ? textoBotonCerrar
+                            : "Finalizar Partida"
+                    }}
                 </button>
             </div>
         </div>
@@ -67,6 +86,9 @@ export default {
     methods: {
         enviarCierre() {
             this.$emit("close");
+        },
+        cancelar() {
+            this.$emit("cancelar");
         },
     },
     mounted() {},
