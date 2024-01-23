@@ -8,6 +8,8 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
             totalTime: 1800,
             currentTime: 1800,
             temporizadorCuentaAtras: null,
+            showModal:false,
+
         };
     },
     getters: {
@@ -62,11 +64,14 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
             // Inicializar el temporizador
             this.temporizadorCuentaAtras = setInterval(() => {
                 if (this.currentTime > 0) {
-                    this.currentTime -= 1;
-                } else {
-                    // Puedes agregar lógica aquí cuando el tiempo llega a cero
-                    alert("el juego ha terminado");
+                    this.finalizado=false;
+                    this.currentTime--;
                 }
+                if(this.currentTime==0){
+                    this.showModal = true;
+
+                }
+
             }, 1000);
         },
         detenerCuentaAtras() { },
@@ -81,4 +86,6 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
             this.temporizadorCuentaAtras = null;
         },
     },
+
 });
+
