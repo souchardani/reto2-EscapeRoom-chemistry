@@ -201,6 +201,7 @@ const navigation = [
     { name: "Juego 2", href: "#", current: false },
     { name: "Juego 3", href: "#", current: false },
     { name: "Juego 4", href: "#", current: false },
+    { name: "Juego 5", href: "#", current: false },
 ];
 const userNavigation = [
     { name: "Your Profile", href: "#" },

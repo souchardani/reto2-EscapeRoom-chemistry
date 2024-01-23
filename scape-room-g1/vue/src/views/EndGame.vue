@@ -1,152 +1,197 @@
 <template>
-    <div
-        class="container-fluid backdrop-blur-lg lg:pt-6 px-8"
-        style="
-            background-color: rgb(88, 28, 135);
-            background-image: radial-gradient(
-                    at 86% 61%,
-                    rgb(190, 24, 93) 0,
-                    transparent 57%
-                ),
-                radial-gradient(
-                    at 56% 55%,
-                    rgb(52, 211, 153) 0,
-                    transparent 28%
-                ),
-                radial-gradient(
-                    at 49% 17%,
-                    rgb(34, 211, 238) 0,
-                    transparent 75%
-                ),
-                radial-gradient(at 75% 23%, rgb(30, 64, 175) 0, transparent 73%),
-                radial-gradient(
-                    at 77% 71%,
-                    rgb(252, 211, 77) 0,
-                    transparent 25%
-                ),
-                radial-gradient(
-                    at 87% 91%,
-                    rgb(139, 92, 246) 0,
-                    transparent 81%
-                );
-        "
-    >
-        <div class="flex justify-end">
-            <BtnSalir></BtnSalir>
-        </div>
+    <div class="container-fluid flex mx-4 p-4 justify-center items-center">
+        <h1 class="text-4xl font-medium md:text-5xl">{{ this.cientifico }}</h1>
+    </div>
+    <div v-show="candadoCerrado">
+    <div class="container-fluid flex justify-center items-center mx-4 p-4">
 
-        <h1
-            class="text-center font-medium text-5xl md:text-4xl mb-5 drop-shadow-2xl lg:pb-2"
-        >
-            Scape Room
-        </h1>
-        <button @click="completarJuegos()">Completar todos los juegos</button>
-        <h2></h2>
-        <div class="flex">
-            <!-- <button @click="storeTemporizador.reiniciarEstadoTiempo()">
-                resetear contador
-            </button> -->
-            <div class="w-100 mx-auto md:w-100">
-                <div class="relative">
-                    <img
-                        src="../assets/labsharp.jpg"
-                        class="lg:w-[80vw] rounded-2xl lg:h-[90vh]"
-                    />
-                    <!-- reloj -->
-                    <div
-                        class="bottom-[300px] md:bottom-[600px] m-auto w-4/5 md:w-1/2 text-justify relative px-8 py-2 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-30 border border-gray-200 mb-3"
-                        style="backdrop-filter: blur(20px)"
-                    >
-                        <h1
-                            class="text-center font-medium text-2xl md:text-4xl pb-2 drop-shadow-2xl text-red-500"
-                        >
-                            Te quedan {{ storeTemporizador.minutes }}:{{
-                                storeTemporizador.seconds
-                            }}
-                        </h1>
-                    </div>
-                    <router-link :to="!store.juego1 ? '/juego1' : ''">
-                        <button
-                            @click="handleModal(store.juego1)"
-                            style="backdrop-filter: blur(20px)"
-                            :class="[
-                                'bg-green-400',
-                                'flex',
-                                'absolute',
-                                'bottom-[110px]',
-                                'left-[110px]',
-                                'grow',
-                                'rounded-2xl',
-                                'bg-opacity-60',
-                                'px-3.5',
-                                'py-2.5',
-                                'mb-8',
-                                'text-sm',
-                                'font-semibold',
-                                'text-gray-900',
-                                'shadow-sm',
-                                'hover:bg-gray-200',
-                                'focus-visible:outline',
-                                'focus-visible:outline-2',
-                                'focus-visible:outline-offset-2',
-                                'focus-visible:outline-white',
-                                'md:bottom-[200px]',
-                                'md:left-[200px]',
-                                'lg:bottom-[150px]',
-                                'lg:left-[390px]',
-                            ]"
-                        >
-                            <i
-                                ><svg
-                                    ref="juego1"
-                                    :class="{ check: store.juego1 }"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
+        <input
+            type="text"
+            id="1"
+            maxlength="1"
+            v-model="words[0].input"
+            :class="[
+                'flex',
+                'w-[70px]',
+                'h-[70px]',
+                'md:w-[150px]',
+                'md:h-[150px]',
+                'xl:w-[200px]',
+                'xl:h-[200px]',
+                {
+                    'bg-red-500': words[0].estado == 'rojo',
+                    'bg-green-500': words[0].estado == 'verde',
+                    'pointer-events-none': words[0].estado == 'verde',
+                },
+                { 'bg-white': words[0].estado == undefined },
+                'shadow-lg',
+                'rounded-3xl',
+                'bg-opacity-60',
+                'border',
+                'border-gray-200',
+                'mx-1',
+                'md:mx-2,',
+                'text-center',
+                'justify-center',
+                'items-center',
+                'my-auto',
+                'text-3xl',
+                'md:text-5xl',
+                'font-medium',
+            ]"
+
+            @keyup="comprobarClave(0),$event.target.nextElementSibling.focus()"
+        />
+        <input
+            type="text"
+            id="2"
+            maxlength="1"
+            v-model="words[1].input"
+            :class="[
+                'flex',
+                'w-[70px]',
+                'h-[70px]',
+                'md:w-[150px]',
+                'md:h-[150px]',
+                'xl:w-[200px]',
+                'xl:h-[200px]',
+                {
+                    'bg-red-500': words[1].estado == 'rojo',
+                    'bg-green-500': words[1].estado == 'verde',
+                    'pointer-events-none': words[1].estado == 'verde',
+                },
+                { 'bg-white': words[0].estado == undefined },
+                'shadow-lg',
+                'rounded-3xl',
+                'bg-opacity-60',
+                'border',
+                'border-gray-200',
+                'mx-1',
+                'md:mx-2,',
+                'text-center',
+                'justify-center',
+                'items-center',
+                'my-auto',
+                'text-3xl',
+                'md:text-5xl',
+                'font-medium',
+            ]"
+            @keyup="comprobarClave(1),$event.target.nextElementSibling.focus()"
+        />
+        <input
+            type="text"
+            id="3"
+            maxlength="1"
+            v-model="words[2].input"
+            :class="[
+                'flex',
+                'w-[70px]',
+                'h-[70px]',
+                'md:w-[150px]',
+                'md:h-[150px]',
+                'xl:w-[200px]',
+                'xl:h-[200px]',
+                {
+                    'bg-red-500': words[2].estado == 'rojo',
+                    'bg-green-500': words[2].estado == 'verde',
+                    'pointer-events-none': words[2].estado == 'verde',
+                },
+                { 'bg-white': words[0].estado == undefined },
+                'shadow-lg',
+                'rounded-3xl',
+                'bg-opacity-60',
+                'border',
+                'border-gray-200',
+                'mx-1',
+                'md:mx-2,',
+                'text-center',
+                'justify-center',
+                'items-center',
+                'my-auto',
+                'text-3xl',
+                'md:text-5xl',
+                'font-medium',
+            ]"
+            @keyup="comprobarClave(2),$event.target.nextElementSibling.focus()"
+        />
+        <input
+            type="text"
+            id="4"
+            maxlength="1"
+            v-model="words[3].input"
+            :class="[
+                'flex',
+                'w-[70px]',
+                'h-[70px]',
+                'md:w-[150px]',
+                'md:h-[150px]',
+                'xl:w-[200px]',
+                'xl:h-[200px]',
+                {
+                    'bg-red-500': words[3].estado == 'rojo',
+                    'bg-green-500': words[3].estado == 'verde',
+                    'pointer-events-none': words[3].estado == 'verde',
+                },
+                { 'bg-white': words[0].estado == undefined },
+                'shadow-lg',
+                'rounded-3xl',
+                'bg-opacity-60',
+                'border',
+                'border-gray-200',
+                'mx-1',
+                'md:mx-2,',
+                'text-center',
+                'justify-center',
+                'items-center',
+                'my-auto',
+                'text-3xl',
+                'md:text-5xl',
+                'font-medium',
+            ]"
+            @keyup="comprobarClave(3),$event.target.nextElementSibling.focus()"
+        />
+        <input
+            type="text"
+            id="5"
+            maxlength="1"
+            v-model="words[4].input"
+            :class="[
+                'flex',
+                'w-[70px]',
+                'h-[70px]',
+                'md:w-[150px]',
+                'md:h-[150px]',
+                'xl:w-[200px]',
+                'xl:h-[200px]',
+                {
+                    'bg-red-500': words[4].estado == 'rojo',
+                    'bg-green-500': words[4].estado == 'verde',
+                    'pointer-events-none': words[4].estado == 'verde',
+                },
+                { 'bg-white': words[0].estado == undefined },
+                'shadow-lg',
+                'rounded-3xl',
+                'bg-opacity-60',
+                'border',
+                'border-gray-200',
+                'mx-1',
+                'md:mx-2,',
+                'text-center',
+                'justify-center',
+                'items-center',
+                'my-auto',
+                'text-3xl',
+                'md:text-5xl',
+                'font-medium',
+            ]"
+            @keyup="comprobarClave(4)"
+        />
+        <!--empieza el eterno svg-->
+        <svg
                                     fill="none"
-                                    viewBox="0 0 16 12"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="4"
-                                        d="M1 5.917 5.724 10.5 15 1.5"
-                                    /></svg></i
-                            ><span>1</span>
-                        </button>
-                    </router-link>
-                    <router-link
-                        :to="store.juego4 ? '/juego5' : ''"
-                        v-show="store.juego4"
-                    >
-                        <button
-                            :class="[
-                                'hover:scale-150',
-                                'flex',
-                                'absolute',
-                                'bottom-[110px]',
-                                'left-[110px]',
-                                'grow',
-                                'rounded-2xl',
-
-                                'px-3.5',
-                                'py-2.5',
-                                'mb-8',
-                                'text-sm',
-                                'font-semibold',
-
-                                'md:bottom-[200px]',
-                                'md:left-[200px]',
-                                'lg:bottom-[320px]',
-                                'lg:left-[570px]',
-                            ]"
-                        >
-                            <span
-                                ><svg
-                                    fill="none"
-                                    height="80"
+                                    height="200"
                                     viewBox="0 0 32 32"
-                                    width="80"
+                                    width="200"
                                     xmlns="http://www.w3.org/2000/svg"
                                     xmlns:xlink="http://www.w3.org/1999/xlink"
                                 >
@@ -820,285 +865,155 @@
                                             stroke="url(#v)"
                                             stroke-width=".4"
                                         />
-                                    </g></svg
-                            ></span>
-                        </button>
-                    </router-link>
-                    <router-link
-                        :to="store.juego1 && !store.juego2 ? '/juego2' : ''"
-                    >
-                        <button
-                            @click="handleModal(store.juego2, store.juego1)"
-                            ref="juego2"
-                            style="backdrop-filter: blur(20px)"
-                            :class="[
-                                {
-                                    // isDisabled: store.activarJuego2,
-                                    'bg-red-400': !store.juego1,
-                                    'bg-green-400':
-                                        store.juego1 || store.juego2,
-                                },
-                                'flex',
-                                'absolute',
-                                'bottom-20',
-                                'right-20',
-                                'grow',
-                                'rounded-2xl',
-                                'bg-opacity-60',
-                                'px-3.5',
-                                'py-2.5',
-                                'mb-8',
-                                'text-sm',
-                                'font-semibold',
-                                'text-gray-900',
-                                'shadow-sm',
-                                'hover:bg-gray-200',
-                                'focus-visible:outline',
-                                'focus-visible:outline-2',
-                                'focus-visible:outline-offset-2',
-                                'focus-visible:outline-white',
-                                'md:bottom-[300px]',
-                                'lg:bottom-[400px]',
-                            ]"
-                        >
-                            <i
-                                ><svg
-                                    :class="{
-                                        check: store.juego2,
-                                    }"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 16 12"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="4"
-                                        d="M1 5.917 5.724 10.5 15 1.5"
-                                    /></svg
-                            ></i>
-                            <span>2</span>
-                        </button>
-                    </router-link>
-                    <router-link
-                        :to="store.juego2 && !store.juego3 ? '/juego3' : ''"
-                    >
-                        <button
-                            @click="handleModal(store.juego3, store.juego2)"
-                            ref="juego3"
-                            style="backdrop-filter: blur(20px)"
-                            :class="[
-                                {
-                                    // 'pointer-events-none': store.activarJuego3,
-                                    'bg-red-400': !store.juego2,
-                                    'bg-green-400':
-                                        store.juego2 || store.juego3,
-                                },
-                                'flex',
-                                'absolute',
-                                'bottom-32',
-                                'left-2',
-                                'grow',
-                                'rounded-2xl',
-                                'bg-opacity-60',
-                                'px-3.5',
-                                'py-2.5',
-                                'mb-8',
-                                'text-sm',
-                                'font-semibold',
-                                'text-gray-900',
-                                'shadow-sm',
-                                'hover:bg-gray-200',
-                                'focus-visible:outline',
-                                'focus-visible:outline-2',
-                                'focus-visible:outline-offset-2',
-                                'focus-visible:outline-white',
-                                'md:bottom-72',
-                                'lg:bottom-[300px]',
-                            ]"
-                        >
-                            <i
-                                ><svg
-                                    :class="{ check: store.juego3 }"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 16 12"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="4"
-                                        d="M1 5.917 5.724 10.5 15 1.5"
-                                    /></svg
-                            ></i>
-                            <span>3</span>
-                        </button>
-                    </router-link>
-                    <router-link
-                        :to="store.juego3 && !store.juego4 ? '/juego4' : ''"
-                    >
-                        <button
-                            @click="handleModal(store.juego3, store.juego4)"
-                            ref="juego4"
-                            style="backdrop-filter: blur(20px)"
-                            :class="[
-                                {
-                                    'bg-red-400': !store.juego3,
-                                    'bg-green-400':
-                                        store.juego3 || store.juego4,
-                                },
-                                'flex',
-                                'absolute',
+                                    </g></svg>
 
-                                'bottom-32',
-                                'right-32',
-                                'grow',
-                                'rounded-2xl',
-                                'bg-opacity-60',
-                                'px-3.5',
-                                'py-2.5',
-                                'mb-8',
-                                'text-sm',
-                                'font-semibold',
-                                'text-gray-900',
-                                'shadow-sm',
-                                'hover:bg-gray-200',
-                                'focus-visible:outline',
-                                'focus-visible:outline-2',
-                                'focus-visible:outline-offset-2',
-                                'focus-visible:outline-white',
-                                'md:bottom-36',
-                                'md:right-44',
-                                'lg:right-[300px]',
-                                'lg:bottom-[210px]',
-                            ]"
-                        >
-                            <i
-                                ><svg
-                                    :class="{ check: store.juego4 }"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 16 12"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="4"
-                                        d="M1 5.917 5.724 10.5 15 1.5"
-                                    /></svg
-                            ></i>
-                            <span>4</span>
-                        </button>
-                    </router-link>
-                </div>
-            </div>
-        </div>
-        <!--footer-->
-        <div class="w-100 py-2 max-sm:max-w-xl max-sm:mx-auto max-sm:m-6">
-            <!-- aqui va el footer -->
-            <Footer></Footer>
-        </div>
-        <!--modal-->
-        <ModalStartGame
-            @close="showModal = false"
-            :showModal="showModal"
-            :bgColor="background"
-            :titulo="titulo"
-            :texto="descripcion"
-        ></ModalStartGame>
-    </div>
-    <ModalFailGame :showModal="showModalTemp" @cerrar-modal="closeModalTime" />
+
+                                </div>
+                            </div>
+                            <div v-show="candadoAbierto" class="container-fluid flex justify-center items-center mx-4 p-4">
+                                <svg  height="200" width="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><path fill="#AAB8C2" d="M18 0c-4.612 0-8.483 3.126-9.639 7.371l3.855 1.052C12.91 5.876 15.233 4 18 4c3.313 0 6 2.687 6 6v10h4V10c0-5.522-4.477-10-10-10z"/><path fill="#FFAC33" d="M31 32c0 2.209-1.791 4-4 4H9c-2.209 0-4-1.791-4-4V20c0-2.209 1.791-4 4-4h18c2.209 0 4 1.791 4 4v12z"/></svg>
+                            </div>
+    <unsuccess v-bind:mostrar="mostrar" @clicked="closeModal"></unsuccess>
 </template>
-
-<script setup>
-import Footer from "../components/Footer.vue";
-import BtnSalir from "../components/BtnSalir.vue";
-import { useCheckStore } from "../store/checkState";
-import { useLoginStore } from "../store/LoginStore";
-import Reloj from "../components/Reloj.vue";
-import { useTemporizadorStore } from "../store/TemporizadorStore";
+<script>
+import { useFinalyWord } from "../store/finalyWord";
+import { useProgressBarStore } from "../store/progressBar";
 import { mapWritableState, mapActions } from "pinia";
-import { watch,ref } from "vue";
-import { reactive, computed } from "vue";
-import ModalStartGame from "../components/modals/ModalStartGame.vue";
-import ModalFailGame from "../components/modals/ModalFailGame.vue";
-import { useRoute, useRouter } from 'vue-router';
+import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { useLoginStore } from "../store/LoginStore";
+import unsuccess from "../components/modals/unsuccess.vue";
+import axios from "axios";
+import JSConfetti from "js-confetti";
+export default {
+    data() {
+        return {
+            //esta variable es el nombre el cientifico que daremos como pista
+            pista: "", //esta variable es la pista completa que tienen que resolver
+            words: [
+                { input: "", estado: "" },
+                { input: "", estado: "" },
+                { input: "", estado: "" },
+                { input: "", estado: "" },
+                { input: "", estado: "" },
+            ],
+            candadoAbierto:false,
+            candadoCerrado:true,
+            estado: true,
+            contador: 0,
+            mostrar: false,
+            aciertos: 0,
+            descontarTiempo: 0,
+            nuevotiempo: 0,
+        };
+    },
+    methods: {
+        comprobarClave(indice) {
+            if (this.words[indice].input == "") {
+                this.words[indice].estado = "";
+            } else {
+                if (
+                    this.words[indice].input.toLocaleUpperCase() ===
+                    this.pista[indice]
+                ) {
+                    //******ES UN ACIERTO */
+                    this.words[indice].estado = "verde";
+                    this.aciertos++;
+                    this.compruebaAciertos(this.aciertos);
+                } else if (this.words[indice].input != this.pista[indice]) {
+                    this.words[indice].estado = "rojo";
+                    this.contador++;
+                    this.marcaError(this.contador);
+                    this.compruebafallo(this.contador, this.words);
+                }
+            }
+        },
+        async addPlayerToRanking() {
+            try {
+                await axios.post("http://127.0.0.1:8000/api/addToRanking", {
+                    nick: this.usuario.nick,
+                    dificultad: this.usuario.dificultad,
+                    tiempo: this.nuevotiempo,
+                });
 
-const store = useCheckStore();
-const storeLogin = useLoginStore();
-const storeTemporizador = useTemporizadorStore();
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        compruebafallo(contador, array) {
+            if (contador == 5) {
+                this.mostrar = true;
+                this.descontarTiempo = this.saberTiempoXdificultad(
+                    this.usuario.dificultad
+                );
+                this.reduceTime(this.descontarTiempo);
+                this.resetState();
+                this.contador = 0;
+                array.forEach((element) => {
+                    element.input = "";
+                    element.estado = "";
+                });
+            }
+        },
+        focusNext(e) {
+            const inputs = Array.from(
+                e.target.form.querySelectorAll('input[type="text"]')
+            );
+            const index = inputs.indexOf(e.target);
 
-const titulo = ref();
-const descripcion = ref();
-const background = ref();
+            if (index < inputs.length) {
+                inputs[index + 1].focus();
+            }
+        },
+        closeModal() {
+            this.mostrar = false;
+        },
+        async compruebaAciertos(aciertos) {
+            if (aciertos == 5) {
+                this.candadoAbierto=true;
+                this.candadoCerrado=false;
+                this.nuevotiempo = this.getTiempoLaravel();
+                await this.addPlayerToRanking();
+                //animacion cuando completas
+                const jsConfetti = new JSConfetti();
+                        jsConfetti.addConfetti({emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🌸'],confettiColors: [
+    '#ff0a54', '#ff477e', '#ff7096', '#ff85a1', '#fbb1bd', '#f9bec7',
+  ],confettiRadius: 6,
+  confettiNumber: 500,});
 
-const obtenerRojo = (juegoActual, juegoPrevio) => {
-    if (juegoPrevio) {
-        return false;
-    } else {
-        return true;
-    }
+                setTimeout(() => {
+                    this.$router.push("Ranking");
+                }, 1500);
+
+
+
+            }
+        },
+        ...mapActions(useProgressBarStore, [
+            "insertaFallo1",
+            "insertaFallo2",
+            "insertaFallo3",
+            "insertaFallo4",
+            "insertaFallo5",
+            "incrementafallo",
+            "marcaError",
+            "resetState",
+        ]),
+        ...mapActions(useTemporizadorStore, [
+            "reduceTime",
+            "saberTiempoXdificultad",
+            "getTiempoLaravel",
+        ]),
+    },
+    computed: {
+        ...mapWritableState(useTemporizadorStore, ["totalTime"]),
+        ...mapWritableState(useFinalyWord, ["cientifico", "clave"]),
+        ...mapWritableState(useLoginStore, ["usuario"]),
+    },
+    components: {
+        unsuccess,
+    },
+    mounted() {
+        this.pista = this.clave;
+    },
 };
-
-const showModalTemp = ref(storeTemporizador.showModal);
-
-watch(() => storeTemporizador.showModal, (newValue) => {
-  showModalTemp.value = newValue;
-});
-
-const router = useRouter();
-
-const closeModalTime = () => {
-    storeTemporizador.reiniciarEstadoTiempo();
-  router.push('Login');
-};
-
-const showModal = ref(false);
-
-
-const completarJuegos = () => {
-    store.juego2 = true;
-    store.juego3 = true;
-    store.juego4 = true;
-};
-
-const handleModal = (terminado, juegoPrevio = null) => {
-    if (juegoPrevio == null) {
-        if (terminado) {
-            titulo.value = "Juego completado";
-            descripcion.value =
-                "Ya has completado este juego, no puedes volver a entrar";
-            background.value = "bg-green-400";
-            showModal.value = !showModal.value;
-        }
-    } else {
-        if (terminado) {
-            titulo.value = "Juego completado";
-            descripcion.value =
-                "Ya has completado este juego, no puedes volver a entrar";
-            background.value = "bg-green-400";
-            showModal.value = !showModal.value;
-        } else if (!juegoPrevio) {
-            titulo.value = "Juego no disponible";
-            descripcion.value =
-                "Para poder acceder a este juego, debes completar el anterior";
-            background.value = "bg-red-400";
-            showModal.value = !showModal.value;
-        }
-    }
-};
-
 </script>
-<style scoped>
-.check {
-    width: 3rem;
-    height: 1rem;
-    color: rgb(89, 240, 89);
-}
-</style>

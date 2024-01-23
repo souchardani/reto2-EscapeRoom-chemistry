@@ -2,12 +2,13 @@
     <div>
         <div class="flex justify-center mb-12">
             <div
+                v-show="help"
                 id="tarjeta-info"
                 class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative"
             >
                 <i class="ph ph-info text-2xl"></i>
                 <span class="text-left">Selecciona la casilla que corresponda</span>
-                <i class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"></i>
+                <i class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer" @click="hideTutorial"></i>
             </div>
         </div>
 
@@ -15,45 +16,53 @@
             <GlassCard>
                 <!-- Muestra la pregunta -->
                 <!-- el if hace que muestre la pregunta despues de que se hayan añadido al quizs con axios -->
-                <input
-                    type="text" disabled name="question" id="question"
-                    class="text-3xl text-center w-full"
-                    v-bind:value="quizs[quizsIndex].id + quizs[quizsIndex].caracteristics" v-if="quizs.length>0"
+                <h2
+                    name="question" id="question" v-if="quizs.length>0"
+                    class="text-3xl text-center w-full bg-inherit"
                 >
+                    {{ quizs[quizsIndex].caracteristics }}
+                </h2>
                 <!-- Se hace la comprobacion con el input hidden -->
                 <input type="hidden" name="questionID" id="questionID" v-bind:value="quizs[quizsIndex].id" v-if="quizs.length>0">
             </GlassCard>
             <div class="text-center m-4 flex justify-center">
-                <select
+                <select v-model="growObject"
                     name="answers"
                     id="answers"
-                    class="block px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    class="block px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border-4 border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 >
-                    <option v-for="grow in quizs" v-bind:value="grow.id">
-                        {{ grow.growth }} - {{ grow.id }}
+                    <option v-for="grow in quizEliminar" v-bind:value="grow.id">
+                        {{ grow.growth }}
                     </option>
                 </select>
             </div>
 
-            <div class="text-center m-4 p-4 flex justify-center w-48 m-auto">
+            <div class="text-center m-4 p-4 flex justify-center w-48 m-auto flex-wrap">
                 <GlassBtn>
-                    <button class="w-28" @click="checkQuestion">
+                    <button  class="w-28" @click="checkQuestion">
                         Siguiente
                     </button>
                 </GlassBtn>
+                <div class="mt-4 font-semibold text-gray-200 text-2xl">
+                    <h3>{{success}} / 10</h3>
+                </div>
             </div>
         </form>
-        <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal"></success>
+        <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal" :pista="this.clave[4]"></success>
         <unsuccess v-bind:mostrar="mostrarm" @clicked="closeModal"></unsuccess>
     </div>
 </template>
 <script>
 import GlassCard from "../components/GlassCard.vue";
 import GlassBtn from "../components/GlassBtn.vue";
+import { useFinalyWord } from "../store/finalyWord";
 import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
 import ProgressBar from "../components/ProgressBar.vue";
 import {useProgressBarStore} from "../store/progressBar";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { useLoginStore } from "../store/LoginStore";
+import { useCheckStore } from "../store/checkState";
 import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
 import axios from "axios";
@@ -79,10 +88,15 @@ export default {
     },
     data() {
         return {
+            descontarTiempo:0,
+            pista:"",//variable que le pasamos a los props del componente success
             muestra: false,
+            help: true,
             quizsIndex: 0,
             errores: 0,
+            success: 0,
             quizs: [],
+            growObject: 0,
             randomNumbers: [],
             quizsAxios: [],
             quizsLocal: [
@@ -190,11 +204,27 @@ export default {
             mostrarm: false,
             enhorabuena:false
         };
-
-        //this.mostrarm=true; perdido
         //this.enhorabuena=true; ganado
     },
     methods: {
+
+        hideTutorial() {
+            this.help = false;
+        },
+
+        resetData() {
+            this.muestra = false;
+            this.help = true;
+            this.quizsIndex = 0;
+            this.errores = 0;
+            this.success = 0;
+            this.quizs = [];
+            this.growObject = 0;
+            this.randomNumbers = [];
+            this.quizsAxios = [];
+            this.mostrarm = false;
+            this.enhorabuena = false;
+        },
 
         async getAllData() {
             // obtiene mediante axios los datos del juego
@@ -203,7 +233,7 @@ export default {
             );
 
             this.quizsAxios = allData.data;
-            console.log(this.quizsAxios);
+            //console.log(this.quizsAxios);
 
             // inserta 10 de los registros en el quizs
             for (let i = 0; i < 10; i++) {
@@ -225,37 +255,37 @@ export default {
                     this.quizs.push(object);
                     this.randomNumbers.push(random);
                     this.quizsIndex = Math.floor(Math.random() * this.quizs.length);
-                    //console.log(this.quizs[i]);
                 }
             }
+            // muestra las preguntas con sus respuestas
+            console.log("--Las respuestas correctas:");
+            console.log(this.quizs);
         },
         checkQuestion() {
             // obtiene los datos
             // se usan las ID para hacer la comprobacion
             let question = document.getElementById("questionID").value;
             let answerUser = document.getElementById("answers").value;
-            //console.log(question, answerUser);
-//-------------------------------------------------------------------------------- Bug de repeticion de respuestas
+
             // si es correcto
             if (question == answerUser) {
                 console.log("Correcto!");
 
-                // obten el indice de la respuesta
-                let i = this.quizs.indexOf(this.quizs.includes(question));
+                // obtiene el indice del objeto con el id
+                let i = this.quizs.findIndex(o => o.id == this.growObject);
                 // borra la pregunta correcta para evitar que se repita
                 this.quizs.splice(i,1);
-                console.log(this.quizs);
-                console.log("index: "+this.quizsIndex);
 
                 // pasa a la siguiente pregunta
-                this.quizsIndex = this.quizsIndex + 1;
-                console.log("nuevo index:"+this.quizsIndex);
-                //this.quizsIndex = Math.floor(Math.random() * this.quizs.length);
-
+                this.quizsIndex++;
+                this.success++;
                 // vuelve al inicio cuando llega al final del quizs
                 if (this.quizsIndex == this.quizs.length || this.quizsIndex > this.quizs.length) {
                     this.quizsIndex = 0;
                 }
+
+                // cambia el color segun fallo o acierto
+                document.getElementById("answers").style.borderColor="green";
             }
             else {
                 console.log("Incorrecto!");
@@ -269,21 +299,32 @@ export default {
                 if (this.quizsIndex == this.quizs.length) {
                     this.quizsIndex = 0;
                 }
+
+                //cambia el color segun fallo o acierto
+                document.getElementById("answers").style.borderColor="red";
             }
+            // perdido
             if (this.errores == 5) {
                 this.mostrarm=true;
+                this.descontarTiempo=this.saberTiempoXdificultad(this.usuario.dificultad);
+                this.reduceTime(this.descontarTiempo);
             }
+            // ganado
             if (this.quizs.length == 0) {
                 this.enhorabuena=true;
+                this.changeJuego4();
             }
         },
 
+        // modals de juego ganado o perdido
         closeModal() {
-            this.mostrarm = false;
+            this.mostrar = false;
             this.enhorabuena = false;
+            this.resetState();
             this.$router.push("StartGame");
         },
-
+        ...mapActions(useTemporizadorStore, ["reduceTime"]),
+        ...mapActions(useCheckStore, ["changeJuego4"]),
         ...mapActions(useProgressBarStore, [
             "insertaFallo1",
             "insertaFallo2",
@@ -291,7 +332,7 @@ export default {
             "insertaFallo4",
             "insertaFallo5",
             "incrementafallo",
-
+            "resetState"
         ]),
 
         marcaError(contador) {
@@ -316,11 +357,19 @@ export default {
 
     },
     created() {
+        this.resetData();
+        this.resetState();
         this.getAllData();
-
     },
     computed:{
         ...mapWritableState(useProgressBarStore,["contador"]),
+        ...mapWritableState(useFinalyWord,["clave"]),//store de juego 5
+        ...mapWritableState(useLoginStore,["usuario"]),//store de login
+
+        quizEliminar() {
+            return this.quizs;
+        }
+
     }
-};
+}
 </script>

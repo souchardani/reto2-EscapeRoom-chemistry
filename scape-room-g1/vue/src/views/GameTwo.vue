@@ -1,4 +1,15 @@
 <template>
+    <div class="flex justify-center mb-12">
+        <div
+            v-show="help"
+            id="tarjeta-info"
+            class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative"
+        >
+            <i class="ph ph-info text-2xl"></i>
+            <span class="text-left">Arrastra los elementos hasta su lugar correspondiente.</span>
+            <i class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer" @click="hideTutorial"></i>
+        </div>
+    </div>
     <!-- Los divs de las categorias -->
     <div class="mt-8">
         <div
@@ -12,7 +23,7 @@
             >
                 <div class="filaTitulo mb-5">Por Completar 👉👉</div>
                 <Container
-                    class="p-3 rounded-xl sm:grid-cols-4 p-0 text-center gap-y-1 gap-x-2 bg-opacity-75"
+                    class="p-3 rounded-xl sm:grid-cols-4 text-center gap-y-1 gap-x-2 bg-opacity-75"
                     group-name="compuestos"
                     @drag-start="handleDragStart('backlog', $event)"
                     @drop="handleDrop('backlog', $event)"
@@ -22,9 +33,15 @@
                         v-for="compoundElement in compoundDataEach.backlog"
                         :key="compoundElement.compound"
                     >
-                        <GlassJuego2>{{
-                            compoundElement.compound
-                        }}</GlassJuego2>
+                        <GlassJuego2
+                            :class="{
+                                ' border-green-500 border-4':
+                                    compoundElement.estado.exito,
+                                ' border-red-500 border-4':
+                                    compoundElement.estado.error,
+                            }"
+                            >{{ compoundElement.compound }}</GlassJuego2
+                        >
                     </Draggable>
                 </Container>
             </div>
@@ -40,11 +57,23 @@
                     :get-child-payload="getChildPayload"
                     :drop-placeholder="{ className: 'placeholder' }"
                 >
+                    <GlassJuego2 v-if="compoundDataEach.analisis.length == 0">{{
+                        "Arrastra aqui &#x261D; &#x261D;"
+                    }}</GlassJuego2>
                     <Draggable
+                        v-else
                         v-for="compuesto in compoundDataEach.analisis"
                         :key="compuesto.compound"
                     >
-                        <GlassJuego2>{{ compuesto.compound }}</GlassJuego2>
+                        <GlassJuego2
+                            :class="{
+                                ' border-green-500 border-4':
+                                    compuesto.estado.exito,
+                                ' border-red-500 border-4':
+                                    compuesto.estado.error,
+                            }"
+                            >{{ compuesto.compound }}</GlassJuego2
+                        >
                     </Draggable>
                 </Container>
             </div>
@@ -60,11 +89,24 @@
                     :get-child-payload="getChildPayload"
                     :drop-placeholder="{ className: 'placeholder' }"
                 >
+                    <GlassJuego2
+                        v-if="compoundDataEach.microbiologia.length == 0"
+                        >{{ "Arrastra aqui &#x261D; &#x261D;" }}</GlassJuego2
+                    >
                     <Draggable
+                        v-else
                         v-for="compuesto in compoundDataEach.microbiologia"
                         :key="compuesto.compound"
                     >
-                        <GlassJuego2>{{ compuesto.compound }}</GlassJuego2>
+                        <GlassJuego2
+                            :class="{
+                                ' border-green-500 border-4':
+                                    compuesto.estado.exito,
+                                ' border-red-500 border-4':
+                                    compuesto.estado.error,
+                            }"
+                            >{{ compuesto.compound }}</GlassJuego2
+                        >
                     </Draggable>
                 </Container>
             </div>
@@ -80,11 +122,23 @@
                     :get-child-payload="getChildPayload"
                     :drop-placeholder="{ className: 'placeholder' }"
                 >
+                    <GlassJuego2 v-if="compoundDataEach.medida.length == 0">{{
+                        "Arrastra aqui &#x261D; &#x261D;"
+                    }}</GlassJuego2>
                     <Draggable
+                        v-else
                         v-for="compuesto in compoundDataEach.medida"
                         :key="compuesto.compound"
                     >
-                        <GlassJuego2>{{ compuesto.compound }}</GlassJuego2>
+                        <GlassJuego2
+                            :class="{
+                                ' border-green-500 border-4':
+                                    compuesto.estado.exito,
+                                ' border-red-500 border-4':
+                                    compuesto.estado.error,
+                            }"
+                            >{{ compuesto.compound }}</GlassJuego2
+                        >
                     </Draggable>
                 </Container>
             </div>
@@ -100,16 +154,37 @@
                     :get-child-payload="getChildPayload"
                     :drop-placeholder="{ className: 'placeholder' }"
                 >
+                    <GlassJuego2
+                        v-if="compoundDataEach.biotecnologia.length == 0"
+                        >{{ "Arrastra aqui &#x261D; &#x261D;" }}</GlassJuego2
+                    >
                     <Draggable
+                        v-else
                         v-for="compuesto in compoundDataEach.biotecnologia"
                         :key="compuesto.compound"
                     >
-                        <GlassJuego2>{{ compuesto.compound }}</GlassJuego2>
+                        <GlassJuego2
+                            :class="{
+                                ' border-green-500 border-4':
+                                    compuesto.estado.exito,
+                                ' border-red-500 border-4':
+                                    compuesto.estado.error,
+                            }"
+                            >{{ compuesto.compound }}</GlassJuego2
+                        >
                     </Draggable>
                 </Container>
             </div>
         </div>
     </div>
+
+    <!-- modals -->
+    <success
+        v-bind:enhorabuena="enhorabuena"
+        @clicked2="closeModal"
+        :pista="this.clave[2]"
+    ></success>
+    <unsuccess v-bind:mostrar="mostrar" @clicked="closeModal"></unsuccess>
 
     <!-- El div de los compuestos -->
     <!-- <div class="my-12">
@@ -132,18 +207,47 @@
     </div> -->
 </template>
 <script>
+import { useProgressBarStore } from "../store/progressBar";
+import { useFinalyWord } from "../store/finalyWord";
+import { mapWritableState } from "pinia";
+import { mapActions } from "pinia";
+import unsuccess from "../components/modals/unsuccess.vue";
+import success from "../components/modals/success.vue";
+import JSConfetti from "js-confetti";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { useCheckStore } from "../store/checkState";
+import { useLoginStore } from "../store/LoginStore";
 //libreria para el draggable
 import { Container, Draggable } from "vue3-smooth-dnd";
 import GlassJuego2 from "../components/GlassJuego2.vue";
+import axios from "axios";
 
 export default {
     components: {
         GlassJuego2,
         Container,
         Draggable,
+        unsuccess,
+        success,
     },
     data() {
         return {
+            help: true,
+            pista: "",
+            erroresTotales: 20,
+            contador: 0,
+            mostrar: false, //esta variable es del componente modal unsuccess
+            enhorabuena: false, //esta variable es para controlar el modal success
+            descontarTiempo:0,//esta variable determina el tiempo a descontar dependiendo de la dificultad
+            classError: {
+                estado: false,
+                clase: "border border-red-500 border-4",
+            },
+            classSuccess: {
+                estado: false,
+                clase: "bg-green-500",
+            },
+
             // datos de prueba para el diseño
             compoundTestData: [
                 {
@@ -156,11 +260,11 @@ export default {
                 },
                 {
                     compound: "compuesto 3",
-                    category: "MICROBIOLOGÍA",
+                    category: "MICROBIOLOGIA",
                 },
                 {
                     compound: "compuesto 4",
-                    category: "MICROBIOLOGÍA",
+                    category: "MICROBIOLOGIA",
                 },
                 {
                     compound: "compuesto 5",
@@ -172,73 +276,20 @@ export default {
                 },
                 {
                     compound: "compuesto 7",
-                    category: "BIOTECNOLOGÍA",
+                    category: "BIOTECNOLOGIA",
                 },
                 {
                     compound: "compuesto 8",
-                    category: "BIOTECNOLOGÍA",
+                    category: "BIOTECNOLOGIA",
                 },
             ],
             compoundDataEach: {
-                microbiologia: [
-                    {
-                        compound: "Arrastra aqui ☝️☝️",
-                        category: "ANALISIS",
-                    },
-                ],
+                microbiologia: [],
 
-                analisis: [
-                    {
-                        compound: "Arrastra aqui ☝️☝️",
-                        category: "ANALISIS",
-                    },
-                ],
-                medida: [
-                    {
-                        compound: "Arrastra aqui ☝️☝️",
-                        category: "ANALISIS",
-                    },
-                ],
-                biotecnologia: [
-                    {
-                        compound: "Arrastra aqui ☝️☝️",
-                        category: "ANALISIS",
-                    },
-                ],
-                backlog: [
-                    {
-                        compound: "compuesto 1",
-                        category: "ANALISIS",
-                    },
-                    {
-                        compound: "compuesto 2",
-                        category: "ANALISIS",
-                    },
-                    {
-                        compound: "compuesto 3",
-                        category: "MICROBIOLOGÍA",
-                    },
-                    {
-                        compound: "compuesto 4",
-                        category: "MICROBIOLOGÍA",
-                    },
-                    {
-                        compound: "compuesto 5",
-                        category: "MEDIDA",
-                    },
-                    {
-                        compound: "compuesto 6",
-                        category: "MEDIDA",
-                    },
-                    {
-                        compound: "compuesto 7",
-                        category: "BIOTECNOLOGÍA",
-                    },
-                    {
-                        compound: "compuesto 8",
-                        category: "BIOTECNOLOGÍA",
-                    },
-                ],
+                analisis: [],
+                medida: [],
+                biotecnologia: [],
+                backlog: [],
             },
             dragginCard: {
                 fila: "",
@@ -248,8 +299,15 @@ export default {
         };
     },
     methods: {
+        resetData() {
+            this.help = true;
+        },
+
+        hideTutorial() {
+            this.help = false;
+        },
+
         handleDragStart(fila, dragResult) {
-            console.log(dragResult);
             const { payload, isSource } = dragResult;
             if (isSource) {
                 this.dragginCard = {
@@ -259,11 +317,9 @@ export default {
                         ...this.compoundDataEach[fila][payload.index],
                     },
                 };
-                console.log(this.dragginCard);
             }
         },
         handleDrop(fila, dropResult) {
-            console.log(dropResult);
             const { removedIndex, addedIndex, payload } = dropResult;
             if (fila === this.dragginCard.fila && removedIndex === addedIndex) {
                 return;
@@ -277,6 +333,11 @@ export default {
                     0,
                     this.dragginCard.cardData
                 );
+                this.comprobarFamilia(
+                    fila,
+                    this.dragginCard.cardData,
+                    addedIndex
+                );
             }
         },
         getChildPayload(index) {
@@ -284,8 +345,125 @@ export default {
                 index,
             };
         },
+        comprobarFamilia(filaSoltada, datosTarjeta, addedIndex) {
+            if (filaSoltada === "backlog") {
+                this.compoundDataEach[filaSoltada][
+                    addedIndex
+                ].estado.error = false;
+                this.compoundDataEach[filaSoltada][
+                    addedIndex
+                ].estado.exito = false;
+            } else {
+                if (filaSoltada === datosTarjeta.category.toLowerCase()) {
+                    //*******ES UN ACIERTO */
+                    this.erroresTotales--;
+                    this.compoundDataEach[filaSoltada][
+                        addedIndex
+                    ].estado.exito = true;
+                    this.compoundDataEach[filaSoltada][
+                        addedIndex
+                    ].estado.error = false;
+                    if (this.erroresTotales == 0) {
+                        this.enhorabuena = true;
+                        const jsConfetti = new JSConfetti();
+                        jsConfetti.addConfetti();
+                        this.changeJuego2();
+                        //reiniciar estado de barra de errores
+                        this.resetState();
+                    }
+                } else {
+                    //*******ES UN ERROR */
+                    this.compoundDataEach[filaSoltada][
+                        addedIndex
+                    ].estado.error = true;
+                    this.compoundDataEach[filaSoltada][
+                        addedIndex
+                    ].estado.exito = false;
+                    this.contador++;
+                    this.marcaError(this.contador);
+                    if (this.contador == 5) {
+                        this.mostrar = true;
+                        this.descontarTiempo=this.saberTiempoXdificultad(this.usuario.dificultad);
+                        this.reduceTime(this.descontarTiempo);
+                    }
+                }
+            }
+        },
+        ...mapActions(useProgressBarStore, [
+            "insertaFallo1",
+            "insertaFallo2",
+            "insertaFallo3",
+            "insertaFallo4",
+            "insertaFallo5",
+            "incrementafallo",
+            "marcaError",
+            "resetState",
+        ]),
+        ...mapActions(useTemporizadorStore, ["reduceTime","saberTiempoXdificultad"]),
+        ...mapActions(useCheckStore, ["changeJuego2"]),
+
+        closeModal() {
+            this.mostrar = false;
+            this.enhorabuena = false;
+            this.$router.push("StartGame");
+            this.resetState();
+        },
+        resetState() {
+            this.compoundDataEach = {
+                microbiologia: [],
+                analisis: [],
+                medida: [],
+                biotecnologia: [],
+                backlog: [],
+            };
+            this.contador = 0;
+        },
+        getCardData() {
+            return axios
+                .get("http://127.0.0.1:8000/api/getjuego2")
+                .then((response) => {
+                    this.compoundDataEach.backlog = response.data;
+                    //mezclamos el array
+                    this.mezclarArray(this.compoundDataEach.backlog);
+                    //añadimos el objeto que maneja el estado de cada card
+                    this.addExitoError();
+                    //obtenemos 10 compuestos aleatorios
+                    this.obtener20();
+                });
+        },
+        addExitoError() {
+            this.compoundDataEach.backlog.forEach((element) => {
+                element.estado = {
+                    exito: false,
+                    error: false,
+                };
+            });
+        },
+        mezclarArray() {
+            this.compoundDataEach.backlog.sort(() => Math.random() - 0.5);
+        },
+        obtener20() {
+            let array20 = [];
+            for (let i = 0; i < 20; i++) {
+                array20.push(this.compoundDataEach.backlog[i]);
+            }
+            this.compoundDataEach.backlog = array20;
+        },
     },
-    mounted() {},
+
+    mounted() {
+        this.resetData();
+        this.getCardData().then(() => {
+            console.log(
+                "*********Para los que no controlamos de quimica, las respuestas correctas son:*******"
+            );
+            console.log(this.compoundDataEach.backlog);
+        });
+    },
+    computed: {
+        ...mapWritableState(useFinalyWord, ["clave"]),
+        ...mapWritableState(useLoginStore,["usuario"]),//para usar la variable de usuario del store
+    },
 };
 </script>
 

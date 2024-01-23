@@ -82,6 +82,7 @@
                         <!-- tarjeta -->
 
                         <div
+                            v-show="showModalInfo"
                             id="tarjeta-info"
                             class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative"
                         >
@@ -94,6 +95,7 @@
                             </span>
                             <i
                                 class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
+                                @click="showModalInfo = false"
                             ></i>
                         </div>
                     </div>
@@ -104,7 +106,24 @@
                         >
                             <div class="mx-auto">
                                 <!-- aqui va el contenido dentro del glass -->
-                                <div class="mt-8">
+                                <div class="mt-6">
+                                    <!-- este el el alert de un error -->
+                                    <div
+                                        v-show="showErrorMessage"
+                                        class="relative bg-red-100 border-t border-b text-red-700 px-4 py-3 rounded-xl mb-4"
+                                        role="alert"
+                                    >
+                                        <p class="font-bold">
+                                            Error en el formulario
+                                        </p>
+                                        <p class="text-sm">
+                                            {{ txtErrorMsg }}
+                                        </p>
+                                        <i
+                                            class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
+                                            @click="showErrorMessage = false"
+                                        ></i>
+                                    </div>
                                     <form @submit.prevent>
                                         <div>
                                             <label
@@ -113,6 +132,9 @@
                                                 >Nick del juego</label
                                             >
                                             <input
+                                                @focus="
+                                                    showErrorMessage = false
+                                                "
                                                 v-model="txtNick"
                                                 type="text"
                                                 name="nickJugador"
@@ -139,6 +161,9 @@
                                             </div>
 
                                             <input
+                                                @focus="
+                                                    showErrorMessage = false
+                                                "
                                                 v-model="txtPassword"
                                                 type="password"
                                                 name="clave-acceso"
@@ -158,19 +183,22 @@
                                                 >
                                             </div>
                                             <select
+                                                @focus="
+                                                    showErrorMessage = false
+                                                "
                                                 v-model="cmbDificultad"
                                                 name="dificultad"
                                                 id="dificultad"
                                                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                                             >
                                                 option
-                                                <option value="principiante">
+                                                <option value="Facil">
                                                     Principiante
                                                 </option>
-                                                <option value="medio">
+                                                <option value="Normal">
                                                     Medio
                                                 </option>
-                                                <option value="avanzado">
+                                                <option value="Dificil">
                                                     Avanzado
                                                 </option>
                                             </select>
@@ -222,10 +250,41 @@
                 </div>
             </div>
         </div>
+        <ModalStartGame
+            @close="inicioJuegoDesdeModal"
+            :showModal="showModalStart"
+            bgColor="bg-blue-500"
+            titulo="Bienvenido al juego"
+            textoBotonCerrar="Iniciar partida"
+            ><strong
+                >Bienvenido al juego,
+                <span class="text-blue-900">{{ this.txtNick }}</span></strong
+            ><br /><br />
+            <p>
+                Tienes la oportunidad de demostrar que eres un verdadero
+                químico.
+            </p>
+            <br />
+            <p>
+                Para ello, deberás superar una serie de pruebas que te llevarán
+                a descubrir la contraseña final y salvar a la humanidad.
+            </p>
+            <br />
+            <p>
+                Tendras que usar tus habilidad e ingenio para resolver los retos
+                que te proponemos.
+            </p>
+            <br />
+            <p>
+                Recuerda, tienes solo 30 minutos, y cada vez que falles en un
+                juego, perderás 5 minutos. ¡Ánimo, y mucha suerte!
+            </p></ModalStartGame
+        >
     </div>
 </template>
 
 <script>
+import ModalStartGame from "../components/modals/ModalStartGame.vue";
 import { useLoginStore } from "../store/LoginStore";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { mapWritableState, mapActions } from "pinia";
@@ -233,28 +292,35 @@ import { mapWritableState, mapActions } from "pinia";
 export default {
     data() {
         return {
+            showModalStart: false,
             txtNick: "",
             txtPassword: "",
-            cmbDificultad: "Principiante",
+            cmbDificultad: "",
             pass: "",
+            showModalInfo: true,
+            showErrorMessage: false,
+            txtErrorMsg: "",
         };
     },
-    components: {},
+    components: { ModalStartGame },
     methods: {
         alerta(mensaje) {
             alert(mensaje);
         },
         validar() {
             if (this.txtNick.length < 4) {
-                alert("El nick debe tener al menos 4 caracteres.");
+                this.txtErrorMsg = "El nick debe tener al menos 4 caracteres.";
+                this.showErrorMessage = true;
                 return;
             }
             if (!this.cmbDificultad) {
-                alert("Debes seleccionar una opción.");
+                this.txtErrorMsg = "Debes seleccionar una opción.";
+                this.showErrorMessage = true;
                 return;
             }
             if (this.txtPassword !== this.pass) {
-                alert("Las contraseñas no coinciden.");
+                this.txtErrorMsg = "Las contraseñas no coinciden.";
+                this.showErrorMessage = true;
                 return;
             }
 
@@ -263,11 +329,11 @@ export default {
                 !this.cmbDificultad ||
                 this.txtPassword === ""
             ) {
-                alert("Todos los campos son obligatorios.");
+                this.txtErrorMsg = "Todos los campos son obligatorios.";
+                this.showErrorMessage = true;
                 return;
             }
             //llamamos a inicio del luego
-            alert("Bienvenido al juego ");
             this.inicioJuego();
         },
         inicioJuego() {
@@ -277,13 +343,20 @@ export default {
             this.usuario.iniciado = true;
             console.log(this.usuario);
             //iniciamos los dos temporizadores
+
+            //redirigimos a la pagina de inicio del juego desde el modal
+            this.showModalStart = true;
+        },
+        inicioJuegoDesdeModal() {
+            //al iniciar partida guardamos las variables de inicio,
+            //y desde el modal, al  darle al boton, iniciamos los relojes y redirigimos a la pagina de inicio del juego
             //1.reloj para el ranking
             this.iniciarTemporizador();
             //2.reloj visual de la pagina
             this.iniciarCuentaAtras();
-            //redirigimos a la pagina de inicio del juego
             this.$router.push("/startGame");
         },
+
         ...mapActions(useTemporizadorStore, [
             "iniciarTemporizador",
             "iniciarCuentaAtras",

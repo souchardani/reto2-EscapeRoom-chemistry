@@ -34,10 +34,23 @@
     >
         <div class="container-fluid mt-5 flex content-center justify-center">
             <h1 class="text-4xl text-center">Ranking de Mejores Tiempos</h1>
-            <select v-model="opcionSeleccionado" @change="filtrar" class="mx-5 p-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" name="" id="">
-                <option value="Fácil">Principiante</option>
-                <option value="Normal">Intermedio</option>
-                <option value="Difícil">Avanzado</option>
+            <select
+                v-model="opcionSeleccionado"
+                @="primerfiltrado"
+                @change="filtrar"
+                class="mx-5 p-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                name=""
+                id=""
+            >
+                <option
+                    :value="dificultad.value"
+                    v-for="dificultad in dificultades"
+                    :selected="
+                        dificultad.value == usuario.dificultad ? true : false
+                    "
+                >
+                    {{ dificultad.texto }}
+                </option>
             </select>
         </div>
         <div class="container-fluid flex flex-col justify-center p-1 m-2">
@@ -58,28 +71,35 @@
                         </tr>
                     </thead>
                     <tbody class="">
-                        <tr class="shadow-xl rounded-xl" v-for="(jugador,index) in nivel" :key="index">
-                            <td class="md:p-3 rounded-l-xl text-center">{{ index+1 }}</td>
+                        <tr
+                            class="shadow-xl rounded-xl"
+                            v-for="(jugador, index) in nivel"
+                            :key="index"
+                        >
+                            <td class="md:p-3 rounded-l-xl text-center">
+                                {{ index + 1 }}
+                            </td>
                             <td
                                 class="md:p-3 font-medium uppercase text-center"
                             >
                                 {{ jugador.player_nickname }}
                             </td>
-                            <td class="md:p-3 text-center">{{ jugador.time }}</td>
+                            <td class="md:p-3 text-center">
+                                {{ jugador.time }}
+                            </td>
                             <td
                                 class="md:p-3 capitalize rounded-r-xl text-center"
                             >
                                 {{ jugador.difficulty }}
                             </td>
                         </tr>
-
                     </tbody>
                 </table>
             </GlassCard>
             <div class="flex flex-col items-center m-5 mb-20">
-                <router-link to="Login">
-                    <GlassBtn>Volver a Jugar</GlassBtn>
-                </router-link>
+                <div>
+                    <GlassBtn @click="volveraJugar">Volver a Jugar</GlassBtn>
+                </div>
             </div>
             <!-- footer -->
             <Footer></Footer>
@@ -91,32 +111,73 @@
 import GlassCard from "../components/GlassCard.vue";
 import GlassBtn from "../components/GlassBtn.vue";
 import Footer from "../components/footer.vue";
+import { useLoginStore } from "../store/LoginStore";
+import { useCheckStore } from "../store/checkState";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { mapWritableState, mapActions } from "pinia";
 import axios from "axios";
 
 export default {
     data() {
         return {
-            opcionSeleccionado:null,
-            jugadores:[],
-            nivel:[]
-        }
+            opcionSeleccionado: null,
+            jugadores: [],
+            nivel: [],
+            dificultades: [
+                { value: "Facil", texto: "Principiante" },
+                { value: "Normal", texto: "Intermedio" },
+                { value: "Dificil", texto: "Avanzado" },
+            ],
+        };
     },
     methods: {
-        async dataRanking(){
-            try{
-                const ranking= await axios.get('http://127.0.0.1:8000/api/getRanking');
-                this.jugadores=ranking.data;
-            }catch(error){
+        async dataRanking() {
+            try {
+                const ranking = await axios.get(
+                    "http://127.0.0.1:8000/api/getRanking"
+                );
+                this.jugadores = ranking.data;
+            } catch (error) {
                 console.log(error);
             }
         },
-        filtrar(){
-             this.nivel=this.jugadores.filter(jugador=>jugador.difficulty==this.opcionSeleccionado);
+        filtrar() {
+            this.nivel = this.jugadores.filter(
+                (jugador) => jugador.difficulty == this.opcionSeleccionado
+            );
             console.log(this.nivel);
-        }
+        },
+        primerfiltrado() {
+            this.opcionSeleccionado = this.usuario.dificultad;
+            console.log(
+                "entrando en primer filtrado, el valor del opcionSeleccionado es :" +
+                    this.opcionSeleccionado
+            );
+        },
+        volveraJugar() {
+            //reinicamos los valores de usuario
+            this.resetUser();
+            //ponemos el tiempo final de nuevo a 0
+            this.reiniciarEstadoTiempo();
+            //reiciamos el setState
+            this.resetSetState();
+            this.$router.push("/login");
+            console.log(this.getUsuario());
+        },
+        ...mapActions(useTemporizadorStore, ["reiniciarEstadoTiempo"]),
+        ...mapActions(useLoginStore, ["resetUser"]),
+        ...mapActions(useCheckStore, ["resetSetState"]),
     },
-    mounted(){
-        this.dataRanking();
+    beforeMount() {
+        this.primerfiltrado();
+    },
+    async mounted() {
+        await this.dataRanking();
+        this.primerfiltrado();
+        this.filtrar();
+    },
+    computed: {
+        ...mapWritableState(useLoginStore, ["usuario"]),
     },
     components: { GlassCard, GlassBtn, Footer },
 };

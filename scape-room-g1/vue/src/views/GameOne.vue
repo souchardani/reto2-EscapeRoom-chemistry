@@ -1,4 +1,15 @@
 <template>
+    <div class="flex justify-center mb-12">
+        <div
+            v-show="help"
+            id="tarjeta-info"
+            class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative"
+        >
+            <i class="ph ph-info text-2xl"></i>
+            <span class="text-left">Selecciona una molecula de la fila de arriba y emparejala con su imagen correspondiente de la fila de abajo.</span>
+            <i class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer" @click="hideTutorial"></i>
+        </div>
+    </div>
     <!-- main cards -->
     <div
         class="grid grid-cols-2 md:grid-cols-4 place-content-center justify-items-center"
@@ -26,6 +37,7 @@
         <success
             v-bind:enhorabuena="enhorabuena"
             @clicked2="closeModal"
+            :pista="this.clave[1]"
         ></success>
         <unsuccess v-bind:mostrar="mostrar" @clicked="closeModal"></unsuccess>
     </div>
@@ -34,12 +46,13 @@
 import DescripcionJuego from "../components/DescripcionJuego.vue";
 import GlassCard from "../components/GlassCard.vue";
 import Reloj from "../components/Reloj.vue";
-import ProgressBar from "../components/ProgressBar.vue";
 import BtnSalir from "../components/BtnSalir.vue";
 import FlipCard from "../components/Flip-Card.vue";
 import { useProgressBarStore } from "../store/progressBar";
 import { useCheckStore } from "../store/checkState";
+import { useFinalyWord } from "../store/finalyWord";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { useLoginStore } from "../store/LoginStore";
 import { mapWritableState } from "pinia";
 import { mapActions } from "pinia";
 import unsuccess from "../components/modals/unsuccess.vue";
@@ -49,11 +62,13 @@ import axios from "axios";
 export default {
     data() {
         return {
+            help: true,
             errores: 0,
             mostrar: false, //esta variable es del componente modal unsuccess
-            enhorabuena: false,//esta variable es para controlar el modal success
+            enhorabuena: false, //esta variable es para controlar el modal success
             acierto: 0,
-
+            pista: "",
+            descontarTiempo: 0,
             cards: [],
             cardsCopia: [],
             volteo: null,
@@ -65,6 +80,15 @@ export default {
         };
     },
     methods: {
+
+        resetData() {
+            this.help = true;
+        },
+
+        hideTutorial() {
+            this.help = false;
+        },
+
         //recojo datos de la base de datos y relleno el array de manera aleatoria para que no se repita el juego
         getNames() {
             while (this.cards.length < 4) {
@@ -116,17 +140,19 @@ export default {
                     this.acierto++;
                     if (this.acierto == 4) {
                         this.changeJuego1();
+                        this.pista = this.clave[1];
                         this.enhorabuena = true;
                         //animacion cuando completas
                         const jsConfetti = new JSConfetti();
                         jsConfetti.addConfetti();
+                        //reiniciar estado de barra de errores
+                        this.resetState();
                     }
                     this.parejas.forEach((pareja) => {
                         this.$refs[pareja][0].correct(); //correct es la clase de resultado encontrado
                         this.$refs[pareja][1].correct();
                     });
                 } else {
-
                     this.parejas.forEach((pareja) => {
                         this.$refs[pareja][0].voltearDeNuevo(); //esta funcion devuelve las card a su estado inicial en caso de error
                         this.$refs[pareja][1].voltearDeNuevo();
@@ -136,7 +162,11 @@ export default {
                     this.errores++;
                     if (this.errores == 5) {
                         this.mostrar = true;
-                        this.reduceTime(300);
+                        //funcion de reducir tiempo en funcion al nivel sabiendo la dificultad
+                        this.descontarTiempo = this.saberTiempoXdificultad(
+                            this.usuario.dificultad
+                        );
+                        this.reduceTime(this.descontarTiempo);
                     }
                 }
                 this.parejas = [];
@@ -152,10 +182,14 @@ export default {
             "insertaFallo4",
             "insertaFallo5",
             "incrementafallo",
-            ,
+            "resetState",
         ]),
         ...mapActions(useCheckStore, ["changeJuego1"]),
-        ...mapActions(useTemporizadorStore, ["reduceTime"]),
+        ...mapActions(useTemporizadorStore, [
+            "reduceTime",
+            "saberTiempoXdificultad",
+        ]),
+        ...mapActions(useFinalyWord, ["getDataBase"]),
 
         marcaError(contador) {
             switch (contador) {
@@ -189,14 +223,16 @@ export default {
     },
     //al montar, llamo a la funcion que me cargue los datos
     mounted() {
+        this.resetData();
         this.getAllData();
+        this.getDataBase();
     },
     //añadimos los componetes que vamos a utilizar
     components: {
         DescripcionJuego,
         GlassCard,
         Reloj,
-        ProgressBar,
+
         BtnSalir,
         FlipCard,
         unsuccess,
@@ -206,6 +242,8 @@ export default {
     //por cada componente en un array añadiremos sus metodos computados y sus variables
     computed: {
         ...mapWritableState(useProgressBarStore, ["contador"]),
+        ...mapWritableState(useFinalyWord, ["clave"]),
+        ...mapWritableState(useLoginStore, ["usuario"]),
     },
 };
 </script>
