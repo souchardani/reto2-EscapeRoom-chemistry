@@ -45,6 +45,8 @@
         <ProgressBar></ProgressBar>
         <!--juego-->
         <router-view></router-view>
+        <!-- Modal al terminar el tiempo -->
+        <ModalFailGame :showModal="showModal" @cerrar-modal="closeModalTime" />
     </div>
 </template>
 <script>
@@ -53,9 +55,17 @@ import ProgressBar from "./ProgressBar.vue";
 import Reloj from "./Reloj.vue";
 import GameTitle from "./GameTitle.vue";
 import BtnSalir from "./BtnSalir.vue";
+import ModalFailGame from "../components/modals/ModalFailGame.vue";
+import { mapWritableState } from "pinia";
+import { useTemporizadorStore } from "../store/TemporizadorStore";
 
 export default {
-    components: { DescripcionJuego, ProgressBar, Reloj, GameTitle, BtnSalir },
+    methods: {
+        closeModalTime(){
+            this.$router.push("login");
+        },
+    },
+    components: { DescripcionJuego, ProgressBar, Reloj, GameTitle, BtnSalir,ModalFailGame},
     computed: {
         titulo() {
             // Accede al título desde la ruta activa
@@ -65,6 +75,7 @@ export default {
             // Accede a la descripción desde la ruta activa
             return this.$route.meta.description || "Default Description";
         },
+        ...mapWritableState(useTemporizadorStore, ["showModal"]),
     },
 };
 </script>

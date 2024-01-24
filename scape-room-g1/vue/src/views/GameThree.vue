@@ -44,7 +44,7 @@
         </div>
         <success v-bind:enhorabuena="enhorabuena" @clicked2="closeModal" :pista="this.clave[2]"></success>
         <unsuccess v-bind:mostrar="mostrarm" @clicked="closeModal"></unsuccess>
-        <ModalFailGame :showModal="showModal" @cerrar-modal="closeModalTime" />
+
 
     </div>
 </template>
@@ -63,7 +63,7 @@ import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
 import axios from "axios";
 import { useFinalyWord } from "../store/finalyWord";
-import ModalFailGame from "../components/modals/ModalFailGame.vue";
+
 
 export default {
 
@@ -191,11 +191,6 @@ export default {
             this.enhorabuena = false;
             this.$router.push("StartGame");
         },
-        closeModalTime(){
-            this.mostrarm = false;
-            this.enhorabuena = false;
-            this.$router.push("login");
-        },
         ...mapActions(useProgressBarStore, [
             "insertaFallo1",
             "insertaFallo2",
@@ -248,7 +243,6 @@ export default {
         ProgressBar,
         unsuccess,
         success,
-        ModalFailGame,
     },
     computed:{
         ...mapWritableState(useProgressBarStore,["contador"]),
