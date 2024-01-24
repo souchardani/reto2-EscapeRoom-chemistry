@@ -47,17 +47,12 @@
             <div class="pb-5 mt-20 mb-12">
                 <img v-bind:src="imagen" class="mx-auto" />
             </div>
-            <input
-                type="text"
-                id="letra"
-                maxlength="1"
-                size="1"
-                @click="vaciar()"
-                class="border-4 text-center"
-            />
-            <div class="mt-4 p-4 flex text-center m-auto justify-center w-48">
+
+            <input type="text" id="letra" maxlength="1" size="1" @click="vaciar()"  @keyup.enter="mostrarLetra" class="border-4 text-center">
+            <!-- <div class="mt-4 p-4 flex text-center m-auto justify-center w-48">
+
                 <GlassBtn @click="mostrarLetra()">pulsar</GlassBtn>
-            </div>
+            </div> -->
         </div>
         <div>
             <!-- <h1>{{ palabraBarra }}</h1> -->
@@ -100,15 +95,16 @@ export default {
             imagen: "",
             pista: "",
             mostrarm: false,
-            enhorabuena: false,
-            audioAcertado: new Audio("../../public/sounds/1200.mp3"),
-            audioIncorrecto: new Audio(
-                "../../public/sounds/incorrect-cbt-sound.mp3"
-            ),
-            aplausos: new Audio("../../public/sounds/claps-44774.mp3"),
-            fail: new Audio("../../public/sounds/fail-144746.mp3"),
-            descontarTiempo: 0, //variable para saber el tiempo a descontar
-        };
+
+            enhorabuena:false,
+            audioAcertado:new Audio('../../public/sounds/1200.mp3'),
+            audioIncorrecto:new Audio('../../public/sounds/incorrect-cbt-sound.mp3'),
+            aplausos:new Audio('../../public/sounds/claps-44774.mp3'),
+            fail:new Audio('../../public/sounds/fail-144746.mp3'),
+            descontarTiempo:0,//variable para saber el tiempo a descontar
+
+        }
+
     },
     methods: {
         resetData() {
@@ -140,18 +136,41 @@ export default {
             this.aplausos.muted = false;
             this.fail.muted = false;
         },
-        vaciar() {
-            document.getElementById("letra").value = "";
+
+        vaciar(){
+            document.getElementById('letra').value="";
         },
         insertarPalabra() {
             this.random =
                 this.palabras[Math.floor(Math.random() * this.palabras.length)];
             return this.random.word;
         },
-        mostrarLetra() {
-            this.letra = document.getElementById("letra").value.toLowerCase();
-            let letram = this.random.word.toLowerCase();
-            let acertado = false;
+
+        mostrarLetra(event){
+
+            this.letra=document.getElementById('letra').value.toLowerCase();
+            let letram= this.random.word.toLowerCase();
+            let acertado=false;
+
+                for (let i = 0; i < letram.length; i++) {
+                    // Oculta la palabra con _ _ _
+
+                    if (this.mostrar[i]==null) {
+                        this.mostrar[i]="_";
+                    }
+                    // si hay un espacio que me muestre el espacio
+                    if(letram[i]==" "){
+                        this.mostrar[i]=" ";
+                    }
+
+                    // Si es correcta la letra te marca verde
+                    if (this.letra==letram[i]) {
+                            acertado=true;
+                            this.mostrar[i]=this.letra;
+                            this.audioAcertado.play();
+                            document.getElementById('letra').style.borderColor="green";
+                    }
+
 
             for (let i = 0; i < letram.length; i++) {
                 // Oculta la palabra con _ _ _
@@ -163,13 +182,16 @@ export default {
                     this.mostrar[i] = " ";
                 }
 
-                // Si es correcta la letra te marca verde
-                if (this.letra == letram[i]) {
-                    acertado = true;
-                    this.mostrar[i] = this.letra;
-                    this.audioAcertado.play();
-                    document.getElementById("letra").style.borderColor =
-                        "green";
+
+                // cuando haces 6 fallos se termina el
+                }
+                if(z==6){
+                    this.fail.play();
+                    this.mostrarm=true;
+                    this.descontarTiempo=this.saberTiempoXdificultad(this.usuario.dificultad);
+                    this.reduceTime(this.descontarTiempo);
+                    z=0;
+
                 }
             }
 
