@@ -31,10 +31,10 @@
                 <img v-bind:src="imagen" class='mx-auto'>
 
             </div>
-            <input type="text" id="letra" maxlength="1" size="1" @click="vaciar()" class="border-4 text-center">
-            <div class="mt-4 p-4 flex text-center m-auto justify-center w-48">
+            <input type="text" id="letra" maxlength="1" size="1" @click="vaciar()"  @keyup.enter="mostrarLetra" class="border-4 text-center">
+            <!-- <div class="mt-4 p-4 flex text-center m-auto justify-center w-48">
                 <GlassBtn @click="mostrarLetra()">pulsar</GlassBtn>
-            </div>
+            </div> -->
         </div>
         <div>
             <!-- <h1>{{ palabraBarra }}</h1> -->
@@ -85,6 +85,7 @@ export default {
             aplausos:new Audio('../../public/sounds/claps-44774.mp3'),
             fail:new Audio('../../public/sounds/fail-144746.mp3'),
             descontarTiempo:0,//variable para saber el tiempo a descontar
+
         }
     },
     methods: {
@@ -119,18 +120,21 @@ export default {
         },
         vaciar(){
             document.getElementById('letra').value="";
+
         },
         insertarPalabra(){
             this.random=this.palabras[Math.floor(Math.random()*this.palabras.length)];
             return this.random.word;
         },
-        mostrarLetra(){
+        mostrarLetra(event){
+
             this.letra=document.getElementById('letra').value.toLowerCase();
             let letram= this.random.word.toLowerCase();
             let acertado=false;
 
                 for (let i = 0; i < letram.length; i++) {
                     // Oculta la palabra con _ _ _
+
                     if (this.mostrar[i]==null) {
                         this.mostrar[i]="_";
                     }
@@ -174,6 +178,7 @@ export default {
                     this.mostrarm=true;
                     this.descontarTiempo=this.saberTiempoXdificultad(this.usuario.dificultad);
                     this.reduceTime(this.descontarTiempo);
+                    z=0;
                 }
 
 
