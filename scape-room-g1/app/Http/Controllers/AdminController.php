@@ -13,7 +13,10 @@ use App\Models\Game4_pairs;
 
 class AdminController extends Controller
 {
-
+    public function home(){
+        return view('home');
+    }
+  
 // Game show views
 //--------------------------------
     // Returns a view with the game's questions and answers

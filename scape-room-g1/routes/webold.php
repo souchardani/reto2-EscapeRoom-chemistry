@@ -23,6 +23,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/admin/home',[AdminController::class,'home'])->name('home');
+
 
 // Admin CRUD routes
 Route::get('/admin/game1', [AdminController::class, 'game1'])->name('admin.game1');

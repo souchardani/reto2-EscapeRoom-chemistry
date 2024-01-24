@@ -30,7 +30,7 @@
                     <div class="max-sm:hidden">
                         <div class="ml-10 flex items-baseline space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            <a href="#" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                            <a href="{{ route('home') }}" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                                 aria-current="page">Inicio</a>
                             <a href="{{ route('admin.game1') }}"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Juego 1</a>
