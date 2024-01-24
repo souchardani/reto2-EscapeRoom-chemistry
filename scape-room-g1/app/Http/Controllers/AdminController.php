@@ -74,6 +74,17 @@ class AdminController extends Controller
         return view('admin.game5create');
     }
 
+    public function game5storeNew(Request $request){
+        //valido la informacion que me llega del formulario por los nombres de las cajas de texto
+        $request->validate(['cientifico'=>'required',
+        'clave'=>'required']);
+        //una vez validado, creo la nueva insercicion
+        $game5=new Game5_needPassword();
+        $game5->nombreCientifico=$request->cientifico;
+        $game5->clave=$request->clave;
+        $game5->save();
+    }
+
     // Returns a view for creating new questions and answers
     public function game1create()
     {

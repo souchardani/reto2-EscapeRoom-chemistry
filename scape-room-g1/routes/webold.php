@@ -52,6 +52,7 @@ Route::post('/admin/game1storeNew', [AdminController::class, 'game1storeNew'])->
 Route::post('/admin/game2storeNew', [AdminController::class, 'game2storeNew'])->name('admin.game2storeNew');
 Route::post('/admin/game1storeNew', [AdminController::class, 'game1storeNew'])->name('admin.game1storeNew');
 Route::post('/admin/game1storeNew', [AdminController::class, 'game1storeNew'])->name('admin.game1storeNew');
+Route::post('/admin/game5storeNew', [AdminController::class, 'game5storeNew'])->name('admin.game5storeNew');
 
 // Admin CRUD store edit
 Route::put('/admin/game1storeEdit{id}', [AdminController::class, 'game1storeEdit'])->name('admin.game1storeEdit');
