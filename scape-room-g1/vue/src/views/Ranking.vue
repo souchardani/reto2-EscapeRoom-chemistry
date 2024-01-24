@@ -168,7 +168,7 @@ export default {
             console.log(this.getUsuario());
         },
         ...mapActions(useTemporizadorStore, ["reiniciarEstadoTiempo"]),
-        ...mapActions(useLoginStore, ["resetUser"]),
+        ...mapActions(useLoginStore, ["resetUser", "getUsuario"]),
         ...mapActions(useCheckStore, ["resetSetState"]),
         ...mapActions(useProgressBarStore, ["resetState"]),
     },
