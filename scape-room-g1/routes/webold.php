@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use Spatie\LaravelIgnition\FlareMiddleware\AddJobs;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,12 +32,14 @@ Route::get('/admin/game1', [AdminController::class, 'game1'])->name('admin.game1
 Route::get('/admin/game2', [AdminController::class, 'game2'])->name('admin.game2');
 Route::get('/admin/game3', [AdminController::class, 'game3'])->name('admin.game3');
 Route::get('/admin/game4', [AdminController::class, 'game4'])->name('admin.game4');
+Route::get('/admin/game5', [AdminController::class, 'game5'])->name('admin.game5');
 
 // Admin CRUD create
 Route::get('/admin/game1create', [AdminController::class, 'game1create'])->name('admin.game1create');
 Route::get('/admin/game2create', [AdminController::class, 'game2create'])->name('admin.game2create');
 Route::get('/admin/game1create', [AdminController::class, 'game1create'])->name('admin.game1create');
 Route::get('/admin/game1create', [AdminController::class, 'game1create'])->name('admin.game1create');
+Route::get('/admin/game5create', [AdminController::class, 'game5create'])->name('admin.game5create');
 
 // Admin CRUD edit
 Route::get('/admin/game1edit{id}', [AdminController::class, 'game1edit'])->name('admin.game1edit');

@@ -18,7 +18,7 @@
   ```
 -->
 <div class="min-h-full">
-    <nav class="bg-gray-800">
+    <nav class="bg-gray-700">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex h-16 items-center justify-between">
                 <div class="flex items-center">
@@ -28,9 +28,9 @@
                     </div>
                     <!-- A veces se bugea y muestra el menu y los botones con 600px -->
                     <div class="max-sm:hidden">
-                        <div class="ml-10 flex items-baseline space-x-4">
+                        <div class="bg-gray-700">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            <a href="{{ route('home') }}" class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                            <a href="{{ route('dashboard') }}" class="bg-gray-700 hover:text-white ttext-gray-300 rounded-md px-3 py-2 text-sm font-medium"
                                 aria-current="page">Inicio</a>
                             <a href="{{ route('admin.game1') }}"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Juego 1</a>
@@ -40,6 +40,8 @@
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Juego 3</a>
                             <a href="{{ route('admin.game4') }}"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Juego 4</a>
+                            <a href="{{ route('admin.game5') }}"
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Juego 5</a>
                         </div>
                     </div>
                 </div>
@@ -71,11 +73,12 @@
 <div class="sm:hidden bg-gray-800" id="mobile-menu">
     <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-        <a href="#" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Inicio</a>
-        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Juego 1</a>
-        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Juego 2</a>
-        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Juego 3</a>
-        <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Juego 4</a>
+        <a href="{{ route('dashboard') }}" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Inicio</a>
+        <a href="{{ route('admin.game1') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Juego 1</a>
+        <a href="{{ route('admin.game2') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Juego 2</a>
+        <a href="{{ route('admin.game3') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Juego 3</a>
+        <a href="{{ route('admin.game4') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Juego 4</a>
+        <a href="{{ route('admin.game5') }}" class="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium">Juego 5</a>
     </div>
 </div>
 </nav>
