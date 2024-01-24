@@ -46,9 +46,14 @@
                             <i
                                 class="ph ph-flask font-5xl"
                                 @click="
-                                    alerta(
-                                        'JAJA, te has equivocado, y recuerda, este no es un tubo de ensayo, es un matraz'
-                                    )
+                                    showPass({
+                                        descripcion:
+                                            'JAJA, te has equivocado, y recuerda, este no es un tubo de ensayo, es un matraz',
+                                        titulo: 'No tan Rápido',
+                                        bgColor: 'bg-red-500',
+                                        srcGift:
+                                            'https://media.giphy.com/media/l0HlUxcWRsqROFYuk/giphy.gif',
+                                    })
                                 "
                             ></i>
                         </h2>
@@ -60,7 +65,15 @@
                     </div>
                     <i
                         class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"
-                        @click="showPass"
+                        @click="
+                            showPass({
+                                titulo: 'Lo has Conseguido',
+                                bgColor: 'bg-green-500',
+                                descripcion: `Enhorabuena, Encontraste una etiqueta en el vial. En ella se lee: ${this.pass}`,
+                                srcGift:
+                                    'https://media.giphy.com/media/PkoGC4SZK3DynYxlXy/giphy.gif',
+                            })
+                        "
                     ></i>
                 </div>
             </div>
@@ -107,11 +120,10 @@
                             <div class="mx-auto">
                                 <!-- aqui va el contenido dentro del glass -->
                                 <div class="mt-6">
-                                    <!-- este el el alert de un error -->
+                                    <!-- este el el badge de un error -->
                                     <div
                                         v-show="showErrorMessage"
                                         class="relative bg-red-100 border-t border-b text-red-700 px-4 py-3 rounded-xl mb-4"
-                                        role="alert"
                                     >
                                         <p class="font-bold">
                                             Error en el formulario
@@ -154,6 +166,9 @@
                                                     >Clave de acceso</label
                                                 >
                                                 <a
+                                                    @click.prevent="
+                                                        showModalInfo = true
+                                                    "
                                                     href="#"
                                                     class="text-sm focus:text-blue-500 hover:text-blue-500 hover:underline"
                                                     >No tienes la clave?</a
@@ -259,27 +274,35 @@
             ><strong
                 >Bienvenido al juego,
                 <span class="text-blue-900">{{ this.txtNick }}</span></strong
-            ><br /><br />
+            >
             <p>
                 Tienes la oportunidad de demostrar que eres un verdadero
                 químico.
             </p>
-            <br />
             <p>
                 Para ello, deberás superar una serie de pruebas que te llevarán
                 a descubrir la contraseña final y salvar a la humanidad.
             </p>
-            <br />
             <p>
                 Tendras que usar tus habilidad e ingenio para resolver los retos
                 que te proponemos.
             </p>
-            <br />
             <p>
                 Recuerda, tienes solo 30 minutos, y cada vez que falles en un
                 juego, perderás 5 minutos. ¡Ánimo, y mucha suerte!
             </p></ModalStartGame
         >
+        <ModalStartGame
+            @close="hint.showModalHints = false"
+            :showModal="hint.showModalHints"
+            :bgColor="hint.bgHint"
+            :titulo="hint.titulo"
+            :texto="hint.descripcion"
+        >
+            <div @mouseover.prevent class="w-60 pb-6 relative">
+                <img :src="hint.srcGift" alt="" />
+            </div>
+        </ModalStartGame>
     </div>
 </template>
 
@@ -300,13 +323,17 @@ export default {
             showModalInfo: true,
             showErrorMessage: false,
             txtErrorMsg: "",
+            hint: {
+                showModalHints: false,
+                bgHint: "bg-blue-500",
+                titulo: "Bienvenido al juego",
+                descripcion: "descripcion placeholder",
+                srcGift: "",
+            },
         };
     },
     components: { ModalStartGame },
     methods: {
-        alerta(mensaje) {
-            alert(mensaje);
-        },
         validar() {
             if (this.txtNick.length < 4) {
                 this.txtErrorMsg = "El nick debe tener al menos 4 caracteres.";
@@ -319,7 +346,7 @@ export default {
                 return;
             }
             if (this.txtPassword !== this.pass) {
-                this.txtErrorMsg = "Las contraseñas no coinciden.";
+                this.txtErrorMsg = "La clave de acceso no es correcta";
                 this.showErrorMessage = true;
                 return;
             }
@@ -378,11 +405,12 @@ export default {
             }
         },
 
-        showPass() {
-            alert(
-                "Encontraste una etiqueta que anota el vial. En la etiqueta se lee: " +
-                    this.pass
-            );
+        showPass(obj) {
+            this.hint.showModalHints = true;
+            this.hint.bgHint = obj.bgColor;
+            this.hint.titulo = obj.titulo;
+            this.hint.descripcion = obj.descripcion;
+            this.hint.srcGift = obj.srcGift;
         },
     },
     computed: {
