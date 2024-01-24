@@ -26,7 +26,7 @@
                 <a href="{{ route('admin.game4') }}" class="font-semibold text-xl">Pairs</a>
             </div>
             <div class="flex justify-center items-center bg-orange-200 w-60 h-48  rounded-xl shadow-lg hover:scale-110 hover:shadow-xl border-2 border-gray-300">
-                <a href="#" class="font-semibold text-xl">Endgame</a>
+                <a href="{{ route('admin.game5') }}" class="font-semibold text-xl">Endgame</a>
             </div>
         </div>
     </div>

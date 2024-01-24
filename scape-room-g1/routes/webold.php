@@ -46,6 +46,7 @@ Route::get('/admin/game1edit{id}', [AdminController::class, 'game1edit'])->name(
 Route::get('/admin/game2edit{id}', [AdminController::class, 'game2edit'])->name('admin.game2edit');
 Route::get('/admin/game1edit{id}', [AdminController::class, 'game1edit'])->name('admin.game1edit');
 Route::get('/admin/game1edit{id}', [AdminController::class, 'game1edit'])->name('admin.game1edit');
+Route::get('/admin/game5edit{id}', [AdminController::class, 'game5edit'])->name('admin.game5edit');
 
 // Admin CRUD store create
 Route::post('/admin/game1storeNew', [AdminController::class, 'game1storeNew'])->name('admin.game1storeNew');
@@ -59,16 +60,19 @@ Route::put('/admin/game1storeEdit{id}', [AdminController::class, 'game1storeEdit
 Route::put('/admin/game2storeEdit{id}', [AdminController::class, 'game2storeEdit'])->name('admin.game2storeEdit');
 Route::put('/admin/game1storeEdit{id}', [AdminController::class, 'game1storeEdit'])->name('admin.game1storeEdit');
 Route::put('/admin/game1storeEdit{id}', [AdminController::class, 'game1storeEdit'])->name('admin.game1storeEdit');
+Route::put('/admin/game5storeEdit{id}', [AdminController::class, 'game5editStore'])->name('admin.game5editStore');
 
 // Admin CRUD delete
 Route::get('/admin/game1destroy{id}', [AdminController::class, 'game1destroy'])->name('admin.game1destroy');
 Route::get('/admin/game2destroy{id}', [AdminController::class, 'game2destroy'])->name('admin.game2destroy');
 Route::get('/admin/game1destroy{id}', [AdminController::class, 'game1destroy'])->name('admin.game1destroy');
 Route::get('/admin/game1destroy{id}', [AdminController::class, 'game1destroy'])->name('admin.game1destroy');
+Route::get('/admin/game5destroy{id}', [AdminController::class, 'game5destroy'])->name('admin.game5destroy');
 
 // Admin CRUD confirm delete
 Route::delete('/admin/game1destroyConfirm{id}', [AdminController::class, 'game1destroyConfirm'])->name('admin.game1destroyConfirm');
 Route::delete('/admin/game2destroyConfirm{id}', [AdminController::class, 'game2destroyConfirm'])->name('admin.game2destroyConfirm');
 Route::delete('/admin/game1destroyConfirm{id}', [AdminController::class, 'game1destroyConfirm'])->name('admin.game1destroyConfirm');
 Route::delete('/admin/game1destroyConfirm{id}', [AdminController::class, 'game1destroyConfirm'])->name('admin.game1destroyConfirm');
+Route::delete('/admin/game5destroyConfirm{id}', [AdminController::class, 'game5destroyConfirm'])->name('admin.game5destroyConfirm');
 

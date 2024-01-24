@@ -7,13 +7,13 @@
     <div>{{$message}}</div>
 @endif
 <div class="text-2xl shadow-xl">
-<form action="#" method="post"  enctype="multipart/form-data">
+<form action="{{ route('admin.game5storeNew') }}" method="post"  enctype="multipart/form-data">
     @csrf
     <div class="flex flex-col">
         <label for="cientifico" class="p-3">Cientifico :
         <input type="text" name="cientifico" id="cientifico" value="{{old('cientifico')}}" class="shadow-xl border rounded-xl p-2"></label>
         @if ($errors->has('cientifico'))
-            <span>El campo molecula es obligatorio</span>
+            <span>El campo cientifico es obligatorio</span>
         @endif
 
         <label for="clave" class="p-3">Clave :
