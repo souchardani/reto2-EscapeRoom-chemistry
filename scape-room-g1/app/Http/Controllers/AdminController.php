@@ -18,6 +18,7 @@ class AdminController extends Controller
     {
         return view('home');
     }
+  
     // Returns a view with the game's questions and answers
     //-------------------------------------juego 1------------------------------------------------
     public function game1()
@@ -30,7 +31,6 @@ class AdminController extends Controller
         // compact passes the variables of this function to the view
         return view('admin.game1_puzzle', compact('game1_data'));
     }
-
     // Returns a view for creating new questions and answers
     public function game1create()
     {
@@ -232,7 +232,7 @@ class AdminController extends Controller
         // redirects back to the game's CRUD when it finishes
         return redirect('admin/game2');
     }
-
+  
     //-------------------------------------juego 3------------------------------------------------
 
     // Returns a view with the game's questions and answers
@@ -245,6 +245,82 @@ class AdminController extends Controller
         // redirect to the game3_hangman CRUD view
         // compact passes the variables of this function to the view
         return view('admin.game3_hangman', compact('game3_data'));
+    }
+  
+   // Returns a view for creating new questions and answers
+    public function game3create()
+    {
+        return view('admin.game3create');
+    }
+
+    // Returns a view to edit a question and its answer
+    public function game3edit(string $id)
+    {
+        $game3 = Game3_hangman::find($id);
+        return view('admin.game3edit', compact('game3'));
+    }
+
+    // Saves the new question and its answer
+    public function game3storeNew(Request $request)
+    {
+        // display what was sent by the form
+        //return $request -> all();
+
+        // validate word
+        $request->validate([
+            'word' => 'required'
+        ]);
+
+        // adds the question and its answer to the game's question pool in the database
+        $game3 = new Game3_hangman();
+        $game3->word = $request->word;
+        $game3->save();
+
+        // redirects back to the game's CRUD when it finishes
+        //return redirect('admin/game1');
+        // returns back to the create view on successful creation
+        return back()->withSuccess("La pregunta ha sido añadida.");
+    }
+
+    // Saves the edits of a question and its answer
+    public function game3storeEdit(Request $request, $id)
+    {
+        // display what was sent by the form
+        //return $request -> all();
+
+        // validate word
+        $request->validate([
+            'word' => 'required'
+        ]);
+
+        // adds the question and its answer to the game's question pool in the database
+        $game3 = Game3_hangman::find($id);
+        $game3->word = $request->word;
+        $game3->save();
+
+        // redirects back to the game's CRUD when it finishes
+        //return redirect('admin/game1');
+        // returns back to the create view on successful modification
+        return back()->withSuccess("La pregunta ha sido modificada.");
+    }
+
+    // Returns a view that asks if you want to delete a question and its answer
+    public function game3destroy($id)
+    {
+        $game3 = Game3_hangman::find($id);
+        return view('admin.game3destroy', compact('game3'));
+    }
+
+    // Deletes the question and its answer
+    public function game3destroyConfirm($id)
+    {
+        $game3 = Game3_hangman::find($id);
+
+        // deletes the log from the database
+        $game3->delete();
+
+        // redirects back to the game's CRUD when it finishes
+        return redirect('admin/game3');
     }
 
     //-------------------------------------juego 4------------------------------------------------
@@ -259,6 +335,85 @@ class AdminController extends Controller
         // compact passes the variables of this function to the view
         return view('admin.game4_pairs', compact('game4_data'));
     }
+   // Returns a view for creating new questions and answers
+       public function game4create()
+        {
+           return view('admin.game4create');
+        }
+   
+       // Returns a view to edit a question and its answer
+       public function game4edit(string $id)
+       {
+           $game4 = Game4_pairs::find($id);
+           return view('admin.game4edit', compact('game4'));
+       }
+   
+       // Saves the new question and its answer
+       public function game4storeNew(Request $request)
+       {
+           // display what was sent by the form
+           //return $request -> all();
+   
+           // validate growth and caracteristics
+           $request->validate([
+               'growth' => 'required',
+               'caracteristics' => 'required'
+           ]);
+   
+           // adds the question and its answer to the game's question pool in the database
+           $game4 = new Game4_pairs();
+           $game4->growth = $request->growth;
+           $game4->caracteristics = $request->caracteristics;
+           $game4->save();
+   
+           // redirects back to the game's CRUD when it finishes
+           //return redirect('admin/game1');
+           // returns back to the create view on successful creation
+           return back()->withSuccess("La pregunta ha sido añadida.");
+       }
+   
+       // Saves the edits of a question and its answer
+       public function game4storeEdit(Request $request, $id)
+        {
+            // display what was sent by the form
+            //return $request -> all();
+            
+            // validate growth and caracteristics
+            $request->validate([
+                'growth' => 'required',
+                'caracteristics' => 'required'
+            ]);
+
+            // adds the question and its answer to the game's question pool in the database
+            $game4 = Game4_pairs::find($id);
+            $game4->growth = $request->growth;
+            $game4->caracteristics = $request->caracteristics;
+            $game4->save();
+   
+           // redirects back to the game's CRUD when it finishes
+           //return redirect('admin/game1');
+           // returns back to the create view on successful modification
+           return back()->withSuccess("La pregunta ha sido modificada.");
+       }
+   
+       // Returns a view that asks if you want to delete a question and its answer
+       public function game4destroy($id)
+       {
+           $game4 = Game4_pairs::find($id);
+           return view('admin.game4destroy', compact('game4'));
+       }
+   
+       // Deletes the question and its answer
+       public function game4destroyConfirm($id)
+       {
+           $game4 = Game4_pairs::find($id);
+   
+           // deletes the log from the database
+           $game4->delete();
+   
+           // redirects back to the game's CRUD when it finishes
+           return redirect('admin/game4');
+       }
     //-------------------------------------juego 5------------------------------------------------
 
     // Returns a view with the game's questions and answers

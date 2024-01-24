@@ -87,14 +87,14 @@ const routes = [
                     description:
                         "Tendras que colocar y completar las pistas que has estado recibiendo. Con el nombre del científico, deberías saber completar el hueco que te falta",
                 },
-            },{
+            },
+            {
                 path: "/pruebas",
                 name: "pruebas",
                 component: pruebas,
                 meta: {
                     title: "Pruebas",
-                    description:
-                        "pruebas",
+                    description: "pruebas",
                 },
             },
         ],
@@ -133,7 +133,6 @@ const routes = [
         name: "TestJuego2",
         component: ModalStartGame,
     },
-
 ];
 
 const router = createRouter({
@@ -141,17 +140,15 @@ const router = createRouter({
     routes,
 });
 
-
 router.beforeEach((to, from, next) => {
     const store = useLoginStore();
     if (to.meta.requiresAuth && !store.$state.usuario.nick) {
         next({ name: "Login" });
     } else if (to.name === "Login" && store.$state.usuario.nick) {
-        return { name: "StartGame" };
+        next({ name: "startGame" });
     } else {
         next();
     }
 });
-
 
 export default router;
