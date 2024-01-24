@@ -114,6 +114,7 @@ import Footer from "../components/footer.vue";
 import { useLoginStore } from "../store/LoginStore";
 import { useCheckStore } from "../store/checkState";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { useProgressBarStore } from "../store/progressBar";
 import { mapWritableState, mapActions } from "pinia";
 import axios from "axios";
 
@@ -161,12 +162,15 @@ export default {
             this.reiniciarEstadoTiempo();
             //reiciamos el setState
             this.resetSetState();
+            //reiniciamos el store del progress bar
+            this.resetState();
             this.$router.push("/login");
             console.log(this.getUsuario());
         },
         ...mapActions(useTemporizadorStore, ["reiniciarEstadoTiempo"]),
-        ...mapActions(useLoginStore, ["resetUser"]),
+        ...mapActions(useLoginStore, ["resetUser", "getUsuario"]),
         ...mapActions(useCheckStore, ["resetSetState"]),
+        ...mapActions(useProgressBarStore, ["resetState"]),
     },
     beforeMount() {
         this.primerfiltrado();

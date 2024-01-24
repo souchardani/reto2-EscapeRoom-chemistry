@@ -13,7 +13,9 @@ use App\Models\Game4_pairs;
 
 class AdminController extends Controller
 {
-
+    public function home(){
+        return view('home');
+    }
     // Returns a view with the game's questions and answers
     public function game1() {
         // paginate spreads the returned data into different pages
