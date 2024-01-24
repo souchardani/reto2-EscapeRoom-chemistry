@@ -6,10 +6,9 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
             tiempo: 0,
             temporizador: null,
             totalTime: 1800,
-            currentTime: 1800,
+            currentTime: 10,
             temporizadorCuentaAtras: null,
-            showModal:false,
-
+            showModal: false,
         };
     },
     getters: {
@@ -64,17 +63,15 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
             // Inicializar el temporizador
             this.temporizadorCuentaAtras = setInterval(() => {
                 if (this.currentTime > 0) {
-                    this.finalizado=false;
+                    this.finalizado = false;
                     this.currentTime--;
                 }
-                if(this.currentTime==0){
+                if (this.currentTime == 0) {
                     this.showModal = true;
-
                 }
-
             }, 1000);
         },
-        detenerCuentaAtras() { },
+        detenerCuentaAtras() {},
         reiniciarEstadoTiempo() {
             this.tiempo = 0;
             clearInterval(this.temporizador);
@@ -83,9 +80,7 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
             this.currentTime = 1800;
             clearInterval(this.temporizadorCuentaAtras);
             this.temporizadorCuentaAtras = null;
-            this.showModal= false;
+            this.showModal = false;
         },
     },
-
 });
-

@@ -1024,11 +1024,11 @@ import { useLoginStore } from "../store/LoginStore";
 import Reloj from "../components/Reloj.vue";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { mapWritableState, mapActions } from "pinia";
-import { watch,ref } from "vue";
+import { watch, ref } from "vue";
 import { reactive, computed } from "vue";
 import ModalStartGame from "../components/modals/ModalStartGame.vue";
 import ModalFailGame from "../components/modals/ModalFailGame.vue";
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute, useRouter } from "vue-router";
 
 const store = useCheckStore();
 const storeLogin = useLoginStore();
@@ -1048,19 +1048,27 @@ const obtenerRojo = (juegoActual, juegoPrevio) => {
 
 const showModalTemp = ref(storeTemporizador.showModal);
 
-watch(() => storeTemporizador.showModal, (newValue) => {
-  showModalTemp.value = newValue;
-});
+watch(
+    () => storeTemporizador.showModal,
+    (newValue) => {
+        showModalTemp.value = newValue;
+    }
+);
 
 const router = useRouter();
 
 const closeModalTime = () => {
+    //reinicamos los valores de usuario
+    storeLogin.resetUser();
+    //ponemos el tiempo final de nuevo a 0
     storeTemporizador.reiniciarEstadoTiempo();
-  router.push('Login');
+    //reiciamos el setState
+    store.resetSetState();
+    console.log("usuario luego de reiniciar: " + storeLogin.getUsuario());
+    router.push("/login");
 };
 
 const showModal = ref(false);
-
 
 const completarJuegos = () => {
     store.juego2 = true;
@@ -1093,7 +1101,6 @@ const handleModal = (terminado, juegoPrevio = null) => {
         }
     }
 };
-
 </script>
 <style scoped>
 .check {
