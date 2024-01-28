@@ -105,12 +105,12 @@ const routes = [
         meta: { autenticado: false },
         component: AdminLogin,
     },
-    {
-        path: "/dashboard",
-        name: "Dashboard",
-        meta: { autenticado: true },
-        component: Dashboard,
-    },
+    // {
+    //     path: "/dashboard",
+    //     name: "Dashboard",
+    //     meta: { autenticado: true },
+    //     component: Dashboard,
+    // },
     {
         path: "/game",
         name: "Game",

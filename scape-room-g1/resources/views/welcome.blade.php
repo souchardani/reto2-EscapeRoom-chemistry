@@ -14,7 +14,6 @@
     </head>
     <body>
         <div id="app">
-            <Index></Index>
         </div>
     </body>
 </html>

@@ -6,7 +6,7 @@ export const useTemporizadorStore = defineStore("TemporizadorStore", {
             tiempo: 0,
             temporizador: null,
             totalTime: 1800,
-            currentTime: 10,
+            currentTime: 1800,
             temporizadorCuentaAtras: null,
             showModal: false,
         };

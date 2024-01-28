@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-// Route::get('{any?}', function () {
-//     return view('welcome');
-// })->where('any', '.*');
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,6 +32,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 //incluyo el archivo de rutas creadas por nosotros
 require __DIR__.'/webold.php';
 require __DIR__.'/auth.php';
+
+Route::get('{any?}', function () {
+    return view('welcome');
+})->where('any', '.*');
+
+
+
