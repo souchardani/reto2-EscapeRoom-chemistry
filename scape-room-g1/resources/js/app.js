@@ -1,7 +1,23 @@
-import './bootstrap';
+import "../css/app.css";
 
-import Alpine from 'alpinejs';
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import Index from "./views/Index.vue";
+import router from "./router";
+import App from "./App.vue";
+import store from "./store";
 
-window.Alpine = Alpine;
+const app = createApp(App);
 
-Alpine.start();
+const pinia = createPinia();
+
+app.use(pinia);
+app.use(store).use(router).mount("#app");
+
+const onConfirmRefresh = function (event) {
+    event.preventDefault();
+    return (event.returnValue =
+        "Estas seguro que deseas recargar la pagina? perderas todo tu progreso");
+};
+
+window.addEventListener("beforeunload", onConfirmRefresh, { capture: true });
