@@ -49,7 +49,7 @@
             <div class="w-100 mx-auto md:w-100">
                 <div class="relative">
                     <img
-                        src="../assets/labsharp.jpg"
+                        :src="'/img/labsharp.jpg'"
                         class="lg:w-[80vw] rounded-2xl lg:h-[90vh]"
                     />
                     <!-- reloj -->
