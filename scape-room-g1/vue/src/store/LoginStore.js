@@ -12,9 +12,7 @@ export const useLoginStore = defineStore("LoginStore", {
             },
         };
     },
-    getters: {
-        
-    },
+    getters: {},
     actions: {
         setUsuario(nick, dificultad) {
             this.usuario.nick = nick;
@@ -33,6 +31,7 @@ export const useLoginStore = defineStore("LoginStore", {
             this.usuario.iniciado = false;
             this.usuario.terminado = false;
             this.usuario.salirAntesDeTiempo = false;
+            console.log("luego de resear el usuario es:" + this.usuario);
         },
         getUsuario() {
             return this.usuario;

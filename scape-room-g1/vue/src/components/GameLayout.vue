@@ -74,7 +74,6 @@ export default {
             this.reiniciarEstadoTiempo();
             //reiciamos el setState
             this.resetSetState();
-            console.log(this.getUsuario());
             this.$router.push("login");
         },
     },
