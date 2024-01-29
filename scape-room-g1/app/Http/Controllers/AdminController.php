@@ -89,8 +89,7 @@ class AdminController extends Controller
         $old_imgName = $_REQUEST['old_imgName'];
 
         // if a new img was uploaded
-        if (isset($_FILES['img_molecule'])) {
-            //echo ("ha entrado al if");
+        if ($request->hasFile('photo')) {
             // modifies the question in the database
             $game1 = Game1_puzzle::find($id);
             $game1->molecule = $request->molecule;
@@ -164,7 +163,6 @@ class AdminController extends Controller
     {
         $game2 = Game2_kuku::find($id);
         return view('admin.game2edit', compact('game2'));
-        // <option value="male"@if($phone->gender=='male') selected='selected' @endif >Male</option>
     }
 
     // Saves the new question and its answer
