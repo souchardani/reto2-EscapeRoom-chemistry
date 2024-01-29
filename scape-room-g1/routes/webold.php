@@ -72,3 +72,5 @@ Route::delete('/admin/game2destroyConfirm{id}', [AdminController::class, 'game2d
 Route::delete('/admin/game3destroyConfirm{id}', [AdminController::class, 'game3destroyConfirm'])->name('admin.game3destroyConfirm');
 Route::delete('/admin/game4destroyConfirm{id}', [AdminController::class, 'game4destroyConfirm'])->name('admin.game4destroyConfirm');
 Route::delete('/admin/game5destroyConfirm{id}', [AdminController::class, 'game5destroyConfirm'])->name('admin.game5destroyConfirm');
+
+

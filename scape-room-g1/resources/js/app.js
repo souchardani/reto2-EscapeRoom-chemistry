@@ -1,7 +1,45 @@
-import './bootstrap';
+import "../css/app.css";
 
-import Alpine from 'alpinejs';
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import Index from "./views/Index.vue";
+import router from "./router";
+import App from "./App.vue";
+import store from "./store";
 
-window.Alpine = Alpine;
+const app = createApp(App);
 
-Alpine.start();
+const pinia = createPinia();
+
+app.use(pinia);
+app.use(store).use(router).mount("#app");
+
+const onConfirmRefresh = function (event) {
+    // Obtiene la ruta actual
+    const currentPath = window.location.pathname;
+
+    // Lista de rutas donde se aplicará la lógica de confirmación
+    const routesWithConfirmation = [
+        "/dasboard",
+        "/login",
+        "/register",
+        "/admin",
+    ]; // Reemplaza con las rutas que desees
+
+    // Verifica si la ruta actual está en la lista
+    if (
+        !routesWithConfirmation.includes(currentPath) &&
+        routesWithConfirmation.some((prefix) => currentPath.startsWith(prefix))
+    ) {
+        event.preventDefault();
+        event.returnValue =
+            "¿Estás seguro de que deseas recargar la página? Se perderá todo tu progreso.";
+    }
+};
+// const onConfirmRefresh = function (event) {
+//     event.preventDefault();
+//     return (event.returnValue =
+//         "Estas seguro que deseas recargar la pagina? perderas todo tu progreso");
+// };
+
+// window.addEventListener("beforeunload", onConfirmRefresh, { capture: true });
