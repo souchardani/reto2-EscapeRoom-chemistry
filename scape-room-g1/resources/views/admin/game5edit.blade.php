@@ -19,7 +19,7 @@
             <span>El campo clave es obligatorio</span>
         @endif
     </div>
-    <div class="flex justify-center p-2 my-3 ">
+    <div class="flex justify-center p-2 my-3">
         <input type="submit" value="Modificar" class="shadow-xl border rounded-xl p-2 bg-green-300 mx-2 hover:bg-green-400">
         <a href="{{route('admin.game5')}}" class="shadow-xl border rounded-xl p-2 bg-red-400 hover:bg-red-500">Cancelar</a>
     </div>

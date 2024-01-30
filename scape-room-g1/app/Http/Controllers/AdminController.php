@@ -18,7 +18,7 @@ class AdminController extends Controller
     {
         return view('home');
     }
-  
+
     // Returns a view with the game's questions and answers
     //-------------------------------------juego 1------------------------------------------------
     public function game1()
@@ -89,8 +89,7 @@ class AdminController extends Controller
         $old_imgName = $_REQUEST['old_imgName'];
 
         // if a new img was uploaded
-        if (isset($_FILES['img_molecule'])) {
-            //echo ("ha entrado al if");
+        if ($request->hasFile('photo')) {
             // modifies the question in the database
             $game1 = Game1_puzzle::find($id);
             $game1->molecule = $request->molecule;
@@ -232,7 +231,7 @@ class AdminController extends Controller
         // redirects back to the game's CRUD when it finishes
         return redirect('admin/game2');
     }
-  
+
     //-------------------------------------juego 3------------------------------------------------
 
     // Returns a view with the game's questions and answers
@@ -246,7 +245,7 @@ class AdminController extends Controller
         // compact passes the variables of this function to the view
         return view('admin.game3_hangman', compact('game3_data'));
     }
-  
+
    // Returns a view for creating new questions and answers
     public function game3create()
     {
@@ -340,44 +339,44 @@ class AdminController extends Controller
         {
            return view('admin.game4create');
         }
-   
+
        // Returns a view to edit a question and its answer
        public function game4edit(string $id)
        {
            $game4 = Game4_pairs::find($id);
            return view('admin.game4edit', compact('game4'));
        }
-   
+
        // Saves the new question and its answer
        public function game4storeNew(Request $request)
        {
            // display what was sent by the form
            //return $request -> all();
-   
+
            // validate growth and caracteristics
            $request->validate([
                'growth' => 'required',
                'caracteristics' => 'required'
            ]);
-   
+
            // adds the question and its answer to the game's question pool in the database
            $game4 = new Game4_pairs();
            $game4->growth = $request->growth;
            $game4->caracteristics = $request->caracteristics;
            $game4->save();
-   
+
            // redirects back to the game's CRUD when it finishes
            //return redirect('admin/game1');
            // returns back to the create view on successful creation
            return back()->withSuccess("La pregunta ha sido añadida.");
        }
-   
+
        // Saves the edits of a question and its answer
        public function game4storeEdit(Request $request, $id)
         {
             // display what was sent by the form
             //return $request -> all();
-            
+
             // validate growth and caracteristics
             $request->validate([
                 'growth' => 'required',
@@ -389,28 +388,28 @@ class AdminController extends Controller
             $game4->growth = $request->growth;
             $game4->caracteristics = $request->caracteristics;
             $game4->save();
-   
+
            // redirects back to the game's CRUD when it finishes
            //return redirect('admin/game1');
            // returns back to the create view on successful modification
            return back()->withSuccess("La pregunta ha sido modificada.");
        }
-   
+
        // Returns a view that asks if you want to delete a question and its answer
        public function game4destroy($id)
        {
            $game4 = Game4_pairs::find($id);
            return view('admin.game4destroy', compact('game4'));
        }
-   
+
        // Deletes the question and its answer
        public function game4destroyConfirm($id)
        {
            $game4 = Game4_pairs::find($id);
-   
+
            // deletes the log from the database
            $game4->delete();
-   
+
            // redirects back to the game's CRUD when it finishes
            return redirect('admin/game4');
        }
