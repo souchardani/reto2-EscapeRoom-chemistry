@@ -247,12 +247,10 @@ export default {
             ],
             mostrarm: false,
             enhorabuena: false,
-            audioAcertado: new Audio("../../public/sounds/1200.mp3"),
-            audioIncorrecto: new Audio(
-                "../../public/sounds/incorrect-cbt-sound.mp3"
-            ),
-            aplausos: new Audio("../../public/sounds/claps-44774.mp3"),
-            fail: new Audio("../../public/sounds/fail-144746.mp3"),
+            audioAcertado:new Audio('/sounds/1200.mp3'),
+            audioIncorrecto:new Audio('/sounds/incorrect-cbt-sound.mp3'),
+            aplausos:new Audio('/sounds/claps-44774.mp3'),
+            fail:new Audio('/sounds/fail-144746.mp3'),
         };
         //this.enhorabuena=true; ganado
     },

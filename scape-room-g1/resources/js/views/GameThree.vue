@@ -97,10 +97,10 @@ export default {
             mostrarm: false,
 
             enhorabuena:false,
-            audioAcertado:new Audio('../../public/sounds/1200.mp3'),
-            audioIncorrecto:new Audio('../../public/sounds/incorrect-cbt-sound.mp3'),
-            aplausos:new Audio('../../public/sounds/claps-44774.mp3'),
-            fail:new Audio('../../public/sounds/fail-144746.mp3'),
+            audioAcertado:new Audio('/sounds/1200.mp3'),
+            audioIncorrecto:new Audio('/sounds/incorrect-cbt-sound.mp3'),
+            aplausos:new Audio('/sounds/claps-44774.mp3'),
+            fail:new Audio('/sounds/fail-144746.mp3'),
             descontarTiempo:0,//variable para saber el tiempo a descontar
 
         }
@@ -199,7 +199,7 @@ export default {
 
             if (acertado == false && z < 6 && z > 0) {
                 this.imagen =
-                    "../../public/game3_hangman_img/hangman" + z + ".png";
+                    "/img/game3_hangman_img/hangman" + z + ".png";
                 this.marcaError(contador);
                 z = z + 1;
                 contador = contador + 1;
@@ -209,7 +209,7 @@ export default {
             // para que el inicio del juego el input sea de color blanco
             if (z == 0 && acertado == false) {
                 this.imagen =
-                    "../../public/game3_hangman_img/hangman" + z + ".png";
+                    "/img/game3_hangman_img/hangman" + z + ".png";
                 this.marcaError(contador);
                 contador = contador + 1;
                 z = z + 1;

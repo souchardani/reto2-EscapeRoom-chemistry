@@ -52,6 +52,7 @@
             :pista="this.clave[1]"
         ></success>
         <unsuccess v-bind:mostrar="mostrar" @clicked="closeModal"></unsuccess>
+
     </div>
 </template>
 <script>
@@ -90,10 +91,10 @@ export default {
             parejas: [],
             giradas: 0,
             FormulaNames: [],
-            audioAcertado:new Audio('../../public/sounds/1200.mp3'),
-            audioIncorrecto:new Audio('../../public/sounds/incorrect-cbt-sound.mp3'),
-            aplausos:new Audio('../../public/sounds/claps-44774.mp3'),
-            fail:new Audio('../../public/sounds/fail-144746.mp3')
+            audioAcertado:new Audio('/sounds/1200.mp3'),
+            audioIncorrecto:new Audio('/sounds/incorrect-cbt-sound.mp3'),
+            aplausos:new Audio('/sounds/claps-44774.mp3'),
+            fail:new Audio('/sounds/fail-144746.mp3')
         };
     },
     methods: {
@@ -105,7 +106,6 @@ export default {
         hideTutorial() {
             this.help = false;
         },
-
         apagar(){
             this.audioAcertado.muted=true;
             this.audioIncorrecto.muted=true;
@@ -159,7 +159,7 @@ export default {
             );
             let img = respuestaAObtener[0].img_molecule;
             console.log(img);
-            return "game1_puzzles_img/" + img;
+            return "/img/game1_puzzles_img/" + img;
         },
 
         comprobar(estado, id) {
@@ -190,7 +190,8 @@ export default {
                         this.$refs[pareja][1].voltearDeNuevo();
                     });
                     //compropar los errores de la barra y llama a la funcion de restar tiempo
-                    this.audioIncorrecto.play();
+                     this.audioIncorrecto.play();
+
                     this.marcaError(this.contador);
                     this.errores++;
                     if (this.errores == 5) {
