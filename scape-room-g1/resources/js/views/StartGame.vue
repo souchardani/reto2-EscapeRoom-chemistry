@@ -1029,10 +1029,12 @@ import { reactive, computed } from "vue";
 import ModalStartGame from "../components/modals/ModalStartGame.vue";
 import ModalFailGame from "../components/modals/ModalFailGame.vue";
 import { useRoute, useRouter } from "vue-router";
+import { useProgressBarStore } from "../store/progressBar";
 
 const store = useCheckStore();
 const storeLogin = useLoginStore();
 const storeTemporizador = useTemporizadorStore();
+const ProgressBarStore = useProgressBarStore();
 
 const titulo = ref();
 const descripcion = ref();
@@ -1064,6 +1066,7 @@ const closeModalTime = () => {
     storeTemporizador.reiniciarEstadoTiempo();
     //reiciamos el setState
     store.resetSetState();
+    ProgressBarStore.resetState();
     console.log("usuario luego de reiniciar: " + storeLogin.getUsuario());
     router.push("/login");
 };

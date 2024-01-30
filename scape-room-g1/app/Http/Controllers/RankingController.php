@@ -9,7 +9,7 @@ class RankingController extends Controller
 {
     //devuelve todos los registros del ranking
     public function getInfoRanking(){
-        $jugadores=Ranking::all();
+        $jugadores = Ranking::orderBy('time', 'asc')->get();
         return $jugadores;
     }
 
