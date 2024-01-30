@@ -43,3 +43,9 @@ const onConfirmRefresh = function (event) {
 // };
 
 // window.addEventListener("beforeunload", onConfirmRefresh, { capture: true });
+
+import Alpine from "alpinejs";
+
+window.Alpine = Alpine;
+
+Alpine.start();
