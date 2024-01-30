@@ -56,16 +56,35 @@ import Reloj from "./Reloj.vue";
 import GameTitle from "./GameTitle.vue";
 import BtnSalir from "./BtnSalir.vue";
 import ModalFailGame from "../components/modals/ModalFailGame.vue";
-import { mapWritableState } from "pinia";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
+import { useLoginStore } from "../store/LoginStore";
+import { useCheckStore } from "../store/checkState";
+import { mapWritableState, mapActions } from "pinia";
 
 export default {
     methods: {
-        closeModalTime(){
+        ...mapActions(useTemporizadorStore, ["reiniciarEstadoTiempo"]),
+        ...mapActions(useLoginStore, ["resetUser", "getUsuario"]),
+        // ...mapWritableState(useLoginStore, ["getUsuario"]),
+        ...mapActions(useCheckStore, ["resetSetState"]),
+        closeModalTime() {
+            //reinicamos los valores de usuario
+            this.resetUser();
+            //ponemos el tiempo final de nuevo a 0
+            this.reiniciarEstadoTiempo();
+            //reiciamos el setState
+            this.resetSetState();
             this.$router.push("login");
         },
     },
-    components: { DescripcionJuego, ProgressBar, Reloj, GameTitle, BtnSalir,ModalFailGame},
+    components: {
+        DescripcionJuego,
+        ProgressBar,
+        Reloj,
+        GameTitle,
+        BtnSalir,
+        ModalFailGame,
+    },
     computed: {
         titulo() {
             // Accede al título desde la ruta activa
