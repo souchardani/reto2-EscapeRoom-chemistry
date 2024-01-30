@@ -36,10 +36,3 @@ Route::middleware('auth')->group(function () {
 //incluyo el archivo de rutas creadas por nosotros
 require __DIR__.'/webold.php';
 require __DIR__.'/auth.php';
-
-Route::get('{any?}', function () {
-    return view('welcome');
-})->where('any', '.*');
-
-
-
