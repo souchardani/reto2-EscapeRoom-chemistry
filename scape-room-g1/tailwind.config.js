@@ -12,11 +12,16 @@ export default {
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
         "./resources/**/*.vue",
+        "./resources/**/**/*.vue",
+        "./resources/js/components/**/*.vue",
+        "./resources/js/views/**/*.vue",
         "./index.html",
         "./src/**/*.{vue,js,ts,jsx,tsx}",
     ],
 
-    theme: {},
+    theme: {
+        extend: {},
+    },
 
     plugins: [forms],
 };
