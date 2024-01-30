@@ -60,6 +60,7 @@ import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { useLoginStore } from "../store/LoginStore";
 import { useCheckStore } from "../store/checkState";
 import { mapWritableState, mapActions } from "pinia";
+import { useProgressBarStore } from "../store/progressBar";
 
 export default {
     methods: {
@@ -67,6 +68,7 @@ export default {
         ...mapActions(useLoginStore, ["resetUser", "getUsuario"]),
         // ...mapWritableState(useLoginStore, ["getUsuario"]),
         ...mapActions(useCheckStore, ["resetSetState"]),
+        ...mapActions(useProgressBarStore, ["resetState"]),
         closeModalTime() {
             //reinicamos los valores de usuario
             this.resetUser();
@@ -74,6 +76,7 @@ export default {
             this.reiniciarEstadoTiempo();
             //reiciamos el setState
             this.resetSetState();
+            this.resetState();
             console.log(this.getUsuario());
             this.$router.push("login");
         },
