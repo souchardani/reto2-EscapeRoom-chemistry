@@ -110,7 +110,7 @@
 <script>
 import GlassCard from "../components/GlassCard.vue";
 import GlassBtn from "../components/GlassBtn.vue";
-import Footer from "../components/footer.vue";
+import Footer from "../components/Footer.vue";
 import { useLoginStore } from "../store/LoginStore";
 import { useCheckStore } from "../store/checkState";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
