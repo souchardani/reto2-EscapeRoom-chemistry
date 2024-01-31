@@ -219,7 +219,7 @@ export default {
     },
     async getAllData() {
             const allData = await axios.get(
-                "http://127.0.0.1:8000/api/getjuego3"
+                "http://44.196.190.239/api/getjuego3"
             );
             this.palabras = allData.data;
             console.log(this.palabras);

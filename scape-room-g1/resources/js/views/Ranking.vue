@@ -135,7 +135,7 @@ export default {
         async dataRanking() {
             try {
                 const ranking = await axios.get(
-                    "http://127.0.0.1:8000/api/getRanking"
+                    "http://44.196.190.239/api/getRanking"
                 );
                 this.jugadores = ranking.data;
             } catch (error) {
