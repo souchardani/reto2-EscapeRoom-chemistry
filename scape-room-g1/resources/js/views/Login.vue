@@ -293,8 +293,8 @@
                 a descubrir la contraseña final y salvar a la humanidad.
             </p>
             <p>
-                Tendras que usar tus habilidad e ingenio para resolver los retos
-                que te proponemos.
+                Tendrás que usar tus habilidades e ingenio para resolver los
+                retos que te proponemos.
             </p>
             <p>
                 Recuerda, tienes solo 30 minutos, y cada vez que falles en un
