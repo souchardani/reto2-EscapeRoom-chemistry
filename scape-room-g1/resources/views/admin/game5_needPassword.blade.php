@@ -1,5 +1,5 @@
 @extends('layouts.CRUDlayout')
-@section('title', 'CRUD Admin - Juego 5')
+@section('title', 'Juego 5')
 @section('content')
 {{-- cuando se haga una nueva insercion correcta, aparecerá el mensaje --}}
 @if(session('success'))
@@ -8,7 +8,7 @@
     </div>
 @endif
 
-<div class="flex items-center justify-center">
+<div class="flex flex-col items-center justify-center">
     <div class="flex flex-col mr-10">
         <h2 class="text-xl">Deseas añadir un nuevo registro a la tabla?</h2><a href="{{ route('admin.game5create') }}" class="bg-green-200 rounded-lg p-2 mx-4 shadow-xl hover:bg-green-300 text-center">Nuevo Registro</a>
     </div>

@@ -1,5 +1,5 @@
 @extends('layouts.CRUDlayout')
-@section('title', 'CRUD Admin - Juego 1')
+@section('title', 'Juego 1')
 @section('content')
 
 {{-- cuando se haga una nueva insercion correcta, aparecerá el mensaje --}}
