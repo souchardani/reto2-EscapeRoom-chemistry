@@ -12,7 +12,7 @@
         <div>
             <h1 class="text-5xl my-4 bg-black text-white font-bold p-6 rounded-xl">Administrador de Juegos</h1>
         </div>
-        <div class="grid grid-cols-3 gap-6 my-6">
+        <div class="flex flex-col md:grid grid-cols-3 gap-6 my-6">
             <div class="flex justify-center items-center bg-green-200 w-60 h-48  rounded-xl shadow-lg hover:scale-110 hover:shadow-xl border-2 border-gray-300">
                 <a href="{{ route('admin.game1') }}" class="font-semibold text-xl">Puzzle</a>
             </div>
