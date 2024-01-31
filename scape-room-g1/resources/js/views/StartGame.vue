@@ -36,7 +36,7 @@
         </div>
 
         <h1
-            class="text-center font-medium text-5xl md:text-4xl mb-5 drop-shadow-2xl lg:pb-2"
+            class="h1-titulo"
         >
             Scape Room
         </h1>
