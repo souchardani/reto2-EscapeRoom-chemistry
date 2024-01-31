@@ -50,7 +50,7 @@
                         <div>
                             <img
                                 :src="'/img/labmainrecorte2.jpg'"
-                                alt=""
+                                alt="laboratorio"
                                 class="rounded-lg mb-7 shadow-xl"
                             />
                         </div>

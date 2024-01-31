@@ -50,7 +50,7 @@
                 <div class="relative">
                     <img
                         :src="'/img/labsharp.jpg'"
-                        class="lg:w-[80vw] rounded-2xl lg:h-[90vh]"
+                        class="lg:w-[80vw] rounded-2xl lg:h-[90vh]" alt="laboratorio"
                     />
                     <!-- reloj -->
                     <div

@@ -54,7 +54,7 @@
                                         srcGift:
                                             'https://media.giphy.com/media/l0HlUxcWRsqROFYuk/giphy.gif',
                                     })
-                                "
+                                " alt="matraz"
                             ></i>
                         </h2>
 
@@ -73,7 +73,7 @@
                                 srcGift:
                                     'https://media.giphy.com/media/PkoGC4SZK3DynYxlXy/giphy.gif',
                             })
-                        "
+                        " alt="vial"
                     ></i>
                 </div>
             </div>
