@@ -55,6 +55,11 @@
         </div>
         <div class="container-fluid flex flex-col justify-center p-1 m-2">
             <GlassCard>
+                <label>Felicidades {{this.usuario.nick}}, tu tiempo {{ this.getTiempoLaravel() }} y difultad {{ this.usuario.dificultad }}</label>
+            </GlassCard>
+        </div>
+        <div class="container-fluid flex flex-col justify-center p-1 m-2">
+            <GlassCard>
                 <table
                     class="table w-full text-sm border-separate border-spacing-y-1 md:border-spacing-y-3 md:text-md lg:border-spacing-y-4 lg:text-lg"
                 >
@@ -167,7 +172,7 @@ export default {
             this.$router.push("/login");
             console.log(this.getUsuario());
         },
-        ...mapActions(useTemporizadorStore, ["reiniciarEstadoTiempo"]),
+        ...mapActions(useTemporizadorStore, ["reiniciarEstadoTiempo","getTiempoLaravel"]),
         ...mapActions(useLoginStore, ["resetUser", "getUsuario"]),
         ...mapActions(useCheckStore, ["resetSetState"]),
         ...mapActions(useProgressBarStore, ["resetState"]),
@@ -182,6 +187,7 @@ export default {
     },
     computed: {
         ...mapWritableState(useLoginStore, ["usuario"]),
+
     },
     components: { GlassCard, GlassBtn, Footer },
 };
