@@ -44,7 +44,7 @@
             :id="card.id"
             :ref="card.id"
         >
-            <img :src="obtenerImagenes(card.molecule)" />
+        <img :src="obtenerImagenes(card.molecule)" v-bind:alt="card.molecule" />
         </FlipCard>
         <success
             v-bind:enhorabuena="enhorabuena"
