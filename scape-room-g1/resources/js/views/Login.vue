@@ -55,6 +55,7 @@
                                             'https://media.giphy.com/media/l0HlUxcWRsqROFYuk/giphy.gif',
                                     })
                                 "
+                                alt="matraz"
                             ></i>
                         </h2>
 
@@ -74,6 +75,7 @@
                                     'https://media.giphy.com/media/PkoGC4SZK3DynYxlXy/giphy.gif',
                             })
                         "
+                        alt="vial"
                     ></i>
                 </div>
             </div>
@@ -196,7 +198,14 @@
                                                     class="text-sm font-bold"
                                                     >Nivel de Dificultad</label
                                                 >
+                                                <i
+                                                    @click="
+                                                        mostrarInfoDificultad = true
+                                                    "
+                                                    class="ph ph-info text-2xl"
+                                                ></i>
                                             </div>
+
                                             <select
                                                 @focus="
                                                     showErrorMessage = false
@@ -289,7 +298,8 @@
             </p>
             <p>
                 Recuerda, tienes solo 30 minutos, y cada vez que falles en un
-                juego, perderás 5 minutos. ¡Ánimo, y mucha suerte!
+                juego, perderás tiempo del reloj en función de la dificultad que
+                hayas elegido. ¡Ánimo, y mucha suerte!
             </p></ModalStartGame
         >
         <ModalStartGame
@@ -302,6 +312,26 @@
             <div @mouseover.prevent class="w-60 pb-6 relative">
                 <img :src="hint.srcGift" alt="" />
             </div>
+        </ModalStartGame>
+        <ModalStartGame
+            @close="mostrarInfoDificultad = false"
+            :showModal="mostrarInfoDificultad"
+            bgColor="bg-blue-500"
+            titulo="Informacion de la dificultad"
+        >
+            <p>
+                En base a la dificultad que elijas, tu temporizador se verá
+                afectado.
+            </p>
+            <p>
+                Para completar el juego tendrás 30 minutos, y por cada fallo en
+                una de las pruebas, según la dificultad, se descontará tiempo
+                del reloj:
+            </p>
+            <p class="font-bold">Fácil: 5 Minutos</p>
+
+            <p class="font-bold">Medio: 7 Minutos</p>
+            <p class="font-bold">Dificil: 12 Minutos</p>
         </ModalStartGame>
     </div>
 </template>
@@ -323,6 +353,7 @@ export default {
             showModalInfo: true,
             showErrorMessage: false,
             txtErrorMsg: "",
+            mostrarInfoDificultad: false,
             hint: {
                 showModalHints: false,
                 bgHint: "bg-blue-500",

@@ -36,7 +36,7 @@
         </div>
 
         <h1
-            class="text-center font-medium text-5xl md:text-4xl mb-5 drop-shadow-2xl lg:pb-2"
+            class="h1-titulo"
         >
             Scape Room
         </h1>
@@ -50,7 +50,7 @@
                 <div class="relative">
                     <img
                         :src="'/img/labsharp.jpg'"
-                        class="lg:w-[80vw] rounded-2xl lg:h-[90vh]"
+                        class="lg:w-[80vw] rounded-2xl lg:h-[90vh]" alt="laboratorio"
                     />
                     <!-- reloj -->
                     <div
@@ -124,7 +124,7 @@
                                 'hover:scale-150',
                                 'flex',
                                 'absolute',
-                                'bottom-[110px]',
+                                'bottom-[160px]',
                                 'left-[110px]',
                                 'grow',
                                 'rounded-2xl',
@@ -135,8 +135,8 @@
                                 'text-sm',
                                 'font-semibold',
 
-                                'md:bottom-[200px]',
-                                'md:left-[200px]',
+                                'md:bottom-[300px]',
+                                'md:left-[350px]',
                                 'lg:bottom-[320px]',
                                 'lg:left-[570px]',
                             ]"
@@ -953,9 +953,8 @@
                                 },
                                 'flex',
                                 'absolute',
-
-                                'bottom-32',
-                                'right-32',
+                                'bottom-[210px]',
+                                'right-[70px]',
                                 'grow',
                                 'rounded-2xl',
                                 'bg-opacity-60',

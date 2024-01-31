@@ -43,9 +43,9 @@
     </div>
     <div class="mx-auto p-5 text-center mb-10 text-4xl">
         <div>
-            <label for="">Introduce una letra</label>
+            <label for="">Introduce una letra y pulsa enter</label>
             <div class="pb-5 mt-20 mb-12">
-                <img v-bind:src="imagen" class="mx-auto" />
+                <img v-bind:src="imagen" class="mx-auto" v-bind:alt="imagen" />
             </div>
 
             <input type="text" id="letra" maxlength="1" size="1" @click="vaciar()"  @keyup.enter="mostrarLetra" class="border-4 text-center">

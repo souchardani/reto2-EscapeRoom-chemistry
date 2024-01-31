@@ -1,3 +1,13 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+@layer components {
+    .h1-titulo {
+        @apply text-center font-medium text-5xl md:text-4xl mb-5 drop-shadow-2xl lg:pb-2;
+    }
+
+    .glass-card {
+        @apply text-justify relative px-8 py-5 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-60 border border-gray-200;
+    }
+}
