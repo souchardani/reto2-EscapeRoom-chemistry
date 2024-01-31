@@ -124,7 +124,7 @@
                                 'hover:scale-150',
                                 'flex',
                                 'absolute',
-                                'bottom-[110px]',
+                                'bottom-[160px]',
                                 'left-[110px]',
                                 'grow',
                                 'rounded-2xl',
@@ -135,8 +135,8 @@
                                 'text-sm',
                                 'font-semibold',
 
-                                'md:bottom-[200px]',
-                                'md:left-[200px]',
+                                'md:bottom-[300px]',
+                                'md:left-[350px]',
                                 'lg:bottom-[320px]',
                                 'lg:left-[570px]',
                             ]"
@@ -953,9 +953,8 @@
                                 },
                                 'flex',
                                 'absolute',
-
-                                'bottom-32',
-                                'right-32',
+                                'bottom-[210px]',
+                                'right-[70px]',
                                 'grow',
                                 'rounded-2xl',
                                 'bg-opacity-60',
