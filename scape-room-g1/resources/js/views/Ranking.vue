@@ -53,9 +53,16 @@
                 </option>
             </select>
         </div>
-        <div class="container-fluid flex flex-col justify-center p-1 m-2">
+        <div
+            v-if="usuario.nick != null"
+            class="container-fluid flex flex-col justify-center p-1 m-2"
+        >
             <GlassCard>
-                <label>Felicidades {{this.usuario.nick}}, tu tiempo {{ this.getTiempoLaravel() }} y difultad {{ this.usuario.dificultad }}</label>
+                <label
+                    >Felicidades {{ this.usuario.nick }}, tu tiempo
+                    {{ this.getTiempoLaravel() }} y difultad
+                    {{ this.usuario.dificultad }}</label
+                >
             </GlassCard>
         </div>
         <div class="container-fluid flex flex-col justify-center p-1 m-2">
@@ -172,7 +179,10 @@ export default {
             this.$router.push("/login");
             console.log(this.getUsuario());
         },
-        ...mapActions(useTemporizadorStore, ["reiniciarEstadoTiempo","getTiempoLaravel"]),
+        ...mapActions(useTemporizadorStore, [
+            "reiniciarEstadoTiempo",
+            "getTiempoLaravel",
+        ]),
         ...mapActions(useLoginStore, ["resetUser", "getUsuario"]),
         ...mapActions(useCheckStore, ["resetSetState"]),
         ...mapActions(useProgressBarStore, ["resetState"]),
@@ -187,7 +197,6 @@ export default {
     },
     computed: {
         ...mapWritableState(useLoginStore, ["usuario"]),
-
     },
     components: { GlassCard, GlassBtn, Footer },
 };
