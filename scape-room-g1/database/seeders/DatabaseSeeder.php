@@ -12,6 +12,7 @@ use App\Models\Game3_hangman;
 use App\Models\Game4_pairs;
 use App\Models\Game5_needPassword;
 use App\Models\Ranking;
+use App\Models\Players;
 
 class DatabaseSeeder extends Seeder
 {
@@ -34,6 +35,8 @@ class DatabaseSeeder extends Seeder
         $this->call(Game3_hangmanSeeder::class);
         $this->call(Game4_pairsSeeder::class);
         $this->call(Game5_needPasswordSeeder::class);
+        $this->call(PlayerSeeder::class);
         $this->call(RankingSeeder::class);
+
     }
 }

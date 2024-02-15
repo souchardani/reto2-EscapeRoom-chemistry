@@ -14,7 +14,7 @@ import StartGame from "../views/StartGame.vue";
 import Ranking from "../views/Ranking.vue";
 import PruebaDrag from "../views/PruebaDrag.vue";
 import ModalStartGame from "../components/modals/ModalStartGame.vue";
-
+import UserloginView from "../views/UserLoginView.vue"
 //store with pinia
 import { useLoginStore } from "../store/LoginStore";
 import pruebas from "../views/pruebas.vue";
@@ -31,6 +31,12 @@ const routes = [
         name: "Index",
         meta: { juegoIniciado: false },
         component: Index,
+    },
+    {
+        path: "/userlogin",
+        name: "Userlogin",
+        meta: { juegoIniciado: false },
+        component: UserloginView,
     },
     {
         path: "/juegos",

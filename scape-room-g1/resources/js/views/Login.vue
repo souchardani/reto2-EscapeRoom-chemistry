@@ -1,4 +1,4 @@
-<template>
+php <template>
     <!-- component -->
     <div
         class="container-fluid backdrop-blur-lg"

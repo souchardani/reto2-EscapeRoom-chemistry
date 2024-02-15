@@ -118,7 +118,7 @@
                         <div
                             class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start"
                         >
-                            <router-link to="/Login">
+                            <router-link to="/userlogin">
                                 <GlassBtn> Iniciar Partida </GlassBtn>
                             </router-link>
                             <router-link
