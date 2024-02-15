@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('difficulty');
             $table->time('time');
             $table->string('player_nickname');
+
             $table->unsignedBigInteger('id_player');
             $table->foreign('id_player')->references('id')->on('players');
+
             $table->timestamps();
         });
     }
