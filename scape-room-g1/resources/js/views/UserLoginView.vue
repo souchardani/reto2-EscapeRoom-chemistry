@@ -46,7 +46,7 @@
 
                 <button
                     class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
-                >
+                 @click="this.$router.push('/login')">
                     Invitado
                 </button>
             </div>

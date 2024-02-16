@@ -10,10 +10,14 @@ export const useLoginStore = defineStore("LoginStore", {
                 terminado: false,
                 salirAntesDeTiempo: false,
             },
+            registrado:{
+                name: null,
+                logeado:false
+            }
         };
     },
     getters: {
-        
+
     },
     actions: {
         setUsuario(nick, dificultad) {

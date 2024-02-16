@@ -1,4 +1,5 @@
-php <template>
+php
+<template>
     <!-- component -->
     <div
         class="container-fluid backdrop-blur-lg"
@@ -139,13 +140,14 @@ php <template>
                                         ></i>
                                     </div>
                                     <form @submit.prevent>
-                                        <div>
+                                        <div v-if="registrado.logeado">
                                             <label
                                                 for="nickJugador"
-                                                class="block mb-2 text-sm font-bold"
-                                                >Nick del juego</label
+                                                class="block mb-2 text-2xl  font-bold"
+                                                >Bienvenido {{ registrado.name }}</label
                                             >
-                                            <input
+
+                                            <!-- <input
                                                 @focus="
                                                     showErrorMessage = false
                                                 "
@@ -155,8 +157,28 @@ php <template>
                                                 id="nickJugador"
                                                 placeholder="Daniel_Jugador1"
                                                 class="block w-full px-4 py-2 mt-2 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                            />
+                                            /> -->
                                         </div>
+                                        <div v-else="registrado.logeado">
+                                            <label
+                                                for="nickJugador"
+                                                class="block mb-2 text-xl  font-bold"
+                                                >Bienvenido Anónimo</label
+                                            >
+
+                                            <!-- <input
+                                                @focus="
+                                                    showErrorMessage = false
+                                                "
+                                                v-model="txtNick"
+                                                type="text"
+                                                name="nickJugador"
+                                                id="nickJugador"
+                                                placeholder="Daniel_Jugador1"
+                                                class="block w-full px-4 py-2 mt-2 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                            /> -->
+                                        </div>
+
 
                                         <div class="mt-6">
                                             <div
@@ -236,6 +258,15 @@ php <template>
                                                 class="grow rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                                             >
                                                 Iniciar partida
+                                            </button>
+                                            <button
+                                                @click="logout"
+                                                style="
+                                                    backdrop-filter: blur(20px);
+                                                "
+                                                class="grow rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                                            >
+                                                Cerrar Sesión
                                             </button>
                                         </div>
                                     </form>
@@ -366,11 +397,11 @@ export default {
     components: { ModalStartGame },
     methods: {
         validar() {
-            if (this.txtNick.length < 4) {
+           /*  if (this.txtNick.length < 4) {
                 this.txtErrorMsg = "El nick debe tener al menos 4 caracteres.";
                 this.showErrorMessage = true;
                 return;
-            }
+            } */
             if (!this.cmbDificultad) {
                 this.txtErrorMsg = "Debes seleccionar una opción.";
                 this.showErrorMessage = true;
@@ -382,7 +413,7 @@ export default {
                 return;
             }
 
-            if (
+            /* if (
                 this.txtNick === "" ||
                 !this.cmbDificultad ||
                 this.txtPassword === ""
@@ -390,13 +421,13 @@ export default {
                 this.txtErrorMsg = "Todos los campos son obligatorios.";
                 this.showErrorMessage = true;
                 return;
-            }
+            } */
             //llamamos a inicio del luego
             this.inicioJuego();
         },
         inicioJuego() {
             //guardamos las variable de inicio de sesion en el store de pinia
-            this.usuario.nick = this.txtNick;
+            this.usuario.nick = this.registrado.name;
             this.usuario.dificultad = this.cmbDificultad;
             this.usuario.iniciado = true;
             console.log(this.usuario);
@@ -443,9 +474,14 @@ export default {
             this.hint.descripcion = obj.descripcion;
             this.hint.srcGift = obj.srcGift;
         },
+        logout(){
+            this.registrado.logeado=false;
+            this.registrado.name= null;
+            this.$router.push("/userlogin");
+        }
     },
     computed: {
-        ...mapWritableState(useLoginStore, ["usuario"]),
+        ...mapWritableState(useLoginStore, ["usuario", "registrado"]),
     },
     mounted() {
         this.generatePass();
