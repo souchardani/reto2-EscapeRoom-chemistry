@@ -427,10 +427,16 @@ export default {
         },
         inicioJuego() {
             //guardamos las variable de inicio de sesion en el store de pinia
-            this.usuario.nick = this.registrado.name;
-            this.usuario.dificultad = this.cmbDificultad;
-            this.usuario.iniciado = true;
+            if(this.registrado.logeado){
+                this.usuario.nick = this.registrado.name;
+                this.usuario.dificultad = this.cmbDificultad;
+                this.usuario.iniciado = true;
             console.log(this.usuario);
+            }else{
+                this.usuario.nick ="Anónimo";
+                this.usuario.dificultad = this.cmbDificultad;
+                this.usuario.iniciado = true;
+            }
             //iniciamos los dos temporizadores
 
             //redirigimos a la pagina de inicio del juego desde el modal
