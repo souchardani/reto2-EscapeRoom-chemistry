@@ -38,7 +38,7 @@
                 v-model="opcionSeleccionado"
                 @="primerfiltrado"
                 @change="filtrar"
-                class="mx-5 p-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                class="mx-5 p-2 w-[10%] text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 name=""
                 id=""
             >
@@ -147,7 +147,8 @@ export default {
         async dataRanking() {
             try {
                 const ranking = await axios.get(
-                    "http://44.196.190.239/api/getRanking"
+                    //"http://44.196.190.239/api/getRanking"
+                    "http://127.0.0.1:8000/api/getRanking"
                 );
                 this.jugadores = ranking.data;
             } catch (error) {

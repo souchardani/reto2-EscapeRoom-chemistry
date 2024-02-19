@@ -31,7 +31,8 @@
                 );
         "
     >
-        <div class="grid gap-8 lg:grid-cols-2 place-items-center p-4 mt-44">
+    <h1 class="text-center text-[32px] md:text-[32px] lg:text-[48px] xl:text-[56px] font-bold p-6" >Escape Room Química</h1>
+        <div class="grid gap-8 lg:grid-cols-2 place-items-center p-4 ">
             <UserLogin></UserLogin><!--Componente para logearse-->
             <div
                 class="bg-white opacity-60 rounded-xl p-8 w-[350px] flex flex-col items-center"
@@ -51,7 +52,9 @@
                 </button>
             </div>
         </div>
-        <Footer></Footer>
+        <div class="my-4">
+            <Footer></Footer>
+        </div>
     </div>
 </template>
 
