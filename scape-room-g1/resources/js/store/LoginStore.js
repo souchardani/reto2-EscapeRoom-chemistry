@@ -9,10 +9,12 @@ export const useLoginStore = defineStore("LoginStore", {
                 iniciado: false,
                 terminado: false,
                 salirAntesDeTiempo: false,
+                id:null//para hacer la insercion en la base de datos y que tenga relacion con la tabla ranking y jugadores
             },
             registrado:{
                 name: null,
-                logeado:false
+                logeado:false,
+                id:null
             }
         };
     },
@@ -20,10 +22,11 @@ export const useLoginStore = defineStore("LoginStore", {
 
     },
     actions: {
-        setUsuario(nick, dificultad) {
+        setUsuario(nick, dificultad,id) {
             this.usuario.nick = nick;
             this.usuario.dificultad = dificultad;
             this.usuario.iniciado = true;
+            this.usuario.id=id
         },
         setTerminado() {
             this.usuario.terminado = true;
@@ -37,6 +40,7 @@ export const useLoginStore = defineStore("LoginStore", {
             this.usuario.iniciado = false;
             this.usuario.terminado = false;
             this.usuario.salirAntesDeTiempo = false;
+            this.usuario.id=null;
         },
         getUsuario() {
             return this.usuario;

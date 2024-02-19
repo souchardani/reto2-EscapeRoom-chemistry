@@ -69,10 +69,12 @@ export default {
                 );
 
                 if (usuarioEncontrado) {
+                    console.log(usuarioEncontrado);
                     // La contraseña coincide
                     alert("El usuario y contraseña son correctos");
                     this.registrado.name=name;
                     this.registrado.logeado=true;
+                    this.registrado.id=usuarioEncontrado.id;
                     this.$router.push("/login");
                 } else {
                     // La contraseña no coincide
