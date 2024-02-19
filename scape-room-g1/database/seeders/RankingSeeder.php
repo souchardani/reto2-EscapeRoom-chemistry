@@ -61,7 +61,7 @@ class RankingSeeder extends Seeder
         $ranking7 = new Ranking();
         $ranking7->difficulty = 'Normal';
         $ranking7->time = '00:09:29';
-        $ranking7->player_nickname = 'xXThe_AnderXx';
+        $ranking7->player_nickname = 'Easy Pete';
         $ranking7->id_player=1;
         $ranking7->save();
 

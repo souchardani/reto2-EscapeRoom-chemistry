@@ -927,11 +927,14 @@ export default {
         async addPlayerToRanking() {
             try {
                 await axios.post("http://127.0.0.1:8000/api/addToRanking", {
+
                // await axios.post("http://44.196.190.239/api/addToRanking", {
                     nick: this.usuario.nick,
                     dificultad: this.usuario.dificultad,
                     tiempo: this.nuevotiempo,
+                    id_player:this.usuario.id
                 });
+
             } catch (error) {
                 console.log(error);
             }

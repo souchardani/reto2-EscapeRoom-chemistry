@@ -36,7 +36,7 @@
         </div>
 
         <h1 class="h1-titulo">Escape Room</h1>
-        <!-- <button @click="completarJuegos()">Completar todos los juegos</button> -->
+        <button @click="completarJuegos()">Completar todos los juegos</button>
         <h2></h2>
         <div class="flex">
             <!-- <button @click="storeTemporizador.reiniciarEstadoTiempo()">

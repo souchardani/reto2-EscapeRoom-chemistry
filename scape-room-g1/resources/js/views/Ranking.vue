@@ -52,6 +52,16 @@
                     {{ dificultad.texto }}
                 </option>
             </select>
+            <div v-show="registrado.logeado" class="flex justify-around">
+    <label for="todos">
+        Todos
+        <input type="radio" name="filtro" id="" v-model="todos" />
+    </label>
+    <label for="personal">
+        Personal
+        <input type="radio" name="filtro" id="" v-model="personal" />
+    </label>
+</div>
         </div>
         <div
             v-if="usuario.nick != null"
@@ -85,7 +95,7 @@
                     <tbody class="">
                         <tr
                             class="shadow-xl rounded-xl"
-                            v-for="(jugador, index) in nivel"
+                            v-for="(jugador, index) in filtrar"
                             :key="index"
                         >
                             <td class="md:p-3 rounded-l-xl text-center">
@@ -133,6 +143,8 @@ import axios from "axios";
 export default {
     data() {
         return {
+            todos:true,
+            personal:false,
             opcionSeleccionado: null,
             jugadores: [],
             nivel: [],
@@ -155,18 +167,13 @@ export default {
                 console.log(error);
             }
         },
-        filtrar() {
-            this.nivel = this.jugadores.filter(
-                (jugador) => jugador.difficulty == this.opcionSeleccionado
-            );
-            console.log(this.nivel);
+
+        personal() {
+            alert("pulsado");
+            this.nivel.filter((elemento) => elemento.id == this.usuario.id);
         },
         primerfiltrado() {
             this.opcionSeleccionado = this.usuario.dificultad;
-            console.log(
-                "entrando en primer filtrado, el valor del opcionSeleccionado es :" +
-                    this.opcionSeleccionado
-            );
         },
         volveraJugar() {
             //reinicamos los valores de usuario
@@ -197,7 +204,19 @@ export default {
         this.filtrar();
     },
     computed: {
-        ...mapWritableState(useLoginStore, ["usuario"]),
+        ...mapWritableState(useLoginStore, ["usuario", "registrado"]),
+        filtrar() {
+            if (this.todos) {
+                // Filtrar todos los jugadores
+                return this.jugadores.filter(jugador => jugador.difficulty == this.opcionSeleccionado);
+            } else if (this.personal) {
+                // Filtrar jugadores personales
+                return this.jugadores.filter(jugador => jugador.id === this.usuario.id);
+            } else {
+                // No hay filtro seleccionado
+                return this.jugadores;
+            }
+        },
     },
     components: { GlassCard, GlassBtn, Footer },
 };
