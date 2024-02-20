@@ -15,11 +15,14 @@ class RankingController extends Controller
 
     //creo un registro nuevo en el ranking
     public function addPlayerToRanking(Request $request){
+
         $ranking=new Ranking();
 
         $ranking->difficulty=$request->dificultad;
         $ranking->time=$request->tiempo;
         $ranking->player_nickname=$request->nick;
+        $ranking->id_player=$request->id_player;
+
         $ranking->save();
     }
 }
