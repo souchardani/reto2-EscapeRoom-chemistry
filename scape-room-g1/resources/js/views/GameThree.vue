@@ -48,7 +48,15 @@
                 <img v-bind:src="imagen" class="mx-auto" v-bind:alt="imagen" />
             </div>
 
-            <input type="text" id="letra" maxlength="1" size="1" @click="vaciar()"  @keyup.enter="mostrarLetra" class="border-4 text-center">
+            <input
+                type="text"
+                id="letra"
+                maxlength="1"
+                size="1"
+                @click="vaciar()"
+                @keyup.enter="mostrarLetra"
+                class="border-4 text-center"
+            />
             <!-- <div class="mt-4 p-4 flex text-center m-auto justify-center w-48">
 
                 <GlassBtn @click="mostrarLetra()">pulsar</GlassBtn>
@@ -81,6 +89,7 @@ import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
 import axios from "axios";
 import { useFinalyWord } from "../store/finalyWord";
+import JSConfetti from "js-confetti";
 
 export default {
     data() {
@@ -96,15 +105,13 @@ export default {
             pista: "",
             mostrarm: false,
 
-            enhorabuena:false,
-            audioAcertado:new Audio('/sounds/1200.mp3'),
-            audioIncorrecto:new Audio('/sounds/incorrect-cbt-sound.mp3'),
-            aplausos:new Audio('/sounds/claps-44774.mp3'),
-            fail:new Audio('/sounds/fail-144746.mp3'),
-            descontarTiempo:0,//variable para saber el tiempo a descontar
-
-        }
-
+            enhorabuena: false,
+            audioAcertado: new Audio("/sounds/1200.mp3"),
+            audioIncorrecto: new Audio("/sounds/incorrect-cbt-sound.mp3"),
+            aplausos: new Audio("/sounds/claps-44774.mp3"),
+            fail: new Audio("/sounds/fail-144746.mp3"),
+            descontarTiempo: 0, //variable para saber el tiempo a descontar
+        };
     },
     methods: {
         resetData() {
@@ -137,8 +144,8 @@ export default {
             this.fail.muted = false;
         },
 
-        vaciar(){
-            document.getElementById('letra').value="";
+        vaciar() {
+            document.getElementById("letra").value = "";
         },
         insertarPalabra() {
             this.random =
@@ -146,34 +153,14 @@ export default {
             return this.random.word;
         },
 
-        mostrarLetra(event){
-
-            this.letra=document.getElementById('letra').value.toLowerCase();
-            let letram= this.random.word.toLowerCase();
-            let acertado=false;
-
-                for (let i = 0; i < letram.length; i++) {
-                    // Oculta la palabra con _ _ _
-
-                    if (this.mostrar[i]==null) {
-                        this.mostrar[i]="_";
-                    }
-                    // si hay un espacio que me muestre el espacio
-                    if(letram[i]==" "){
-                        this.mostrar[i]=" ";
-                    }
-
-                    // Si es correcta la letra te marca verde
-                    if (this.letra==letram[i]) {
-                            acertado=true;
-                            this.mostrar[i]=this.letra;
-                            this.audioAcertado.play();
-                            document.getElementById('letra').style.borderColor="green";
-                    }
-
+        mostrarLetra(event) {
+            this.letra = document.getElementById("letra").value.toLowerCase();
+            let letram = this.random.word.toLowerCase();
+            let acertado = false;
 
             for (let i = 0; i < letram.length; i++) {
                 // Oculta la palabra con _ _ _
+
                 if (this.mostrar[i] == null) {
                     this.mostrar[i] = "_";
                 }
@@ -182,24 +169,42 @@ export default {
                     this.mostrar[i] = " ";
                 }
 
-
-                // cuando haces 6 fallos se termina el
+                // Si es correcta la letra te marca verde
+                if (this.letra == letram[i]) {
+                    acertado = true;
+                    this.mostrar[i] = this.letra;
+                    this.audioAcertado.play();
+                    document.getElementById("letra").style.borderColor =
+                        "green";
                 }
-                if(z==6){
-                    this.fail.play();
-                    this.mostrarm=true;
-                    this.descontarTiempo=this.saberTiempoXdificultad(this.usuario.dificultad);
-                    this.reduceTime(this.descontarTiempo);
-                    z=0;
 
+                for (let i = 0; i < letram.length; i++) {
+                    // Oculta la palabra con _ _ _
+                    if (this.mostrar[i] == null) {
+                        this.mostrar[i] = "_";
+                    }
+                    // si hay un espacio que me muestre el espacio
+                    if (letram[i] == " ") {
+                        this.mostrar[i] = " ";
+                    }
+
+                    // cuando haces 6 fallos se termina el
+                }
+                if (z == 6) {
+                    this.fail.play();
+                    this.mostrarm = true;
+                    this.descontarTiempo = this.saberTiempoXdificultad(
+                        this.usuario.dificultad
+                    );
+                    this.reduceTime(this.descontarTiempo);
+                    z = 0;
                 }
             }
 
             // si al recorrer la palabra falla
 
             if (acertado == false && z < 6 && z > 0) {
-                this.imagen =
-                    "/img/game3_hangman_img/hangman" + z + ".png";
+                this.imagen = "/img/game3_hangman_img/hangman" + z + ".png";
                 this.marcaError(contador);
                 z = z + 1;
                 contador = contador + 1;
@@ -208,8 +213,7 @@ export default {
             }
             // para que el inicio del juego el input sea de color blanco
             if (z == 0 && acertado == false) {
-                this.imagen =
-                    "/img/game3_hangman_img/hangman" + z + ".png";
+                this.imagen = "/img/game3_hangman_img/hangman" + z + ".png";
                 this.marcaError(contador);
                 contador = contador + 1;
                 z = z + 1;
@@ -231,6 +235,8 @@ export default {
                 this.aplausos.play();
                 this.enhorabuena = true;
                 this.changeJuego3();
+                const jsConfetti = new JSConfetti();
+                jsConfetti.addConfetti();
             }
             console.log(this.random.word);
         },
@@ -255,7 +261,8 @@ export default {
         ...mapActions(useProgressBarStore, ["resetState", "marcaError"]),
         async getAllData() {
             const allData = await axios.get(
-                "http://44.196.190.239/api/getjuego3"
+                "http://127.0.0.1:8000/api/getjuego3"
+                //"http://44.196.190.239/api/getjuego3"
             );
             this.palabras = allData.data;
             console.log(this.palabras);
