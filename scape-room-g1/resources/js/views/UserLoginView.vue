@@ -31,9 +31,14 @@
                 );
         "
     >
-    <h1 class="text-center text-[32px] md:text-[32px] lg:text-[48px] xl:text-[56px] font-bold p-6" >Escape Room Química</h1>
-        <div class="grid gap-8 lg:grid-cols-2 place-items-center p-4 ">
-            <UserLogin></UserLogin><!--Componente para logearse-->
+        <h1
+            class="text-center text-[32px] md:text-[32px] lg:text-[48px] xl:text-[56px] font-bold p-6"
+        >
+            Escape Room Química
+        </h1>
+        <div class="grid gap-8 lg:grid-cols-2 place-items-center p-4">
+            <UserLogin></UserLogin
+            ><!--Componente para logearse-->
             <div
                 class="bg-white opacity-60 rounded-xl p-8 w-[350px] flex flex-col items-center"
             >
@@ -47,12 +52,13 @@
 
                 <button
                     class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
-                 @click="this.$router.push('/login')">
+                    @click="this.$router.push('/login')"
+                >
                     Invitado
                 </button>
             </div>
         </div>
-        <div class="my-4">
+        <div class="my-4 mt-8">
             <Footer></Footer>
         </div>
     </div>
@@ -60,10 +66,11 @@
 
 <script>
 import Footer from "../components/Footer.vue";
-import UserLogin from "../components/UserLogin.vue"
+import UserLogin from "../components/UserLogin.vue";
 export default {
     components: {
-        Footer,UserLogin
+        Footer,
+        UserLogin,
     },
 };
 </script>

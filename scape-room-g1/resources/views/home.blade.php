@@ -28,6 +28,9 @@
             <div class="flex justify-center items-center bg-orange-200 w-60 h-48  rounded-xl shadow-lg hover:scale-110 hover:shadow-xl border-2 border-gray-300">
                 <a href="{{ route('admin.game5') }}" class="font-semibold text-xl">Endgame</a>
             </div>
+            <div class="flex justify-center items-center bg-fuchsia-200 w-60 h-48  rounded-xl shadow-lg hover:scale-110 hover:shadow-xl border-2 border-gray-300">
+                <a href="{{ route('admin.show.players') }}" class="font-semibold text-xl">Gestion usuarios</a>
+            </div>
         </div>
     </div>
 </body>

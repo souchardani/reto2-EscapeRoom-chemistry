@@ -24,6 +24,8 @@ Route::get('/', function () {
 
 Route::get('/admin/home',[AdminController::class,'home'])->name('home');
 
+
+
 // Admin CRUD routes
 Route::get('/admin/game1', [AdminController::class, 'game1'])->name('admin.game1');
 Route::get('/admin/game2', [AdminController::class, 'game2'])->name('admin.game2');
@@ -74,3 +76,4 @@ Route::delete('/admin/game4destroyConfirm{id}', [AdminController::class, 'game4d
 Route::delete('/admin/game5destroyConfirm{id}', [AdminController::class, 'game5destroyConfirm'])->name('admin.game5destroyConfirm');
 
 
+Route::get("/admin/players", [AdminController::class, 'showPlayers'])->name('admin.show.players');

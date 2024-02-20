@@ -11,6 +11,7 @@ use App\Models\Game2_kuku;
 use App\Models\Game3_hangman;
 use App\Models\Game4_pairs;
 use App\Models\Game5_needPassword;
+use App\Models\Player;
 
 class AdminController extends Controller
 {
@@ -486,4 +487,9 @@ class AdminController extends Controller
         return redirect('/admin/game5')->with('success', 'La eliminacion del registro fue satisfactoria');
     }
 
+
+    public function showPlayers(){
+        $players=Player::all();
+        return view("admin.players", compact("players"));
+    }
 }//esta es la llave final
