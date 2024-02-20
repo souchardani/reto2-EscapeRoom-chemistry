@@ -10,7 +10,7 @@
 <body>
     <div classs="container flex">
     <div class="bg-black w-full h-52 md:h-20">
-        <h1 class="text-white text-center font-medium p-5 text-7xl md:text-4xl">SCAPE ROOM</h1>
+        <h1 class="text-white text-center font-medium p-5 text-7xl md:text-4xl">ESCAPE ROOM</h1>
     </div>
     <div class="w-full h-auto">
         <p class=""> </p>

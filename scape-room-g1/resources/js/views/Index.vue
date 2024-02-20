@@ -34,7 +34,7 @@
         <h1
             class="text-center font-medium px-5 mb-10 text-5xl md:text-4xl mb-5 drop-shadow-2xl"
         >
-            Scape Room
+            Escape Room
         </h1>
         <!-- main component in movil -->
         <div class="lg:hidden">

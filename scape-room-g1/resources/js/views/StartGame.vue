@@ -35,12 +35,8 @@
             <BtnSalir></BtnSalir>
         </div>
 
-        <h1
-            class="h1-titulo"
-        >
-            Scape Room
-        </h1>
-        <button @click="completarJuegos()">Completar todos los juegos</button>
+        <h1 class="h1-titulo">Escape Room</h1>
+        <!-- <button @click="completarJuegos()">Completar todos los juegos</button> -->
         <h2></h2>
         <div class="flex">
             <!-- <button @click="storeTemporizador.reiniciarEstadoTiempo()">
@@ -50,7 +46,8 @@
                 <div class="relative">
                     <img
                         :src="'/img/labsharp.jpg'"
-                        class="lg:w-[80vw] rounded-2xl lg:h-[90vh]" alt="laboratorio"
+                        class="lg:w-[80vw] rounded-2xl lg:h-[90vh]"
+                        alt="laboratorio"
                     />
                     <!-- reloj -->
                     <div

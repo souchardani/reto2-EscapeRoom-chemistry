@@ -111,6 +111,7 @@ import { useCheckStore } from "../store/checkState";
 import unsuccess from "../components/modals/unsuccess.vue";
 import success from "../components/modals/success.vue";
 import axios from "axios";
+import JSConfetti from "js-confetti";
 
 export default {
     /*
@@ -247,10 +248,10 @@ export default {
             ],
             mostrarm: false,
             enhorabuena: false,
-            audioAcertado:new Audio('/sounds/1200.mp3'),
-            audioIncorrecto:new Audio('/sounds/incorrect-cbt-sound.mp3'),
-            aplausos:new Audio('/sounds/claps-44774.mp3'),
-            fail:new Audio('/sounds/fail-144746.mp3'),
+            audioAcertado: new Audio("/sounds/1200.mp3"),
+            audioIncorrecto: new Audio("/sounds/incorrect-cbt-sound.mp3"),
+            aplausos: new Audio("/sounds/claps-44774.mp3"),
+            fail: new Audio("/sounds/fail-144746.mp3"),
         };
         //this.enhorabuena=true; ganado
     },
@@ -379,6 +380,8 @@ export default {
             if (this.quizs.length == 0) {
                 this.enhorabuena = true;
                 this.aplausos.play();
+                const jsConfetti = new JSConfetti();
+                jsConfetti.addConfetti();
                 this.changeJuego4();
             }
         },
