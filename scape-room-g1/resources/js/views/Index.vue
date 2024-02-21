@@ -31,6 +31,16 @@
                 );
         "
     >
+        <div class="flex justify-end">
+            <GoogleTranslateSelect
+                class="w-2/5 md:w-1/6 bg-slate-200 rounded-xl py-2 px-4"
+                default-language-code="es"
+                default-page-language-code="es"
+                :fetch-browser-language="false"
+                trigger="click"
+                @select="handleGoogleTranslateSelect"
+            />
+        </div>
         <h1
             class="text-center font-medium px-5 mb-10 text-5xl md:text-4xl mb-5 drop-shadow-2xl"
         >
@@ -58,7 +68,7 @@
                             <h2
                                 class="text-3xl font-bold tracking-tight sm:text-4xl"
                             >
-                                ¿Que Tenía el Vial?
+                                ¿Que Tenia el Vial?
                             </h2>
                         </div>
                         <div class="divide-y divide-gray-200">
@@ -147,6 +157,7 @@
             class="w-100 py-3 mt-8 max-sm:max-w-xl max-sm:mx-auto max-sm:m-6 lg:mt-24"
         >
             <!-- aqui va el footer -->
+
             <Footer></Footer>
         </div>
     </div>
@@ -155,10 +166,19 @@
 <script>
 import Footer from "../components/Footer.vue";
 import GlassBtn from "../components/GlassBtn.vue";
+import GoogleTranslateSelect from "@google-translate-select/vue3";
 export default {
     components: {
         Footer,
         GlassBtn,
+        GoogleTranslateSelect,
+    },
+    data() {
+        return {
+            handleGoogleTranslateSelect: (language) => {
+                console.log(language);
+            },
+        };
     },
 };
 </script>

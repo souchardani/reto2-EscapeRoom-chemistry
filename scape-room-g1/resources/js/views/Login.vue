@@ -48,9 +48,10 @@ php
                                 class="ph ph-flask font-5xl"
                                 @click="
                                     showPass({
-                                        descripcion:
-                                            'JAJA, te has equivocado, y recuerda, este no es un tubo de ensayo, es un matraz',
-                                        titulo: 'No tan Rápido',
+                                        texto: {
+                                            desc: 'JAJA, te has equivocado, y recuerda, este no es un tubo de ensayo, es un matraz',
+                                            titulo: 'No tan Rápido',
+                                        },
                                         bgColor: 'bg-red-500',
                                         srcGift:
                                             'https://media.giphy.com/media/l0HlUxcWRsqROFYuk/giphy.gif',
@@ -69,9 +70,14 @@ php
                         class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"
                         @click="
                             showPass({
-                                titulo: 'Lo has Conseguido',
+                                texto: {
+                                    desc:
+                                        'Enhorabuena, Encontraste una etiqueta en el vial. En ella se lee: ' +
+                                        this.pass,
+                                    titulo: 'Lo has Conseguido',
+                                },
+
                                 bgColor: 'bg-green-500',
-                                descripcion: `Enhorabuena, Encontraste una etiqueta en el vial. En ella se lee: ${this.pass}`,
                                 srcGift:
                                     'https://media.giphy.com/media/PkoGC4SZK3DynYxlXy/giphy.gif',
                             })
@@ -143,8 +149,9 @@ php
                                         <div v-if="registrado.logeado">
                                             <label
                                                 for="nickJugador"
-                                                class="block mb-2 text-2xl  font-bold"
-                                                >Bienvenido {{ registrado.name }}</label
+                                                class="block mb-2 text-2xl font-bold"
+                                                >Bienvenido
+                                                {{ registrado.name }}</label
                                             >
 
                                             <!-- <input
@@ -162,7 +169,7 @@ php
                                         <div v-else="registrado.logeado">
                                             <label
                                                 for="nickJugador"
-                                                class="block mb-2 text-xl  font-bold"
+                                                class="block mb-2 text-xl font-bold"
                                                 >Bienvenido Anónimo</label
                                             >
 
@@ -178,7 +185,6 @@ php
                                                 class="block w-full px-4 py-2 mt-2 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                                             /> -->
                                         </div>
-
 
                                         <div class="mt-6">
                                             <div
@@ -255,7 +261,7 @@ php
                                                 style="
                                                     backdrop-filter: blur(20px);
                                                 "
-                                                class=" rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                                                class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                                             >
                                                 Iniciar partida
                                             </button>
@@ -264,7 +270,7 @@ php
                                                 style="
                                                     backdrop-filter: blur(20px);
                                                 "
-                                                class=" rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                                                class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                                             >
                                                 Cerrar Sesión
                                             </button>
@@ -397,7 +403,7 @@ export default {
     components: { ModalStartGame },
     methods: {
         validar() {
-           /*  if (this.txtNick.length < 4) {
+            /*  if (this.txtNick.length < 4) {
                 this.txtErrorMsg = "El nick debe tener al menos 4 caracteres.";
                 this.showErrorMessage = true;
                 return;
@@ -427,14 +433,14 @@ export default {
         },
         inicioJuego() {
             //guardamos las variable de inicio de sesion en el store de pinia
-            if(this.registrado.logeado){
+            if (this.registrado.logeado) {
                 this.usuario.nick = this.registrado.name;
                 this.usuario.dificultad = this.cmbDificultad;
                 this.usuario.iniciado = true;
-                this.usuario.id=this.registrado.id;
-            console.log(this.usuario);
-            }else{
-                this.usuario.nick ="Anónimo";
+                this.usuario.id = this.registrado.id;
+                console.log(this.usuario);
+            } else {
+                this.usuario.nick = "Anónimo";
                 this.usuario.dificultad = this.cmbDificultad;
                 this.usuario.iniciado = true;
             }
@@ -477,15 +483,16 @@ export default {
         showPass(obj) {
             this.hint.showModalHints = true;
             this.hint.bgHint = obj.bgColor;
-            this.hint.titulo = obj.titulo;
-            this.hint.descripcion = obj.descripcion;
+            this.hint.titulo = obj.texto.titulo;
+            this.hint.descripcion = obj.texto.desc;
             this.hint.srcGift = obj.srcGift;
+            console.log(this.hint);
         },
-        logout(){
-            this.registrado.logeado=false;
-            this.registrado.name= null;
+        logout() {
+            this.registrado.logeado = false;
+            this.registrado.name = null;
             this.$router.push("/userlogin");
-        }
+        },
     },
     computed: {
         ...mapWritableState(useLoginStore, ["usuario", "registrado"]),

@@ -24,11 +24,11 @@
             <tr>
                 <td class="p-3 my-4">{{ $player->nick }}</td>
 
-                <td class="p-3 my-4"><a class="bg-blue-200 rounded-lg p-2 mx-4 shadow-xl hover:bg-blue-300" href="{{route('admin.game1edit', $player->id)}}">Editar</a></td>
-                <td class="p-3 my-4"><a class="ml-2 bg-red-400 rounded-lg p-2 shadow-xl hover:bg-red-500" href="{{route('admin.game1destroy', $player->id)}}">Eliminar</a></td>
+                <td class="p-3 my-4"><a class="bg-blue-200 rounded-lg p-2 mx-4 shadow-xl hover:bg-blue-300" href="{{route('admin.edit.player', $player->id)}}">Editar</a></td>
+                <td class="p-3 my-4"><a class="ml-2 bg-red-400 rounded-lg p-2 shadow-xl hover:bg-red-500" href="{{route('admin.destroy.player', $player->id)}}">Eliminar</a></td>
             </tr>
         @endforeach
     </table>
 </div>
-{{-- {{ $game1_data->links() }} --}}
+{{ $players->links() }}
 @endsection

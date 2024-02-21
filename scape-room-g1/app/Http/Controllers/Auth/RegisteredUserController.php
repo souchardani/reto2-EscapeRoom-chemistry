@@ -20,6 +20,7 @@ class RegisteredUserController extends Controller
      */
     public function create(Request $request)
     {
+
         if(auth()->check()){
             return view('auth.register');
         }else {

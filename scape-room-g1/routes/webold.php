@@ -77,3 +77,8 @@ Route::delete('/admin/game5destroyConfirm{id}', [AdminController::class, 'game5d
 
 
 Route::get("/admin/players", [AdminController::class, 'showPlayers'])->name('admin.show.players');
+Route::get("/admin/players/{id}", [AdminController::class, 'editPlayer'])->name('admin.edit.player');
+Route::put("/admin/players/{id}", [AdminController::class, 'storePlayer'])->name('admin.store.player');
+//eliminar
+Route::get("/admin/players/destroy/{id}", [AdminController::class, 'destroyPlayer'])->name('admin.destroy.player');
+Route::delete("/admin/players/destroy/{id}", [AdminController::class, 'destroyPlayerConfirm'])->name('admin.destroy.player.confirm');
