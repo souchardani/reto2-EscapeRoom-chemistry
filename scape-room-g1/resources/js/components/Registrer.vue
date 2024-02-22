@@ -42,7 +42,7 @@ export default {
         return {
             nombre: "",
             contra: "",
-            revisa: {},
+            revisa: [],
             confirmpassword: "",
             errMesage: false,
             errMesage2: false,
