@@ -27,14 +27,27 @@
                     class="block px-4 py-2 mt-2 mx-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
             </div>
+
         </div>
-        <button
+        <div class="flex flex-col-2">
+
+            <button
             class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
             @click="comprobar(name, password)"
-        >
+            >
             Login
         </button>
+        <button class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold ml-5">
+            <router-link to="/registro"
+            class="text-sm font-semibold leading-6 text-black">
+            registrarse
+        </router-link>
+    </button>
+</div>
+
+
     </div>
+
 </template>
 <script>
 import axios from "axios";

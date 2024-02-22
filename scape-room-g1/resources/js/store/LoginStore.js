@@ -6,6 +6,7 @@ export const useLoginStore = defineStore("LoginStore", {
             usuario: {
                 nick: null,
                 dificultad: null,
+                password:null,
                 iniciado: false,
                 terminado: false,
                 salirAntesDeTiempo: false,
