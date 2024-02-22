@@ -55,7 +55,7 @@
                         style="backdrop-filter: blur(20px)"
                     >
                         <h1
-                            class="text-center font-medium text-2xl md:text-4xl pb-2 drop-shadow-2xl text-red-500"
+                            class="text-center font-semibold text-2xl md:text-4xl pb-2 drop-shadow-2xl text-red-500"
                         >
                             Te quedan {{ storeTemporizador.minutes }}:{{
                                 storeTemporizador.seconds

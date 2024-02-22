@@ -6,9 +6,15 @@
             class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative mr-2"
         >
             <i class="ph ph-info text-2xl"></i>
-            <span class="text-left"
+            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><span class="text-left"
                 >Adivina la palabra secreta letra a letra.</span
-            >
+            ></div>
+            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><span class="text-left"
+                >Guess the secret word letter by letter.</span
+            ></div>
+            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><span class="text-left"
+                >Asmatu hitz sekretua letraz letra.</span
+            ></div>
             <i
                 class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
                 @click="hideTutorial"
@@ -43,7 +49,9 @@
     </div>
     <div class="mx-auto p-5 text-center mb-10 text-4xl">
         <div>
-            <label for="">Introduce una letra y pulsa enter</label>
+            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><label for="">Introduce una letra y pulsa enter</label></div>
+            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><label for="">Enter a letter and press enter</label></div>
+            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><label for="">Idatzi letra bat eta sakatu Sartu</label></div>
             <div class="pb-5 mt-20 mb-12">
                 <img v-bind:src="imagen" class="mx-auto" v-bind:alt="imagen" />
             </div>
@@ -90,6 +98,7 @@ import success from "../components/modals/success.vue";
 import axios from "axios";
 import { useFinalyWord } from "../store/finalyWord";
 import JSConfetti from "js-confetti";
+import { useIdioma } from "../store/languages";
 
 export default {
     data() {
@@ -287,6 +296,7 @@ export default {
         ...mapWritableState(useFinalyWord, ["clave"]),
         ...mapWritableState(useLoginStore, ["usuario"]),
         ...mapWritableState(useTemporizadorStore, ["showModal"]),
+        ...mapWritableState(useIdioma,["idioma"]),
     },
 };
 </script>

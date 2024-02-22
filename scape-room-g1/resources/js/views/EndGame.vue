@@ -6,7 +6,9 @@
                 class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative mr-2"
             >
                 <i class="ph ph-info text-2xl"></i>
-                <span class="text-left">Escribe la clave con los datos que has obtenido de las pruebas anteriores.</span>
+                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><span class="text-left">Escribe la clave con los datos que has obtenido de las pruebas anteriores.</span></div>
+                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><span class="text-left">Write the key with the data you have obtained from the previous tests.</span></div>
+                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><span class="text-left">Idatzi gakoa aurreko probetan lortu dituzun datuekin.</span></div>
                 <i class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer" @click="hideTutorial"></i>
             </div>
             <div class="flex w-100 h-10">
@@ -23,7 +25,9 @@
             </div>
         </div>
     <div class="container-fluid flex mx-4 p-4 justify-center items-center">
-        <h1 class="text-4xl font-medium md:text-5xl">{{ this.cientifico }}</h1>
+        <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><h1 class="text-4xl font-medium md:text-5xl">Descubrimiento importante de este cientifico : {{ this.cientifico }}</h1></div>
+        <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><h1 class="text-4xl font-medium md:text-5xl">Important discovery of this scientist : {{ this.cientifico }}</h1></div>
+        <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><h1 class="text-4xl font-medium md:text-5xl">Hau zientzialariaren aurkikuntza garrantzitsua : {{ this.cientifico }}</h1></div>
     </div>
     <div v-show="candadoCerrado">
         <div class="container-fluid flex justify-center items-center mx-4 p-4">
@@ -845,6 +849,7 @@
 </template>
 <script>
 import { useFinalyWord } from "../store/finalyWord";
+import { useIdioma } from "../store/languages";
 import { useProgressBarStore } from "../store/progressBar";
 import { mapWritableState, mapActions } from "pinia";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
@@ -1016,6 +1021,7 @@ export default {
         ...mapWritableState(useTemporizadorStore, ["totalTime"]),
         ...mapWritableState(useFinalyWord, ["cientifico", "clave"]),
         ...mapWritableState(useLoginStore, ["usuario"]),
+        ...mapWritableState(useIdioma,["idioma","seleccionIdioma"])
     },
     components: {
         unsuccess,

@@ -66,15 +66,29 @@
                                 class="rounded-lg mb-7 shadow-xl"
                             />
                         </div>
-                        <div>
+                        <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><div>
                             <h2
                                 class="text-3xl font-bold tracking-tight sm:text-4xl"
                             >
                                 ¿Que Tenía el Vial?
                             </h2>
-                        </div>
+                        </div></div>
+                        <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><div>
+                            <h2
+                                class="text-3xl font-bold tracking-tight sm:text-4xl"
+                            >
+                            What did the Vial have?
+                            </h2>
+                        </div></div>
+                        <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><div>
+                            <h2
+                                class="text-3xl font-bold tracking-tight sm:text-4xl"
+                            >
+                            Zer zegoen ontzian?
+                            </h2>
+                        </div></div>
                         <div class="divide-y divide-gray-200">
-                            <div
+                            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><div
                                 class="pb-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
                             >
                                 <p class="mt-6 text-md leading-8">
@@ -89,7 +103,37 @@
                                     determinar el antídoto para ingerirlo y
                                     acabar con el microorganismo mortal.
                                 </p>
-                            </div>
+                            </div></div>
+                            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><div
+                                class="pb-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
+                            >
+                                <p class="mt-6 text-md leading-8">
+                                    In a laboratory of maximum biological security,
+                            level 4 security, a terrible accident has occurred.
+                            accident has occurred. Fortunately, the person who broke it was quick to press the alarm
+                            the alarm was pressed and the armored doors were closed to prevent the
+                            the shielded doors closed to prevent the spread of the biological agent.
+                            expansion of the biological agent. We have 30 minutes
+                            so that, by means of different tests, we can determine the antidote
+                            determine the antidote to ingest and kill the deadly microorganism.
+                            the deadly microorganism.
+                                </p>
+                            </div></div>
+                            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><div
+                                class="pb-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
+                            >
+                                <p class="mt-6 text-md leading-8">
+                                    Gehieneko segurtasun biologikoko laborategi batean,
+                            4. maila segurtasuna, gauza ikaragarria gertatu da
+                            istripua. Zorionez, hautsi zuen pertsona
+                            presa egin du alarma sakatu eta izan
+                            ate blindatuak itxita saihesteko
+                            agente biologikoaren hedapena. 30 minutu ditugu
+                            beraz, proba ezberdinen bidez,
+                            irensteko antidotoa zehaztu eta amaitzeko
+                            mikroorganismo hilgarria.
+                                </p>
+                            </div></div>
                             <div
                                 class="pt-6 text-base leading-6 font-bold sm:text-lg sm:leading-7"
                             ></div>
@@ -100,7 +144,9 @@
             <!-- glass card -->
             <div class="flex items-center justify-center gap-x-6 md:py-20">
                 <router-link to="/StartGame">
-                    <GlassBtn> Iniciar Partida </GlassBtn>
+                    <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><GlassBtn> Iniciar Partida </GlassBtn></div>
+                    <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><GlassBtn> Start Game </GlassBtn></div>
+                    <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><GlassBtn> Jokoa Hasi </GlassBtn></div>
                 </router-link>
             </div>
         </div>
