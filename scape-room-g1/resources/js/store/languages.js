@@ -5,11 +5,11 @@ export const useIdioma = defineStore('languages', {
         return {
             seleccionIdioma: 'es',
             idioma: [{
-                name: "es", estado: true
+                name: "es", estado: true, texto: "Español"
             }, {
-                name: "en", estado: false
+                name: "en", estado: false, texto: "English"
             }, {
-                name: "eu", estado: false
+                name: "eu", estado: false, texto: "Euskara"
             },]
         }
     },
@@ -17,11 +17,15 @@ export const useIdioma = defineStore('languages', {
     ,
     actions: {
         cambioIdioma(nuevoIdioma) {
-            let indice = this.idioma.findIndex(element => element.name === nuevoIdioma.toLowerCase());
+
             this.idioma.forEach(element => {
-                element.estado = false;
+                if (element.name == nuevoIdioma) {
+                    element.estado = true;
+                    console.log(`Idioma cambiado a ${element.texto}`);
+                } else {
+                    element.estado = false;
+                }
             });
-            this.idioma[indice].estado = true;
         }
     }
 
