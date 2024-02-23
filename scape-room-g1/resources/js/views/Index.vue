@@ -116,17 +116,16 @@
                             <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><div
                                 class="pb-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
                             >
-                                <p class="mt-6 text-md leading-8">
-                                    In a laboratory of maximum biological security,
-                            level 4 security, a terrible accident has occurred.
-                            accident has occurred. Fortunately, the person who broke it was quick to press the alarm
-                            the alarm was pressed and the armored doors were closed to prevent the
-                            the shielded doors closed to prevent the spread of the biological agent.
-                            expansion of the biological agent. We have 30 minutes
-                            so that, by means of different tests, we can determine the antidote
-                            determine the antidote to ingest and kill the deadly microorganism.
-                            the deadly microorganism.
-                                </p>
+                                <p class="mt-6 text-md leading-8">In a maximum security laboratory
+                                    biological, safety level 4, has occurred
+                                    a terrible accident. Luckily, the
+                                    person who has broken it has rushed to
+                                    press the alarm and the doors have been closed
+                                    armored doors to prevent expansion
+                                    of the biological agent. We have 30 minutes
+                                    so that, through different tests,
+                                    determine the antidote to ingest it and
+                                    kill the deadly microorganism.</p>
                             </div></div>
                             <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><div
                                 class="pb-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
@@ -196,17 +195,16 @@
                             el microorganismo mortal.
                         </p></div>
   <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><p class="mt-6 text-lg leading-8 text-gray-100">
-    In a laboratory of maximum biological security,
-                            level 4 security, a terrible accident has occurred.
-                            accident has occurred. Fortunately, the person who broke it was quick to press the alarm
-                            the alarm was pressed and the armored doors were closed to prevent the
-                            the shielded doors closed to prevent the spread of the biological agent.
-                            expansion of the biological agent. We have 30 minutes
-                            so that, by means of different tests, we can determine the antidote
-                            determine the antidote to ingest and kill the deadly microorganism.
-                            the deadly microorganism.
-
-Translated with DeepL.com (free version)
+    In a maximum security laboratory
+                                    biological, safety level 4, has occurred
+                                    a terrible accident. Luckily, the
+                                    person who has broken it has rushed to
+                                    press the alarm and the doors have been closed
+                                    armored doors to prevent expansion
+                                    of the biological agent. We have 30 minutes
+                                    so that, through different tests,
+                                    determine the antidote to ingest it and
+                                    kill the deadly microorganism.
                         </p></div>
   <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><p class="mt-6 text-lg leading-8 text-gray-100">
     Gehieneko segurtasun biologikoko laborategi batean,

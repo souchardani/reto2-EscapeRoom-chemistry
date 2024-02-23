@@ -13,7 +13,7 @@
                 class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
                 @click="hideTutorial"
             ></i>
-        </div>
+        </div>php
         <div class="flex w-100 h-10">
             <GlassBtn @click="apagar()">
                 <svg
