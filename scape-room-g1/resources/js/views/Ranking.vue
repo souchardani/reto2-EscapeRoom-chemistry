@@ -33,9 +33,7 @@
         "
     >
         <div class="container-fluid mt-5 flex content-center justify-center">
-            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><h1 class="text-4xl text-center">Ranking de Mejores Tiempos</h1></div>
-            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><h1 class="text-4xl text-center">Ranking of Best Times</h1></div>
-            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><h1 class="text-4xl text-center">Garai onenen sailkapena</h1></div>
+            <h1 class="text-4xl text-center">Ranking de Mejores Tiempos</h1>
             <select
                 v-model="opcionSeleccionado"
                 @="primerfiltrado"
@@ -70,21 +68,11 @@
             class="container-fluid flex flex-col justify-center p-1 m-2"
         >
             <GlassCard>
-                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><label
+                <label
                     >Felicidades {{ this.usuario.nick }}, tu tiempo
                     {{ this.getTiempoLaravel() }} y difultad
                     {{ this.usuario.dificultad }}</label
-                ></div>
-                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><label
-                    >Congratulations {{ this.usuario.nick }}, your time is
-                    {{ this.getTiempoLaravel() }} and your difficulty has been
-                    {{ this.usuario.dificultad }}</label
-                ></div>
-                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><label
-                    >Zorionak {{ this.usuario.nick }}, zure denbora
-                    {{ this.getTiempoLaravel() }} izan da esta zailtasuna
-                    {{ this.usuario.dificultad }}</label
-                ></div>
+                >
             </GlassCard>
         </div>
         <div class="container-fluid flex flex-col justify-center p-1 m-2">
@@ -134,12 +122,6 @@
                 <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><div>
                     <GlassBtn @click="volveraJugar">Volver a Jugar</GlassBtn>
                 </div></div>
-                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><div>
-                    <GlassBtn @click="volveraJugar">Return to play</GlassBtn>
-                </div></div>
-                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><div>
-                    <GlassBtn @click="volveraJugar">Berriz jokatu</GlassBtn>
-                </div></div>
             </div>
             <!-- footer -->
             <Footer></Footer>
@@ -148,7 +130,7 @@
     <!--Falta poner el footer aqu-->
 </template>
 <script>
-import { useIdioma } from "../store/languages";
+
 import GlassCard from "../components/GlassCard.vue";
 import GlassBtn from "../components/GlassBtn.vue";
 import Footer from "../components/Footer.vue";
@@ -224,7 +206,7 @@ export default {
     },
     computed: {
         ...mapWritableState(useLoginStore, ["usuario", "registrado"]),
-        ...mapWritableState(useIdioma,["idioma"]),
+
         filtrar() {
             if (this.todos) {
                 // Filtrar todos los jugadores

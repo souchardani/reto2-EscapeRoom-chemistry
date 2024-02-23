@@ -6,15 +6,9 @@
             class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative mr-2"
         >
             <i class="ph ph-info text-2xl"></i>
-            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><span class="text-left"
+            <span class="text-left"
                 >Arrastra los elementos hasta su lugar correspondiente.</span
-            ></div>
-            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><span class="text-left"
-                >Drag the elements to their corresponding location.</span
-            ></div>
-            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><span class="text-left"
-                >Arrastatu elementuak dagokien kokapenera.</span
-            ></div>
+            >
             <i
                 class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
                 @click="hideTutorial"
@@ -59,8 +53,6 @@
                 class="rounded-xl bg-zinc-400 pt-3 p-1 px-3 shadow-lg bg-clip-padding bg-opacity-75"
             >
             <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><div class="filaTitulo mb-5">Por Completar 👉👉</div></div>
-            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><div class="filaTitulo mb-5">To be completed 👉👉</div></div>
-            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><div class="filaTitulo mb-5">Osatzeko 👉👉</div></div>
                 <Container
                     class="p-3 rounded-xl sm:grid-cols-4 text-center gap-y-1 gap-x-2 bg-opacity-75"
                     group-name="compuestos"
@@ -247,7 +239,7 @@
     </div> -->
 </template>
 <script>
-import { useIdioma } from "../store/languages";
+
 import GlassBtn from "../components/GlassBtn.vue";
 import { useProgressBarStore } from "../store/progressBar";
 import { useFinalyWord } from "../store/finalyWord";
@@ -554,7 +546,7 @@ export default {
     computed: {
         ...mapWritableState(useFinalyWord, ["clave"]),
         ...mapWritableState(useLoginStore, ["usuario"]), //para usar la variable de usuario del store
-        ...mapWritableState(useIdioma,["idioma"]),
+
     },
 };
 </script>

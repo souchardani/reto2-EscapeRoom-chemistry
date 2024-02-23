@@ -10,12 +10,6 @@
                 <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><span class="text-left"
                     >Selecciona la casilla que corresponda.</span
                 ></div>
-                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><span class="text-left"
-                    >Check the appropriate box.</span
-                ></div>
-                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><span class="text-left"
-                    >Hautatu lauki egokia.</span
-                ></div>
                 <i
                     class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
                     @click="hideTutorial"
@@ -105,7 +99,6 @@
 </template>
 <script>
 import GlassCard from "../components/GlassCard.vue";
-import { useIdioma } from "../store/languages";
 import GlassBtn from "../components/GlassBtn.vue";
 import { useFinalyWord } from "../store/finalyWord";
 import { mapWritableState } from "pinia";
@@ -423,7 +416,7 @@ export default {
         ...mapWritableState(useProgressBarStore, ["contador"]),
         ...mapWritableState(useFinalyWord, ["clave"]), //store de juego 5
         ...mapWritableState(useLoginStore, ["usuario"]), //store de login
-        ...mapWritableState(useIdioma,["idioma"]),//store languages
+        
 
         quizEliminar() {
             return this.quizs;
