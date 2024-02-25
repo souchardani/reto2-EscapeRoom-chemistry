@@ -32,6 +32,21 @@
                 );
         "
     >
+        <div class="flex justify-end mx-4">
+            <div class="fixed z-50 mt-4">
+                <ModalHelp
+                    v-if="visible"
+                    class="animate-pulse duration-3000"
+                ></ModalHelp>
+                <button
+                    v-if="!visible"
+                    @click="eligeAyuda(2)"
+                    class="rounded-[50%] border p-4 bg-orange-300 opacity-80 font-semibold"
+                >
+                    ?
+                </button>
+            </div>
+        </div>
         <div v-show="idioma.find((idioma) => idioma.estado)?.name === 'es'">
             <div class="flex flex-col-reverse justify-center md:flex-row">
                 <div
@@ -233,6 +248,7 @@
                                                 class="mt-6 flex justify-around"
                                             >
                                                 <button
+                                                    v-if="!visible"
                                                     @click="validar"
                                                     style="
                                                         backdrop-filter: blur(
@@ -244,6 +260,7 @@
                                                     Iniciar partida
                                                 </button>
                                                 <button
+                                                    v-if="!visible"
                                                     @click="logout"
                                                     style="
                                                         backdrop-filter: blur(
@@ -352,10 +369,9 @@
             <p class="font-bold">Dificil: 12 Minutos</p>
         </ModalStartGame>
 
+        <!-------------------------------------------------------------------------------------------------------------------------------->
 
-    <!-------------------------------------------------------------------------------------------------------------------------------->
-
-    <!-- component -->
+        <!-- component -->
         <div v-show="idioma.find((idioma) => idioma.estado)?.name === 'en'">
             <div class="flex flex-col-reverse justify-center md:flex-row">
                 <div
@@ -418,7 +434,8 @@
 
                             <p class="my-5">
                                 Enter a nickname to save your progress and your
-                                ranking, and the rankings, and the access password.
+                                ranking, and the rankings, and the access
+                                password.
                             </p>
                             <!-- tarjeta -->
 
@@ -430,9 +447,9 @@
                                 <i class="ph ph-info text-2xl"></i>
                                 <span class="text-left">
                                     Here is your first challenge, press the test
-                                    tube hidden in the page tube hidden on the page
-                                    (you must look well) and find out how you can
-                                    find the access password
+                                    tube hidden in the page tube hidden on the
+                                    page (you must look well) and find out how
+                                    you can find the access password
                                 </span>
                                 <i
                                     class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
@@ -461,7 +478,9 @@
                                             </p>
                                             <i
                                                 class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
-                                                @click="showErrorMessage = false"
+                                                @click="
+                                                    showErrorMessage = false
+                                                "
                                             ></i>
                                         </div>
                                         <form @submit.prevent>
@@ -549,20 +568,28 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="mt-6 flex justify-around">
+                                            <div
+                                                class="mt-6 flex justify-around"
+                                            >
                                                 <button
+                                                    v-if="!visible"
                                                     @click="validar"
                                                     style="
-                                                        backdrop-filter: blur(20px);
+                                                        backdrop-filter: blur(
+                                                            20px
+                                                        );
                                                     "
                                                     class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                                                 >
                                                     Start game
                                                 </button>
                                                 <button
+                                                    v-if="!visible"
                                                     @click="logout"
                                                     style="
-                                                        backdrop-filter: blur(20px);
+                                                        backdrop-filter: blur(
+                                                            20px
+                                                        );
                                                     "
                                                     class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                                                 >
@@ -587,7 +614,9 @@
                         <div>
                             <div class="text-black w-full h-25 p-4">
                                 <div class="my-1">
-                                    <span class="font-medium">Colaboradores:</span>
+                                    <span class="font-medium"
+                                        >Colaboradores:</span
+                                    >
                                     <span class=""
                                         >Alumnos de 2DW3A y dpto. Química</span
                                     >
@@ -613,26 +642,28 @@
                 textoBotonCerrar="Iniciar partida"
                 ><strong
                     >Welcome to the game,
-                    <span class="text-blue-900">{{ this.txtNick }}</span></strong
+                    <span class="text-blue-900">{{
+                        this.txtNick
+                    }}</span></strong
                 >
                 <p>
-                    You have the opportunity to prove that you are a true chemist.
-                    chemist.
+                    You have the opportunity to prove that you are a true
+                    chemist. chemist.
                 </p>
                 <p>
-                    To do this, you must pass a series of tests that will lead you
-                    to discover the final password and save to discover the final
-                    password and save humanity.
+                    To do this, you must pass a series of tests that will lead
+                    you to discover the final password and save to discover the
+                    final password and save humanity.
                 </p>
                 <p>
                     You will have to use your skills and ingenuity to solve the
                     challenges that we challenges we propose you.
                 </p>
                 <p>
-                    Remember, you only have 30 minutes, and every time you fail a
-                    game, you will lose time from the game, you will lose time off
-                    the clock depending on the difficulty you have chosen. Cheer up,
-                    and good luck!
+                    Remember, you only have 30 minutes, and every time you fail
+                    a game, you will lose time from the game, you will lose time
+                    off the clock depending on the difficulty you have chosen.
+                    Cheer up, and good luck!
                 </p></ModalStartGame
             >
             <ModalStartGame
@@ -653,8 +684,8 @@
                 titulo="Informacion de la dificultad"
             >
                 <p>
-                    Based on the difficulty you choose, your timer will be affected.
-                    will be affected.
+                    Based on the difficulty you choose, your timer will be
+                    affected. will be affected.
                 </p>
                 <p>
                     To complete the game you will have 30 minutes, and for every
@@ -669,9 +700,9 @@
                 -->
             </ModalStartGame>
         </div>
-    <!-------------------------------------------------------------------------------------------------------------------------------->
+        <!-------------------------------------------------------------------------------------------------------------------------------->
 
-    <!-- component -->
+        <!-- component -->
         <div v-show="idioma.find((idioma) => idioma.estado)?.name === 'eu'">
             <div class="flex flex-col-reverse justify-center md:flex-row">
                 <div
@@ -701,8 +732,8 @@
                             </h2>
 
                             <p class="max-w-xl mt-3 text-gray-300 text-lg">
-                                Sartu gure escape room eta ezagutu abenturen mundu
-                                bat!
+                                Sartu gure escape room eta ezagutu abenturen
+                                mundu bat!
                             </p>
                         </div>
 
@@ -733,8 +764,9 @@
                             <!-- <img src="../assets/img/puerta.jpg" alt="" /> -->
 
                             <p class="my-5">
-                                Idatzi goitizen bat zure aurrerapena eta sailkapena
-                                gordetzeko, eta sailkapenak eta sarbide pasahitza.
+                                Idatzi goitizen bat zure aurrerapena eta
+                                sailkapena gordetzeko, eta sailkapenak eta
+                                sarbide pasahitza.
                             </p>
                             <!-- tarjeta -->
 
@@ -745,10 +777,11 @@
                             >
                                 <i class="ph ph-info text-2xl"></i>
                                 <span class="text-left">
-                                    Hona hemen zure lehen erronka, sakatu orrialdean
-                                    ezkutatuta dagoen probeta orrialdean ezkutatuta
-                                    dagoen hodia (begiratu behar duzu ondo) eta
-                                    aurkitu nola aurki dezakezun sartzeko pasahitza
+                                    Hona hemen zure lehen erronka, sakatu
+                                    orrialdean ezkutatuta dagoen probeta
+                                    orrialdean ezkutatuta dagoen hodia (begiratu
+                                    behar duzu ondo) eta aurkitu nola aurki
+                                    dezakezun sartzeko pasahitza
                                 </span>
                                 <i
                                     class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
@@ -777,7 +810,9 @@
                                             </p>
                                             <i
                                                 class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
-                                                @click="showErrorMessage = false"
+                                                @click="
+                                                    showErrorMessage = false
+                                                "
                                             ></i>
                                         </div>
                                         <form @submit.prevent>
@@ -793,7 +828,8 @@
                                                 <label
                                                     for="nickJugador"
                                                     class="block mb-2 text-xl font-bold"
-                                                    >Ongi etorri Gonbidatua</label
+                                                    >Ongi etorri
+                                                    Gonbidatua</label
                                                 >
                                             </div>
                                             <div class="mt-6">
@@ -865,20 +901,28 @@
                                                     </option>
                                                 </select>
                                             </div>
-                                            <div class="mt-6 flex justify-around">
+                                            <div
+                                                class="mt-6 flex justify-around"
+                                            >
                                                 <button
+                                                    v-if="!visible"
                                                     @click="validar"
                                                     style="
-                                                        backdrop-filter: blur(20px);
+                                                        backdrop-filter: blur(
+                                                            20px
+                                                        );
                                                     "
                                                     class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                                                 >
                                                     Hasi jokoa
                                                 </button>
                                                 <button
+                                                    v-if="!visible"
                                                     @click="logout"
                                                     style="
-                                                        backdrop-filter: blur(20px);
+                                                        backdrop-filter: blur(
+                                                            20px
+                                                        );
                                                     "
                                                     class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                                                 >
@@ -906,7 +950,8 @@
                                             >Colaboradores:</span
                                         >
                                         <span class=""
-                                            >Alumnos de 2DW3A y dpto. Química</span
+                                            >Alumnos de 2DW3A y dpto.
+                                            Química</span
                                         >
                                     </div>
                                     <div class="my-1">
@@ -935,12 +980,13 @@
                         }}</span></strong
                     >
                     <p>
-                        Benetako kimikaria zarela frogatzeko aukera duzu. kimikaria.
+                        Benetako kimikaria zarela frogatzeko aukera duzu.
+                        kimikaria.
                     </p>
                     <p>
-                        Horretarako, azken pasahitza ezagutu eta gordetzera eramango
-                        zaituzten proba batzuk gainditu behar dituzu azken pasahitza
-                        ezagutzeko eta gizateria salbatzeko.
+                        Horretarako, azken pasahitza ezagutu eta gordetzera
+                        eramango zaituzten proba batzuk gainditu behar dituzu
+                        azken pasahitza ezagutzeko eta gizateria salbatzeko.
                     </p>
                     <p>
                         Zure gaitasunak eta asmamena erabili beharko dituzu guk
@@ -948,10 +994,10 @@
                         erronkak.
                     </p>
                     <p>
-                        Gogoratu, 30 minutu baino ez dituzula, eta partida bat huts
-                        egiten duzun bakoitzean, denbora galduko duzula jokoan,
-                        denbora galduko duzu erlojua aukeratu duzun zailtasunaren
-                        arabera. Animatu, eta zorte on!
+                        Gogoratu, 30 minutu baino ez dituzula, eta partida bat
+                        huts egiten duzun bakoitzean, denbora galduko duzula
+                        jokoan, denbora galduko duzu erlojua aukeratu duzun
+                        zailtasunaren arabera. Animatu, eta zorte on!
                     </p></ModalStartGame
                 >
                 <ModalStartGame
@@ -972,8 +1018,8 @@
                     titulo="Informacion de la dificultad"
                 >
                     <p>
-                        Aukeratzen duzun zailtasunaren arabera, zure tenporizadorea
-                        eragina izango du. eragingo du.
+                        Aukeratzen duzun zailtasunaren arabera, zure
+                        tenporizadorea eragina izango du. eragingo du.
                     </p>
                     <p>
                         Jokoa osatzeko 30 minutu izango dituzu, eta hutsegite
@@ -992,6 +1038,8 @@
 </template>
 <script>
 import ModalStartGame from "../components/modals/ModalStartGame.vue";
+import ModalHelp from "../components/modals/ModalHelp.vue";
+import { useHelpStore } from "../store/help";
 import { useLoginStore } from "../store/LoginStore";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { useIdioma } from "../store/languages";
@@ -1018,10 +1066,10 @@ export default {
             },
         };
     },
-    components: { ModalStartGame },
+    components: { ModalStartGame, ModalHelp },
     methods: {
+        ...mapActions(useHelpStore, ["eligeAyuda"]),
         validar() {
-
             if (!this.cmbDificultad) {
                 this.txtErrorMsg = "Debes seleccionar una opción.";
                 this.showErrorMessage = true;
@@ -1101,6 +1149,7 @@ export default {
     computed: {
         ...mapWritableState(useLoginStore, ["usuario", "registrado"]),
         ...mapWritableState(useIdioma, ["idioma", "seleccionIdioma"]),
+        ...mapWritableState(useHelpStore, ["visible"]),
     },
     mounted() {
         this.generatePass();

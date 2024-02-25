@@ -89,7 +89,7 @@
             </div>
         </div>
     </div>
-        <button
+        <button v-if="!visible"
             class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
             @click="comprobar(name, password)"
         >
@@ -99,6 +99,7 @@
 </template>
 <script>
 import axios from "axios";
+import { useHelpStore } from "../store/help";
 import { useLoginStore } from '../store/LoginStore'
 import { useIdioma } from "../store/languages";
 import { mapWritableState,mapActions } from "pinia";
@@ -154,7 +155,8 @@ export default {
     },
     computed:{
         ...mapWritableState(useLoginStore,["usuario","registrado"]),
-        ...mapWritableState(useIdioma,["idioma"])
+        ...mapWritableState(useIdioma,["idioma"]),
+        ...mapWritableState(useHelpStore,["visible"])
     }
 };
 </script>
