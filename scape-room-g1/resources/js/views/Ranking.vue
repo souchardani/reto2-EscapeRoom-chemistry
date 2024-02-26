@@ -119,9 +119,9 @@
                 </table>
             </GlassCard>
             <div class="flex flex-col items-center m-5 mb-20">
-                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><div>
+                <div>
                     <GlassBtn @click="volveraJugar">Volver a Jugar</GlassBtn>
-                </div></div>
+                </div>
             </div>
             <!-- footer -->
             <Footer></Footer>
