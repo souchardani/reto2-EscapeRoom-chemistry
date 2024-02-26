@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JuegoController;
 use App\Http\Controllers\RankingController;
 use App\Http\Controllers\PlayerController;
-
+use App\Http\Controllers\RegistroController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +31,5 @@ Route::get('/getjuego5',[JuegoController::class,'getInfoJuego5'])->name('getJueg
 Route::get('/getRanking',[RankingController::class,'getInfoRanking'])->name('getRanking');
 Route::get('/userlogin',[PlayerController::class,'getplayers'])->name('getPlayers');
 Route::post('/addToRanking',[RankingController::class,'addPlayerToRanking'])->name('addPlayer');
+Route::post('/registro',[RegistroController::class,'registro'])->name('registro');
+Route::get('/registro',[RegistroController::class,'revisar']);
