@@ -48,24 +48,43 @@
                 Registrarse
             </button>
         </div>
-        <div v-show="errMesage == true">
+        <div
+            v-show="errMesage == true"
+            class="bg-red-400 rounded py-2 px-4 my-3"
+        >
             <pre>Las contraseñas no coinciden</pre>
         </div>
-        <div v-show="errMesage2 == true">
-            <pre>El usuario existe</pre>
+        <div
+            v-show="errMesage2 == true"
+            class="bg-red-400 rounded py-2 px-4 my-3"
+        >
+            <pre>Este usuario ya existe en la base de datos</pre>
         </div>
-        <div v-show="errMesage4 == true">
+        <div
+            v-show="errMesage4 == true"
+            class="bg-red-400 rounded py-2 px-4 my-3"
+        >
             <pre>Debes de introducir un usuario</pre>
         </div>
-        <div v-show="errMesage3 == true">
+        <div
+            v-show="errMesage3 == true"
+            class="bg-red-400 rounded py-2 px-4 my-3"
+        >
             <pre>Debes de introducir una contraseña</pre>
         </div>
+        <router-link
+            to="/userLogin"
+            class="underline text-center hover:text-slate-600"
+            >Volver a inicio</router-link
+        >
     </div>
 </template>
 <script>
 import axios from "axios";
-import { mapWritableState } from "pinia";
 import { useLoginStore } from "../store/LoginStore";
+import { useMessageStore } from "../store/SessionMessageStore";
+import { mapWritableState, mapActions } from "pinia";
+
 export default {
     data() {
         return {
@@ -107,7 +126,9 @@ export default {
                 this.enviar();
                 this.errMesage2 = false;
                 this.errMesage = false;
-
+                this.setMessage(
+                    "Usuario registrado correctamente, ya puedes iniciar sesion"
+                );
                 this.$router.push("/userlogin");
             }
         },
@@ -146,9 +167,11 @@ export default {
                     console.error(error);
                 });
         },
+        ...mapActions(useMessageStore, ["setMessage"]),
     },
     computed: {
         ...mapWritableState(useLoginStore, ["usuario"]),
+        ...mapWritableState(useMessageStore, ["message"]),
     },
     mounted() {
         this.enviar();

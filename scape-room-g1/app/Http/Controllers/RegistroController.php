@@ -19,4 +19,21 @@ class RegistroController extends Controller
         return $revisar;
 
     }
+
+    public function editPlayer(Request $request){
+        $editPlayer=Player::find($request->id);
+        if($request->password==null){
+            $editPlayer->nick=$request->nick;
+        }else {
+            $editPlayer->nick=$request->nick;
+            $editPlayer->password=$request->password;
+        }
+        $editPlayer->save();
+    }
+
+    public function getCurrentUser(Request $request){
+        $id = $request->query('id'); // Obtiene el parámetro 'id' de la URL
+        $currentUser = Player::find($id);
+        return $currentUser;
+    }
 }

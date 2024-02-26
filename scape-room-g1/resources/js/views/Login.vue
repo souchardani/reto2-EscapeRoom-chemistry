@@ -91,6 +91,12 @@ php
                 class="flex items-center w-full max-w-md px-6 mx-auto lg:w-1/3 mt-10 mb-12"
             >
                 <div class="flex-1">
+                    <div
+                        class="flex justify-between item-center"
+                        v-if="registrado.logeado"
+                    >
+                        <BtnPerfil></BtnPerfil>
+                    </div>
                     <div class="text-center">
                         <h2 class="text-4xl font-bold text-center">
                             Accede al juego
@@ -276,6 +282,17 @@ php
                                                 Cerrar Sesión
                                             </button>
                                         </div>
+                                        <div
+                                            v-if="!registrado.logeado"
+                                            class="flex justify-center"
+                                        >
+                                            <router-link
+                                                to="/userLogin"
+                                                class="underline text-center hover:text-slate-600"
+                                                >Crear cuenta o Iniciar
+                                                Sesion</router-link
+                                            >
+                                        </div>
                                     </form>
                                 </div>
                             </div>
@@ -381,6 +398,7 @@ import ModalStartGame from "../components/modals/ModalStartGame.vue";
 import { useLoginStore } from "../store/LoginStore";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { mapWritableState, mapActions } from "pinia";
+import BtnPerfil from "../components/BtnPerfil.vue";
 
 export default {
     data() {
@@ -403,7 +421,7 @@ export default {
             },
         };
     },
-    components: { ModalStartGame },
+    components: { ModalStartGame, BtnPerfil },
     methods: {
         validar() {
             /*  if (this.txtNick.length < 4) {

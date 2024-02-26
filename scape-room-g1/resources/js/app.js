@@ -25,6 +25,7 @@ const onConfirmRefresh = function (event) {
         "/register",
         "/admin",
         "/profile",
+        "/editUser",
     ]; // Reemplaza con las rutas que desees
     // Verifica si la ruta actual está en la lista
     if (

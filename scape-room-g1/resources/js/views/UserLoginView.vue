@@ -36,6 +36,11 @@
         >
             Escape Room Química
         </h1>
+        <div v-if="message" class="flex justify-center">
+            <p class="w-1/2 bg-green-300 p-4 rounded-xl text-center">
+                {{ message }}
+            </p>
+        </div>
         <div class="grid gap-8 lg:grid-cols-2 place-items-center p-4">
             <UserLogin></UserLogin
             ><!--Componente para logearse-->
@@ -67,10 +72,18 @@
 <script>
 import Footer from "../components/Footer.vue";
 import UserLogin from "../components/UserLogin.vue";
+import { useMessageStore } from "../store/SessionMessageStore";
+import { mapWritableState, mapActions } from "pinia";
 export default {
     components: {
         Footer,
         UserLogin,
+    },
+    computed: {
+        ...mapWritableState(useMessageStore, ["message"]),
+    },
+    methods: {
+        ...mapActions(useMessageStore, ["setMessage"]),
     },
 };
 </script>

@@ -14,7 +14,8 @@ import StartGame from "../views/StartGame.vue";
 import Ranking from "../views/Ranking.vue";
 import PruebaDrag from "../views/PruebaDrag.vue";
 import ModalStartGame from "../components/modals/ModalStartGame.vue";
-import UserloginView from "../views/UserLoginView.vue"
+import UserloginView from "../views/UserLoginView.vue";
+import EditUser from "../views/EditUser.vue";
 //store with pinia
 import { useLoginStore } from "../store/LoginStore";
 import pruebas from "../views/pruebas.vue";
@@ -40,10 +41,10 @@ const routes = [
         component: UserloginView,
     },
     {
-        path:"/registro",
-        name:"registro",
+        path: "/registro",
+        name: "registro",
         meta: { juegoIniciado: false },
-        component:registro,
+        component: registro,
     },
     {
         path: "/juegos",
@@ -140,6 +141,11 @@ const routes = [
         path: "/ranking",
         name: "Ranking",
         component: Ranking,
+    },
+    {
+        path: "/editUser",
+        name: "EditUser",
+        component: EditUser,
     },
     {
         path: "/test",

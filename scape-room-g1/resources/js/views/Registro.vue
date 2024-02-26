@@ -47,6 +47,9 @@
 <script>
 import Footer from "./../components/Footer.vue";
 import registrer from "./../components/Registrer.vue";
+import { useMessageStore } from "../store/SessionMessageStore";
+import { mapWritableState, mapActions } from "pinia";
+import BtnPerfil from "./../components/BtnPerfil.vue";
 export default {
     data() {
         return {};
@@ -54,6 +57,13 @@ export default {
     components: {
         registrer,
         Footer,
+        BtnPerfil,
+    },
+    computed: {
+        ...mapWritableState(useMessageStore, ["message"]),
+    },
+    methods: {
+        ...mapActions(useMessageStore, ["setMessage"]),
     },
 };
 </script>

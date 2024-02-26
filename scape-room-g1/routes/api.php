@@ -33,3 +33,5 @@ Route::get('/userlogin',[PlayerController::class,'getplayers'])->name('getPlayer
 Route::post('/addToRanking',[RankingController::class,'addPlayerToRanking'])->name('addPlayer');
 Route::post('/registro',[RegistroController::class,'registro'])->name('registro');
 Route::get('/registro',[RegistroController::class,'revisar']);
+Route::post('/editPlayer',[RegistroController::class,'editPlayer']);
+Route::get('/currentUser',[RegistroController::class,'getCurrentUser']);
