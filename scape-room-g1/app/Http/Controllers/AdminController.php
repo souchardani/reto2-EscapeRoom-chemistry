@@ -11,6 +11,7 @@ use App\Models\Game2_kuku;
 use App\Models\Game3_hangman;
 use App\Models\Game4_pairs;
 use App\Models\Game5_needPassword;
+use App\Models\Player;
 
 class AdminController extends Controller
 {
@@ -486,4 +487,32 @@ class AdminController extends Controller
         return redirect('/admin/game5')->with('success', 'La eliminacion del registro fue satisfactoria');
     }
 
+
+    public function showPlayers(){
+        $players=Player::paginate(10);
+        return view("admin.players", compact("players"));
+    }
+
+    public function editPlayer($id){
+        $player=Player::find($id);
+        return view("admin.editPlayer", compact("player"));
+    }
+
+    public function storePlayer($id, Request $request){
+        $player=Player::find($id);
+        $player->nick=$request->nick;
+        $player->save();
+        return redirect('/admin/players/')->with('success', 'El jugador se editó correctamente');
+    }
+
+    public function destroyPlayer($id){
+        $player=Player::find($id);
+        return view("admin.destroyPlayer", compact("player"));
+    }
+
+    public function destroyPlayerConfirm($id){
+        $player=Player::find($id);
+        $player->delete();
+        return redirect('/admin/players/')->with('success', 'El jugador se eliminó correctamente');
+    }
 }//esta es la llave final

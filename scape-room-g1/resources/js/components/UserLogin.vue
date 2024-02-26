@@ -6,7 +6,7 @@
         <div class="flex flex-col w-96 p-5">
             <div class="flex flex-col my-5">
                 <label for="nombre" class="font-semibold text-xl my-2 mx-4"
-                    >Nombre :</label
+                    >Nombre:</label
                 >
                 <input
                     v-model="name"
@@ -17,7 +17,7 @@
             </div>
             <div class="flex flex-col my-5">
                 <label for="password" class="font-semibold text-xl my-2 mx-4"
-                    >PassWord :</label
+                    >Contraseña:</label
                 >
                 <input
                     v-model="password"
@@ -34,8 +34,8 @@
             <button
             class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
             @click="comprobar(name, password)"
-            >
-            Login
+        >
+            Iniciar Sesion
         </button>
         <button class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold ml-5">
             <router-link to="/registro"
@@ -51,7 +51,7 @@
 </template>
 <script>
 import axios from "axios";
-import { useLoginStore } from '../store/LoginStore'
+import { useLoginStore } from "../store/LoginStore";
 import { mapWritableState } from "pinia";
 export default {
     data() {
@@ -85,9 +85,9 @@ export default {
                     console.log(usuarioEncontrado);
                     // La contraseña coincide
                     alert("El usuario y contraseña son correctos");
-                    this.registrado.name=name;
-                    this.registrado.logeado=true;
-                    this.registrado.id=usuarioEncontrado.id;
+                    this.registrado.name = name;
+                    this.registrado.logeado = true;
+                    this.registrado.id = usuarioEncontrado.id;
                     this.$router.push("/login");
                 } else {
                     // La contraseña no coincide
@@ -102,8 +102,8 @@ export default {
     mounted() {
         this.getplayers();
     },
-    computed:{
-        ...mapWritableState(useLoginStore,["usuario","registrado"]),
-    }
+    computed: {
+        ...mapWritableState(useLoginStore, ["usuario", "registrado"]),
+    },
 };
 </script>

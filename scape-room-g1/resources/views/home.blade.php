@@ -10,7 +10,7 @@
 <body>
     <div class="flex flex-col items-center">
         <div>
-            <h1 class="text-5xl my-4 bg-black text-white font-bold p-6 rounded-xl">Administrador de Juegos</h1>
+            <h1 class="text-5xl my-4 text-slate-900 font-bold p-6 rounded-xl">Administrador del Escape Room</h1>
         </div>
         <div class="flex flex-col md:grid grid-cols-3 gap-6 my-6">
             <div class="flex justify-center items-center bg-green-200 w-60 h-48  rounded-xl shadow-lg hover:scale-110 hover:shadow-xl border-2 border-gray-300">
@@ -27,6 +27,9 @@
             </div>
             <div class="flex justify-center items-center bg-orange-200 w-60 h-48  rounded-xl shadow-lg hover:scale-110 hover:shadow-xl border-2 border-gray-300">
                 <a href="{{ route('admin.game5') }}" class="font-semibold text-xl">Endgame</a>
+            </div>
+            <div class="flex justify-center items-center bg-fuchsia-200 w-60 h-48  rounded-xl shadow-lg hover:scale-110 hover:shadow-xl border-2 border-gray-300">
+                <a href="{{ route('admin.show.players') }}" class="font-semibold text-xl">Gestion usuarios</a>
             </div>
         </div>
     </div>

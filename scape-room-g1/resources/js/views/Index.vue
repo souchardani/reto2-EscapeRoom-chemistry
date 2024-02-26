@@ -31,6 +31,7 @@
                 );
         "
     >
+        <div class="flex justify-end"></div>
         <h1
             class="text-center font-medium px-5 mb-10 text-5xl md:text-4xl mb-5 drop-shadow-2xl"
         >
@@ -58,7 +59,7 @@
                             <h2
                                 class="text-3xl font-bold tracking-tight sm:text-4xl"
                             >
-                                ¿Que Tenía el Vial?
+                                ¿Que Tenia el Vial?
                             </h2>
                         </div>
                         <div class="divide-y divide-gray-200">
@@ -147,6 +148,7 @@
             class="w-100 py-3 mt-8 max-sm:max-w-xl max-sm:mx-auto max-sm:m-6 lg:mt-24"
         >
             <!-- aqui va el footer -->
+
             <Footer></Footer>
         </div>
     </div>

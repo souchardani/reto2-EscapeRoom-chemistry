@@ -17,19 +17,18 @@ app.use(store).use(router).mount("#app");
 const onConfirmRefresh = function (event) {
     // Obtiene la ruta actual
     const currentPath = window.location.pathname;
-
+    console.log("Ruta actual:", currentPath);
     // Lista de rutas donde se aplicará la lógica de confirmación
     const routesWithConfirmation = [
-        "/dasboard",
+        "/dashboard",
         "/login",
         "/register",
         "/admin",
+        "/profile",
     ]; // Reemplaza con las rutas que desees
-
     // Verifica si la ruta actual está en la lista
     if (
-        !routesWithConfirmation.includes(currentPath) &&
-        routesWithConfirmation.some((prefix) => currentPath.startsWith(prefix))
+        !routesWithConfirmation.some((prefix) => currentPath.startsWith(prefix))
     ) {
         event.preventDefault();
         event.returnValue =
@@ -42,7 +41,7 @@ const onConfirmRefresh = function (event) {
 //         "Estas seguro que deseas recargar la pagina? perderas todo tu progreso");
 // };
 
-// window.addEventListener("beforeunload", onConfirmRefresh, { capture: true });
+window.addEventListener("beforeunload", onConfirmRefresh, { capture: true });
 
 import Alpine from "alpinejs";
 
