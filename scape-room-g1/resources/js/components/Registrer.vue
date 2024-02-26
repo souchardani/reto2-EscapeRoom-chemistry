@@ -29,7 +29,12 @@
         <div v-show="errMesage2 == true">
             <pre>El usuario existe</pre>
         </div>
-
+        <div v-show="errMesage4 == true">
+            <pre>Debes de introducir un usuario</pre>
+        </div>
+        <div v-show="errMesage3 == true">
+            <pre>Debes de introducir una contraseña</pre>
+        </div>
 
     </div>
 </template>
@@ -46,33 +51,38 @@ export default {
             confirmpassword: "",
             errMesage: false,
             errMesage2: false,
-            usuario:[]
+            errMesage3: false,
+            errMesage4: false,
+            usuarios: []
         }
     },
     methods: {
         registrarse() {
 
-
-
             if (this.contra != this.confirmpassword) {
                 this.errMesage = true;
             }
 
-            if (this.contra == this.confirmpassword && this.usuario.includes(this.nombre)==false) {
-
-                this.enviar();
-                this.errMesage2=false;
-                this.errMesage = false;
-                this.$router.push("/login");
-
+            if (this.usuarios.includes(this.nombre) == true) {
+                this.errMesage2 = true;
             }
 
-           if(this.usuario.includes(this.nombre)==true){
-                this.errMesage2=true;
-           }
+            if (this.contra == "") {
+                this.errMesage3 = true;
+            }
 
+            if (this.nombre == "") {
+                this.errMesage4 = true;
+            }
 
+            if (this.contra == this.confirmpassword && this.usuarios.includes(this.nombre) == false && this.contra != "" && this.nombre != "") {
 
+                this.enviar();
+                this.errMesage2 = false;
+                this.errMesage = false;
+                this.$router.push("/userlogin");
+
+            }
 
         },
         async enviar() {
@@ -97,12 +107,12 @@ export default {
             await axios.get('http://127.0.0.1:8000/api/registro')
                 .then((response) => {
                     // Manejar éxito
-                    console.log(response.data);
                     this.revisa = response.data;
-                    console.log(this.revisa);
                     this.revisa.forEach(user => {
-                        this.usuario=user.nick;
+                        this.usuarios.push(user.nick)
+
                     });
+
 
                 })
                 .catch((error) => {
@@ -110,10 +120,6 @@ export default {
                     console.error(error);
                 });
         },
-
-
-
-
     },
     computed: {
         ...mapWritableState(useLoginStore, ["usuario"]),
