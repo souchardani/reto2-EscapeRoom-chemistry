@@ -18,6 +18,7 @@ import UserloginView from "../views/UserLoginView.vue"
 //store with pinia
 import { useLoginStore } from "../store/LoginStore";
 import pruebas from "../views/pruebas.vue";
+import registro from "../views/Registro.vue";
 
 const routes = [
     {
@@ -37,6 +38,12 @@ const routes = [
         name: "Userlogin",
         meta: { juegoIniciado: false },
         component: UserloginView,
+    },
+    {
+        path:"/registro",
+        name:"registro",
+        meta: { juegoIniciado: false },
+        component:registro,
     },
     {
         path: "/juegos",
