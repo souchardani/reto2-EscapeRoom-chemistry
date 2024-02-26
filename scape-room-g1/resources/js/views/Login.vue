@@ -193,7 +193,7 @@ php
                                                 <label
                                                     for="clave-acceso"
                                                     class="text-sm font-bold"
-                                                    >Clave de acceso</label
+                                                    >Clave secreta</label
                                                 >
                                                 <a
                                                     @click.prevent="
@@ -255,17 +255,18 @@ php
                                                 </option>
                                             </select>
                                         </div>
-                                        <div class="mt-6 flex justify-around">
+                                        <div class="mt-6 flex gap-2">
                                             <button
                                                 @click="validar"
                                                 style="
                                                     backdrop-filter: blur(20px);
                                                 "
-                                                class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                                                class="flex-1 rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                                             >
                                                 Iniciar partida
                                             </button>
                                             <button
+                                                v-if="registrado.logeado"
                                                 @click="logout"
                                                 style="
                                                     backdrop-filter: blur(20px);
@@ -319,7 +320,9 @@ php
             textoBotonCerrar="Iniciar partida"
             ><strong
                 >Bienvenido al juego,
-                <span class="text-blue-900">{{ this.txtNick }}</span></strong
+                <span class="text-blue-900">{{
+                    !registrado.logeado ? "Anónimo" : this.registrado.name
+                }}</span></strong
             >
             <p>
                 Tienes la oportunidad de demostrar que eres un verdadero

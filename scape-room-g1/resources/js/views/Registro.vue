@@ -1,5 +1,5 @@
 <template>
- <div
+    <div
         class="container-fluid backdrop-blur-lg min-h-screen px-2 p-2 pt-8 md:px-12 md:p-8 overflow-hidden"
         style="
             background-color: rgb(88, 28, 135);
@@ -31,24 +31,29 @@
                 );
         "
     >
-    <h1 class="text-center text-[32px] md:text-[32px] lg:text-[48px] xl:text-[56px] font-bold p-6" >Pagina de registro</h1>
-    <div class="grid gap-8 place-items-center p-4 ">
-
-        <registrer></registrer>
+        <h1
+            class="text-center text-[32px] md:text-[32px] lg:text-[48px] xl:text-[56px] font-bold p-6"
+        >
+            Escape Room Química
+        </h1>
+        <div class="grid gap-8 place-items-center p-4">
+            <registrer></registrer>
+        </div>
+        <div class="mt-8">
+            <Footer></Footer>
+        </div>
     </div>
-</div>
-
 </template>
 <script>
-import registrer from "./../components/Registrer.vue"
+import Footer from "./../components/Footer.vue";
+import registrer from "./../components/Registrer.vue";
 export default {
     data() {
-        return {
-
-        }
+        return {};
     },
-    components:{
-        registrer
-    }
-}
+    components: {
+        registrer,
+        Footer,
+    },
+};
 </script>
