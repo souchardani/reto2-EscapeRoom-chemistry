@@ -53,15 +53,20 @@
                 </option>
             </select>
             <div v-show="registrado.logeado" class="flex justify-around">
-    <label for="todos">
-        Todos
-        <input type="radio" name="filtro" id="" v-model="todos" />
-    </label>
-    <label for="personal">
-        Personal
-        <input type="radio" name="filtro" id="" v-model="personal" />
-    </label>
-</div>
+                <label for="todos">
+                    Todos
+                    <input type="radio" name="filtro" id="" v-model="todos" />
+                </label>
+                <label for="personal">
+                    Personal
+                    <input
+                        type="radio"
+                        name="filtro"
+                        id=""
+                        v-model="personal"
+                    />
+                </label>
+            </div>
         </div>
         <div
             v-if="usuario.nick != null"
@@ -143,8 +148,8 @@ import axios from "axios";
 export default {
     data() {
         return {
-            todos:true,
-            personal:false,
+            todos: true,
+            personal: false,
             opcionSeleccionado: null,
             jugadores: [],
             nivel: [],
@@ -184,7 +189,7 @@ export default {
             this.resetSetState();
             //reiniciamos el store del progress bar
             this.resetState();
-            this.$router.push("/login");
+            this.$router.push("/");
             console.log(this.getUsuario());
         },
         ...mapActions(useTemporizadorStore, [
@@ -208,10 +213,14 @@ export default {
         filtrar() {
             if (this.todos) {
                 // Filtrar todos los jugadores
-                return this.jugadores.filter(jugador => jugador.difficulty == this.opcionSeleccionado);
+                return this.jugadores.filter(
+                    (jugador) => jugador.difficulty == this.opcionSeleccionado
+                );
             } else if (this.personal) {
                 // Filtrar jugadores personales
-                return this.jugadores.filter(jugador => jugador.id === this.usuario.id);
+                return this.jugadores.filter(
+                    (jugador) => jugador.id === this.usuario.id
+                );
             } else {
                 // No hay filtro seleccionado
                 return this.jugadores;

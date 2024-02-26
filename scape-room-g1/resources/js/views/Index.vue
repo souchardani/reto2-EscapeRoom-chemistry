@@ -31,16 +31,7 @@
                 );
         "
     >
-        <div class="flex justify-end">
-            <GoogleTranslateSelect
-                class="w-2/5 md:w-1/6 bg-slate-200 rounded-xl py-2 px-4"
-                default-language-code="es"
-                default-page-language-code="es"
-                :fetch-browser-language="false"
-                trigger="click"
-                @select="handleGoogleTranslateSelect"
-            />
-        </div>
+        <div class="flex justify-end"></div>
         <h1
             class="text-center font-medium px-5 mb-10 text-5xl md:text-4xl mb-5 drop-shadow-2xl"
         >
@@ -166,19 +157,10 @@
 <script>
 import Footer from "../components/Footer.vue";
 import GlassBtn from "../components/GlassBtn.vue";
-import GoogleTranslateSelect from "@google-translate-select/vue3";
 export default {
     components: {
         Footer,
         GlassBtn,
-        GoogleTranslateSelect,
-    },
-    data() {
-        return {
-            handleGoogleTranslateSelect: (language) => {
-                console.log(language);
-            },
-        };
     },
 };
 </script>
