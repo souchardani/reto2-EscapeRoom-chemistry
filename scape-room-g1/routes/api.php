@@ -35,3 +35,5 @@ Route::post('/registro',[RegistroController::class,'registro'])->name('registro'
 Route::get('/registro',[RegistroController::class,'revisar']);
 Route::post('/editPlayer',[RegistroController::class,'editPlayer']);
 Route::get('/currentUser',[RegistroController::class,'getCurrentUser']);
+Route::get('/currentUser',[RegistroController::class,'getCurrentUser']);
+Route::post('/deleteUser',[RegistroController::class,'eliminarCuenta']);

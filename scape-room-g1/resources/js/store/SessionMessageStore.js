@@ -6,7 +6,6 @@ export const useMessageStore = defineStore("message", {
     }),
     actions: {
         setMessage(message) {
-            alert("setMessage");
             this.message = message;
             setTimeout(() => {
                 this.clearMessage();

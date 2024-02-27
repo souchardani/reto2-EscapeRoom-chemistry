@@ -32,8 +32,7 @@
         "
     >
         <!--Boton de salir-->
-        <div class="flex justify-between item-center">
-            <BtnPerfil></BtnPerfil>
+        <div class="flex justify-end item-center">
             <BtnSalir></BtnSalir>
         </div>
         <!--titulo del juego-->

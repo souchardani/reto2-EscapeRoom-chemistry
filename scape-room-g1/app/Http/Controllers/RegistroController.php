@@ -22,18 +22,25 @@ class RegistroController extends Controller
 
     public function editPlayer(Request $request){
         $editPlayer=Player::find($request->id);
-        if($request->password==null){
+        if($request->newPassword==null){
             $editPlayer->nick=$request->nick;
         }else {
             $editPlayer->nick=$request->nick;
-            $editPlayer->password=$request->password;
+            $editPlayer->password=$request->newPassword;
         }
         $editPlayer->save();
+        return $editPlayer;
     }
 
     public function getCurrentUser(Request $request){
         $id = $request->query('id'); // Obtiene el parámetro 'id' de la URL
         $currentUser = Player::find($id);
         return $currentUser;
+    }
+
+    public function eliminarCuenta(Request $request){
+        $eliminarCuenta=Player::find($request->id);
+        $eliminarCuenta->delete();
+        return $eliminarCuenta;
     }
 }

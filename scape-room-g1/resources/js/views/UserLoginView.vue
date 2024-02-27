@@ -74,6 +74,7 @@ import Footer from "../components/Footer.vue";
 import UserLogin from "../components/UserLogin.vue";
 import { useMessageStore } from "../store/SessionMessageStore";
 import { mapWritableState, mapActions } from "pinia";
+import { useLoginStore } from "../store/LoginStore";
 export default {
     components: {
         Footer,
@@ -81,6 +82,7 @@ export default {
     },
     computed: {
         ...mapWritableState(useMessageStore, ["message"]),
+        ...mapWritableState(useLoginStore, ["usuario", "registrado"]),
     },
     methods: {
         ...mapActions(useMessageStore, ["setMessage"]),

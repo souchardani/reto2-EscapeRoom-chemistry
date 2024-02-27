@@ -1,11 +1,11 @@
 <template>
     <div
-        class="bg-white opacity-60 rounded-xl p-8 w-1/2 flex flex-col items-center"
+        class="bg-white opacity-60 rounded-xl p-8 min-w-1/2 flex flex-col items-center"
     >
         <h1 class="text-3xl font-bold text-center">
             Registrte para jugar y guardar tu progreso
         </h1>
-        <div class="flex flex-col w-96 p-5">
+        <div class="flex flex-col p-5">
             <div class="flex flex-col my-5">
                 <label for="nombre" class="font-semibold text-xl my-2 mx-4"
                     >Nombre</label
@@ -48,7 +48,7 @@
                 Registrarse
             </button>
         </div>
-        <div
+        <!-- <div
             v-show="errMesage == true"
             class="bg-red-400 rounded py-2 px-4 my-3"
         >
@@ -71,6 +71,9 @@
             class="bg-red-400 rounded py-2 px-4 my-3"
         >
             <pre>Debes de introducir una contraseña</pre>
+        </div> -->
+        <div v-show="defaultError" class="bg-red-400 rounded py-2 px-4 my-3">
+            <pre>{{ defaultError }}</pre>
         </div>
         <router-link
             to="/userLogin"
@@ -97,26 +100,52 @@ export default {
             errMesage3: false,
             errMesage4: false,
             usuarios: [],
+            defaultError: "",
         };
     },
     methods: {
         registrarse() {
             if (this.contra != this.confirmpassword) {
-                this.errMesage = true;
+                this.defaultError = "Las contraseñas no coinciden";
+                return;
             }
 
             if (this.usuarios.includes(this.nombre) == true) {
-                this.errMesage2 = true;
+                this.defaultError =
+                    "Este usuario ya existe en la base de datos";
+                return;
             }
 
             if (this.contra == "") {
-                this.errMesage3 = true;
+                this.defaultError = "Debes de introducir una contraseña";
+                return;
             }
 
             if (this.nombre == "") {
-                this.errMesage4 = true;
+                this.defaultError = "Debes de introducir un usuario";
+                return;
             }
-
+            //verificar que el nombre tenga al menos 4 caracteres
+            if (this.nombre.length < 4) {
+                this.defaultError =
+                    "El nombre debe tener al menos 4 caracteres";
+                return;
+            }
+            //verificamos la contraseña por regex
+            if (this.contra.length < 6) {
+                this.defaultError =
+                    "La contraseña debe tener al menos 6 caracteres";
+                return;
+            }
+            if (
+                !this.contra.match(
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/
+                )
+            ) {
+                this.defaultError =
+                    "La contraseña debe tener al menos una mayuscula, una minuscula y un numero";
+                return;
+            }
             if (
                 this.contra == this.confirmpassword &&
                 this.usuarios.includes(this.nombre) == false &&

@@ -159,15 +159,15 @@ const router = createRouter({
     routes,
 });
 
-router.beforeEach((to, from, next) => {
-    const store = useLoginStore();
-    if (to.meta.requiresAuth && !store.$state.usuario.nick) {
-        next({ name: "Login" });
-    } else if (to.name === "Login" && store.$state.usuario.nick) {
-        next({ name: "startGame" });
-    } else {
-        next();
-    }
-});
+// router.beforeEach((to, from, next) => {
+//     const store = useLoginStore();
+//     if (to.meta.requiresAuth && !store.$state.usuario.nick) {
+//         next({ name: "Login" });
+//     } else if (to.name === "Login" && store.$state.usuario.nick) {
+//         next({ name: "startGame" });
+//     } else {
+//         next();
+//     }
+// });
 
 export default router;
