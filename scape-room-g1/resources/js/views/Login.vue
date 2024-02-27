@@ -69,7 +69,9 @@
                             class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"
                             @click="
                                 showPass({
-                                    descripcion: `Enhorabuena, Encontraste una etiqueta en el vial. En ella se lee: ${this.pass}`,
+                                    descripcion:
+                                        'Enhorabuena, Encontraste una etiqueta en el vial. En ella se lee: ' +
+                                        this.pass,
                                     titulo: 'Lo has Conseguido',
                                     bgColor: 'bg-green-500',
                                     srcGift:
@@ -84,216 +86,212 @@
                 <div
                     class="flex items-center w-full max-w-md px-6 mx-auto lg:w-1/3 mt-10 mb-12"
                 >
-                    <div
-                        class="flex items-center w-full max-w-md px-6 mx-auto mt-10 mb-12"
-                    >
-                        <div class="flex-1">
-                            <div class="text-center">
-                                <h2 class="text-4xl font-bold text-center">
-                                    Accede al juego
-                                </h2>
-                                <!-- <img src="../assets/img/puerta.jpg" alt="" /> -->
-
-                                <p class="my-5">
-                                    Introduce un nick para guardar tu progreso y
-                                    tu clasificacion, y la contraseña de acceso.
-                                </p>
-                                <!-- tarjeta -->
-
-                                <div
-                                    v-show="showModalInfo"
-                                    id="tarjeta-info"
-                                    class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative"
-                                >
-                                    <i class="ph ph-info text-2xl"></i>
-                                    <span class="text-left">
-                                        Aqui tienes tu primer reto, presiona el
-                                        tubo de ensayo escondido en la página
-                                        (debes buscar bien) y descubre como
-                                        puedes encontrar la contraseña de acceso
-                                    </span>
-                                    <i
-                                        class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
-                                        @click="showModalInfo = false"
-                                    ></i>
-                                </div>
+                    <div class="flex-1">
+                        <div class="text-center">
+                            <div ref="paso1">
+                                <BtnPerfil></BtnPerfil>
                             </div>
-                            <div class="w-100 my-8">
-                                <div
-                                    class="w-full text-justify relative px-8 py-10 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-60 border border-gray-200"
-                                    style="backdrop-filter: blur(20px)"
-                                >
-                                    <div class="mx-auto">
-                                        <!-- aqui va el contenido dentro del glass -->
-                                        <div class="mt-6">
-                                            <!-- este el el badge de un error -->
-                                            <div
-                                                v-show="showErrorMessage"
-                                                class="relative bg-red-100 border-t border-b text-red-700 px-4 py-3 rounded-xl mb-4"
+
+                            <h2 class="text-4xl font-bold text-center">
+                                Accede al juego
+                            </h2>
+                            <!-- <img src="../assets/img/puerta.jpg" alt="" /> -->
+
+                            <p class="my-5">
+                                Introduce un nick para guardar tu progreso y tu
+                                clasificacion, y la contraseña de acceso.
+                            </p>
+                            <!-- tarjeta -->
+
+                            <div
+                                v-show="showModalInfo"
+                                id="tarjeta-info"
+                                class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative"
+                            >
+                                <i class="ph ph-info text-2xl"></i>
+                                <span class="text-left">
+                                    Aqui tienes tu primer reto, presiona el tubo
+                                    de ensayo escondido en la página (debes
+                                    buscar bien) y descubre como puedes
+                                    encontrar la contraseña de acceso
+                                </span>
+                                <i
+                                    class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
+                                    @click="showModalInfo = false"
+                                ></i>
+                            </div>
+                        </div>
+                        <div class="w-100 my-8">
+                            <div
+                                class="w-full text-justify relative px-8 py-10 bg-white shadow-lg rounded-3xl sm:rounded-3xl bg-clip-padding bg-opacity-60 border border-gray-200"
+                                style="backdrop-filter: blur(20px)"
+                                ref="paso2"
+                            >
+                                <div class="mx-auto">
+                                    <!-- aqui va el contenido dentro del glass -->
+                                    <div class="mt-6">
+                                        <!-- este el el badge de un error -->
+                                        <div
+                                            v-show="showErrorMessage"
+                                            class="relative bg-red-100 border-t border-b text-red-700 px-4 py-3 rounded-xl mb-4"
+                                        >
+                                            <p class="font-bold">
+                                                Error en el formulario
+                                            </p>
+                                            <p class="text-sm">
+                                                {{ txtErrorMsg }}
+                                            </p>
+                                            <i
+                                                class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
+                                                @click="
+                                                    showErrorMessage = false
+                                                "
+                                            ></i>
+                                        </div>
+                                    </div>
+                                    <form @submit.prevent>
+                                        <div v-if="registrado.logeado">
+                                            <label
+                                                for="nickJugador"
+                                                class="block mb-2 text-2xl font-bold"
+                                                >Bienvenido
+                                                {{ registrado.name }}</label
                                             >
-                                                <p class="font-bold">
-                                                    Error en el formulario
-                                                </p>
-                                                <p class="text-sm">
-                                                    {{ txtErrorMsg }}
-                                                </p>
-                                                <i
-                                                    class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
-                                                    @click="
-                                                        showErrorMessage = false
+
+                                            <!-- <input
+                                                @focus="
+                                                    showErrorMessage = false
+                                                "
+                                                v-model="txtNick"
+                                                type="text"
+                                                name="nickJugador"
+                                                id="nickJugador"
+                                                placeholder="Daniel_Jugador1"
+                                                class="block w-full px-4 py-2 mt-2 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                            /> -->
+                                        </div>
+                                        <div v-else="registrado.logeado">
+                                            <label
+                                                for="nickJugador"
+                                                class="block mb-2 text-xl font-bold"
+                                                >Bienvenido Anónimo</label
+                                            >
+
+                                            <!-- <input
+                                                @focus="
+                                                    showErrorMessage = false
+                                                "
+                                                v-model="txtNick"
+                                                type="text"
+                                                name="nickJugador"
+                                                id="nickJugador"
+                                                placeholder="Daniel_Jugador1"
+                                                class="block w-full px-4 py-2 mt-2 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                            /> -->
+                                        </div>
+
+                                        <div class="mt-6">
+                                            <div
+                                                class="flex justify-between mb-2"
+                                            >
+                                                <label
+                                                    for="clave-acceso"
+                                                    class="text-sm font-bold"
+                                                    >Clave secreta</label
+                                                >
+                                                <a
+                                                    @click.prevent="
+                                                        showModalInfo = true
                                                     "
+                                                    href="#"
+                                                    class="text-sm focus:text-blue-500 hover:text-blue-500 hover:underline"
+                                                    >No tienes la clave?</a
+                                                >
+                                            </div>
+
+                                            <input
+                                                @focus="
+                                                    showErrorMessage = false
+                                                "
+                                                v-model="txtPassword"
+                                                type="password"
+                                                name="clave-acceso"
+                                                id="clave-acceso"
+                                                placeholder="Debes buscar la clave con las pistas de la web"
+                                                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                                            />
+                                        </div>
+                                        <div class="mt-6">
+                                            <div
+                                                class="flex justify-between mb-2"
+                                            >
+                                                <label
+                                                    for="dificultad"
+                                                    class="text-sm font-bold"
+                                                    >Nivel de Dificultad</label
+                                                >
+                                                <i
+                                                    @click="
+                                                        mostrarInfoDificultad = true
+                                                    "
+                                                    class="ph ph-info text-2xl"
                                                 ></i>
                                             </div>
-                                        </div>
-                                        <form @submit.prevent>
-                                            <div v-if="registrado.logeado">
-                                                <label
-                                                    for="nickJugador"
-                                                    class="block mb-2 text-2xl font-bold"
-                                                    >Bienvenido
-                                                    {{ registrado.name }}</label
-                                                >
 
-                                                <!-- <input
+                                            <select
                                                 @focus="
                                                     showErrorMessage = false
                                                 "
-                                                v-model="txtNick"
-                                                type="text"
-                                                name="nickJugador"
-                                                id="nickJugador"
-                                                placeholder="Daniel_Jugador1"
-                                                class="block w-full px-4 py-2 mt-2 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                            /> -->
-                                            </div>
-                                            <div v-else="registrado.logeado">
-                                                <label
-                                                    for="nickJugador"
-                                                    class="block mb-2 text-xl font-bold"
-                                                    >Bienvenido Anónimo</label
-                                                >
-
-                                                <!-- <input
-                                                @focus="
-                                                    showErrorMessage = false
-                                                "
-                                                v-model="txtNick"
-                                                type="text"
-                                                name="nickJugador"
-                                                id="nickJugador"
-                                                placeholder="Daniel_Jugador1"
-                                                class="block w-full px-4 py-2 mt-2 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                            /> -->
-                                            </div>
-
-                                            <div class="mt-6">
-                                                <div
-                                                    class="flex justify-between mb-2"
-                                                >
-                                                    <label
-                                                        for="clave-acceso"
-                                                        class="text-sm font-bold"
-                                                        >Clave secreta</label
-                                                    >
-                                                    <a
-                                                        @click.prevent="
-                                                            showModalInfo = true
-                                                        "
-                                                        href="#"
-                                                        class="text-sm focus:text-blue-500 hover:text-blue-500 hover:underline"
-                                                        >No tienes la clave?</a
-                                                    >
-                                                </div>
-
-                                                <input
-                                                    @focus="
-                                                        showErrorMessage = false
-                                                    "
-                                                    v-model="txtPassword"
-                                                    type="password"
-                                                    name="clave-acceso"
-                                                    id="clave-acceso"
-                                                    placeholder="Debes buscar la clave con las pistas de la web"
-                                                    class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                                />
-                                            </div>
-                                            <div class="mt-6">
-                                                <div
-                                                    class="flex justify-between mb-2"
-                                                >
-                                                    <label
-                                                        for="dificultad"
-                                                        class="text-sm font-bold"
-                                                        >Nivel de
-                                                        Dificultad</label
-                                                    >
-                                                    <i
-                                                        @click="
-                                                            mostrarInfoDificultad = true
-                                                        "
-                                                        class="ph ph-info text-2xl"
-                                                    ></i>
-                                                </div>
-
-                                                <select
-                                                    @focus="
-                                                        showErrorMessage = false
-                                                    "
-                                                    v-model="cmbDificultad"
-                                                    name="dificultad"
-                                                    id="dificultad"
-                                                    class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                                >
-                                                    option
-                                                    <option value="Facil">
-                                                        Principiante
-                                                    </option>
-                                                    <option value="Normal">
-                                                        Medio
-                                                    </option>
-                                                    <option value="Dificil">
-                                                        Avanzado
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="mt-6 flex gap-2">
-                                                <button
-                                                    @click="validar"
-                                                    style="
-                                                        backdrop-filter: blur(
-                                                            20px
-                                                        );
-                                                    "
-                                                    class="flex-1 rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                                                >
-                                                    Iniciar partida
-                                                </button>
-                                                <button
-                                                    v-if="registrado.logeado"
-                                                    @click="logout"
-                                                    style="
-                                                        backdrop-filter: blur(
-                                                            20px
-                                                        );
-                                                    "
-                                                    class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                                                >
-                                                    Cerrar Sesión
-                                                </button>
-                                            </div>
-                                            <div
-                                                v-if="!registrado.logeado"
-                                                class="flex justify-center"
+                                                v-model="cmbDificultad"
+                                                name="dificultad"
+                                                id="dificultad"
+                                                class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                                             >
-                                                <router-link
-                                                    to="/userLogin"
-                                                    class="underline text-center hover:text-slate-600"
-                                                    >Crear cuenta o Iniciar
-                                                    Sesion</router-link
-                                                >
-                                            </div>
-                                        </form>
-                                    </div>
+                                                option
+                                                <option value="Facil">
+                                                    Principiante
+                                                </option>
+                                                <option value="Normal">
+                                                    Medio
+                                                </option>
+                                                <option value="Dificil">
+                                                    Avanzado
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="mt-6 flex gap-2">
+                                            <button
+                                                @click="validar"
+                                                style="
+                                                    backdrop-filter: blur(20px);
+                                                "
+                                                class="flex-1 rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                                            >
+                                                Iniciar partida
+                                            </button>
+                                            <button
+                                                v-if="registrado.logeado"
+                                                @click="logout"
+                                                style="
+                                                    backdrop-filter: blur(20px);
+                                                "
+                                                class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                                            >
+                                                Cerrar Sesión
+                                            </button>
+                                        </div>
+                                        <div
+                                            v-if="!registrado.logeado"
+                                            class="flex justify-center"
+                                        >
+                                            <router-link
+                                                to="/userLogin"
+                                                class="underline text-center hover:text-slate-600"
+                                                >Crear cuenta o Iniciar
+                                                Sesion</router-link
+                                            >
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -429,6 +427,7 @@
                                     adventures!
                                 </p>
                             </div>
+
                             <i
                                 class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"
                                 @click="
@@ -1187,6 +1186,50 @@ export default {
             this.registrado.name = null;
             this.$router.push("/userlogin");
         },
+        createTour() {
+            this.tour = this.$shepherd({
+                useModalOverlay: true,
+            });
+
+            this.tour.addStep({
+                attachTo: { element: this.$refs.paso1, on: "bottom" },
+                buttons: [
+                    {
+                        action: function () {
+                            return this.cancel();
+                        },
+                        secondary: true,
+                        text: "Salir",
+                    },
+                    {
+                        action: function () {
+                            return this.next();
+                        },
+                        text: "Siguiente",
+                    },
+                ],
+                text: "Aqui puedes editar los datos de cuenta",
+            });
+            this.tour.addStep({
+                attachTo: { element: this.$refs.paso2, on: "top" },
+                buttons: [
+                    {
+                        action: function () {
+                            return this.cancel();
+                        },
+                        secondary: true,
+                        text: "Salir",
+                    },
+                    {
+                        action: function () {
+                            return this.next();
+                        },
+                        text: "Siguiente",
+                    },
+                ],
+                text: "Y aqui poner los datos para iniciar el juego",
+            });
+        },
     },
     computed: {
         ...mapWritableState(useLoginStore, ["usuario", "registrado"]),
@@ -1194,6 +1237,29 @@ export default {
     },
     mounted() {
         this.generatePass();
+        this.createTour();
+        this.tour.start();
     },
 };
 </script>
+
+<!-- para el step by step -->
+<!-- <script setup>
+import { ref, onMounted } from "vue";
+import { useShepherd } from "vue-shepherd";
+
+const el = ref(null);
+
+const tour = useShepherd({
+    useModalOverlay: true,
+});
+
+onMounted(() => {
+    tour.addStep({
+        attachTo: { element: el.value, on: "top" },
+        text: "Test",
+    });
+
+    tour.start();
+});
+</script> -->

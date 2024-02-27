@@ -300,6 +300,7 @@ export default {
         this.nombre = this.registrado.name;
         console.log("this.nombre: ", this.nombre);
         this.getcurrentUser();
+        console.log("this.usuarioActual: ", this.usuarioActual);
     },
 };
 </script>
