@@ -69,13 +69,8 @@
                             class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"
                             @click="
                                 showPass({
-                                    texto: {
-                                        desc:
-                                            'Enhorabuena, Encontraste una etiqueta en el vial. En ella se lee: ' +
-                                            this.pass,
-                                        titulo: 'Lo has Conseguido',
-                                    },
-
+                                    descripcion: `Enhorabuena, Encontraste una etiqueta en el vial. En ella se lee: ${this.pass}`,
+                                    titulo: 'Lo has Conseguido',
                                     bgColor: 'bg-green-500',
                                     srcGift:
                                         'https://media.giphy.com/media/PkoGC4SZK3DynYxlXy/giphy.gif',
@@ -89,65 +84,8 @@
                 <div
                     class="flex items-center w-full max-w-md px-6 mx-auto lg:w-1/3 mt-10 mb-12"
                 >
-                    <div class="flex-1">
-                        <div
-                            class="flex justify-between item-center"
-                            v-if="registrado.logeado"
-                        >
-                            <BtnPerfil></BtnPerfil>
-                        </div>
-                        <div class="text-center">
-                            <h2 class="text-4xl font-bold text-center">
-                                Accede al juego
-                            </h2>
-                            <!-- <img src="../assets/img/puerta.jpg" alt="" /> -->
-
-                            <p class="my-5">
-                                Introduce un nick para guardar tu progreso y tu
-                                clasificacion, y la contraseña de acceso.
-                            </p>
-                            <!-- tarjeta -->
-
-                            <div
-                                v-show="showModalInfo"
-                                id="tarjeta-info"
-                                class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative"
-                            >
-                                <i class="ph ph-info text-2xl"></i>
-                                <span class="text-left">
-                                    Aqui tienes tu primer reto, presiona el tubo
-                                    de ensayo escondido en la página (debes
-                                    buscar bien) y descubre como puedes
-                                    encontrar la contraseña de acceso
-                                </span>
-                                <i
-                                    class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
-                                    @click="showModalInfo = false"
-                                ></i>
-                                <p class="max-w-xl mt-3 text-gray-300 text-lg">
-                                    Entra en nuestro scape room y descubre un
-                                    mundo de aventuras!
-                                </p>
-                            </div>
-
-                            <i
-                                class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"
-                                @click="
-                                    showPass({
-                                        titulo: 'Lo has Conseguido',
-                                        bgColor: 'bg-green-500',
-                                        descripcion: `Enhorabuena, Encontraste una etiqueta en el vial. En ella se lee: ${this.pass}`,
-                                        srcGift:
-                                            'https://media.giphy.com/media/PkoGC4SZK3DynYxlXy/giphy.gif',
-                                    })
-                                "
-                                alt="vial"
-                            ></i>
-                        </div>
-                    </div>
-
                     <div
-                        class="flex items-center w-full max-w-md px-6 mx-auto lg:w-1/3 mt-10 mb-12"
+                        class="flex items-center w-full max-w-md px-6 mx-auto mt-10 mb-12"
                     >
                         <div class="flex-1">
                             <div class="text-center">
@@ -206,129 +144,6 @@
                                                     "
                                                 ></i>
                                             </div>
-                                            <form @submit.prevent>
-                                                <div v-if="registrado.logeado">
-                                                    <label
-                                                        for="nickJugador"
-                                                        class="block mb-2 text-2xl font-bold"
-                                                        >Bienvenido
-                                                        {{
-                                                            registrado.name
-                                                        }}</label
-                                                    >
-                                                </div>
-                                                <div
-                                                    v-else="registrado.logeado"
-                                                >
-                                                    <label
-                                                        for="nickJugador"
-                                                        class="block mb-2 text-xl font-bold"
-                                                        >Bienvenido
-                                                        Anónimo</label
-                                                    >
-                                                </div>
-
-                                                <div class="mt-6">
-                                                    <div
-                                                        class="flex justify-between mb-2"
-                                                    >
-                                                        <label
-                                                            for="clave-acceso"
-                                                            class="text-sm font-bold"
-                                                            >Clave de
-                                                            acceso</label
-                                                        >
-                                                        <a
-                                                            @click.prevent="
-                                                                showModalInfo = true
-                                                            "
-                                                            href="#"
-                                                            class="text-sm focus:text-blue-500 hover:text-blue-500 hover:underline"
-                                                            >No tienes la
-                                                            clave?</a
-                                                        >
-                                                    </div>
-
-                                                    <input
-                                                        @focus="
-                                                            showErrorMessage = false
-                                                        "
-                                                        v-model="txtPassword"
-                                                        type="password"
-                                                        name="clave-acceso"
-                                                        id="clave-acceso"
-                                                        placeholder="Debes buscar la clave con las pistas de la web"
-                                                        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                                    />
-                                                </div>
-                                                <div class="mt-6">
-                                                    <div
-                                                        class="flex justify-between mb-2"
-                                                    >
-                                                        <label
-                                                            for="dificultad"
-                                                            class="text-sm font-bold"
-                                                            >Nivel de
-                                                            Dificultad</label
-                                                        >
-                                                        <i
-                                                            @click="
-                                                                mostrarInfoDificultad = true
-                                                            "
-                                                            class="ph ph-info text-2xl"
-                                                        ></i>
-                                                    </div>
-
-                                                    <select
-                                                        @focus="
-                                                            showErrorMessage = false
-                                                        "
-                                                        v-model="cmbDificultad"
-                                                        name="dificultad"
-                                                        id="dificultad"
-                                                        class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                                                    >
-                                                        option
-                                                        <option value="Facil">
-                                                            Principiante
-                                                        </option>
-                                                        <option value="Normal">
-                                                            Medio
-                                                        </option>
-                                                        <option value="Dificil">
-                                                            Avanzado
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                                <div
-                                                    class="mt-6 flex justify-around"
-                                                >
-                                                    <button
-                                                        v-if="!visible"
-                                                        @click="validar"
-                                                        style="
-                                                            backdrop-filter: blur(
-                                                                20px
-                                                            );
-                                                        "
-                                                        class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                                                    >
-                                                        Iniciar partida
-                                                    </button>
-                                                    <button
-                                                        v-if="!visible"
-                                                        @click="logout"
-                                                        style="
-                                                            backdrop-filter: blur(
-                                                                20px
-                                                            );
-                                                        "
-                                                        class="rounded-md bg-white bg-opacity-60 px-3.5 py-2.5 mb-8 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                                                    >
-                                                        Cerrar Sesión
-                                                    </button>
-                                                </div>
-                                            </form>
                                         </div>
                                         <form @submit.prevent>
                                             <div v-if="registrado.logeado">
@@ -614,7 +429,6 @@
                                     adventures!
                                 </p>
                             </div>
-
                             <i
                                 class="absolute ph ph-test-tube lg:bottom-150 left-3 text-2xl"
                                 @click="

@@ -15,7 +15,7 @@
             <div class="flex flex-col w-96 p-5">
                 <div class="flex flex-col my-5">
                     <label for="nombre" class="font-semibold text-xl my-2 mx-4"
-                        >Nombre :</label
+                        >Usuario</label
                     >
                     <input
                         v-model="name"
@@ -28,7 +28,7 @@
                     <label
                         for="password"
                         class="font-semibold text-xl my-2 mx-4"
-                        >PassWord :</label
+                        >Contraseña</label
                     >
                     <input
                         v-model="password"
@@ -39,7 +39,7 @@
                     />
                 </div>
             </div>
-            <div class="flex flex-col-2">
+            <div class="flex flex-col-2 justify-center">
                 <button
                     class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
                     @click="comprobar(name, password)"
@@ -111,13 +111,6 @@
                 </div>
             </div>
         </div>
-        <button
-            v-if="!visible"
-            class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
-            @click="comprobar(name, password)"
-        >
-            Login
-        </button>
     </div>
 </template>
 <script>

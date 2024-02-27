@@ -42,12 +42,6 @@
                 v-show="visibilidad"
                 class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative mr-2"
             >
-                <h1>Escape Room Química</h1>
-                <div v-if="message" class="flex justify-center">
-                    <p class="w-1/2 bg-green-300 p-4 rounded-xl text-center">
-                        {{ message }}
-                    </p>
-                </div>
                 <i class="ph ph-info text-2xl"></i>
                 <span class="text-left"
                     >Aqui podrás elegir la opcion de jugar de manera invitado.
@@ -69,6 +63,11 @@
         >
             Escape Room Química
         </h1>
+        <div v-if="message" class="flex justify-center">
+            <p class="w-1/2 bg-green-300 p-4 rounded-xl text-center">
+                {{ message }}
+            </p>
+        </div>
         <div class="grid gap-8 lg:grid-cols-2 place-items-center p-4">
             <UserLogin></UserLogin
             ><!--Componente para logearse-->

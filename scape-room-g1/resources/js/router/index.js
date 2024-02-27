@@ -19,6 +19,7 @@ import EditUser from "../views/EditUser.vue";
 //store with pinia
 import { useLoginStore } from "../store/LoginStore";
 import pruebas from "../views/pruebas.vue";
+import Registro from "../views/Registro.vue";
 
 const routes = [
     {
@@ -43,7 +44,7 @@ const routes = [
         path: "/registro",
         name: "registro",
         meta: { juegoIniciado: false },
-        component: registro,
+        component: Registro,
     },
     {
         path: "/juegos",
