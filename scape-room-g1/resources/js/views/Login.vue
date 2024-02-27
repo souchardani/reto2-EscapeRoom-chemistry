@@ -32,21 +32,6 @@
                 );
         "
     >
-        <div class="flex justify-end mx-4">
-            <div class="fixed z-50 mt-4">
-                <ModalHelp
-                    v-if="visible"
-                    class="animate-pulse duration-3000"
-                ></ModalHelp>
-                <button
-                    v-if="!visible"
-                    @click="eligeAyuda(2)"
-                    class="rounded-[50%] border p-4 bg-orange-300 opacity-80 font-semibold"
-                >
-                    ?
-                </button>
-            </div>
-        </div>
         <div v-show="idioma.find((idioma) => idioma.estado)?.name === 'es'">
             <div class="flex flex-col-reverse justify-center md:flex-row">
                 <div
@@ -1038,7 +1023,6 @@
 </template>
 <script>
 import ModalStartGame from "../components/modals/ModalStartGame.vue";
-import ModalHelp from "../components/modals/ModalHelp.vue";
 import { useHelpStore } from "../store/help";
 import { useLoginStore } from "../store/LoginStore";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
@@ -1066,9 +1050,8 @@ export default {
             },
         };
     },
-    components: { ModalStartGame, ModalHelp },
+    components: { ModalStartGame},
     methods: {
-        ...mapActions(useHelpStore, ["eligeAyuda"]),
         validar() {
             if (!this.cmbDificultad) {
                 this.txtErrorMsg = "Debes seleccionar una opción.";
@@ -1149,7 +1132,6 @@ export default {
     computed: {
         ...mapWritableState(useLoginStore, ["usuario", "registrado"]),
         ...mapWritableState(useIdioma, ["idioma", "seleccionIdioma"]),
-        ...mapWritableState(useHelpStore, ["visible"]),
     },
     mounted() {
         this.generatePass();
