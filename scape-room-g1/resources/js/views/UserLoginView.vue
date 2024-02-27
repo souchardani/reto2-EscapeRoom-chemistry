@@ -31,21 +31,21 @@
                 );
         "
     >
-        <div class="fixed z-50">
-            <ModalHelp v-if="visible" class="animate-pulse"></ModalHelp>
-            <button
-                v-if="!visible"
-                @click="eligeAyuda(1)"
-                class="rounded-[50%] border p-4 bg-orange-300 opacity-80 font-semibold"
-            >
-                ?
-            </button>
-        </div>
-        <h1
-            class="text-center text-[32px] md:text-[32px] lg:text-[48px] xl:text-[56px] font-bold p-6"
+    <div>
+        <i class="ph ph-info text-2xl text-white" v-show="!visibilidad" @click="info()"></i>
+        <div id="tarjeta-info" v-show="visibilidad"
+            class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative mr-2"
         >
-            Escape Room Química
-        </h1>
+            <i class="ph ph-info text-2xl"></i>
+            <span class="text-left">Aqui podrás elegir la opcion de jugar de manera invitado. Disfrutarás de toda la extensión del juego, pero tu progreso no se guardará. Si ya dispones de una cuenta, solo necisitas rellenar el nombre de iusuario y contraseña. Si aún no tienes una y quieres disfrutar de la competicion con tus compañeros por una mejor puntuación, Registrate en solo 30 segundos!</span>
+            <i class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer" @click="info()"></i>
+        </div>
+    </div>
+    <h1
+    class="text-center text-[32px] md:text-[32px] lg:text-[48px] xl:text-[56px] font-bold p-6"
+    >
+    Escape Room Química
+</h1>
         <div class="grid gap-8 lg:grid-cols-2 place-items-center p-4">
             <UserLogin></UserLogin
             ><!--Componente para logearse-->
@@ -118,25 +118,32 @@
 </template>
 
 <script>
-import ModalHelp from "../components/modals/ModalHelp.vue";
 import { useHelpStore } from "../store/help";
 import Footer from "../components/Footer.vue";
 import UserLogin from "../components/UserLogin.vue";
 import { useIdioma } from "../store/languages";
 import { mapWritableState, mapActions } from "pinia";
 export default {
+    data() {
+        return {
+            visibilidad:true
+        }
+    },
     components: {
         Footer,
         UserLogin,
         ModalHelp,
     },
     methods: {
+        info(){
+            this.visibilidad=!this.visibilidad;
+        },
         ...mapActions(useIdioma, ["cambioIdioma"]),
-        ...mapActions(useHelpStore, ["eligeAyuda", "visibility"]),
+
     },
     computed: {
         ...mapWritableState(useIdioma, ["idioma"]),
-        ...mapWritableState(useHelpStore, ["visible"]),
+       
     },
 };
 </script>

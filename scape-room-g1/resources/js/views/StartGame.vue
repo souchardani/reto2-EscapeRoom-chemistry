@@ -32,22 +32,17 @@
         "
     >
         <!--El modal de ayuda-->
-        <div class="flex justify-end mx-20">
-            <div class="fixed z-50 mt-4">
-                <ModalHelp
-                    v-if="helpStore.visible"
-                    class="animate-pulse duration-3000"
-                ></ModalHelp>
-                <button
-                    v-if="!helpStore.visible"
-                    @click="helpStore.eligeAyuda(3)"
-                    class="rounded-[50%] border p-4 bg-orange-300 opacity-80 font-semibold"
-                >
-                    ?
-                </button>
-            </div>
-        </div>
-        <div class="flex justify-end">
+        <div class="flex justify-end mx-20 items-center py-5 gap-5">
+                <div>
+                    <i class="ph ph-info text-2xl text-white" v-show="!visibilidad" @click="info()"></i>
+                    <div id="tarjeta-info" v-show="visibilidad"
+                        class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative mr-2"
+                            >
+                        <i class="ph ph-info text-2xl"></i>
+                        <span class="text-left">Para conseguir progresar,debes seguir las incicaciones de los juegos. Completalos en orden. Hemos puesto las pistas muy claras para que consigas salir del enrollo en el que te has metido.<br><h3 class="text-center font-bold text-red-700 text-lg">IMPORTANTE!!!!</h3><span class="font-bold">Cada Juego te dará un número que utilizarás en la prueba final que se desbloqueará cuando superes los 4 juegos.</span></span>
+                        <i class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer" @click="info()"></i>
+                    </div>
+                </div>
             <BtnSalir></BtnSalir>
         </div>
 
@@ -1030,7 +1025,6 @@
 </template>
 
 <script setup>
-import ModalHelp from "../components/modals/ModalHelp.vue";
 import { useHelpStore } from "../store/help";
 import Footer from "../components/Footer.vue";
 import BtnSalir from "../components/BtnSalir.vue";
@@ -1055,6 +1049,7 @@ const helpStore = useHelpStore();
 const titulo = ref();
 const descripcion = ref();
 const background = ref();
+const visibilidad= ref();
 
 const obtenerRojo = (juegoActual, juegoPrevio) => {
     if (juegoPrevio) {
@@ -1094,6 +1089,9 @@ const completarJuegos = () => {
     store.juego3 = true;
     store.juego4 = true;
 };
+const info = () =>{
+    visibilidad.value=!visibilidad.value;
+}
 
 const handleModal = (terminado, juegoPrevio = null) => {
     if (juegoPrevio == null) {
