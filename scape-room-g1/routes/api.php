@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JuegoController;
 use App\Http\Controllers\RankingController;
 use App\Http\Controllers\PlayerController;
-use App\Http\Controllers\RegistroController;
+
 
 /*
 |--------------------------------------------------------------------------

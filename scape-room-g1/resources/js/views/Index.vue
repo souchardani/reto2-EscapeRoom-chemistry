@@ -31,7 +31,40 @@
                 );
         "
     >
-        <div class="flex justify-end"></div>
+        <div class="flex justify-end gap-4">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-world-plus"
+                width="44"
+                height="44"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="#2c3e50"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M20.985 12.518a9 9 0 1 0 -8.45 8.466" />
+                <path d="M3.6 9h16.8" />
+                <path d="M3.6 15h11.4" />
+                <path d="M11.5 3a17 17 0 0 0 0 18" />
+                <path d="M12.5 3a16.998 16.998 0 0 1 2.283 12.157" />
+                <path d="M16 19h6" />
+                <path d="M19 16v6" />
+            </svg>
+            <select
+                name=""
+                id=""
+                class="rounded-xl opacity-60"
+                v-model="seleccionIdioma"
+                @change="cambioIdioma(seleccionIdioma)"
+            >
+                <option v-for="lang in idioma" :value="lang.name">
+                    {{ lang.texto }}
+                </option>
+            </select>
+        </div>
         <h1
             class="text-center font-medium px-5 mb-10 text-5xl md:text-4xl mb-5 drop-shadow-2xl"
         >
@@ -55,29 +88,118 @@
                                 class="rounded-lg mb-7 shadow-xl"
                             />
                         </div>
-                        <div>
-                            <h2
-                                class="text-3xl font-bold tracking-tight sm:text-4xl"
-                            >
-                                ¿Que Tenia el Vial?
-                            </h2>
+                        <div
+                            v-show="
+                                idioma.find((idioma) => idioma.estado)?.name ===
+                                'es'
+                            "
+                        >
+                            <div>
+                                <h2
+                                    class="text-3xl font-bold tracking-tight sm:text-4xl"
+                                >
+                                    ¿Que Tenía el Vial?
+                                </h2>
+                            </div>
+                        </div>
+                        <div
+                            v-show="
+                                idioma.find((idioma) => idioma.estado)?.name ===
+                                'en'
+                            "
+                        >
+                            <div>
+                                <h2
+                                    class="text-3xl font-bold tracking-tight sm:text-4xl"
+                                >
+                                    What did the Vial have?
+                                </h2>
+                            </div>
+                        </div>
+                        <div
+                            v-show="
+                                idioma.find((idioma) => idioma.estado)?.name ===
+                                'eu'
+                            "
+                        >
+                            <div>
+                                <h2
+                                    class="text-3xl font-bold tracking-tight sm:text-4xl"
+                                >
+                                    Zer zegoen ontzian?
+                                </h2>
+                            </div>
                         </div>
                         <div class="divide-y divide-gray-200">
                             <div
-                                class="pb-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
+                                v-show="
+                                    idioma.find((idioma) => idioma.estado)
+                                        ?.name === 'es'
+                                "
                             >
-                                <p class="mt-6 text-md leading-8">
-                                    En un laboratorio de máxima seguridad
-                                    biológica, seguridad de nivel 4, ha ocurrido
-                                    un terrible accidente. Por suerte, la
-                                    persona que lo ha roto se ha apresurado a
-                                    presionar la alarma y se han cerrados las
-                                    puertas blindadas para evitar la expansión
-                                    del agente biológico. Tenemos 30 minutos
-                                    para que, por medio de diferentes pruebas,
-                                    determinar el antídoto para ingerirlo y
-                                    acabar con el microorganismo mortal.
-                                </p>
+                                <div
+                                    class="pb-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
+                                >
+                                    <p class="mt-6 text-md leading-8">
+                                        En un laboratorio de máxima seguridad
+                                        biológica, seguridad de nivel 4, ha
+                                        ocurrido un terrible accidente. Por
+                                        suerte, la persona que lo ha roto se ha
+                                        apresurado a presionar la alarma y se
+                                        han cerrados las puertas blindadas para
+                                        evitar la expansión del agente
+                                        biológico. Tenemos 30 minutos para que,
+                                        por medio de diferentes pruebas,
+                                        determinar el antídoto para ingerirlo y
+                                        acabar con el microorganismo mortal.
+                                    </p>
+                                </div>
+                            </div>
+                            <div
+                                v-show="
+                                    idioma.find((idioma) => idioma.estado)
+                                        ?.name === 'en'
+                                "
+                            >
+                                <div
+                                    class="pb-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
+                                >
+                                    <p class="mt-6 text-md leading-8">
+                                        In a maximum security laboratory
+                                        biological, safety level 4, has occurred
+                                        a terrible accident. Luckily, the person
+                                        who has broken it has rushed to press
+                                        the alarm and the doors have been closed
+                                        armored doors to prevent expansion of
+                                        the biological agent. We have 30 minutes
+                                        so that, through different tests,
+                                        determine the antidote to ingest it and
+                                        kill the deadly microorganism.
+                                    </p>
+                                </div>
+                            </div>
+                            <div
+                                v-show="
+                                    idioma.find((idioma) => idioma.estado)
+                                        ?.name === 'eu'
+                                "
+                            >
+                                <div
+                                    class="pb-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7"
+                                >
+                                    <p class="mt-6 text-md leading-8">
+                                        Gehieneko segurtasun biologikoko
+                                        laborategi batean, 4. maila segurtasuna,
+                                        gauza ikaragarria gertatu da istripua.
+                                        Zorionez, hautsi zuen pertsona presa
+                                        egin du alarma sakatu eta izan ate
+                                        blindatuak itxita saihesteko agente
+                                        biologikoaren hedapena. 30 minutu ditugu
+                                        beraz, proba ezberdinen bidez, irensteko
+                                        antidotoa zehaztu eta amaitzeko
+                                        mikroorganismo hilgarria.
+                                    </p>
+                                </div>
                             </div>
                             <div
                                 class="pt-6 text-base leading-6 font-bold sm:text-lg sm:leading-7"
@@ -89,7 +211,30 @@
             <!-- glass card -->
             <div class="flex items-center justify-center gap-x-6 md:py-20">
                 <router-link to="/StartGame">
-                    <GlassBtn> Iniciar Partida </GlassBtn>
+                    <div
+                        v-show="
+                            idioma.find((idioma) => idioma.estado)?.name ===
+                            'es'
+                        "
+                    >
+                        <GlassBtn> Iniciar Partida </GlassBtn>
+                    </div>
+                    <div
+                        v-show="
+                            idioma.find((idioma) => idioma.estado)?.name ===
+                            'en'
+                        "
+                    >
+                        <GlassBtn> Start Game </GlassBtn>
+                    </div>
+                    <div
+                        v-show="
+                            idioma.find((idioma) => idioma.estado)?.name ===
+                            'eu'
+                        "
+                    >
+                        <GlassBtn> Jokoa Hasi </GlassBtn>
+                    </div>
                 </router-link>
             </div>
         </div>
@@ -100,34 +245,172 @@
                     <div
                         class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left"
                     >
-                        <h2
-                            class="text-4xl text-gray-800 font-bold tracking-tight"
+                        <div>
+                            <div
+                                v-show="
+                                    idioma.find((idioma) => idioma.estado)
+                                        ?.name === 'es'
+                                "
+                            >
+                                <h2
+                                    class="text-4xl text-gray-800 font-bold tracking-tight"
+                                >
+                                    ¿Que Tenía el Vial?
+                                </h2>
+                            </div>
+                            <div
+                                v-show="
+                                    idioma.find((idioma) => idioma.estado)
+                                        ?.name === 'en'
+                                "
+                            >
+                                <h2
+                                    class="text-4xl text-gray-800 font-bold tracking-tight"
+                                >
+                                    What did the Vial have?
+                                </h2>
+                            </div>
+                            <div
+                                v-show="
+                                    idioma.find((idioma) => idioma.estado)
+                                        ?.name === 'eu'
+                                "
+                            >
+                                <h2
+                                    class="text-4xl text-gray-800 font-bold tracking-tight"
+                                >
+                                    Zer zegoen ontzian?
+                                </h2>
+                            </div>
+                        </div>
+
+                        <div
+                            v-show="
+                                idioma.find((idioma) => idioma.estado)?.name ===
+                                'es'
+                            "
                         >
-                            ¿Que Tenía el Vial?
-                        </h2>
-                        <p class="mt-6 text-lg leading-8 text-gray-100">
-                            En un laboratorio de máxima seguridad biológica,
-                            seguridad de nivel 4, ha ocurrido un terrible
-                            accidente. Por suerte, la persona que lo ha roto se
-                            ha apresurado a presionar la alarma y se han
-                            cerrados las puertas blindadas para evitar la
-                            expansión del agente biológico. Tenemos 30 minutos
-                            para que, por medio de diferentes pruebas,
-                            determinar el antídoto para ingerirlo y acabar con
-                            el microorganismo mortal.
-                        </p>
+                            <p class="mt-6 text-lg leading-8 text-gray-100">
+                                En un laboratorio de máxima seguridad biológica,
+                                seguridad de nivel 4, ha ocurrido un terrible
+                                accidente. Por suerte, la persona que lo ha roto
+                                se ha apresurado a presionar la alarma y se han
+                                cerrados las puertas blindadas para evitar la
+                                expansión del agente biológico. Tenemos 30
+                                minutos para que, por medio de diferentes
+                                pruebas, determinar el antídoto para ingerirlo y
+                                acabar con el microorganismo mortal.
+                            </p>
+                        </div>
+                        <div
+                            v-show="
+                                idioma.find((idioma) => idioma.estado)?.name ===
+                                'en'
+                            "
+                        >
+                            <p class="mt-6 text-lg leading-8 text-gray-100">
+                                In a maximum security laboratory biological,
+                                safety level 4, has occurred a terrible
+                                accident. Luckily, the person who has broken it
+                                has rushed to press the alarm and the doors have
+                                been closed armored doors to prevent expansion
+                                of the biological agent. We have 30 minutes so
+                                that, through different tests, determine the
+                                antidote to ingest it and kill the deadly
+                                microorganism.
+                            </p>
+                        </div>
+                        <div
+                            v-show="
+                                idioma.find((idioma) => idioma.estado)?.name ===
+                                'eu'
+                            "
+                        >
+                            <p class="mt-6 text-lg leading-8 text-gray-100">
+                                Gehieneko segurtasun biologikoko laborategi
+                                batean, 4. maila segurtasuna, gauza ikaragarria
+                                gertatu da istripua. Zorionez, hautsi zuen
+                                pertsona presa egin du alarma sakatu eta izan
+                                ate blindatuak itxita saihesteko agente
+                                biologikoaren hedapena. 30 minutu ditugu beraz,
+                                proba ezberdinen bidez, irensteko antidotoa
+                                zehaztu eta amaitzeko mikroorganismo hilgarria.
+                            </p>
+                        </div>
                         <div
                             class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start"
                         >
                             <router-link to="/userlogin">
-                                <GlassBtn> Iniciar Partida </GlassBtn>
+                                <div
+                                    v-show="
+                                        idioma.find((idioma) => idioma.estado)
+                                            ?.name === 'es'
+                                    "
+                                >
+                                    <GlassBtn> Iniciar Partida </GlassBtn>
+                                </div>
+                                <div
+                                    v-show="
+                                        idioma.find((idioma) => idioma.estado)
+                                            ?.name === 'en'
+                                    "
+                                >
+                                    <GlassBtn> Start </GlassBtn>
+                                </div>
+                                <div
+                                    v-show="
+                                        idioma.find((idioma) => idioma.estado)
+                                            ?.name === 'eu'
+                                    "
+                                >
+                                    <GlassBtn> Hasi jokoa </GlassBtn>
+                                </div>
                             </router-link>
-                            <router-link
-                                to="/Ranking"
-                                class="text-sm font-semibold leading-6 text-white"
-                                >Acceder al ranking
-                                <span aria-hidden="true">→</span></router-link
+                            <div
+                                v-show="
+                                    idioma.find((idioma) => idioma.estado)
+                                        ?.name === 'es'
+                                "
                             >
+                                <router-link
+                                    to="/Ranking"
+                                    class="text-sm font-semibold leading-6 text-white"
+                                    >Acceder al ranking
+                                    <span aria-hidden="true"
+                                        >→</span
+                                    ></router-link
+                                >
+                            </div>
+                            <div
+                                v-show="
+                                    idioma.find((idioma) => idioma.estado)
+                                        ?.name === 'en'
+                                "
+                            >
+                                <router-link
+                                    to="/Ranking"
+                                    class="text-sm font-semibold leading-6 text-white"
+                                    >Go to Ranking
+                                    <span aria-hidden="true"
+                                        >→</span
+                                    ></router-link
+                                >
+                            </div>
+                            <div
+                                v-show="
+                                    idioma.find((idioma) => idioma.estado)
+                                        ?.name === 'eu'
+                                "
+                            >
+                                <router-link
+                                    to="/Ranking"
+                                    class="text-sm font-semibold leading-6 text-white"
+                                    >Jokalarien sailkapena
+                                    <span aria-hidden="true"
+                                        >→</span
+                                    ></router-link
+                                >
+                            </div>
                         </div>
                     </div>
                     <div class="relative mt-16 h-80 lg:mt-8">
@@ -148,19 +431,35 @@
             class="w-100 py-3 mt-8 max-sm:max-w-xl max-sm:mx-auto max-sm:m-6 lg:mt-24"
         >
             <!-- aqui va el footer -->
-
             <Footer></Footer>
         </div>
     </div>
 </template>
 
 <script>
+
 import Footer from "../components/Footer.vue";
 import GlassBtn from "../components/GlassBtn.vue";
+import { useIdioma } from "../store/languages";
+import { mapWritableState, mapActions } from "pinia";
+import ModalHelp from "../components/modals/ModalHelp.vue";
 export default {
+    data() {
+        return {
+        };
+    },
     components: {
         Footer,
         GlassBtn,
+        ModalHelp,
+    },
+    computed: {
+        ...mapWritableState(useIdioma, ["seleccionIdioma", "idioma"]),
+
+    },
+    methods: {
+
+        ...mapActions(useIdioma, ["cambioIdioma"]),
     },
 };
 </script>

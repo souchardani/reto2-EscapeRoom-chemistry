@@ -23,8 +23,8 @@
             </div>
         </div>
     <div class="container-fluid flex mx-4 p-4 justify-center items-center">
-        <h1 class="text-4xl font-medium md:text-5xl">{{ this.cientifico }}</h1>
-    </div>
+        <h1 class="text-4xl font-medium md:text-5xl">Descubrimiento importante de este cientifico : {{ this.cientifico }}</h1>
+         </div>
     <div v-show="candadoCerrado">
         <div class="container-fluid flex justify-center items-center mx-4 p-4">
             <input
@@ -44,7 +44,6 @@
                         'bg-red-500': words[0].estado == 'rojo',
                         'bg-green-500': words[0].estado == 'verde',
                         'pointer-events-none': words[0].estado == 'verde',
-                        'opacity-70': words[0].estado == 'verde',
                     },
                     { 'bg-white': words[0].estado == undefined },
                     'shadow-lg',
@@ -63,7 +62,7 @@
                     'font-medium',
                 ]"
                 @keyup="
-                    comprobarClave(0), $event.target.nextElementSibling.focus()
+                    comprobarClave(0)//, $event.target.nextElementSibling.focus()
                 "
             />
             <input
@@ -101,7 +100,7 @@
                     'font-medium',
                 ]"
                 @keyup="
-                    comprobarClave(1), $event.target.nextElementSibling.focus()
+                    comprobarClave(1)//, $event.target.nextElementSibling.focus()
                 "
             />
             <input
@@ -139,7 +138,7 @@
                     'font-medium',
                 ]"
                 @keyup="
-                    comprobarClave(2), $event.target.nextElementSibling.focus()
+                    comprobarClave(2)//, $event.target.nextElementSibling.focus()
                 "
             />
             <input
@@ -177,7 +176,7 @@
                     'font-medium',
                 ]"
                 @keyup="
-                    comprobarClave(3), $event.target.nextElementSibling.focus()
+                    comprobarClave(3)//, $event.target.nextElementSibling.focus()
                 "
             />
             <input
@@ -845,6 +844,7 @@
 </template>
 <script>
 import { useFinalyWord } from "../store/finalyWord";
+
 import { useProgressBarStore } from "../store/progressBar";
 import { mapWritableState, mapActions } from "pinia";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
@@ -870,7 +870,6 @@ export default {
             estado: true,
             contador: 0,
             mostrar: false,
-            aciertos: 0,
             descontarTiempo: 0,
             nuevotiempo: 0,
             audioAcertado:new Audio('/sounds/1200.mp3'),
@@ -902,19 +901,20 @@ export default {
             this.fail.muted=false;
         },
 
-        comprobarClave(indice) {
+         comprobarClave(indice) {
+
             if (this.words[indice].input == "") {
                 this.words[indice].estado = "";
             } else {
                 if (
-                    this.words[indice].input.toLocaleUpperCase() ===
+                    this.words[indice].input.toUpperCase() ===
                     this.pista[indice]
                 ) {
-                    //******ES UN ACIERTO */
+                    //******ES UN ACIERTO
                     this.words[indice].estado = "verde";
                     this.audioAcertado.play();
-                    this.aciertos++;
-                    this.compruebaAciertos(this.aciertos);
+
+                    this.compruebaAciertos();
                 } else if (this.words[indice].input != this.pista[indice]) {
                     this.words[indice].estado = "rojo";
                     this.audioIncorrecto.play();
@@ -923,20 +923,23 @@ export default {
                     this.compruebafallo(this.contador, this.words);
                 }
             }
-        },
+        } ,
+
         async addPlayerToRanking() {
-            try {
-                await axios.post("http://127.0.0.1:8000/api/addToRanking", {
+            if(this.usuario.nick!="Anónimo"){
+                try {
+                    await axios.post("http://127.0.0.1:8000/api/addToRanking", {
 
-               // await axios.post("http://44.196.190.239/api/addToRanking", {
-                    nick: this.usuario.nick,
-                    dificultad: this.usuario.dificultad,
-                    tiempo: this.nuevotiempo,
-                    id_player:this.usuario.id
-                });
+                   // await axios.post("http://44.196.190.239/api/addToRanking", {
+                        nick: this.usuario.nick,
+                        dificultad: this.usuario.dificultad,
+                        tiempo: this.nuevotiempo,
+                        id_player:this.usuario.id
+                    });
 
-            } catch (error) {
-                console.log(error);
+                } catch (error) {
+                    console.log(error);
+                }
             }
         },
         compruebafallo(contador, array) {
@@ -968,7 +971,13 @@ export default {
         closeModal() {
             this.mostrar = false;
         },
-        async compruebaAciertos(aciertos) {
+        async compruebaAciertos() {
+            let aciertos=0;
+            this.words.forEach((oj)=>{
+                if(oj.estado=="verde"){
+                    aciertos++;
+                }
+            })
             if (aciertos == 5) {
                 this.candadoAbierto=true;
                 this.candadoCerrado=false;
@@ -1016,6 +1025,7 @@ export default {
         ...mapWritableState(useTemporizadorStore, ["totalTime"]),
         ...mapWritableState(useFinalyWord, ["cientifico", "clave"]),
         ...mapWritableState(useLoginStore, ["usuario"]),
+
     },
     components: {
         unsuccess,

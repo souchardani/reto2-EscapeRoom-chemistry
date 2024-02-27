@@ -2,51 +2,130 @@
     <div
         class="bg-white opacity-60 rounded-xl p-8 w-[350px] flex flex-col items-center"
     >
-        <h1 class="text-3xl font-bold">Ya estas registrado?</h1>
-        <div class="flex flex-col w-96 p-5">
-            <div class="flex flex-col my-5">
-                <label for="nombre" class="font-semibold text-xl my-2 mx-4"
-                    >Nombre:</label
-                >
-                <input
-                    v-model="name"
-                    type="text"
-                    placeholder="Escribe aqui tu nombre o nick"
-                    class="block px-4 py-2 mt-2 mx-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                />
+        <div v-show="idioma.find((idioma) => idioma.estado)?.name === 'es'">
+            <h1 class="text-3xl font-bold">Ya estas registrado?</h1>
+        </div>
+        <div v-show="idioma.find((idioma) => idioma.estado)?.name === 'en'">
+            <h1 class="text-3xl font-bold">Already registered?</h1>
+        </div>
+        <div v-show="idioma.find((idioma) => idioma.estado)?.name === 'en'">
+            <h1 class="text-3xl font-bold">erregistratuta zaude?</h1>
+        </div>
+        <div v-show="idioma.find((idioma) => idioma.estado)?.name === 'es'">
+            <div class="flex flex-col w-96 p-5">
+                <div class="flex flex-col my-5">
+                    <label for="nombre" class="font-semibold text-xl my-2 mx-4"
+                        >Nombre :</label
+                    >
+                    <input
+                        v-model="name"
+                        type="text"
+                        placeholder="Escribe aqui tu nombre o nick"
+                        class="block px-4 py-2 mt-2 mx-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    />
+                </div>
+                <div class="flex flex-col my-5">
+                    <label
+                        for="password"
+                        class="font-semibold text-xl my-2 mx-4"
+                        >PassWord :</label
+                    >
+                    <input
+                        v-model="password"
+                        @keyup.enter="comprobar(name, password)"
+                        type="password"
+                        placeholder="Escribe aqui tu password"
+                        class="block px-4 py-2 mt-2 mx-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    />
+                </div>
             </div>
-            <div class="flex flex-col my-5">
-                <label for="password" class="font-semibold text-xl my-2 mx-4"
-                    >Contraseña:</label
+            <div class="flex flex-col-2">
+                <button
+                    class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
+                    @click="comprobar(name, password)"
                 >
-                <input
-                    v-model="password"
-                    @keyup.enter="comprobar(name, password)"
-                    type="password"
-                    placeholder="Escribe aqui tu password"
-                    class="block px-4 py-2 mt-2 mx-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
-                />
+                    Iniciar Sesion
+                </button>
+                <button
+                    class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold ml-5"
+                >
+                    <router-link to="/registro"> registrarse </router-link>
+                </button>
             </div>
         </div>
-        <div class="flex flex-col-2">
-            <button
-                class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
-                @click="comprobar(name, password)"
-            >
-                Iniciar Sesion
-            </button>
-            <button
-                class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold ml-5"
-            >
-                <router-link to="/registro"> registrarse </router-link>
-            </button>
+        <div v-show="idioma.find((idioma) => idioma.estado)?.name === 'en'">
+            <div class="flex flex-col w-96 p-5">
+                <div class="flex flex-col my-5">
+                    <label for="nombre" class="font-semibold text-xl my-2 mx-4"
+                        >First Name :</label
+                    >
+                    <input
+                        v-model="name"
+                        type="text"
+                        placeholder="Write your name or your nickname"
+                        class="block px-4 py-2 mt-2 mx-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    />
+                </div>
+                <div class="flex flex-col my-5">
+                    <label
+                        for="password"
+                        class="font-semibold text-xl my-2 mx-4"
+                        >PassWord :</label
+                    >
+                    <input
+                        v-model="password"
+                        @keyup.enter="comprobar(name, password)"
+                        type="password"
+                        placeholder="Insert your password"
+                        class="block px-4 py-2 mt-2 mx-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    />
+                </div>
+            </div>
         </div>
+        <div v-show="idioma.find((idioma) => idioma.estado)?.name === 'eu'">
+            <div class="flex flex-col w-96 p-5">
+                <div class="flex flex-col my-5">
+                    <label for="nombre" class="font-semibold text-xl my-2 mx-4"
+                        >Izena :</label
+                    >
+                    <input
+                        v-model="name"
+                        type="text"
+                        placeholder="Idatzi zeru izena edo nick"
+                        class="block px-4 py-2 mt-2 mx-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    />
+                </div>
+                <div class="flex flex-col my-5">
+                    <label
+                        for="password"
+                        class="font-semibold text-xl my-2 mx-4"
+                        >PassWord :</label
+                    >
+                    <input
+                        v-model="password"
+                        @keyup.enter="comprobar(name, password)"
+                        type="password"
+                        placeholder="Idatzi zure pasahitza"
+                        class="block px-4 py-2 mt-2 mx-4 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    />
+                </div>
+            </div>
+        </div>
+        <button
+            v-if="!visible"
+            class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
+            @click="comprobar(name, password)"
+        >
+            Login
+        </button>
     </div>
 </template>
 <script>
 import axios from "axios";
+import { useHelpStore } from "../store/help";
 import { useLoginStore } from "../store/LoginStore";
-import { mapWritableState } from "pinia";
+import { useIdioma } from "../store/languages";
+import { mapWritableState, mapActions } from "pinia";
 export default {
     data() {
         return {
@@ -57,6 +136,7 @@ export default {
         };
     },
     methods: {
+        ...mapActions(useIdioma, ["cambioIdioma"]),
         async getplayers() {
             const results = await axios.get(
                 "http://127.0.0.1:8000/api/userlogin"
@@ -98,6 +178,8 @@ export default {
     },
     computed: {
         ...mapWritableState(useLoginStore, ["usuario", "registrado"]),
+        ...mapWritableState(useIdioma, ["idioma"]),
+        ...mapWritableState(useHelpStore, ["visible"]),
     },
 };
 </script>

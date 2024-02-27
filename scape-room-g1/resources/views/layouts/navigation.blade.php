@@ -21,11 +21,6 @@
                         {{ __('Iniciar una nueva partida') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="url('/register')" >
-                        {{ __('Añadir nuevo administrador') }}
-                    </x-nav-link>
-                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -48,7 +43,7 @@
                             {{ __('Perfil') }}
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('register')">
-                            {{ __('Crear Admin') }}
+                            {{ __('Crear Usuario') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->

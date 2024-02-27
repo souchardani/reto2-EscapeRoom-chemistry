@@ -19,7 +19,6 @@ import EditUser from "../views/EditUser.vue";
 //store with pinia
 import { useLoginStore } from "../store/LoginStore";
 import pruebas from "../views/pruebas.vue";
-import registro from "../views/Registro.vue";
 
 const routes = [
     {

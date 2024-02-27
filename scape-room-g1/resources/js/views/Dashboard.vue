@@ -47,10 +47,10 @@
                                     <MenuButton
                                         class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                                     >
-                                        <span class="absolute -inset-1.5" />
+                                        <span class="absolute -inset-1.5">
                                         <span class="sr-only"
                                             >Open user menu</span
-                                        >
+                                        ></span>
                                         <img
                                             class="h-8 w-8 rounded-full"
                                             :src="user.imageUrl"
