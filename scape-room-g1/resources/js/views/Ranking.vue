@@ -32,11 +32,13 @@
                 );
         "
     >
-        <div class="container-fluid mt-5 flex content-center justify-center">
+        <div
+            class="container-fluid mt-5 flex content-center justify-center items-center"
+        >
             <h1 class="text-4xl text-center">Ranking de Mejores Tiempos</h1>
             <select
+                v-show="!personal"
                 v-model="opcionSeleccionado"
-
                 @change="filtrar"
                 class="mx-5 p-2 w-[10%] text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 name=""
@@ -53,15 +55,17 @@
                 </option>
             </select>
             <div v-show="registrado.logeado" class="flex justify-around">
-    <label for="todos">
-        Todos
-        <input type="radio" name="filtro" id="" v-model="todos" />
-    </label>
-    <label for="personal">
-        Personal
-        <input type="radio" name="filtro" id="" v-model="personal" />
-    </label>
-</div>
+                <label for="personal">
+                    Personal
+                    <input
+                        type="checkbox"
+                        name=""
+                        id=""
+                        :checked="personal"
+                        @change="this.personal = !this.personal"
+                    />
+                </label>
+            </div>
         </div>
         <div
             v-if="usuario.nick != null"
@@ -130,7 +134,6 @@
     <!--Falta poner el footer aqu-->
 </template>
 <script>
-
 import GlassCard from "../components/GlassCard.vue";
 import GlassBtn from "../components/GlassBtn.vue";
 import Footer from "../components/Footer.vue";
@@ -144,8 +147,7 @@ import axios from "axios";
 export default {
     data() {
         return {
-            todos:true,
-            personal:false,
+            personal: false,
             opcionSeleccionado: null,
             jugadores: [],
             nivel: [],
@@ -169,9 +171,9 @@ export default {
             }
         },
 
-        personal() {
-            this.nivel.filter((elemento) => elemento.id == this.usuario.id);
-        },
+        // personal() {
+        //     this.nivel.filter((elemento) => elemento.id == this.usuario.id);
+        // },
         primerfiltrado() {
             this.opcionSeleccionado = this.usuario.dificultad;
         },
@@ -207,15 +209,16 @@ export default {
         ...mapWritableState(useLoginStore, ["usuario", "registrado"]),
 
         filtrar() {
-            if (this.todos) {
+            if (!this.personal) {
                 // Filtrar todos los jugadores
-                return this.jugadores.filter(jugador => jugador.difficulty == this.opcionSeleccionado);
-            } else if (this.personal) {
-                // Filtrar jugadores personales
-                return this.jugadores.filter(jugador => jugador.id === this.usuario.id);
+                return this.jugadores.filter(
+                    (jugador) => jugador.difficulty == this.opcionSeleccionado
+                );
             } else {
-                // No hay filtro seleccionado
-                return this.jugadores;
+                // Filtrar jugadores personales
+                return this.jugadores.filter(
+                    (jugador) => jugador.id_player === this.usuario.id
+                );
             }
         },
     },
