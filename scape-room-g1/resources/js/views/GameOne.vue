@@ -1,59 +1,61 @@
 <template>
-    <div class="flex justify-center">
-        <div
-            v-show="help"
-            id="tarjeta-info"
-            class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative mr-2"
-        >
-            <i class="ph ph-info text-2xl"></i>
-            <span class="text-left">Selecciona una molecula de la fila de arriba y emparejala con su imagen correspondiente de la fila de abajo.</span>
-            <i class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer" @click="hideTutorial"></i>
-        </div>
-        <div class="flex w-100 h-10">
-            <GlassBtn @click="apagar()">
-                <svg xmlns="http://www.w3.org/2000/svg" height="16" width="18" viewBox="0 0 576 512">
-                    <path d="M301.1 34.8C312.6 40 320 51.4 320 64V448c0 12.6-7.4 24-18.9 29.2s-25 3.1-34.4-5.3L131.8 352H64c-35.3 0-64-28.7-64-64V224c0-35.3 28.7-64 64-64h67.8L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3zM425 167l55 55 55-55c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-55 55 55 55c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-55-55-55 55c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l55-55-55-55c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z" />
-                </svg>
-            </GlassBtn>
-            <GlassBtn class="ml-2" @click="encender()">
-                <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
-                    <path d="M301.1 34.8C312.6 40 320 51.4 320 64V448c0 12.6-7.4 24-18.9 29.2s-25 3.1-34.4-5.3L131.8 352H64c-35.3 0-64-28.7-64-64V224c0-35.3 28.7-64 64-64h67.8L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3zM412.6 181.5C434.1 199.1 448 225.9 448 256s-13.9 56.9-35.4 74.5c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C393.1 284.4 400 271 400 256s-6.9-28.4-17.7-37.3c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5z" />
-                </svg>
-            </GlassBtn>
-        </div>
-    </div>
-    <!-- main cards -->
-    <div
-        class="grid grid-cols-2 md:grid-cols-4 place-content-center justify-items-center"
-    >
-        <FlipCard
-            @volteo="comprobar"
-            v-for="(card, index) in cards"
-            :key="index"
-            :name="card.molecule"
-            :id="card.id"
-            :ref="card.id"
-        >
-            <p class="text-center">{{ card.molecule }}</p>
-        </FlipCard>
-        <FlipCard
-            @volteo="comprobar"
-            v-for="(card, index) in cardsCopia"
-            :key="index"
-            :name="card.molecule"
-            :id="card.id"
-            :ref="card.id"
-        >
-        <img :src="obtenerImagenes(card.molecule)" v-bind:alt="card.molecule" />
-        </FlipCard>
-        <success
-            v-bind:enhorabuena="enhorabuena"
-            @clicked2="closeModal"
-            :pista="this.clave[1]"
-        ></success>
-        <unsuccess v-bind:mostrar="mostrar" @clicked="closeModal"></unsuccess>
 
-    </div>
+        <div class="flex justify-center">
+            <div
+                v-show="help"
+                id="tarjeta-info"
+                class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative mr-2"
+            >
+                <i class="ph ph-info text-2xl"></i>
+                <span class="text-left">Selecciona una molecula de la fila de arriba y emparejala con su imagen correspondiente de la fila de abajo.</span>
+                <i class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer" @click="hideTutorial"></i>
+            </div>
+            <div class="flex w-100 h-10">
+                <GlassBtn @click="apagar()">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="18" viewBox="0 0 576 512">
+                        <path d="M301.1 34.8C312.6 40 320 51.4 320 64V448c0 12.6-7.4 24-18.9 29.2s-25 3.1-34.4-5.3L131.8 352H64c-35.3 0-64-28.7-64-64V224c0-35.3 28.7-64 64-64h67.8L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3zM425 167l55 55 55-55c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-55 55 55 55c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-55-55-55 55c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l55-55-55-55c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z" />
+                    </svg>
+                </GlassBtn>
+                <GlassBtn class="ml-2" @click="encender()">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
+                        <path d="M301.1 34.8C312.6 40 320 51.4 320 64V448c0 12.6-7.4 24-18.9 29.2s-25 3.1-34.4-5.3L131.8 352H64c-35.3 0-64-28.7-64-64V224c0-35.3 28.7-64 64-64h67.8L266.7 40.1c9.4-8.4 22.9-10.4 34.4-5.3zM412.6 181.5C434.1 199.1 448 225.9 448 256s-13.9 56.9-35.4 74.5c-10.3 8.4-25.4 6.8-33.8-3.5s-6.8-25.4 3.5-33.8C393.1 284.4 400 271 400 256s-6.9-28.4-17.7-37.3c-10.3-8.4-11.8-23.5-3.5-33.8s23.5-11.8 33.8-3.5z" />
+                    </svg>
+                </GlassBtn>
+            </div>
+        </div>
+        <!-- main cards -->
+        <div
+            class="grid grid-cols-2 md:grid-cols-4 place-content-center justify-items-center"
+        >
+            <FlipCard
+                @volteo="comprobar"
+                v-for="(card, index) in cards"
+                :key="index"
+                :name="card.molecule"
+                :id="card.id"
+                :ref="card.id"
+            >
+                <p class="text-center">{{ card.molecule }}</p>
+            </FlipCard>
+            <FlipCard
+                @volteo="comprobar"
+                v-for="(card, index) in cardsCopia"
+                :key="index"
+                :name="card.molecule"
+                :id="card.id"
+                :ref="card.id"
+            >
+            <img :src="obtenerImagenes(card.molecule)" v-bind:alt="card.molecule" />
+            </FlipCard>
+            <success
+                v-bind:enhorabuena="enhorabuena"
+                @clicked2="closeModal"
+                :pista="this.clave[1]"
+            ></success>
+            <unsuccess v-bind:mostrar="mostrar" @clicked="closeModal"></unsuccess>
+
+        </div>
+
 </template>
 <script>
 import DescripcionJuego from "../components/DescripcionJuego.vue";
@@ -280,6 +282,7 @@ export default {
         ...mapWritableState(useProgressBarStore, ["contador"]),
         ...mapWritableState(useFinalyWord, ["clave"]),
         ...mapWritableState(useLoginStore, ["usuario"]),
+        
     },
 };
 </script>

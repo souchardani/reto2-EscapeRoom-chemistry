@@ -31,6 +31,16 @@
                 );
         "
     >
+        <div class="fixed z-50">
+            <ModalHelp v-if="visible" class="animate-pulse"></ModalHelp>
+            <button
+                v-if="!visible"
+                @click="eligeAyuda(1)"
+                class="rounded-[50%] border p-4 bg-orange-300 opacity-80 font-semibold"
+            >
+                ?
+            </button>
+        </div>
         <h1
             class="text-center text-[32px] md:text-[32px] lg:text-[48px] xl:text-[56px] font-bold p-6"
         >
@@ -39,38 +49,94 @@
         <div class="grid gap-8 lg:grid-cols-2 place-items-center p-4">
             <UserLogin></UserLogin
             ><!--Componente para logearse-->
-            <div
-                class="bg-white opacity-60 rounded-xl p-8 w-[350px] flex flex-col items-center"
-            >
-                <h1 class="text-3xl font-bold text-center">
-                    Solo quieres Jugar una partida?
-                </h1>
-                <h6 class="p-4 text-center font-semibold text-xl">
-                    Puedes jugar como invitado si asi lo deseas, pero tu
-                    progreso no se guardará. Ya puedes empezar, suerte!
-                </h6>
-
-                <button
-                    class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
-                    @click="this.$router.push('/login')"
+            <div v-show="idioma.find((idioma) => idioma.estado)?.name === 'es'">
+                <div
+                    class="bg-white opacity-60 rounded-xl p-8 w-[350px] flex flex-col items-center"
                 >
-                    Invitado
-                </button>
+                    <h1 class="text-3xl font-bold text-center">
+                        Solo quieres Jugar una partida?
+                    </h1>
+                    <h6 class="p-4 text-center font-semibold text-xl">
+                        Puedes jugar como invitado si asi lo deseas, pero tu
+                        progreso no se guardará. Ya puedes empezar, suerte!
+                    </h6>
+
+                    <button v-if="!visible"
+                        class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
+                        @click="this.$router.push('/login')"
+                    >
+                        Invitado
+                    </button>
+                </div>
+            </div>
+            <div v-show="idioma.find((idioma) => idioma.estado)?.name === 'en'">
+                <div
+                    class="bg-white opacity-60 rounded-xl p-8 w-[350px] flex flex-col items-center"
+                >
+                    <h1 class="text-3xl font-bold text-center">
+                        Do you only want to play one game?
+                    </h1>
+                    <h6 class="p-4 text-center font-semibold text-xl">
+                        You can play as a guest if you wish, but your progress
+                        will not be saved. progress will not be saved. You can
+                        start now, good luck!
+                    </h6>
+
+                    <button
+                        class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
+                        @click="this.$router.push('/login')"
+                    >
+                        Guest
+                    </button>
+                </div>
+            </div>
+            <div v-show="idioma.find((idioma) => idioma.estado)?.name === 'eu'">
+                <div
+                    class="bg-white opacity-60 rounded-xl p-8 w-[350px] flex flex-col items-center"
+                >
+                    <h1 class="text-3xl font-bold text-center">
+                        Joko bat jokatu nahi duzu
+                    </h1>
+                    <h6 class="p-4 text-center font-semibold text-xl">
+                        Gonbidatu gisa jokatu dezakezu nahi baduzu, baina zuk
+                        aurrerapena ez da gordeko. Orain has zaitezke, zorte on!
+                    </h6>
+
+                    <button
+                        class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
+                        @click="this.$router.push('/login')"
+                    >
+                        Sartu
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="my-4 mt-8">
+        <div class="my-4">
             <Footer></Footer>
         </div>
     </div>
 </template>
 
 <script>
+import ModalHelp from "../components/modals/ModalHelp.vue";
+import { useHelpStore } from "../store/help";
 import Footer from "../components/Footer.vue";
 import UserLogin from "../components/UserLogin.vue";
+import { useIdioma } from "../store/languages";
+import { mapWritableState, mapActions } from "pinia";
 export default {
     components: {
         Footer,
         UserLogin,
+        ModalHelp,
+    },
+    methods: {
+        ...mapActions(useIdioma, ["cambioIdioma"]),
+        ...mapActions(useHelpStore, ["eligeAyuda", "visibility"]),
+    },
+    computed: {
+        ...mapWritableState(useIdioma, ["idioma"]),
+        ...mapWritableState(useHelpStore, ["visible"]),
     },
 };
 </script>

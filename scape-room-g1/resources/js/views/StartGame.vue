@@ -31,6 +31,22 @@
                 );
         "
     >
+        <!--El modal de ayuda-->
+        <div class="flex justify-end mx-20">
+            <div class="fixed z-50 mt-4">
+                <ModalHelp
+                    v-if="helpStore.visible"
+                    class="animate-pulse duration-3000"
+                ></ModalHelp>
+                <button
+                    v-if="!helpStore.visible"
+                    @click="helpStore.eligeAyuda(3)"
+                    class="rounded-[50%] border p-4 bg-orange-300 opacity-80 font-semibold"
+                >
+                    ?
+                </button>
+            </div>
+        </div>
         <div class="flex justify-end">
             <BtnSalir></BtnSalir>
         </div>
@@ -55,7 +71,7 @@
                         style="backdrop-filter: blur(20px)"
                     >
                         <h1
-                            class="text-center font-medium text-2xl md:text-4xl pb-2 drop-shadow-2xl text-red-500"
+                            class="text-center font-semibold text-2xl md:text-4xl pb-2 drop-shadow-2xl text-red-500"
                         >
                             Te quedan {{ storeTemporizador.minutes }}:{{
                                 storeTemporizador.seconds
@@ -63,7 +79,7 @@
                         </h1>
                     </div>
                     <router-link :to="!store.juego1 ? '/juego1' : ''">
-                        <button
+                        <button v-if="!helpStore.visible"
                             @click="handleModal(store.juego1)"
                             style="backdrop-filter: blur(20px)"
                             :class="[
@@ -116,7 +132,7 @@
                         :to="store.juego4 ? '/juego5' : ''"
                         v-show="store.juego4"
                     >
-                        <button
+                        <button v-if="!helpStore.visible"
                             :class="[
                                 'hover:scale-150',
                                 'flex',
@@ -817,14 +833,15 @@
                                             stroke="url(#v)"
                                             stroke-width=".4"
                                         />
-                                    </g></svg
-                            ></span>
+                                    </g>
+                                </svg>
+                            </span>
                         </button>
                     </router-link>
                     <router-link
                         :to="store.juego1 && !store.juego2 ? '/juego2' : ''"
                     >
-                        <button
+                        <button v-if="!helpStore.visible"
                             @click="handleModal(store.juego2, store.juego1)"
                             ref="juego2"
                             style="backdrop-filter: blur(20px)"
@@ -882,7 +899,7 @@
                     <router-link
                         :to="store.juego2 && !store.juego3 ? '/juego3' : ''"
                     >
-                        <button
+                        <button v-if="!helpStore.visible"
                             @click="handleModal(store.juego3, store.juego2)"
                             ref="juego3"
                             style="backdrop-filter: blur(20px)"
@@ -938,7 +955,7 @@
                     <router-link
                         :to="store.juego3 && !store.juego4 ? '/juego4' : ''"
                     >
-                        <button
+                        <button v-if="!helpStore.visible"
                             @click="handleModal(store.juego3, store.juego4)"
                             ref="juego4"
                             style="backdrop-filter: blur(20px)"
@@ -1013,6 +1030,8 @@
 </template>
 
 <script setup>
+import ModalHelp from "../components/modals/ModalHelp.vue";
+import { useHelpStore } from "../store/help";
 import Footer from "../components/Footer.vue";
 import BtnSalir from "../components/BtnSalir.vue";
 import { useCheckStore } from "../store/checkState";
@@ -1031,6 +1050,7 @@ const store = useCheckStore();
 const storeLogin = useLoginStore();
 const storeTemporizador = useTemporizadorStore();
 const ProgressBarStore = useProgressBarStore();
+const helpStore = useHelpStore();
 
 const titulo = ref();
 const descripcion = ref();
@@ -1101,6 +1121,7 @@ const handleModal = (terminado, juegoPrevio = null) => {
     }
 };
 </script>
+
 <style scoped>
 .check {
     width: 3rem;

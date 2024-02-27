@@ -22,16 +22,32 @@
                     bgColor,
                 ]"
             >
-                <h2 class="text-lg font-semibold">
+            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><h2 class="text-lg font-semibold">
                     Estas Seguro que quieres salir del juego?
-                </h2>
+                </h2></div>
+            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><h2 class="text-lg font-semibold">
+                Are you sure you want to get out of the game?
+                </h2></div>
+            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><h2 class="text-lg font-semibold">
+                Ziur jokotik atera nahi duzula?
+                </h2></div>
             </div>
             <!-- Modal Body -->
-            <div class="p-4">
+            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><div class="p-4">
                 Esto hará que pierdas la partida, eliminando tu progreso, y
                 tendrás que volver a empezar.
                 <slot></slot>
-            </div>
+            </div></div>
+            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><div class="p-4">
+                This will cause you to lose the game, wiping out your progress, and you will
+                you will have to start over.
+                <slot></slot>
+            </div></div>
+            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><div class="p-4">
+                Honek jokoa galtzea eragingo dizu, zure aurrerapena ezabatuz, eta
+                berriro hasi beharko duzu.
+                <slot></slot>
+            </div></div>
             <!-- Modal Footer -->
             <div class="border-t px-4 py-2 flex justify-end">
                 <button
@@ -73,6 +89,8 @@
 </template>
 
 <script>
+import { useIdioma } from '../../store/languages';
+import { mapWritableState } from 'pinia';
 export default {
     props: {
         showModal: Boolean,
@@ -92,6 +110,9 @@ export default {
         },
     },
     mounted() {},
+    computed:{
+        ...mapWritableState(useIdioma,["idioma"]),
+    }
 };
 </script>
 

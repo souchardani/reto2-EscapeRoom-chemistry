@@ -18,15 +18,9 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(Request $request)
+    public function create(): View
     {
-
-        if(auth()->check()){
-            return view('auth.register');
-        }else {
-            return redirect()->route("login")->with("error", "No puedes registrar un nuevo usuario si no estás logueado como administrador");
-        }
-
+        return view('auth.register');
     }
 
     /**
@@ -50,8 +44,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        //no hacemos login automático con el usuario recién creado
-        // Auth::login($user);
+        Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
     }

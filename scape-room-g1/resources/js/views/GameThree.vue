@@ -6,7 +6,7 @@
             class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative mr-2"
         >
             <i class="ph ph-info text-2xl"></i>
-            <span class="text-left"
+        <span class="text-left"
                 >Adivina la palabra secreta letra a letra.</span
             >
             <i

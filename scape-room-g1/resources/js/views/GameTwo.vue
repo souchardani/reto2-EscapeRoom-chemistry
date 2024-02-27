@@ -13,7 +13,7 @@
                 class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
                 @click="hideTutorial"
             ></i>
-        </div>
+        </div>php
         <div class="flex w-100 h-10">
             <GlassBtn @click="apagar()">
                 <svg
@@ -52,7 +52,7 @@
                 id="filaCompuesto"
                 class="rounded-xl bg-zinc-400 pt-3 p-1 px-3 shadow-lg bg-clip-padding bg-opacity-75"
             >
-                <div class="filaTitulo mb-5">Por Completar 👉👉</div>
+            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><div class="filaTitulo mb-5">Por Completar 👉👉</div></div>
                 <Container
                     class="p-3 rounded-xl sm:grid-cols-4 text-center gap-y-1 gap-x-2 bg-opacity-75"
                     group-name="compuestos"
@@ -239,6 +239,7 @@
     </div> -->
 </template>
 <script>
+
 import GlassBtn from "../components/GlassBtn.vue";
 import { useProgressBarStore } from "../store/progressBar";
 import { useFinalyWord } from "../store/finalyWord";
@@ -545,6 +546,7 @@ export default {
     computed: {
         ...mapWritableState(useFinalyWord, ["clave"]),
         ...mapWritableState(useLoginStore, ["usuario"]), //para usar la variable de usuario del store
+
     },
 };
 </script>

@@ -17,7 +17,6 @@
         "vue": "^3.4.15"
     },
     "dependencies": {
-        "@google-translate-select/vue3": "^0.1.5",
         "@headlessui/vue": "^1.7.17",
         "@heroicons/vue": "^2.1.1",
         "@vitejs/plugin-vue": "^5.0.3",

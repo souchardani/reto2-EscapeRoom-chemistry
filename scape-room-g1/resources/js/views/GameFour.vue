@@ -7,9 +7,9 @@
                 class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative mr-2"
             >
                 <i class="ph ph-info text-2xl"></i>
-                <span class="text-left"
+                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><span class="text-left"
                     >Selecciona la casilla que corresponda.</span
-                >
+                ></div>
                 <i
                     class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
                     @click="hideTutorial"
@@ -416,6 +416,7 @@ export default {
         ...mapWritableState(useProgressBarStore, ["contador"]),
         ...mapWritableState(useFinalyWord, ["clave"]), //store de juego 5
         ...mapWritableState(useLoginStore, ["usuario"]), //store de login
+        
 
         quizEliminar() {
             return this.quizs;
