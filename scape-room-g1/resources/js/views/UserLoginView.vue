@@ -132,7 +132,6 @@ export default {
     components: {
         Footer,
         UserLogin,
-        ModalHelp,
     },
     methods: {
         info(){
@@ -143,7 +142,7 @@ export default {
     },
     computed: {
         ...mapWritableState(useIdioma, ["idioma"]),
-       
+
     },
 };
 </script>

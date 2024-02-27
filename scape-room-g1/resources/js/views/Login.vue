@@ -1050,7 +1050,7 @@ export default {
             },
         };
     },
-    components: { ModalStartGame, ModalHelp },
+    components: { ModalStartGame},
     methods: {
         validar() {
             if (!this.cmbDificultad) {
