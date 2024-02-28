@@ -89,7 +89,9 @@
                     <div class="flex-1">
                         <div class="text-center">
                             <div ref="paso1">
-                                <BtnPerfil></BtnPerfil>
+                                <BtnPerfil
+                                    v-show="registrado.logeado"
+                                ></BtnPerfil>
                             </div>
 
                             <h2 class="text-4xl font-bold text-center">
@@ -601,7 +603,6 @@
                                                     class="mt-6 flex justify-around"
                                                 >
                                                     <button
-                                                        v-if="!visible"
                                                         @click="validar"
                                                         style="
                                                             backdrop-filter: blur(
@@ -613,7 +614,6 @@
                                                         Start game
                                                     </button>
                                                     <button
-                                                        v-if="!visible"
                                                         @click="logout"
                                                         style="
                                                             backdrop-filter: blur(
@@ -941,7 +941,6 @@
                                                     class="mt-6 flex justify-around"
                                                 >
                                                     <button
-                                                        v-if="!visible"
                                                         @click="validar"
                                                         style="
                                                             backdrop-filter: blur(
@@ -953,7 +952,6 @@
                                                         Hasi jokoa
                                                     </button>
                                                     <button
-                                                        v-if="!visible"
                                                         @click="logout"
                                                         style="
                                                             backdrop-filter: blur(
@@ -1208,7 +1206,7 @@ export default {
                         text: "Siguiente",
                     },
                 ],
-                text: "Aqui puedes editar los datos de cuenta",
+                text: "En caso de que estés logueado, aqui puedes editar los datos de tu cuenta",
             });
             this.tour.addStep({
                 attachTo: { element: this.$refs.paso2, on: "top" },

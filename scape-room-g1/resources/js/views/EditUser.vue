@@ -127,7 +127,14 @@
                 <h6 class="p-4 text-center font-semibold text-xl">
                     Aqui encontraras tus mejores tiempos y partidas jugadas.
                 </h6>
-
+                <router-link to="/Ranking">
+                    <button
+                        class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
+                        @click="editarUser"
+                    >
+                        Ver el ranking de todos los jugadores
+                    </button>
+                </router-link>
                 <ul>
                     <li
                         v-for="ranking in rankingPlayer"
@@ -152,6 +159,8 @@
         :texto="messageModal.texto"
         :textoBotonCerrar="messageModal.textoBotonCerrar"
         @close="eliminarCuenta"
+        :showCancelar="true"
+        @cancel="messageModal.showModal = false"
     ></ModalStartGame>
 </template>
 <script>

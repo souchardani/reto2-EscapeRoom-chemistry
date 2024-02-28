@@ -11,7 +11,24 @@ export const useCheckStore = defineStore("checkState", {
         };
     },
     //propiedades computadas
-    getters: {},
+    getters: {
+        getCounter() {
+            let counter = 0;
+            if (this.juego1) {
+                counter++;
+            }
+            if (this.juego2) {
+                counter++;
+            }
+            if (this.juego3) {
+                counter++;
+            }
+            if (this.juego4) {
+                counter++;
+            }
+            return counter;
+        },
+    },
     //metodos o setters
     actions: {
         changeJuego1() {
