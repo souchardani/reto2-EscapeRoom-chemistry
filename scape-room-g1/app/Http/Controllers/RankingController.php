@@ -13,6 +13,12 @@ class RankingController extends Controller
         return $jugadores;
     }
 
+    //obtener ek ranking de un jugador
+    public function getRankingPlayer($id){
+        $jugadores = Ranking::where('id_player', $id)->orderBy('time', 'asc')->get();
+        return $jugadores;
+    }
+
     //creo un registro nuevo en el ranking
     public function addPlayerToRanking(Request $request){
 

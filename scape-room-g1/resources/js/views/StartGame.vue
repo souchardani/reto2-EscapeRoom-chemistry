@@ -68,7 +68,7 @@
             <BtnSalir></BtnSalir>
         </div>
 
-        <h1 class="h1-titulo">Escape Room</h1>
+        <h1 class="h1-titulo" ref="paso1">Escape Room</h1>
         <button @click="completarJuegos()">Completar todos los juegos</button>
         <h2></h2>
         <div class="flex">
@@ -88,6 +88,7 @@
                         style="backdrop-filter: blur(20px)"
                     >
                         <h1
+                            ref="paso2"
                             class="text-center font-semibold text-2xl md:text-4xl pb-2 drop-shadow-2xl text-red-500"
                         >
                             Te quedan {{ storeTemporizador.minutes }}:{{
@@ -1144,6 +1145,60 @@ const handleModal = (terminado, juegoPrevio = null) => {
             showModal.value = !showModal.value;
         }
     }
+};
+</script>
+<script>
+export default {
+    mounted() {
+        this.createTour();
+        this.tour.start();
+    },
+    methods: {
+        createTour() {
+            this.tour = this.$shepherd({
+                useModalOverlay: true,
+            });
+
+            this.tour.addStep({
+                attachTo: { element: this.$refs.paso1, on: "bottom" },
+                buttons: [
+                    {
+                        action: function () {
+                            return this.cancel();
+                        },
+                        secondary: true,
+                        text: "Salir",
+                    },
+                    {
+                        action: function () {
+                            return this.next();
+                        },
+                        text: "Siguiente",
+                    },
+                ],
+                text: "Bienvenido al laboratorio. Este sera el punto de partida para iniciar los retos, donde tendras que ir superando las pruebas para encontrar el antídoto y salvar a la humanidad",
+            });
+            this.tour.addStep({
+                attachTo: { element: this.$refs.paso2, on: "top" },
+                buttons: [
+                    {
+                        action: function () {
+                            return this.cancel();
+                        },
+                        secondary: true,
+                        text: "Salir",
+                    },
+                    {
+                        action: function () {
+                            return this.next();
+                        },
+                        text: "Siguiente",
+                    },
+                ],
+                text: "Aqui tienes el tiempo, tendras que estár atento a el, ya que si se acaba, perderas el juego",
+            });
+        },
+    },
 };
 </script>
 
