@@ -45,7 +45,7 @@ export default {
             //reniciamos el progressbar
             this.resetState();
             console.log(this.getUsuario());
-            this.$router.push("/login");
+            this.$router.push("/userlogin");
         },
     },
     computed: {},

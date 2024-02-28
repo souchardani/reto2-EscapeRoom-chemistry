@@ -31,21 +31,43 @@
                 );
         "
     >
-    <div>
-        <i class="ph ph-info text-2xl text-white" v-show="!visibilidad" @click="info()"></i>
-        <div id="tarjeta-info" v-show="visibilidad"
-            class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative mr-2"
-        >
-            <i class="ph ph-info text-2xl"></i>
-            <span class="text-left">Aqui podrás elegir la opcion de jugar de manera invitado. Disfrutarás de toda la extensión del juego, pero tu progreso no se guardará. Si ya dispones de una cuenta, solo necisitas rellenar el nombre de iusuario y contraseña. Si aún no tienes una y quieres disfrutar de la competicion con tus compañeros por una mejor puntuación, Registrate en solo 30 segundos!</span>
-            <i class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer" @click="info()"></i>
+        <div>
+            <i
+                class="ph ph-info text-2xl text-white"
+                v-show="!visibilidad"
+                @click="info()"
+            ></i>
+            <div
+                id="tarjeta-info"
+                v-show="visibilidad"
+                class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative mr-2"
+            >
+                <i class="ph ph-info text-2xl"></i>
+                <span class="text-left"
+                    >Aqui podrás elegir la opcion de jugar de manera invitado.
+                    Disfrutarás de toda la extensión del juego, pero tu progreso
+                    no se guardará. Si ya dispones de una cuenta, solo necisitas
+                    rellenar el nombre de iusuario y contraseña. Si aún no
+                    tienes una y quieres disfrutar de la competicion con tus
+                    compañeros por una mejor puntuación, Registrate en solo 30
+                    segundos!</span
+                >
+                <i
+                    class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
+                    @click="info()"
+                ></i>
+            </div>
         </div>
-    </div>
-    <h1
-    class="text-center text-[32px] md:text-[32px] lg:text-[48px] xl:text-[56px] font-bold p-6"
-    >
-    Escape Room Química
-</h1>
+        <h1
+            class="text-center text-[32px] md:text-[32px] lg:text-[48px] xl:text-[56px] font-bold p-6"
+        >
+            Escape Room Química
+        </h1>
+        <div v-if="message" class="flex justify-center">
+            <p class="w-1/2 bg-green-300 p-4 rounded-xl text-center">
+                {{ message }}
+            </p>
+        </div>
         <div class="grid gap-8 lg:grid-cols-2 place-items-center p-4">
             <UserLogin></UserLogin
             ><!--Componente para logearse-->
@@ -61,7 +83,8 @@
                         progreso no se guardará. Ya puedes empezar, suerte!
                     </h6>
 
-                    <button v-if="!visible"
+                    <button
+                        v-if="!visible"
                         class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
                         @click="this.$router.push('/login')"
                     >
@@ -121,28 +144,32 @@
 import { useHelpStore } from "../store/help";
 import Footer from "../components/Footer.vue";
 import UserLogin from "../components/UserLogin.vue";
-import { useIdioma } from "../store/languages";
+import { useMessageStore } from "../store/SessionMessageStore";
 import { mapWritableState, mapActions } from "pinia";
+import { useLoginStore } from "../store/LoginStore";
+import { useIdioma } from "../store/languages";
 export default {
     data() {
         return {
-            visibilidad:true
-        }
+            visibilidad: true,
+        };
     },
     components: {
         Footer,
         UserLogin,
     },
+    computed: {
+        ...mapWritableState(useMessageStore, ["message"]),
+        ...mapWritableState(useLoginStore, ["usuario", "registrado"]),
+        ...mapWritableState(useIdioma, ["idioma"]),
+    },
+
     methods: {
-        info(){
-            this.visibilidad=!this.visibilidad;
+        info() {
+            this.visibilidad = !this.visibilidad;
         },
         ...mapActions(useIdioma, ["cambioIdioma"]),
-
-    },
-    computed: {
-        ...mapWritableState(useIdioma, ["idioma"]),
-
+        ...mapActions(useMessageStore, ["setMessage"]),
     },
 };
 </script>

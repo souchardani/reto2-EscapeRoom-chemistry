@@ -21,6 +21,7 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 
+
 /.phpunit.cache
 /node_modules
 /public/build
@@ -28,6 +29,7 @@ Homestead.json
 /public/storage
 /storage/*.key
 /vendor
+.env
 
 .env.backup
 .env.production

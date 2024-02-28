@@ -6,13 +6,15 @@ import Index from "./views/Index.vue";
 import router from "./router";
 import App from "./App.vue";
 import store from "./store";
+import VueShepherdPlugin from "vue-shepherd";
+import "shepherd.js/dist/css/shepherd.css";
 
 const app = createApp(App);
 
 const pinia = createPinia();
 
 app.use(pinia);
-app.use(store).use(router).mount("#app");
+app.use(store).use(router).use(VueShepherdPlugin).mount("#app");
 
 const onConfirmRefresh = function (event) {
     // Obtiene la ruta actual
@@ -24,6 +26,8 @@ const onConfirmRefresh = function (event) {
         "/login",
         "/register",
         "/admin",
+        "/profile",
+        "/editUser",
     ]; // Reemplaza con las rutas que desees
 
     // Verifica si la ruta actual está en la lista
