@@ -22,7 +22,7 @@ const onConfirmRefresh = function (event) {
 
     // Lista de rutas donde se aplicará la lógica de confirmación
     const routesWithConfirmation = [
-        "/dasboard",
+        "/dashboard",
         "/login",
         "/register",
         "/admin",
