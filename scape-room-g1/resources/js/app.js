@@ -32,8 +32,7 @@ const onConfirmRefresh = function (event) {
 
     // Verifica si la ruta actual está en la lista
     if (
-        !routesWithConfirmation.includes(currentPath) &&
-        routesWithConfirmation.some((prefix) => currentPath.startsWith(prefix))
+        !routesWithConfirmation.some((prefix) => currentPath.startsWith(prefix))
     ) {
         event.preventDefault();
         event.returnValue =
