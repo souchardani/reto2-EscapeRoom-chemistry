@@ -13,7 +13,8 @@
                 class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
                 @click="hideTutorial"
             ></i>
-        </div>php
+        </div>
+        php
         <div class="flex w-100 h-10">
             <GlassBtn @click="apagar()">
                 <svg
@@ -52,7 +53,7 @@
                 id="filaCompuesto"
                 class="rounded-xl bg-zinc-400 pt-3 p-1 px-3 shadow-lg bg-clip-padding bg-opacity-75"
             >
-            <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><div class="filaTitulo mb-5">Por Completar 👉👉</div></div>
+                <div class="filaTitulo mb-5">Por Completar 👉👉</div>
                 <Container
                     class="p-3 rounded-xl sm:grid-cols-4 text-center gap-y-1 gap-x-2 bg-opacity-75"
                     group-name="compuestos"
@@ -239,7 +240,6 @@
     </div> -->
 </template>
 <script>
-
 import GlassBtn from "../components/GlassBtn.vue";
 import { useProgressBarStore } from "../store/progressBar";
 import { useFinalyWord } from "../store/finalyWord";
@@ -268,10 +268,10 @@ export default {
     data() {
         return {
             help: true,
-            audioAcertado:new Audio('/sounds/1200.mp3'),
-            audioIncorrecto:new Audio('/sounds/incorrect-cbt-sound.mp3'),
-            aplausos:new Audio('/sounds/claps-44774.mp3'),
-            fail:new Audio('/sounds/fail-144746.mp3'),
+            audioAcertado: new Audio("/sounds/1200.mp3"),
+            audioIncorrecto: new Audio("/sounds/incorrect-cbt-sound.mp3"),
+            aplausos: new Audio("/sounds/claps-44774.mp3"),
+            fail: new Audio("/sounds/fail-144746.mp3"),
             pista: "",
             erroresTotales: 20,
             contador: 0,
@@ -501,18 +501,20 @@ export default {
             this.contador = 0;
         },
         getCardData() {
-            return axios
-                .get("http://127.0.0.1:8000/api/getjuego2")
-                //.get("http://44.196.190.239/api/getjuego2")
-                .then((response) => {
-                    this.compoundDataEach.backlog = response.data;
-                    //mezclamos el array
-                    this.mezclarArray(this.compoundDataEach.backlog);
-                    //añadimos el objeto que maneja el estado de cada card
-                    this.addExitoError();
-                    //obtenemos 10 compuestos aleatorios
-                    this.obtener20();
-                });
+            return (
+                axios
+                    .get("http://127.0.0.1:8000/api/getjuego2")
+                    //.get("http://44.196.190.239/api/getjuego2")
+                    .then((response) => {
+                        this.compoundDataEach.backlog = response.data;
+                        //mezclamos el array
+                        this.mezclarArray(this.compoundDataEach.backlog);
+                        //añadimos el objeto que maneja el estado de cada card
+                        this.addExitoError();
+                        //obtenemos 10 compuestos aleatorios
+                        this.obtener20();
+                    })
+            );
         },
         addExitoError() {
             this.compoundDataEach.backlog.forEach((element) => {
@@ -546,7 +548,6 @@ export default {
     computed: {
         ...mapWritableState(useFinalyWord, ["clave"]),
         ...mapWritableState(useLoginStore, ["usuario"]), //para usar la variable de usuario del store
-
     },
 };
 </script>

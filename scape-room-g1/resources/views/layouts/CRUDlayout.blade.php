@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <!--
   This example requires updating your template:

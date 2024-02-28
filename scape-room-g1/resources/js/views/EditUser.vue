@@ -128,12 +128,16 @@
                     Aqui encontraras tus mejores tiempos y partidas jugadas.
                 </h6>
 
-                <button
-                    class="bg-gray-400 p-4 rounded-xl hover:bg-gray-300 font-bold"
-                    @click="this.$router.push('/login')"
-                >
-                    Invitado
-                </button>
+                <ul>
+                    <li
+                        v-for="ranking in rankingPlayer"
+                        :key="ranking.id"
+                        class="flex justify-between w-96 p-4"
+                    >
+                        <p>{{ ranking.difficulty }}</p>
+                        <p>{{ ranking.time }}</p>
+                    </li>
+                </ul>
             </div>
         </div>
         <!-- y el footer -->
@@ -176,6 +180,7 @@ export default {
                 texto: "Esta accion no se puede deshacer, perderas todo tu progreso y no podras recuperarlo.",
                 textoBotonCerrar: "Eliminar Cuenta",
             },
+            rankingPlayer: {},
         };
     },
     methods: {
@@ -280,7 +285,6 @@ export default {
         },
         ...mapActions(useMessageStore, ["setMessage"]),
         eliminarCuenta() {
-            alert("eliminando cuentas");
             axios.post("http://127.0.0.1:8000/api/deleteUser", {
                 id: this.registrado.id,
             });
@@ -289,6 +293,23 @@ export default {
             this.usuario = {};
             this.$router.push("/userLogin");
             this.setMessage("Usuario eliminado correctamente");
+        },
+        getRankingPlayer() {
+            alert("getRankingPlayer");
+            axios
+                .get(
+                    `http://127.0.0.1:8000/api/getRankingPlayer/${this.registrado.id}`
+                )
+                .then((response) => {
+                    return response.data;
+                })
+                .then((data) => {
+                    this.rankingPlayer = data;
+                    console.log("this.rankingPlayer: ", this.rankingPlayer);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
     },
     computed: {
@@ -301,6 +322,8 @@ export default {
         console.log("this.nombre: ", this.nombre);
         this.getcurrentUser();
         console.log("this.usuarioActual: ", this.usuarioActual);
+        //peticion a axios para obtener los datos del ranking actual
+        this.getRankingPlayer();
     },
 };
 </script>
