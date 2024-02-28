@@ -45,7 +45,7 @@ const onConfirmRefresh = function (event) {
 //         "Estas seguro que deseas recargar la pagina? perderas todo tu progreso");
 // };
 
-// window.addEventListener("beforeunload", onConfirmRefresh, { capture: true });
+window.addEventListener("beforeunload", onConfirmRefresh, { capture: true });
 
 import Alpine from "alpinejs";
 
