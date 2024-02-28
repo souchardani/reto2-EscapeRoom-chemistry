@@ -50,6 +50,9 @@
                         <x-dropdown-link :href="route('register')">
                             {{ __('Crear Admin') }}
                         </x-dropdown-link>
+                        <x-dropdown-link :href="route('admin.admins')">
+                            {{ __('Gestión Admins') }}
+                        </x-dropdown-link>
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
