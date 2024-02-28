@@ -45,6 +45,22 @@
                 >
                     {{ textoBotonCerrar ? textoBotonCerrar : "Cerrar" }}
                 </button>
+                <button
+                    @click="enviarCancelar"
+                    v-show="showCancelar"
+                    :class="[
+                        'px-3',
+                        'py-1',
+                        'text-white',
+                        'rounded-md',
+                        'w-full',
+                        'sm:w-auto',
+                        'bg-gray-500',
+                        'mx-4',
+                    ]"
+                >
+                    Cancelar
+                </button>
             </div>
         </div>
     </div>
@@ -58,12 +74,19 @@ export default {
         titulo: String,
         texto: String,
         textoBotonCerrar: String,
+        showCancelar: {
+            type: Boolean,
+            default: false,
+        },
     },
     name: "ModalStartGame",
 
     methods: {
         enviarCierre() {
             this.$emit("close");
+        },
+        enviarCancelar() {
+            this.$emit("cancel");
         },
     },
     mounted() {},

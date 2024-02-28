@@ -35,13 +35,14 @@
         <div class="flex justify-end mx-20 items-center py-5 gap-5">
             <div>
                 <i
+                    ref="paso5"
                     class="ph ph-info text-2xl text-white"
                     v-show="!visibilidad"
                     @click="info()"
                 ></i>
                 <div
                     id="tarjeta-info"
-                    v-show="visibilidad"
+                    v-if="visibilidad"
                     class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative mr-2"
                 >
                     <i class="ph ph-info text-2xl"></i>
@@ -65,7 +66,9 @@
                     ></i>
                 </div>
             </div>
-            <BtnSalir></BtnSalir>
+            <div ref="paso6">
+                <BtnSalir></BtnSalir>
+            </div>
         </div>
 
         <h1 class="h1-titulo" ref="paso1">Escape Room</h1>
@@ -95,9 +98,15 @@
                                 storeTemporizador.seconds
                             }}
                         </h1>
+                        <h2
+                            class="text-center font-semibold text-2xl md:text-2xl pb-2 drop-shadow-2xl text-slate-800"
+                        >
+                            Juegos Completados {{ getCounter }}/5
+                        </h2>
                     </div>
                     <router-link :to="!store.juego1 ? '/juego1' : ''">
                         <button
+                            ref="paso3"
                             v-if="!helpStore.visible"
                             @click="handleModal(store.juego1)"
                             style="backdrop-filter: blur(20px)"
@@ -869,7 +878,7 @@
                             :class="[
                                 {
                                     // isDisabled: store.activarJuego2,
-                                    'bg-red-400': !store.juego1,
+                                    invisible: !store.juego1,
                                     'bg-green-400':
                                         store.juego1 || store.juego2,
                                 },
@@ -928,7 +937,7 @@
                             :class="[
                                 {
                                     // 'pointer-events-none': store.activarJuego3,
-                                    'bg-red-400': !store.juego2,
+                                    invisible: !store.juego2,
                                     'bg-green-400':
                                         store.juego2 || store.juego3,
                                 },
@@ -984,7 +993,7 @@
                             style="backdrop-filter: blur(20px)"
                             :class="[
                                 {
-                                    'bg-red-400': !store.juego3,
+                                    invisible: !store.juego3,
                                     'bg-green-400':
                                         store.juego3 || store.juego4,
                                 },
@@ -1048,8 +1057,11 @@
             :titulo="titulo"
             :texto="descripcion"
         ></ModalStartGame>
+        <ModalFailGame
+            :showModal="showModalTemp"
+            @cerrar-modal="closeModalTime"
+        />
     </div>
-    <ModalFailGame :showModal="showModalTemp" @cerrar-modal="closeModalTime" />
 </template>
 
 <script setup>
@@ -1148,12 +1160,23 @@ const handleModal = (terminado, juegoPrevio = null) => {
 };
 </script>
 <script>
+import { useCheckStore } from "../store/checkState";
 export default {
     mounted() {
         this.createTour();
         this.tour.start();
     },
+    computed: {
+        ...mapWritableState(useCheckStore, [
+            "juego1",
+            "juego2",
+            "juego3",
+            "juego4",
+            "getCounter",
+        ]),
+    },
     methods: {
+        ...mapActions(useCheckStore, ["counter"]),
         createTour() {
             this.tour = this.$shepherd({
                 useModalOverlay: true,
@@ -1196,6 +1219,57 @@ export default {
                     },
                 ],
                 text: "Aqui tienes el tiempo, tendras que estár atento a el, ya que si se acaba, perderas el juego",
+            });
+            this.tour.addStep({
+                attachTo: { element: this.$refs.paso3, on: "top" },
+                buttons: [
+                    {
+                        action: function () {
+                            return this.cancel();
+                        },
+                        secondary: true,
+                        text: "Salir",
+                    },
+                    {
+                        action: function () {
+                            return this.next();
+                        },
+                        text: "Siguiente",
+                    },
+                ],
+                text: "Los juegos que estén en verde, estran disponibles para acceder a ellos",
+            });
+            this.tour.addStep({
+                attachTo: { element: this.$refs.paso5, on: "bottom" },
+                buttons: [
+                    {
+                        action: function () {
+                            return this.cancel();
+                        },
+                        secondary: true,
+                        text: "Salir",
+                    },
+                    {
+                        action: function () {
+                            return this.next();
+                        },
+                        text: "Siguiente",
+                    },
+                ],
+                text: "Puedes clicar en el botón de ayuda para obtener información sobre el juego",
+            });
+            this.tour.addStep({
+                attachTo: { element: this.$refs.paso6, on: "bottom" },
+                buttons: [
+                    {
+                        action: function () {
+                            return this.cancel();
+                        },
+                        secondary: true,
+                        text: "Finalizar",
+                    },
+                ],
+                text: "En el boton salir, puedes cerrar la sesión y volver al login, pero tu partida no se guardará y perderas todo tu progreso",
             });
         },
     },

@@ -32,6 +32,9 @@
                 );
         "
     >
+        <div v-if="registrado.logeado">
+            <BtnPerfil></BtnPerfil>
+        </div>
         <div
             class="container-fluid mt-5 flex content-center justify-center items-center"
         >
@@ -71,7 +74,7 @@
             v-if="usuario.nick != null"
             class="container-fluid flex flex-col justify-center p-1 m-2"
         >
-            <GlassCard>
+            <GlassCard v-if="usuario.iniciado">
                 <label
                     >Felicidades {{ this.usuario.nick }}, tu tiempo
                     {{ this.getTiempoLaravel() }} y difultad
@@ -143,6 +146,7 @@ import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { useProgressBarStore } from "../store/progressBar";
 import { mapWritableState, mapActions } from "pinia";
 import axios from "axios";
+import BtnPerfil from "../components/BtnPerfil.vue";
 
 export default {
     data() {
@@ -222,6 +226,6 @@ export default {
             }
         },
     },
-    components: { GlassCard, GlassBtn, Footer },
+    components: { GlassCard, GlassBtn, Footer, BtnPerfil },
 };
 </script>
