@@ -145,6 +145,9 @@
                         <p>{{ ranking.time }}</p>
                     </li>
                 </ul>
+                <p class="mt-2" v-if="rankingPlayer.length == 0">
+                    No tienes ninguna partida jugada!
+                </p>
             </div>
         </div>
         <!-- y el footer -->
@@ -189,7 +192,7 @@ export default {
                 texto: "Esta accion no se puede deshacer, perderas todo tu progreso y no podras recuperarlo.",
                 textoBotonCerrar: "Eliminar Cuenta",
             },
-            rankingPlayer: {},
+            rankingPlayer: [],
         };
     },
     methods: {
@@ -304,7 +307,6 @@ export default {
             this.setMessage("Usuario eliminado correctamente");
         },
         getRankingPlayer() {
-            alert("getRankingPlayer");
             axios
                 .get(
                     `http://127.0.0.1:8000/api/getRankingPlayer/${this.registrado.id}`

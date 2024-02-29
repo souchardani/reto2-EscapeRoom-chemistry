@@ -99,6 +99,7 @@
                             }}
                         </h1>
                         <h2
+                            ref="paso7"
                             class="text-center font-semibold text-2xl md:text-2xl pb-2 drop-shadow-2xl text-slate-800"
                         >
                             Juegos Completados {{ getCounter }}/5
@@ -1164,7 +1165,11 @@ import { useCheckStore } from "../store/checkState";
 export default {
     mounted() {
         this.createTour();
-        this.tour.start();
+        if (!localStorage.getItem("shepherd-tour")) {
+            this.tour.start();
+            localStorage.setItem("shepherd-tour", "yes");
+        }
+        this.tour.on("cancel", this.dismissTour);
     },
     computed: {
         ...mapWritableState(useCheckStore, [
@@ -1237,7 +1242,7 @@ export default {
                         text: "Siguiente",
                     },
                 ],
-                text: "Los juegos que estén en verde, estran disponibles para acceder a ellos",
+                text: "Los juegos que estén en verde, estan disponibles para acceder a ellos",
             });
             this.tour.addStep({
                 attachTo: { element: this.$refs.paso5, on: "bottom" },
@@ -1266,11 +1271,35 @@ export default {
                             return this.cancel();
                         },
                         secondary: true,
-                        text: "Finalizar",
+                        text: "Salir",
+                    },
+                    {
+                        action: function () {
+                            return this.next();
+                        },
+                        text: "Siguiente",
                     },
                 ],
                 text: "En el boton salir, puedes cerrar la sesión y volver al login, pero tu partida no se guardará y perderas todo tu progreso",
             });
+            this.tour.addStep({
+                attachTo: { element: this.$refs.paso7, on: "bottom" },
+                buttons: [
+                    {
+                        action: function () {
+                            return this.cancel();
+                        },
+                        secondary: true,
+                        text: "Finalizar",
+                    },
+                ],
+                text: "Recuerda, debes ir apuntando las claves al final de cada juego, para poder descifrar el código final",
+            });
+        },
+        dismissTour() {
+            if (!localStorage.getItem("shepherd-tour")) {
+                localStorage.setItem("shepherd-tour", "yes");
+            }
         },
     },
 };
