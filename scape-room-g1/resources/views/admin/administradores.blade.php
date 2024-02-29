@@ -25,7 +25,14 @@
                 <td class="p-3 my-4">{{ $user->email }}</td>
 
                 <td class="p-3 my-4"><a class="bg-blue-200 rounded-lg p-2 mx-4 shadow-xl hover:bg-blue-300" href="{{route('admin.edit.admin', $user->id)}}">Editar</a></td>
-                <td class="p-3 my-4"><a class="ml-2 bg-red-400 rounded-lg p-2 shadow-xl hover:bg-red-500" href="{{route('admin.destroy.admin', $user->id)}}">Eliminar</a></td>
+                <td class="p-3 my-4">
+                    @if ($user->id !== auth()->user()->id)
+                        <a class="ml-2 bg-red-400 rounded-lg p-2 shadow-xl hover:bg-red-500" href="{{ route('admin.destroy.admin', $user->id) }}">Eliminar</a>
+                    @else
+                        <button class="ml-2 bg-red-400 rounded-lg p-2 shadow-xl cursor-not-allowed opacity-50" disabled>Eliminar</button>
+                    @endif
+                </td>
+                {{-- <td class="p-3 my-4"><a class="ml-2 bg-red-400 rounded-lg p-2 shadow-xl hover:bg-red-500" href="{{route('admin.destroy.admin', $user->id)}}">Eliminar</a></td> --}}
             </tr>
         @endforeach
     </table>

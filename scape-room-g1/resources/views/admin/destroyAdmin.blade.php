@@ -14,7 +14,7 @@
                 @endif
             </div>
             <div class="flex justify-center p-2 my-3 ">
-            <input type="submit" class="shadow-xl border rounded-xl p-2 bg-red-400 hover:bg-red-500" value="Eliminar Jugador">
+            <input type="submit" class="shadow-xl border rounded-xl p-2 bg-red-400 hover:bg-red-500" value="Eliminar Administrador">
             <a href="{{route('admin.admins')}}" class="shadow-xl border rounded-xl p-2 bg-gray-400 hover:bg-gray-500">Cancelar</a>
             </div>
         </form>
