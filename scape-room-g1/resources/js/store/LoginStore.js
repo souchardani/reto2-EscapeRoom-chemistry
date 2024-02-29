@@ -40,6 +40,11 @@ export const useLoginStore = defineStore("LoginStore", {
             this.usuario.terminado = false;
             this.usuario.salirAntesDeTiempo = false;
             this.usuario.id = null;
+            this.registrado.name = null;
+            this.registrado.logeado = false;
+            this.registrado.id = null;
+            localStorage.removeItem("shepherd-tour");
+            localStorage.removeItem("shepherd-tourlogin");
         },
         getUsuario() {
             return this.usuario;
