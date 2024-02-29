@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Game4_pairsSeeder::class);
         $this->call(Game5_needPasswordSeeder::class);
         $this->call(PlayerSeeder::class);
-        //$this->call(RankingSeeder::class);
+        $this->call(RankingSeeder::class);
 
     }
 }

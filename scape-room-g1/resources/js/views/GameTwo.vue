@@ -503,8 +503,8 @@ export default {
         getCardData() {
             return (
                 axios
-                    .get("http://127.0.0.1:8000/api/getjuego2")
-                    //.get("http://44.196.190.239/api/getjuego2")
+                    //.get("http://127.0.0.1:8000/api/getjuego2")
+                    .get("http://44.196.190.239/api/getjuego2")
                     .then((response) => {
                         this.compoundDataEach.backlog = response.data;
                         //mezclamos el array

@@ -158,8 +158,8 @@ export default {
         ...mapActions(useIdioma, ["cambioIdioma"]),
         async getplayers() {
             const results = await axios.get(
-                "http://127.0.0.1:8000/api/userlogin"
-                //"http://44.196.190.239/api/userlogin"
+                //"http://127.0.0.1:8000/api/userlogin"
+                "http://44.196.190.239/api/userlogin"
             );
             this.players = results.data;
         },

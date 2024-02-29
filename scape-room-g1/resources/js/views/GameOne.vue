@@ -250,8 +250,8 @@ export default {
         //peticion asincrona de los datos de la base de datos
         async getAllData() {
             const allData = await axios.get(
-                "http://127.0.0.1:8000/api/getjuego1"
-                //"http://44.196.190.239/api/getjuego1"
+                //"http://127.0.0.1:8000/api/getjuego1"
+                "http://44.196.190.239/api/getjuego1"
             );
             this.FormulaNames = allData.data;
             console.log(this.FormulaNames);
@@ -282,7 +282,7 @@ export default {
         ...mapWritableState(useProgressBarStore, ["contador"]),
         ...mapWritableState(useFinalyWord, ["clave"]),
         ...mapWritableState(useLoginStore, ["usuario"]),
-        
+
     },
 };
 </script>
