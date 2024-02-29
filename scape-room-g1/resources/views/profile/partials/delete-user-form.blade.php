@@ -8,11 +8,16 @@
             {{ __('Esta accion no se puede deshacer y no podrás recupertar tus datos') }}
         </p>
     </header>
-
-    <x-danger-button
-        x-data=""
-        x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-    >{{ __('Borrar Cuenta') }}</x-danger-button>
+    <div class="mt-3">
+        @if(auth()->user()->id == 1)
+            Al ser el administrador Super Usuario, no puedes eliminar tu cuenta
+        @else
+        <x-danger-button class="ms-3"   x-data=""
+        x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')">
+            {{ __('Borrar Cuenta') }}
+        </x-danger-button>
+        @endif
+    </div>
 
     <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
         <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
