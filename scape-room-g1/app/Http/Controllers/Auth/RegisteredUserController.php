@@ -18,9 +18,46 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function create(Request $request)
     {
-        return view('auth.register');
+        if (auth()->check()) {
+            return view('auth.register');
+        } else {
+            return redirect()->route("login")->with("error", "No puedes registrar un nuevo usuario si no estás logueado como administrador");
+        }
+    }
+    public function show()
+    {
+        if (auth()->check()) {
+            $users = User::where('id', '!=', 1)->get();
+            return view('admin.administradores', compact('users'));
+        } else {
+            return redirect()->route("login")->with("error", "No puedes registrar un nuevo usuario si no estás logueado como administrador");
+        }
+    }
+
+    public function editAdmin($id){
+        $admin=User::find($id);
+        return view("admin.editAdmin", compact("admin"));
+    }
+
+    public function destroyAdmin($id){
+        $admin=User::find($id);
+        return view("admin.destroyAdmin", compact("admin"));
+    }
+
+    public function destroyAdminConfirm($id){
+        $admin=User::find($id);
+        $admin->delete();
+        return redirect('/admin/admins/')->with('success', 'El Administrador se eliminó correctamente');
+    }
+
+    public function storeadmin($id, Request $request){
+        $admin=User::find($id);
+        $admin->name=$request->name;
+        $admin->email=$request->email;
+        $admin->save();
+        return redirect('/admin/admins/')->with('success', 'El admininstrador se editó correctamente');
     }
 
     /**
@@ -32,7 +69,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -42,9 +79,12 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+
+
         event(new Registered($user));
 
-        Auth::login($user);
+        //no hacemos login automático con el usuario recién creado
+        // Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
     }

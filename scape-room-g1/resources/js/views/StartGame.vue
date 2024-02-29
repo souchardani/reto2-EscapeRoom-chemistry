@@ -31,11 +31,47 @@
                 );
         "
     >
-        <div class="flex justify-end">
-            <BtnSalir></BtnSalir>
+        <!--El modal de ayuda-->
+        <div class="flex justify-end mx-20 items-center py-5 gap-5">
+            <div>
+                <i
+                    ref="paso5"
+                    class="ph ph-info text-2xl text-white"
+                    v-show="!visibilidad"
+                    @click="info()"
+                ></i>
+                <div
+                    id="tarjeta-info"
+                    v-if="visibilidad"
+                    class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative mr-2"
+                >
+                    <i class="ph ph-info text-2xl"></i>
+                    <span class="text-left"
+                        >Para conseguir progresar,debes seguir las incicaciones
+                        de los juegos. Completalos en orden. Hemos puesto las
+                        pistas muy claras para que consigas salir del enrollo en
+                        el que te has metido.<br />
+                        <h3 class="text-center font-bold text-red-700 text-lg">
+                            IMPORTANTE!!!!
+                        </h3>
+                        <span class="font-bold"
+                            >Cada Juego te dará un número que utilizarás en la
+                            prueba final que se desbloqueará cuando superes los
+                            4 juegos.</span
+                        ></span
+                    >
+                    <i
+                        class="ph ph-x absolute top-2 right-2 text-xl hover:scale-125 cursor-pointer"
+                        @click="info()"
+                    ></i>
+                </div>
+            </div>
+            <div ref="paso6">
+                <BtnSalir></BtnSalir>
+            </div>
         </div>
 
-        <h1 class="h1-titulo">Escape Room</h1>
+        <h1 class="h1-titulo" ref="paso1">Escape Room</h1>
         <!-- <button @click="completarJuegos()">Completar todos los juegos</button> -->
         <h2></h2>
         <div class="flex">
@@ -55,15 +91,24 @@
                         style="backdrop-filter: blur(20px)"
                     >
                         <h1
-                            class="text-center font-medium text-2xl md:text-4xl pb-2 drop-shadow-2xl text-red-500"
+                            ref="paso2"
+                            class="text-center font-semibold text-2xl md:text-4xl pb-2 drop-shadow-2xl text-red-500"
                         >
                             Te quedan {{ storeTemporizador.minutes }}:{{
                                 storeTemporizador.seconds
                             }}
                         </h1>
+                        <h2
+                            ref="paso7"
+                            class="text-center font-semibold text-2xl md:text-2xl pb-2 drop-shadow-2xl text-slate-800"
+                        >
+                            Juegos Completados {{ getCounter }}/5
+                        </h2>
                     </div>
                     <router-link :to="!store.juego1 ? '/juego1' : ''">
                         <button
+                            ref="paso3"
+                            v-if="!helpStore.visible"
                             @click="handleModal(store.juego1)"
                             style="backdrop-filter: blur(20px)"
                             :class="[
@@ -117,6 +162,7 @@
                         v-show="store.juego4"
                     >
                         <button
+                            v-if="!helpStore.visible"
                             :class="[
                                 'hover:scale-150',
                                 'flex',
@@ -817,21 +863,23 @@
                                             stroke="url(#v)"
                                             stroke-width=".4"
                                         />
-                                    </g></svg
-                            ></span>
+                                    </g>
+                                </svg>
+                            </span>
                         </button>
                     </router-link>
                     <router-link
                         :to="store.juego1 && !store.juego2 ? '/juego2' : ''"
                     >
                         <button
+                            v-if="!helpStore.visible"
                             @click="handleModal(store.juego2, store.juego1)"
                             ref="juego2"
                             style="backdrop-filter: blur(20px)"
                             :class="[
                                 {
                                     // isDisabled: store.activarJuego2,
-                                    'bg-red-400': !store.juego1,
+                                    invisible: !store.juego1,
                                     'bg-green-400':
                                         store.juego1 || store.juego2,
                                 },
@@ -883,13 +931,14 @@
                         :to="store.juego2 && !store.juego3 ? '/juego3' : ''"
                     >
                         <button
+                            v-if="!helpStore.visible"
                             @click="handleModal(store.juego3, store.juego2)"
                             ref="juego3"
                             style="backdrop-filter: blur(20px)"
                             :class="[
                                 {
                                     // 'pointer-events-none': store.activarJuego3,
-                                    'bg-red-400': !store.juego2,
+                                    invisible: !store.juego2,
                                     'bg-green-400':
                                         store.juego2 || store.juego3,
                                 },
@@ -939,12 +988,13 @@
                         :to="store.juego3 && !store.juego4 ? '/juego4' : ''"
                     >
                         <button
+                            v-if="!helpStore.visible"
                             @click="handleModal(store.juego3, store.juego4)"
                             ref="juego4"
                             style="backdrop-filter: blur(20px)"
                             :class="[
                                 {
-                                    'bg-red-400': !store.juego3,
+                                    invisible: !store.juego3,
                                     'bg-green-400':
                                         store.juego3 || store.juego4,
                                 },
@@ -1008,11 +1058,15 @@
             :titulo="titulo"
             :texto="descripcion"
         ></ModalStartGame>
+        <ModalFailGame
+            :showModal="showModalTemp"
+            @cerrar-modal="closeModalTime"
+        />
     </div>
-    <ModalFailGame :showModal="showModalTemp" @cerrar-modal="closeModalTime" />
 </template>
 
 <script setup>
+import { useHelpStore } from "../store/help";
 import Footer from "../components/Footer.vue";
 import BtnSalir from "../components/BtnSalir.vue";
 import { useCheckStore } from "../store/checkState";
@@ -1031,10 +1085,12 @@ const store = useCheckStore();
 const storeLogin = useLoginStore();
 const storeTemporizador = useTemporizadorStore();
 const ProgressBarStore = useProgressBarStore();
+const helpStore = useHelpStore();
 
 const titulo = ref();
 const descripcion = ref();
 const background = ref();
+const visibilidad = ref();
 
 const obtenerRojo = (juegoActual, juegoPrevio) => {
     if (juegoPrevio) {
@@ -1074,6 +1130,9 @@ const completarJuegos = () => {
     store.juego3 = true;
     store.juego4 = true;
 };
+const info = () => {
+    visibilidad.value = !visibilidad.value;
+};
 
 const handleModal = (terminado, juegoPrevio = null) => {
     if (juegoPrevio == null) {
@@ -1101,6 +1160,151 @@ const handleModal = (terminado, juegoPrevio = null) => {
     }
 };
 </script>
+<script>
+import { useCheckStore } from "../store/checkState";
+export default {
+    mounted() {
+        this.createTour();
+        if (!localStorage.getItem("shepherd-tour")) {
+            this.tour.start();
+            localStorage.setItem("shepherd-tour", "yes");
+        }
+        this.tour.on("cancel", this.dismissTour);
+    },
+    computed: {
+        ...mapWritableState(useCheckStore, [
+            "juego1",
+            "juego2",
+            "juego3",
+            "juego4",
+            "getCounter",
+        ]),
+    },
+    methods: {
+        ...mapActions(useCheckStore, ["counter"]),
+        createTour() {
+            this.tour = this.$shepherd({
+                useModalOverlay: true,
+            });
+
+            this.tour.addStep({
+                attachTo: { element: this.$refs.paso1, on: "bottom" },
+                buttons: [
+                    {
+                        action: function () {
+                            return this.cancel();
+                        },
+                        secondary: true,
+                        text: "Salir",
+                    },
+                    {
+                        action: function () {
+                            return this.next();
+                        },
+                        text: "Siguiente",
+                    },
+                ],
+                text: "Bienvenido al laboratorio. Este sera el punto de partida para iniciar los retos, donde tendras que ir superando las pruebas para encontrar el antídoto y salvar a la humanidad",
+            });
+            this.tour.addStep({
+                attachTo: { element: this.$refs.paso2, on: "top" },
+                buttons: [
+                    {
+                        action: function () {
+                            return this.cancel();
+                        },
+                        secondary: true,
+                        text: "Salir",
+                    },
+                    {
+                        action: function () {
+                            return this.next();
+                        },
+                        text: "Siguiente",
+                    },
+                ],
+                text: "Aqui tienes el tiempo, tendras que estár atento a el, ya que si se acaba, perderas el juego",
+            });
+            this.tour.addStep({
+                attachTo: { element: this.$refs.paso3, on: "top" },
+                buttons: [
+                    {
+                        action: function () {
+                            return this.cancel();
+                        },
+                        secondary: true,
+                        text: "Salir",
+                    },
+                    {
+                        action: function () {
+                            return this.next();
+                        },
+                        text: "Siguiente",
+                    },
+                ],
+                text: "Los juegos que estén en verde, estan disponibles para acceder a ellos",
+            });
+            this.tour.addStep({
+                attachTo: { element: this.$refs.paso5, on: "bottom" },
+                buttons: [
+                    {
+                        action: function () {
+                            return this.cancel();
+                        },
+                        secondary: true,
+                        text: "Salir",
+                    },
+                    {
+                        action: function () {
+                            return this.next();
+                        },
+                        text: "Siguiente",
+                    },
+                ],
+                text: "Puedes clicar en el botón de ayuda para obtener información sobre el juego",
+            });
+            this.tour.addStep({
+                attachTo: { element: this.$refs.paso6, on: "bottom" },
+                buttons: [
+                    {
+                        action: function () {
+                            return this.cancel();
+                        },
+                        secondary: true,
+                        text: "Salir",
+                    },
+                    {
+                        action: function () {
+                            return this.next();
+                        },
+                        text: "Siguiente",
+                    },
+                ],
+                text: "En el boton salir, puedes cerrar la sesión y volver al login, pero tu partida no se guardará y perderas todo tu progreso",
+            });
+            this.tour.addStep({
+                attachTo: { element: this.$refs.paso7, on: "bottom" },
+                buttons: [
+                    {
+                        action: function () {
+                            return this.cancel();
+                        },
+                        secondary: true,
+                        text: "Finalizar",
+                    },
+                ],
+                text: "Recuerda, debes ir apuntando las claves al final de cada juego, para poder descifrar el código final",
+            });
+        },
+        dismissTour() {
+            if (!localStorage.getItem("shepherd-tour")) {
+                localStorage.setItem("shepherd-tour", "yes");
+            }
+        },
+    },
+};
+</script>
+
 <style scoped>
 .check {
     width: 3rem;

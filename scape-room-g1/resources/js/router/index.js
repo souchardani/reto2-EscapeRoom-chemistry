@@ -14,10 +14,12 @@ import StartGame from "../views/StartGame.vue";
 import Ranking from "../views/Ranking.vue";
 import PruebaDrag from "../views/PruebaDrag.vue";
 import ModalStartGame from "../components/modals/ModalStartGame.vue";
-
+import UserloginView from "../views/UserLoginView.vue";
+import EditUser from "../views/EditUser.vue";
 //store with pinia
 import { useLoginStore } from "../store/LoginStore";
 import pruebas from "../views/pruebas.vue";
+import Registro from "../views/Registro.vue";
 
 const routes = [
     {
@@ -31,6 +33,18 @@ const routes = [
         name: "Index",
         meta: { juegoIniciado: false },
         component: Index,
+    },
+    {
+        path: "/userlogin",
+        name: "Userlogin",
+        meta: { juegoIniciado: false },
+        component: UserloginView,
+    },
+    {
+        path: "/registro",
+        name: "registro",
+        meta: { juegoIniciado: false },
+        component: Registro,
     },
     {
         path: "/juegos",
@@ -129,6 +143,11 @@ const routes = [
         component: Ranking,
     },
     {
+        path: "/editUser",
+        name: "EditUser",
+        component: EditUser,
+    },
+    {
         path: "/test",
         name: "TestJuego2",
         component: ModalStartGame,
@@ -140,15 +159,15 @@ const router = createRouter({
     routes,
 });
 
-router.beforeEach((to, from, next) => {
-    const store = useLoginStore();
-    if (to.meta.requiresAuth && !store.$state.usuario.nick) {
-        next({ name: "Login" });
-    } else if (to.name === "Login" && store.$state.usuario.nick) {
-        next({ name: "startGame" });
-    } else {
-        next();
-    }
-});
+// router.beforeEach((to, from, next) => {
+//     const store = useLoginStore();
+//     if (to.meta.requiresAuth && !store.$state.usuario.nick) {
+//         next({ name: "Login" });
+//     } else if (to.name === "Login" && store.$state.usuario.nick) {
+//         next({ name: "startGame" });
+//     } else {
+//         next();
+//     }
+// });
 
 export default router;

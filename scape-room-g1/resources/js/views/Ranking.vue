@@ -32,13 +32,18 @@
                 );
         "
     >
-        <div class="container-fluid mt-5 flex content-center justify-center">
+        <div v-if="registrado.logeado">
+            <BtnPerfil></BtnPerfil>
+        </div>
+        <div
+            class="container-fluid mt-5 flex content-center justify-center items-center"
+        >
             <h1 class="text-4xl text-center">Ranking de Mejores Tiempos</h1>
             <select
+                v-show="!personal"
                 v-model="opcionSeleccionado"
-                @="primerfiltrado"
                 @change="filtrar"
-                class="mx-5 p-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                class="mx-5 p-2 w-[10%] text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 name=""
                 id=""
             >
@@ -52,12 +57,24 @@
                     {{ dificultad.texto }}
                 </option>
             </select>
+            <div v-show="registrado.logeado" class="flex justify-around">
+                <label for="personal">
+                    Personal
+                    <input
+                        type="checkbox"
+                        name=""
+                        id=""
+                        :checked="personal"
+                        @change="this.personal = !this.personal"
+                    />
+                </label>
+            </div>
         </div>
         <div
             v-if="usuario.nick != null"
             class="container-fluid flex flex-col justify-center p-1 m-2"
         >
-            <GlassCard>
+            <GlassCard v-if="usuario.iniciado">
                 <label
                     >Felicidades {{ this.usuario.nick }}, tu tiempo
                     {{ this.getTiempoLaravel() }} y difultad
@@ -85,7 +102,7 @@
                     <tbody class="">
                         <tr
                             class="shadow-xl rounded-xl"
-                            v-for="(jugador, index) in nivel"
+                            v-for="(jugador, index) in filtrar"
                             :key="index"
                         >
                             <td class="md:p-3 rounded-l-xl text-center">
@@ -129,10 +146,12 @@ import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { useProgressBarStore } from "../store/progressBar";
 import { mapWritableState, mapActions } from "pinia";
 import axios from "axios";
+import BtnPerfil from "../components/BtnPerfil.vue";
 
 export default {
     data() {
         return {
+            personal: false,
             opcionSeleccionado: null,
             jugadores: [],
             nivel: [],
@@ -148,24 +167,19 @@ export default {
             try {
                 const ranking = await axios.get(
                     "http://44.196.190.239/api/getRanking"
+                    //"http://127.0.0.1:8000/api/getRanking"
                 );
                 this.jugadores = ranking.data;
             } catch (error) {
                 console.log(error);
             }
         },
-        filtrar() {
-            this.nivel = this.jugadores.filter(
-                (jugador) => jugador.difficulty == this.opcionSeleccionado
-            );
-            console.log(this.nivel);
-        },
+
+        // personal() {
+        //     this.nivel.filter((elemento) => elemento.id == this.usuario.id);
+        // },
         primerfiltrado() {
             this.opcionSeleccionado = this.usuario.dificultad;
-            console.log(
-                "entrando en primer filtrado, el valor del opcionSeleccionado es :" +
-                    this.opcionSeleccionado
-            );
         },
         volveraJugar() {
             //reinicamos los valores de usuario
@@ -196,8 +210,22 @@ export default {
         this.filtrar();
     },
     computed: {
-        ...mapWritableState(useLoginStore, ["usuario"]),
+        ...mapWritableState(useLoginStore, ["usuario", "registrado"]),
+
+        filtrar() {
+            if (!this.personal) {
+                // Filtrar todos los jugadores
+                return this.jugadores.filter(
+                    (jugador) => jugador.difficulty == this.opcionSeleccionado
+                );
+            } else {
+                // Filtrar jugadores personales
+                return this.jugadores.filter(
+                    (jugador) => jugador.id_player === this.usuario.id
+                );
+            }
+        },
     },
-    components: { GlassCard, GlassBtn, Footer },
+    components: { GlassCard, GlassBtn, Footer, BtnPerfil },
 };
 </script>

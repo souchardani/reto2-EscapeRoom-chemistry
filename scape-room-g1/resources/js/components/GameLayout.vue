@@ -32,7 +32,7 @@
         "
     >
         <!--Boton de salir-->
-        <div class="flex justify-end">
+        <div class="flex justify-end item-center">
             <BtnSalir></BtnSalir>
         </div>
         <!--titulo del juego-->
@@ -55,6 +55,7 @@ import ProgressBar from "./ProgressBar.vue";
 import Reloj from "./Reloj.vue";
 import GameTitle from "./GameTitle.vue";
 import BtnSalir from "./BtnSalir.vue";
+import BtnPerfil from "./BtnPerfil.vue";
 import ModalFailGame from "../components/modals/ModalFailGame.vue";
 import { useTemporizadorStore } from "../store/TemporizadorStore";
 import { useLoginStore } from "../store/LoginStore";
@@ -88,6 +89,7 @@ export default {
         GameTitle,
         BtnSalir,
         ModalFailGame,
+        BtnPerfil,
     },
     computed: {
         titulo() {
@@ -99,6 +101,7 @@ export default {
             return this.$route.meta.description || "Default Description";
         },
         ...mapWritableState(useTemporizadorStore, ["showModal"]),
+        ...mapWritableState(useLoginStore, ["registrado", "usuario"]),
     },
 };
 </script>

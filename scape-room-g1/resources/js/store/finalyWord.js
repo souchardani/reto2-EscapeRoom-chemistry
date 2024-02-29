@@ -18,6 +18,7 @@ export const useFinalyWord = defineStore("finalyWord", {
         //funcion asincrona para recoger los datos de la BD
         async getDataBase() {
             const response = await axios.get(
+                //"http://127.0.0.1:8000/api/getjuego5"
                 "http://44.196.190.239/api/getjuego5"
             );
             this.dataBaseData = response.data;

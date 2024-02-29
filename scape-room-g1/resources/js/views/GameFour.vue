@@ -291,6 +291,7 @@ export default {
         async getAllData() {
             // obtiene mediante axios los datos del juego
             const allData = await axios.get(
+                //"http://127.0.0.1:8000/api/getjuego4"
                 "http://44.196.190.239/api/getjuego4"
             );
 

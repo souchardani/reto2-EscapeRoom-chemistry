@@ -6,20 +6,26 @@ export const useLoginStore = defineStore("LoginStore", {
             usuario: {
                 nick: null,
                 dificultad: null,
+                password: null,
                 iniciado: false,
                 terminado: false,
                 salirAntesDeTiempo: false,
+                id: null, //para hacer la insercion en la base de datos y que tenga relacion con la tabla ranking y jugadores
+            },
+            registrado: {
+                name: null,
+                logeado: false,
+                id: null,
             },
         };
     },
-    getters: {
-        
-    },
+    getters: {},
     actions: {
-        setUsuario(nick, dificultad) {
+        setUsuario(nick, dificultad, id) {
             this.usuario.nick = nick;
             this.usuario.dificultad = dificultad;
             this.usuario.iniciado = true;
+            this.usuario.id = id;
         },
         setTerminado() {
             this.usuario.terminado = true;
@@ -33,9 +39,20 @@ export const useLoginStore = defineStore("LoginStore", {
             this.usuario.iniciado = false;
             this.usuario.terminado = false;
             this.usuario.salirAntesDeTiempo = false;
+            this.usuario.id = null;
+            this.registrado.name = null;
+            this.registrado.logeado = false;
+            this.registrado.id = null;
+            localStorage.removeItem("shepherd-tour");
+            localStorage.removeItem("shepherd-tourlogin");
         },
         getUsuario() {
             return this.usuario;
+        },
+        editUsuarioRegistrado(usuario) {
+            this.registrado.name = usuario.name;
+            this.registrado.nick = usuario.nick;
+            this.registrado.password = usuario.password;
         },
     },
 });

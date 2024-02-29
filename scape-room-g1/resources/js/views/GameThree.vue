@@ -6,7 +6,7 @@
             class="flex align-center justify-between gap-5 font-medium font-bold text-gray-500 text-sm bg-yellow-100 text-yellow-700 py-8 px-5 rounded-lg relative mr-2"
         >
             <i class="ph ph-info text-2xl"></i>
-            <span class="text-left"
+        <span class="text-left"
                 >Adivina la palabra secreta letra a letra.</span
             >
             <i
@@ -261,6 +261,7 @@ export default {
         ...mapActions(useProgressBarStore, ["resetState", "marcaError"]),
         async getAllData() {
             const allData = await axios.get(
+                //"http://127.0.0.1:8000/api/getjuego3"
                 "http://44.196.190.239/api/getjuego3"
             );
             this.palabras = allData.data;

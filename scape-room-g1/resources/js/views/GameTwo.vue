@@ -14,6 +14,7 @@
                 @click="hideTutorial"
             ></i>
         </div>
+        php
         <div class="flex w-100 h-10">
             <GlassBtn @click="apagar()">
                 <svg
@@ -267,10 +268,10 @@ export default {
     data() {
         return {
             help: true,
-            audioAcertado:new Audio('/sounds/1200.mp3'),
-            audioIncorrecto:new Audio('/sounds/incorrect-cbt-sound.mp3'),
-            aplausos:new Audio('/sounds/claps-44774.mp3'),
-            fail:new Audio('/sounds/fail-144746.mp3'),
+            audioAcertado: new Audio("/sounds/1200.mp3"),
+            audioIncorrecto: new Audio("/sounds/incorrect-cbt-sound.mp3"),
+            aplausos: new Audio("/sounds/claps-44774.mp3"),
+            fail: new Audio("/sounds/fail-144746.mp3"),
             pista: "",
             erroresTotales: 20,
             contador: 0,
@@ -500,17 +501,20 @@ export default {
             this.contador = 0;
         },
         getCardData() {
-            return axios
-                .get("http://44.196.190.239/api/getjuego2")
-                .then((response) => {
-                    this.compoundDataEach.backlog = response.data;
-                    //mezclamos el array
-                    this.mezclarArray(this.compoundDataEach.backlog);
-                    //añadimos el objeto que maneja el estado de cada card
-                    this.addExitoError();
-                    //obtenemos 10 compuestos aleatorios
-                    this.obtener20();
-                });
+            return (
+                axios
+                    //.get("http://127.0.0.1:8000/api/getjuego2")
+                    .get("http://44.196.190.239/api/getjuego2")
+                    .then((response) => {
+                        this.compoundDataEach.backlog = response.data;
+                        //mezclamos el array
+                        this.mezclarArray(this.compoundDataEach.backlog);
+                        //añadimos el objeto que maneja el estado de cada card
+                        this.addExitoError();
+                        //obtenemos 10 compuestos aleatorios
+                        this.obtener20();
+                    })
+            );
         },
         addExitoError() {
             this.compoundDataEach.backlog.forEach((element) => {

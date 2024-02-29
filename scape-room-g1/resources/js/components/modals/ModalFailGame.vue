@@ -18,14 +18,24 @@
                                     <path
                                         d="M128,20A108,108,0,1,0,236,128,108.12,108.12,0,0,0,128,20Zm0,192a84,84,0,1,1,84-84A84.09,84.09,0,0,1,128,212Zm-12-80V80a12,12,0,0,1,24,0v52a12,12,0,0,1-24,0Zm28,40a16,16,0,1,1-16-16A16,16,0,0,1,144,172Z" />
                                 </svg>  -->
-                                <h3 class="text-xl font-bold py-4 ">El tiempo se ha terminado</h3>
-                                <p class="text-xl font-bold py-4">Ahora tendreis una muerte lenta y dolorosa!!</p>
+                                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><h3 class="text-xl font-bold py-4 ">El tiempo se ha terminado</h3>
+                                <p class="text-xl font-bold py-4">Ahora tendreis una muerte lenta y dolorosa!!</p></div>
+                                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><h3 class="text-xl font-bold py-4 ">Time is up</h3>
+                                <p class="text-xl font-bold py-4">You will now die a slow and painful death!!</p></div>
+                                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><h3 class="text-xl font-bold py-4 ">Denbora bukatu da</h3>
+                                <p class="text-xl font-bold py-4">Orain heriotza motel eta mingarri batean hilko zara!!</p></div>
                             </div>
 
                             <div class="p-3  mt-2 text-center space-x-4 md:block">
-                                <button @click="cerrarModal"
+                                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'es'"><button @click="cerrarModal"
                                     class="mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600">Volver
-                                    a Sala</button>
+                                    a Sala</button></div>
+                                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'en'"><button @click="cerrarModal"
+                                    class="mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600">Back to
+                                    a Room</button></div>
+                                <div v-show="idioma.find(idioma => idioma.estado)?.name === 'eu'"><button @click="cerrarModal"
+                                    class="mb-2 md:mb-0 bg-red-500 border border-red-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-red-600">Itzuli
+                                    gelara</button></div>
                             </div>
                         </div>
                     </div>
@@ -37,7 +47,8 @@
 </template>
 
 <script>
-
+import { useIdioma } from '../../store/languages';
+import { mapWritableState } from 'pinia';
 
 export default {
     props: {
@@ -48,6 +59,9 @@ export default {
             this.$emit('cerrar-modal');
         },
     },
+    computed:{
+        ...mapWritableState(useIdioma,["idioma"]),
+    }
 };
 </script>
 
