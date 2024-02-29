@@ -195,7 +195,8 @@ export default {
     methods: {
         getcurrentUser() {
             axios
-                .get("http://127.0.0.1:8000/api/currentUser", {
+                //.get("http://127.0.0.1:8000/api/currentUser", {
+                .get("http://44.196.190.239/api/currentUser", {
                     params: {
                         id: this.registrado.id,
                     },
@@ -273,7 +274,8 @@ export default {
             //si no hay errores, procedemos a editar el usuario
 
             axios
-                .post("http://127.0.0.1:8000/api/editPlayer", {
+                //.post("http://127.0.0.1:8000/api/editPlayer", {
+                .post("http://44.196.190.239/api/editPlayer", {
                     id: this.registrado.id,
                     nick: this.nombre,
                     newPassword: this.nuevaContrasena,
@@ -294,7 +296,8 @@ export default {
         },
         ...mapActions(useMessageStore, ["setMessage"]),
         eliminarCuenta() {
-            axios.post("http://127.0.0.1:8000/api/deleteUser", {
+            //axios.post("http://127.0.0.1:8000/api/deleteUser", {
+            axios.post("http://44.196.190.239/api/deleteUser", {
                 id: this.registrado.id,
             });
             //reiniciamos las variables de usuario de pinia
@@ -307,7 +310,8 @@ export default {
             alert("getRankingPlayer");
             axios
                 .get(
-                    `http://127.0.0.1:8000/api/getRankingPlayer/${this.registrado.id}`
+                   // `http://127.0.0.1:8000/api/getRankingPlayer/${this.registrado.id}`
+                    `http://44.196.190.239/api/getRankingPlayer/${this.registrado.id}`
                 )
                 .then((response) => {
                     return response.data;

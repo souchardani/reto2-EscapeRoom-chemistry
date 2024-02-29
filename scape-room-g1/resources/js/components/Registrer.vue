@@ -164,7 +164,8 @@ export default {
         async enviar() {
             try {
                 await axios.post(
-                    "http://127.0.0.1:8000/api/registro",
+                    //"http://127.0.0.1:8000/api/registro",
+                    "http://44.196.190.239/api/registro",
                     {
                         nick: this.nombre,
                         password: this.contra,
@@ -183,7 +184,8 @@ export default {
         },
         async revisar() {
             await axios
-                .get("http://127.0.0.1:8000/api/registro")
+                //.get("http://127.0.0.1:8000/api/registro")
+                .get("http:/44.196.190.239/api/registro")
                 .then((response) => {
                     // Manejar éxito
                     this.revisa = response.data;
